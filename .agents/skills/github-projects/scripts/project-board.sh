@@ -180,7 +180,7 @@ set_estimate() {
     --field-id "$SD_ESTIMATE_FIELD_ID" \
     --number "$points" >/dev/null
   if ! ticket_snapshot "$issue_num" \
-    | jq -e --argjson points "$points" '.item.estimate == $points' >/dev/null; then
+    | jq -e --argjson points "$points" '.item.estimate.number == $points' >/dev/null; then
     echo "Estimate verification failed for #$issue_num." >&2
     return 1
   fi
