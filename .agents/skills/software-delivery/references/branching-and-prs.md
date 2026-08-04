@@ -63,6 +63,35 @@ Every stacked PR declares:
 - Base branch
 - Related tickets and PRs
 
+### Closing keywords do not register on a stacked PR
+
+GitHub only records `Closes #N` as a closing reference when the pull request
+targets the **default branch**. A stacked PR targets its parent branch, so the
+keyword is parsed as ordinary text and **no link is created**. The PR body looks
+correct while `closingIssuesReferences` is empty.
+
+Merging the parent retargets the child to the default branch, but GitHub does
+**not** re-parse the body at that point. Without intervention the child merges,
+the ticket stays open, and the board never advances.
+
+After the parent merges and the child is retargeted, re-save the child's body so
+the keyword is parsed against the new base, then confirm the link exists:
+
+```bash
+gh pr edit <child> --body-file <file>
+gh api graphql -f query='query($o:String!,$r:String!,$n:Int!){
+  repository(owner:$o,name:$r){pullRequest(number:$n){
+    baseRefName closingIssuesReferences(first:10){totalCount nodes{number}}}}}' \
+  -F o=<owner> -F r=<repo> -F n=<child>
+```
+
+`totalCount` must be at least 1 and name the ticket. Treat a stacked PR with
+zero closing references as not ready to merge.
+
+Re-linking may trip a project board's built-in `Pull request linked to issue`
+automation and move the ticket backwards. Re-assert the semantic status with
+`move_ticket` afterwards and verify.
+
 ## PR content and merge order
 
 Copy [the PR template](../assets/pull-request.md). Include:
