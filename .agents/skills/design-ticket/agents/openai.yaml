@@ -1,0 +1,6 @@
+interface:
+  display_name: "Design Ticket"
+  short_description: "Define behavior and technical delivery"
+  default_prompt: "Use $design-ticket to turn this Mile42 ticket into a Ready behavioral contract."
+policy:
+  allow_implicit_invocation: true

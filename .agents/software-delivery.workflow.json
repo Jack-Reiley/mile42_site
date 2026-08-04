@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 2,
+  "initialState": "captured",
+  "states": {
+    "captured": {
+      "boardStatus": "backlog",
+      "next": ["designed", "blocked"]
+    },
+    "designed": {
+      "boardStatus": "ready",
+      "next": ["implementing", "blocked"]
+    },
+    "implementing": {
+      "boardStatus": "implementing",
+      "next": ["pr_open", "blocked"]
+    },
+    "pr_open": {
+      "boardStatus": "verifying",
+      "next": ["verifying", "blocked"]
+    },
+    "verifying": {
+      "boardStatus": "verifying",
+      "next": [
+        "implementation_required",
+        "reconciliation_required",
+        "blocked"
+      ]
+    },
+    "implementation_required": {
+      "boardStatus": "verifying",
+      "next": ["implementing", "blocked"]
+    },
+    "reconciliation_required": {
+      "boardStatus": "reviewing",
+      "next": [
+        "accepted",
+        "follow_ups_created",
+        "implementation_required",
+        "blocked"
+      ]
+    },
+    "accepted": {
+      "boardStatus": "reviewing",
+      "next": ["complete", "blocked"]
+    },
+    "follow_ups_created": {
+      "boardStatus": "reviewing",
+      "next": ["complete", "blocked"]
+    },
+    "complete": {
+      "boardStatus": "complete",
+      "next": []
+    },
+    "blocked": {
+      "boardStatus": null,
+      "next": [
+        "captured",
+        "designed",
+        "implementing",
+        "pr_open",
+        "verifying",
+        "implementation_required",
+        "reconciliation_required",
+        "accepted",
+        "follow_ups_created"
+      ]
+    }
+  },
+  "actions": {
+    "create-ticket": {
+      "produces": ["github_issue"]
+    },
+    "design-ticket": {
+      "produces": ["behavioral_contract", "design"]
+    },
+    "implement-ticket": {
+      "produces": [
+        "requirements_document",
+        "implementation",
+        "tests",
+        "branch",
+        "pull_request"
+      ]
+    },
+    "verify-ticket": {
+      "produces": ["verification_report"]
+    },
+    "reconcile-ticket": {
+      "produces": ["reconciliation_decision", "follow_up_tickets"]
+    },
+    "deliver-tickets": {
+      "produces": ["delivery_plan", "run_state", "merge_order"]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Create Ticket"
+  short_description: "Capture and size a Mile42 delivery ticket"
+  default_prompt: "Use $create-ticket to turn this request into an approved Mile42 GitHub ticket."
+policy:
+  allow_implicit_invocation: true

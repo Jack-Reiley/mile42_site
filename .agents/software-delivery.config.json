@@ -1,0 +1,81 @@
+{
+  "workflowVersion": 2,
+  "requirementsDirectory": "docs/requirements",
+  "runtimeStateDirectory": ".delivery/runs",
+  "project": {
+    "owner": "Jack-Reiley",
+    "number": 2,
+    "id": "PVT_kwDOEi2Nns4BfYeJ"
+  },
+  "statuses": {
+    "backlog": {
+      "name": "Backlog",
+      "id": ""
+    },
+    "ready": {
+      "name": "Ready",
+      "id": ""
+    },
+    "implementing": {
+      "name": "In Progress",
+      "id": "47fc9ee4"
+    },
+    "verifying": {
+      "name": "In QA",
+      "id": ""
+    },
+    "reviewing": {
+      "name": "In review",
+      "id": ""
+    },
+    "complete": {
+      "name": "Done",
+      "id": "98236657"
+    }
+  },
+  "fields": {
+    "status": {
+      "id": "PVTSSF_lADOEi2Nns4BfYeJzhZrwCI"
+    },
+    "size": {
+      "id": "",
+      "options": {
+        "XS": "",
+        "S": "",
+        "M": "",
+        "L": "",
+        "XL": ""
+      }
+    },
+    "estimate": {
+      "id": ""
+    }
+  },
+  "repository": {
+    "defaultBranch": "main",
+    "branchPrefix": "feature",
+    "bugfixPrefix": "bugfix",
+    "hotfixPrefix": "hotfix"
+  },
+  "commands": {
+    "dev": "npm run copy",
+    "lint": "",
+    "typecheck": "",
+    "test": "",
+    "coverage": "",
+    "verify": "npm run copy:build"
+  },
+  "application": {
+    "baseUrl": "http://localhost:5173",
+    "dbInspectCommand": ""
+  },
+  "planning": {
+    "velocityWindowDays": 42,
+    "sprintDays": 14,
+    "wipLimit": 5
+  },
+  "reconciliation": {
+    "autoCreateFollowUps": false,
+    "maxImplementationCycles": 3
+  }
+}

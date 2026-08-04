@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mile42.com/schemas/run-state.schema.json",
+  "title": "Software delivery run state",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "runId",
+    "planPath",
+    "activeUnit",
+    "units",
+    "finished"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 2
+    },
+    "runId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "planPath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "activeUnit": {
+      "type": ["string", "null"]
+    },
+    "units": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["state", "attempts", "note"],
+        "properties": {
+          "state": {
+            "enum": [
+              "PENDING",
+              "IMPLEMENTING",
+              "VERIFYING",
+              "RECONCILING",
+              "IMPLEMENTATION_REQUIRED",
+              "READY_FOR_REVIEW",
+              "BLOCKED",
+              "COMPLETE"
+            ]
+          },
+          "attempts": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "finished": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

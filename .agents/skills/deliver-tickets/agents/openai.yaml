@@ -1,0 +1,6 @@
+interface:
+  display_name: "Deliver Tickets"
+  short_description: "Orchestrate multi-ticket Mile42 delivery"
+  default_prompt: "Use $deliver-tickets to plan and deliver these Mile42 tickets with the right branch and PR strategy."
+policy:
+  allow_implicit_invocation: false
