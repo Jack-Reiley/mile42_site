@@ -1,0 +1,63 @@
+{
+  "_comment": [
+    "Contract fixture. Every entry is a value recovered from the source PDFs.",
+    "Duplicating the values here is deliberate: it is what turns the check from",
+    "a tautology into a real gate. Deriving the probe from theme.css alone means",
+    "a renamed or mistyped token still produces its (wrong) utility and passes.",
+    "",
+    "Changing a value in theme.css must also change it here, which forces the",
+    "edit to be intentional. If the designer revises the PDF, update both.",
+    "",
+    "Only measured and derived values are pinned. INFERRED values are free to",
+    "change without touching this file, because they are our decisions, not the",
+    "designer's, and OPEN-QUESTIONS.md tracks them instead."
+  ],
+  "colors": {
+    "--color-brand": "#00b785",
+    "--color-accent": "#0073f4",
+    "--color-cta": "#ffdf65",
+    "--color-ink": "#2f1e14",
+    "--color-surface": "#f9f4ec",
+    "--color-page": "#ffffff",
+    "--color-hero-heading": "#fffbf3",
+    "--color-on-cta": "#000000",
+    "--color-navy": "#002161",
+    "--color-sky": "#73e1ff",
+    "--color-ice": "#c8fcff",
+    "--color-red": "#ff203d",
+    "--color-pink": "#ffbee3",
+    "--color-orange": "#ff5e00",
+    "--color-peach": "#ffaf94",
+    "--color-gold": "#fab600",
+    "--color-forest": "#00543d",
+    "--color-mint": "#c7ffb1"
+  },
+  "typeSizes": {
+    "--text-heading-1": "57px",
+    "--text-heading-2": "36px",
+    "--text-heading-3": "26px",
+    "--text-body-lg": "18px",
+    "--text-body-lg-semibold": "18px",
+    "--text-body": "16px",
+    "--text-eyebrow": "12px"
+  },
+  "lineHeights": {
+    "--text-heading-1--line-height": "63px",
+    "--text-heading-3--line-height": "32px",
+    "--text-body-lg--line-height": "32px",
+    "--text-body-lg-semibold--line-height": "32px",
+    "--text-body--line-height": "26px"
+  },
+  "layout": {
+    "--spacing-page": "100px",
+    "--spacing-card": "40px",
+    "--spacing-btn-x": "24px",
+    "--spacing-btn-gap": "21px",
+    "--container-site": "1240px"
+  },
+  "shape": {
+    "--radius-pill": "9999px",
+    "--radius-card": "0px",
+    "--shadow-hard": "0 4px 0 #2f1e14"
+  }
+}

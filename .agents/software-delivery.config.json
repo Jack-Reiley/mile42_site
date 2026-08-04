@@ -61,7 +61,7 @@
     "dev": "npm run copy",
     "lint": "",
     "typecheck": "",
-    "test": "",
+    "test": "npm run tokens:check",
     "coverage": "",
     "verify": "npm run copy:build"
   },
