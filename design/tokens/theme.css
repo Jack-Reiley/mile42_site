@@ -1,0 +1,124 @@
+/* Mile42 design tokens — Tailwind 4 theme.
+ *
+ * This file contains the @theme block ONLY. It deliberately does not
+ * `@import "tailwindcss"`, so an app can do:
+ *
+ *   @import "tailwindcss";
+ *   @import "../../design/tokens/theme.css";
+ *
+ * Provenance markers on each line:
+ *   measured  — read from the vector/text operators of design/Style Guide.pdf
+ *   derived   — measured from design/Homepage.pdf, an instance rather than a spec
+ *   INFERRED  — absent from both PDFs; decided here. See OPEN-QUESTIONS.md.
+ *
+ * Full provenance table and the accessibility audit are in README.md.
+ */
+
+@theme {
+  /* ---------------------------------------------------------------- colour
+   * The style guide names no individual colour — only the group labels
+   * "Primary" and "Secondary". Every semantic name below is INFERRED from
+   * observed usage in Homepage.pdf, not supplied by the designer.
+   * The hex values themselves are measured and exact.
+   */
+
+  /* Primary */
+  --color-brand: #00b785; /* measured; name INFERRED — full-bleed hero band */
+  --color-accent: #0073f4; /* measured; name INFERRED — section eyebrows */
+  --color-cta: #ffdf65; /* measured; name INFERRED — primary button fill */
+  --color-ink: #2f1e14; /* measured; name INFERRED — text, borders, shadow */
+  --color-surface: #f9f4ec; /* measured; name INFERRED — band + secondary button fill */
+  --color-page: #ffffff; /* measured; name INFERRED — page and card fill */
+
+  /* Primary, observed only on the homepage comp */
+  --color-hero-heading: #fffbf3; /* derived — off-white H1 on the green band */
+  --color-on-cta: #000000; /* derived — button labels are pure black, not ink */
+
+  /* Secondary. No observed usage anywhere, so these are named by hue rather
+   * than by role. Renaming them later is expected and cheap. */
+  --color-navy: #002161; /* measured; name INFERRED */
+  --color-sky: #73e1ff; /* measured; name INFERRED */
+  --color-ice: #c8fcff; /* measured; name INFERRED */
+  --color-red: #ff203d; /* measured; name INFERRED */
+  --color-pink: #ffbee3; /* measured; name INFERRED */
+  --color-orange: #ff5e00; /* measured; name INFERRED */
+  --color-peach: #ffaf94; /* measured; name INFERRED */
+  --color-gold: #fab600; /* measured; name INFERRED */
+  --color-forest: #00543d; /* measured; name INFERRED */
+  --color-mint: #c7ffb1; /* measured; name INFERRED */
+
+  /* ------------------------------------------------------------ typeface */
+  --font-heading: "Merriweather Sans", ui-sans-serif, system-ui, sans-serif; /* measured */
+  --font-body: "Figtree", ui-sans-serif, system-ui, sans-serif; /* measured */
+  --font-eyebrow: "IBM Plex Sans Condensed", ui-sans-serif, system-ui, sans-serif; /* measured */
+
+  /* -------------------------------------------------------------- type scale
+   * Sizes are measured from the specimen text matrices. Line heights are
+   * derived from multi-line text on Homepage.pdf; the style guide sets every
+   * specimen on a single line, so it carries no leading at all.
+   * Weights are INFERRED from the Google Fonts family naming.
+   */
+
+  --text-heading-1: 57px; /* measured */
+  --text-heading-1--line-height: 63px; /* derived — 1.105 */
+  --text-heading-1--font-weight: 700; /* INFERRED — "Merriweather Sans Bold" */
+
+  --text-heading-2: 36px; /* measured */
+  --text-heading-2--line-height: 42px; /* INFERRED — never set multi-line */
+  --text-heading-2--font-weight: 700; /* INFERRED */
+
+  --text-heading-3: 26px; /* measured */
+  --text-heading-3--line-height: 32px; /* derived — 1.231 */
+  --text-heading-3--font-weight: 700; /* INFERRED */
+
+  --text-body-lg: 18px; /* measured */
+  --text-body-lg--line-height: 32px; /* derived — 1.778 */
+  --text-body-lg--font-weight: 400; /* INFERRED — "Figtree Regular" */
+
+  --text-body-lg-semibold: 18px; /* measured */
+  --text-body-lg-semibold--line-height: 32px; /* derived */
+  --text-body-lg-semibold--font-weight: 600; /* INFERRED — "Figtree Semibold" */
+
+  --text-body: 16px; /* measured */
+  --text-body--line-height: 26px; /* derived — 1.625 */
+  --text-body--font-weight: 400; /* INFERRED */
+
+  /* Eyebrows are ALL CAPS in every homepage instance, but Tailwind's --text-*
+   * namespace silently ignores a --text-transform modifier, so this token
+   * cannot carry it. Pair the utility with `uppercase` at the call site:
+   *   class="text-eyebrow font-eyebrow uppercase"
+   */
+  --text-eyebrow: 12px; /* measured */
+  --text-eyebrow--line-height: 17px; /* INFERRED — never set multi-line */
+  --text-eyebrow--font-weight: 600; /* INFERRED — "Condensed Semibold" */
+  --text-eyebrow--letter-spacing: 0.08em; /* INFERRED — no tracking is stated anywhere */
+
+  /* ---------------------------------------------------------------- layout
+   * Derived from real measurements on Homepage.pdf at its 1440px frame width.
+   * The style guide contains no spacing scale, grid, or container spec.
+   * Tailwind's default dynamic spacing scale is left intact; these are named
+   * additions for the values the comp actually uses.
+   */
+  --spacing-page: 100px; /* derived — page margin at 1440 */
+  --spacing-card: 40px; /* derived — card padding and column gutter */
+  --spacing-btn-x: 24px; /* measured — button horizontal padding */
+  --spacing-btn-gap: 21px; /* derived — gap between the two hero buttons */
+
+  --container-site: 1240px; /* derived — 1440 less two 100px margins */
+
+  /* ----------------------------------------------------------------- shape */
+  --radius-pill: 9999px; /* measured — buttons are true pills, radius = height / 2 */
+  --radius-card: 0px; /* derived — comp cards are square-cornered ON PURPOSE */
+
+  /* The signature "sticker" shadow: a duplicate shape offset 4px down, no blur
+   * and no spread. Not a soft elevation shadow, and there is only one level.
+   * Kept as a literal hex so Tailwind can parse the colour out of the value. */
+  --shadow-hard: 0 4px 0 #2f1e14; /* measured */
+
+  /* --------------------------------------------------------------- breakpoint
+   * INFERRED. The comp is a single desktop frame at 1440px and specifies no
+   * responsive behaviour. Tailwind's default breakpoints are left intact;
+   * this only names the width the design was drawn at.
+   */
+  --breakpoint-comp: 1440px; /* derived — Homepage.pdf frame width */
+}
