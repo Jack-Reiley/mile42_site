@@ -92,6 +92,29 @@ Re-linking may trip a project board's built-in `Pull request linked to issue`
 automation and move the ticket backwards. Re-assert the semantic status with
 `move_ticket` afterwards and verify.
 
+### Prose can create a closing reference by accident
+
+Closing keywords are parsed anywhere in a PR body, including inside a sentence
+that is merely describing what happened. Writing "…and closed #7 on merge" in a
+narrative links that PR to #7 and can drag an already-finished ticket backwards
+through board automation.
+
+When a body needs to discuss other tickets, avoid a closing keyword — `close`,
+`closes`, `closed`, `fix`, `fixes`, `fixed`, `resolve`, `resolves`, `resolved` —
+immediately before a reference. Write "issue 7 moved to Done" rather than
+"closed #7".
+
+After opening or editing any PR, confirm it closes exactly what it should:
+
+```bash
+gh api graphql -f query='query($o:String!,$r:String!,$n:Int!){
+  repository(owner:$o,name:$r){pullRequest(number:$n){
+    closingIssuesReferences(first:10){totalCount nodes{number}}}}}' \
+  -F o=<owner> -F r=<repo> -F n=<pr>
+```
+
+An unexpected entry means a keyword was parsed out of prose.
+
 ## PR content and merge order
 
 Copy [the PR template](../assets/pull-request.md). Include:
