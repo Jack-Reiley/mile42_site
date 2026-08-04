@@ -10,11 +10,11 @@
   "statuses": {
     "backlog": {
       "name": "Backlog",
-      "id": ""
+      "id": "f75ad846"
     },
     "ready": {
       "name": "Ready",
-      "id": ""
+      "id": "aaedc78a"
     },
     "implementing": {
       "name": "In Progress",
@@ -22,11 +22,11 @@
     },
     "verifying": {
       "name": "In QA",
-      "id": ""
+      "id": "669c2ac7"
     },
     "reviewing": {
-      "name": "In review",
-      "id": ""
+      "name": "In Review",
+      "id": "9b09af61"
     },
     "complete": {
       "name": "Done",
