@@ -2,12 +2,18 @@
   "name": "mile42-site",
   "private": true,
   "version": "0.1.0",
-  "description": "Mile42 website. Currently holds the copy prototype in copy_prototype/.",
+  "description": "Mile42 website. site/ is the designed site; copy_prototype/ is the copy reference.",
   "engines": {
     "node": ">=22.12.0"
   },
   "scripts": {
+    "dev": "npm --prefix site run dev",
+    "build": "npm --prefix site run build",
+    "preview": "npm --prefix site run preview",
+    "setup": "npm --prefix site install",
     "tokens:check": "node design/tokens/verify/check.mjs",
+    "copy:parity": "node site/verify/copy-parity.mjs",
+    "illustrations:placeholders": "node site/verify/placeholders.mjs",
     "copy": "npm --prefix copy_prototype run dev",
     "copy:setup": "npm --prefix copy_prototype install",
     "copy:build": "npm --prefix copy_prototype run build",

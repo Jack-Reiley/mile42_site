@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+/* The canonical tokens. Imported, never copied — see design/tokens/README.md.
+   theme.css deliberately omits its own Tailwind import so this works. */
+@import "../../../design/tokens/theme.css";
+
+/* Self-hosted; no external font requests. */
+@import "@fontsource/merriweather-sans/700.css";
+@import "@fontsource-variable/figtree/index.css";
+@import "@fontsource/ibm-plex-sans-condensed/600.css";
+
+@layer base {
+  body {
+    background: var(--color-page);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* The design specifies no focus treatment, which is an accessibility
+     requirement rather than a preference. EXTRAPOLATED — see EXTRAPOLATIONS.md. */
+  :where(a, button, input, textarea, [tabindex]):focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
