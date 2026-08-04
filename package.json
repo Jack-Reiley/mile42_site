@@ -1,0 +1,15 @@
+{
+  "name": "mile42-site",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Mile42 website. Currently holds the copy prototype in copy_prototype/.",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "copy": "npm --prefix copy_prototype run dev",
+    "copy:setup": "npm --prefix copy_prototype install",
+    "copy:build": "npm --prefix copy_prototype run build",
+    "copy:preview": "npm --prefix copy_prototype run preview"
+  }
+}
