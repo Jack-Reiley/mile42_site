@@ -1,0 +1,104 @@
+import { Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote, Button, TextLink, Card } from '../components/primitives.jsx'
+import { NumList, Spine } from '../components/Lists.jsx'
+
+const ROLES = [
+  { title: 'Context and analysis', agents: 'Read the estate, the data, the documentation, and the code. Surface what is actually there rather than what the diagram says', human: 'Deciding what matters and what the findings mean for your situation' },
+  { title: 'Planning', agents: 'Draft sequences, dependencies, and estimates from the analysis', human: 'Committing to a plan and standing behind the estimate' },
+  { title: 'Architecture', agents: 'Generate options, trace implications, check consistency against constraints', human: 'The architectural decision and the tradeoffs accepted' },
+  { title: 'Design', agents: 'Produce and iterate interface and interaction work at speed', human: 'Whether the design serves the user and the outcome' },
+  { title: 'Development', agents: 'Write, refactor, and document code against a defined specification', human: 'Specification, review, and accountability for what ships' },
+  { title: 'Testing and QA', agents: 'Generate and run test coverage continuously rather than at the end', human: 'Defining what correct means and what risk is unacceptable' },
+  { title: 'Knowledge', agents: 'Capture decisions, patterns, and rationale as the work happens', human: 'Judging what is worth reusing and what was situational' },
+]
+const HUMAN_ONLY = ['Every consequential decision, with a named person accountable for it.', 'Every judgment that depends on your context rather than on general knowledge.', 'Every commitment we make to you about scope, cost, or date.']
+const BENEFITS = [
+  { title: 'Cost is predictable.', body: 'We can commit to a price because we are not guessing at how many hours a team will need.' },
+  { title: 'Quality is more consistent.', body: 'Test coverage and documentation happen continuously rather than depending on whether the schedule held.' },
+  { title: 'Context is not lost.', body: 'Decisions and rationale are captured as the work happens, so the reasoning survives past the engagement.' },
+  { title: 'Smaller teams, less overhead.', body: 'Fewer people means fewer handoffs, fewer status meetings, and less of your time spent managing us.' },
+]
+const SPINE = ['Client work', 'What we learn', 'Methods and reusable assets', 'Better delivery', 'Next engagement']
+
+/* EXTRAPOLATED — no comp for this page. */
+export default function DeliveryModel() {
+  return (
+    <>
+      <Section band="brand">
+        <Wrap>
+          <Eyebrow tone="ink" className="mb-4">How we deliver</Eyebrow>
+          <H1 tone="hero" className="mb-6">An AI-assisted operating system, directed by people.</H1>
+          <Lead>AI agents work across every major role in a modern engagement. Humans stay responsible for judgment, your context, the decisions, and the outcome.</Lead>
+        </Wrap>
+      </Section>
+
+      <Section>
+        <Wrap>
+          <H2 className="mb-6">The delivery model is the reason the commercial model works.</H2>
+          <Body className="mb-4">Most firms sell hours because hours are the only thing they can predict. If delivery speed is set by headcount, then time and materials is the honest way to price it, and the client carries the risk of everything taking longer than expected.</Body>
+          <Body className="mb-8">We built delivery differently so we could price differently. Agents handle the parts of an engagement that are repeatable, documentable, and slow when done by hand. That compresses the work enough that we can price a fixed scope or a milestone schedule and carry the estimate risk ourselves rather than passing it to you.</Body>
+          <Quote>Our progress is measured by value created, not effort expended.</Quote>
+        </Wrap>
+      </Section>
+
+      <Section band="surface">
+        <Wrap>
+          <H2 className="mb-4">Where agents work, and what a human is still responsible for.</H2>
+          <Lead className="mb-10">These are roles in a delivery system, not sequential steps. Several run at once throughout an engagement.</Lead>
+          <div className="grid gap-3">
+            {ROLES.map((r) => (
+              <Card key={r.title}>
+                <H3>{r.title}</H3>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div><Eyebrow className="mb-1">What agents do</Eyebrow><Body className="max-w-none">{r.agents}</Body></div>
+                  <div><Eyebrow className="mb-1">What a human owns</Eyebrow><Body className="max-w-none">{r.human}</Body></div>
+                </div>
+              </Card>
+            ))}
+          </div>
+          <Quote className="mt-8">Humans provide judgment. Agents accelerate execution. We own the work.</Quote>
+        </Wrap>
+      </Section>
+
+      <Section>
+        <Wrap>
+          <H2 className="mb-6">This is not AI writing your systems unsupervised.</H2>
+          <Body className="mb-4">There is a version of this claim that is marketing, and we want to be clear we are not making it.</Body>
+          <Body className="mb-4">Agents do not decide your architecture. They do not judge whether a design serves your customers. They do not carry accountability, because accountability cannot be delegated to a system that cannot be held responsible.</Body>
+          <Body className="mb-8">What they do is remove the drag: the reading, the drafting, the scaffolding, the test coverage, the documentation that usually gets written last or not at all. That is a large share of any engagement, and compressing it is what creates the speed.</Body>
+          <Eyebrow className="mb-4">Three things that remain human</Eyebrow>
+          <NumList items={HUMAN_ONLY} />
+        </Wrap>
+      </Section>
+
+      <Section band="surface">
+        <Wrap>
+          <H2 className="mb-10">Speed, consistency, and a commercial model that matches.</H2>
+          <div className="mb-8 grid gap-4 md:grid-cols-2">
+            {BENEFITS.map((b) => <Card key={b.title}><H3>{b.title}</H3><Body className="max-w-none">{b.body}</Body></Card>)}
+          </div>
+          <Quote>Execution without the overhead is not a slogan. It is what this model produces.</Quote>
+        </Wrap>
+      </Section>
+
+      <Section>
+        <Wrap>
+          <H2 className="mb-6">Each engagement should improve the next one.</H2>
+          <Body className="mb-4">A firm built around execution cannot treat every engagement as a blank page. What we learn on your work becomes reusable methods, patterns, and components, which lowers the cost and the risk of the work that follows.</Body>
+          <Body className="mb-8">That benefits you directly. You are not paying us to rediscover something we already solved for someone else.</Body>
+          <div className="mb-8"><Spine items={SPINE} /></div>
+          <Eyebrow className="mb-2">Note on ownership</Eyebrow>
+          <Body className="mb-8">Reusable assets are our methods and patterns, never your data, your business logic, or anything specific to your organization. Where we build something for you, you own it. Ownership terms are explicit in every engagement.</Body>
+          <TextLink to="/what-we-do/ai-products">See AI-driven products</TextLink>
+        </Wrap>
+      </Section>
+
+      <Section band="brand">
+        <Wrap className="text-center">
+          <H2 className="mb-4">See it on real work.</H2>
+          <Lead className="mx-auto mb-8">The fastest way to judge a delivery model is to put a real problem in front of it. Bring one.</Lead>
+          <Button to="/contact">Start a conversation</Button>
+        </Wrap>
+      </Section>
+    </>
+  )
+}

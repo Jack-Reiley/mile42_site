@@ -58,12 +58,12 @@
     "hotfixPrefix": "hotfix"
   },
   "commands": {
-    "dev": "npm run copy",
+    "dev": "npm run dev",
     "lint": "",
     "typecheck": "",
-    "test": "npm run tokens:check",
+    "test": "npm run tokens:check && npm run copy:parity",
     "coverage": "",
-    "verify": "npm run copy:build"
+    "verify": "npm run build && npm run copy:build"
   },
   "application": {
     "baseUrl": "http://localhost:5173",
