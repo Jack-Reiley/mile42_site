@@ -83,6 +83,11 @@
   --text-body--line-height: 26px; /* derived — 1.625 */
   --text-body--font-weight: 400; /* INFERRED */
 
+  /* Eyebrows are ALL CAPS in every homepage instance, but Tailwind's --text-*
+   * namespace silently ignores a --text-transform modifier, so this token
+   * cannot carry it. Pair the utility with `uppercase` at the call site:
+   *   class="text-eyebrow font-eyebrow uppercase"
+   */
   --text-eyebrow: 12px; /* measured */
   --text-eyebrow--line-height: 17px; /* INFERRED — never set multi-line */
   --text-eyebrow--font-weight: 600; /* INFERRED — "Condensed Semibold" */

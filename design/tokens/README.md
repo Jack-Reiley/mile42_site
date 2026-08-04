@@ -96,7 +96,20 @@ tracking value is stated anywhere, and the per-glyph adjustments in the PDF are
 ordinary font kerning, not a tracking setting.
 
 **The eyebrow specimen is sentence case, but every eyebrow on the homepage comp
-is ALL CAPS.** Usage wins: the token carries uppercase. Recorded as a decision.
+is ALL CAPS.** Usage wins — eyebrows are uppercase.
+
+The token cannot carry that on its own. Tailwind's `--text-*` namespace supports
+`--line-height`, `--font-weight`, and `--letter-spacing` modifiers, but
+**silently ignores `--text-transform`** (verified against 4.3.3). So apply it at
+the call site:
+
+```html
+<p class="text-eyebrow font-eyebrow text-accent uppercase">Before a major investment</p>
+```
+
+Do not spend time trying to fold `uppercase` into the token; the namespace does
+not support it. If eyebrows start drifting to sentence case in practice, the fix
+is a component class, not a theme change.
 
 Both eyebrow colours exist because the comp uses two: `--color-accent` for
 section eyebrows, and `--color-ink` for the "YOU LEAVE WITH:" eyebrow inside the

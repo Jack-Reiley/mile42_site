@@ -132,6 +132,15 @@ browser check for work with no UI.
   added as an independent source of truth so renames and value drift fail.
   This strengthens SCN-003 and SCN-004 from manual to automated.
 
+- **The eyebrow token cannot carry `text-transform`.** The design stated that
+  the token would, on the grounds that every homepage eyebrow is ALL CAPS while
+  the specimen is sentence case. Verification found that Tailwind's `--text-*`
+  namespace supports `--line-height`, `--font-weight`, and `--letter-spacing`
+  modifiers but **silently ignores `--text-transform`** (confirmed against
+  4.3.3). The design's intent stands — eyebrows are uppercase — but it is
+  applied at the call site with Tailwind's `uppercase` utility. Documented in
+  both `theme.css` and `README.md` so the limitation is not rediscovered.
+
 ## Open questions
 
 - A reproducible PDF extraction script remains out of scope, as agreed at design
