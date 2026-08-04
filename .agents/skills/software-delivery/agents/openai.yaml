@@ -1,0 +1,6 @@
+interface:
+  display_name: "Software Delivery"
+  short_description: "Route work through Mile42's delivery lifecycle"
+  default_prompt: "Use $software-delivery to determine and execute the correct delivery stage for this Mile42 work."
+policy:
+  allow_implicit_invocation: true

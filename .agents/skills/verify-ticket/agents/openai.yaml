@@ -1,0 +1,6 @@
+interface:
+  display_name: "Verify Ticket"
+  short_description: "QA a PR against behavioral scenarios"
+  default_prompt: "Use $verify-ticket to independently verify this Mile42 PR against its ticket scenarios."
+policy:
+  allow_implicit_invocation: true

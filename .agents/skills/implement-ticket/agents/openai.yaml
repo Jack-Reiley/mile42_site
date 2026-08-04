@@ -1,0 +1,6 @@
+interface:
+  display_name: "Implement Ticket"
+  short_description: "Implement, validate, and open the PR"
+  default_prompt: "Use $implement-ticket to implement this Mile42 ticket and create or update its PR."
+policy:
+  allow_implicit_invocation: true

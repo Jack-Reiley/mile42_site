@@ -1,0 +1,6 @@
+interface:
+  display_name: "Mile42 GitHub Projects"
+  short_description: "Manage Mile42 tickets and board state"
+  default_prompt: "Use $github-projects to inspect or update Mile42's GitHub delivery state."
+policy:
+  allow_implicit_invocation: true
