@@ -57,7 +57,7 @@
   },
   "shape": {
     "--radius-pill": "9999px",
-    "--radius-card": "0px",
+    "--radius-card": "12px",
     "--shadow-hard": "0 4px 0 #2f1e14"
   }
 }

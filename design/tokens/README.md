@@ -134,8 +134,27 @@ Tailwind's default dynamic spacing is left intact; these are named additions.
 | Token | Value | Provenance |
 | --- | --- | --- |
 | `--radius-pill` | `9999px` | measured — buttons are true pills, radius = height / 2 |
-| `--radius-card` | `0px` | derived — **square corners are intentional**, not an omission |
+| `--radius-card` | `12px` | measured — card path, straight edges inset 12px |
 | `--shadow-hard` | `0 4px 0 #2f1e14` | measured — a duplicate shape offset 4px down, no blur, no spread |
+
+**The design contains exactly two UI radii**, confirmed by auditing every filled
+path in both documents: pill for buttons, 12px for cards. Everything else with a
+corner radius is illustration geometry — gradient blobs and accent circles
+between 25 and 51px — and the 2–5px values are text-rendering path artifacts.
+There is no radius scale; do not invent one.
+
+**Read corner radius from path geometry, not from the bounding rect.** A rounded
+rectangle exports as alternating `line` and `curve` items; the radius is the
+inset from the bbox corner to where the straight edge begins. The bounding rect
+is square regardless of how rounded the corners are, so measuring it reports
+zero for every shape. That mistake produced a wrong `--radius-card` that then
+passed the gate, because a value pinned identically in `expected.json` and
+`theme.css` agrees with itself. See #7.
+
+The card's border ring measures 13px — a 1px border around a 12px radius. CSS
+derives that from `border-radius` plus `border-width`, so it must not become a
+second token. The card's shadow shares the 12px radius, and `box-shadow` follows
+`border-radius` automatically, so `--shadow-hard` needs no change either.
 
 The shadow is a neo-brutalist sticker shadow, not a soft elevation. There is
 only one level; do not invent a scale. Borders are 1px `--color-ink` everywhere —

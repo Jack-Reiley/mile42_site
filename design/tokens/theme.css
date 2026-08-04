@@ -107,8 +107,12 @@
   --container-site: 1240px; /* derived — 1440 less two 100px margins */
 
   /* ----------------------------------------------------------------- shape */
+  /* The design contains exactly two UI radii. Read corner radius from the path
+   * geometry — the inset from the bbox corner to where the straight edge
+   * begins — never from the bounding rect, which is square regardless of
+   * rounding. Reading the bbox is what produced the wrong value here (#7). */
   --radius-pill: 9999px; /* measured — buttons are true pills, radius = height / 2 */
-  --radius-card: 0px; /* derived — comp cards are square-cornered ON PURPOSE */
+  --radius-card: 12px; /* measured — card path, straight edges inset 12px */
 
   /* The signature "sticker" shadow: a duplicate shape offset 4px down, no blur
    * and no spread. Not a soft elevation shadow, and there is only one level.
