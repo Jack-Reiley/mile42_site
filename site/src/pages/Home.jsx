@@ -125,7 +125,12 @@ export default function Home() {
                   <Eyebrow>{o.kicker}</Eyebrow>
                   <H3>{o.title}</H3>
                   <Body className="max-w-none">{o.body}</Body>
-                  <div className="mt-auto pt-6">
+                  {/* The comp leaves ~107px of whitespace between the body copy and this
+                      label — 120px baseline to baseline against a 26px line-height.
+                      That gap is deliberate: it is where the laptop spot sits. pt-6 gave
+                      column 2 only 36px, because its body is the longest and mt-auto
+                      leaves it the least slack, so the laptop clipped the copy. */}
+                  <div className="mt-auto pt-24">
                     <Eyebrow tone="ink" className="mb-1">You leave with:</Eyebrow>
                     <p className="text-body text-ink">{o.leave}</p>
                   </div>

@@ -57,6 +57,24 @@ design amendment 1.
   follows from keeping it at 128px wide instead of the comp's 149px, which was
   an agreed size decision.
 
+### Second deviation, found after reconciliation
+
+**The gap between body copy and the "You leave with" label was widened from 24px
+to 96px.** This is a layout change beyond the ticket's stated scope, made
+because it is the root cause rather than a workaround.
+
+The laptop was clipping the "n" in "production". The comp leaves ~107px of
+whitespace between the body and that label — 120px baseline to baseline against
+a 26px line-height — and the laptop sits in exactly that gap. Our `pt-6` left
+column 2 only **36px**, because its body is the longest and `mt-auto` gives it
+the least slack, so the illustration had nowhere to go but on top of the text.
+
+Nudging the laptop would have treated the symptom. Widening the gap matches the
+comp and fixes the cause. Column 2 now measures 108px against the comp's 107,
+and the card is 528px tall against the comp's 555 — previously 456.
+
+All three spots clear their body copy as a result.
+
 ## Open questions
 
 - Sub-`lg` placement remains invented; the comp is desktop-only.
