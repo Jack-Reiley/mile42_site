@@ -13,35 +13,37 @@ import lightbulb from './lightbulb.webp'
  *   2 — mid-size spot, ink line art with one flat fill
  *   3 — small spot
  *
- * `placeholder: true` means the artwork is temporary. The current set was
- * sourced from elsewhere and is being replaced by custom illustrations, so
- * treat "no placeholders remaining" as a gate before any public deploy.
- * `npm run illustrations:placeholders` lists what is still outstanding.
+ * `placeholder` marks artwork that is temporary. Everything here is now custom
+ * artwork, so nothing is flagged. `npm run illustrations:placeholders` reports
+ * what remains outstanding, and should stay empty.
+ *
+ * These files are built from the masters in `design/illustrations/` by
+ * `npm run illustrations:build`. Do not edit them by hand.
  */
 export const illustrations = {
   'hero-desk': {
     src: heroDesk,
     level: 1,
-    alt: 'A person at a desk working at a computer, surrounded by a cursor, a star and a gear',
-    placeholder: true,
+    alt: 'A person seated at a desk typing, with a cursor, a star and a gear floating around them',
+    placeholder: false,
   },
   handshake: {
     src: handshake,
     level: 2,
     alt: 'A robotic hand and a human hand shaking',
-    placeholder: true,
+    placeholder: false,
   },
   laptop: {
     src: laptop,
     level: 2,
     alt: 'Hands typing on a laptop',
-    placeholder: true,
+    placeholder: false,
   },
   lightbulb: {
     src: lightbulb,
     level: 3,
     alt: 'A lit lightbulb',
-    placeholder: true,
+    placeholder: false,
   },
 }
 
