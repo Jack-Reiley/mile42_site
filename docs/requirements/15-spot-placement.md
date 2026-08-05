@@ -98,6 +98,26 @@ the column and the whitespace was dead. Mobile returns to the original
 
 Card height is now 560px against the comp's 555.
 
+### Fifth deviation: comp placement is gated at `xl`, not `lg`
+
+**Horizontal offsets are anchored to the right edge, not the left.** Fixed left
+offsets were measured against a 413px column. Below 1240px the card shrinks and
+the columns narrow, but those offsets did not, so the spots marched rightward —
+the laptop crossed into the third column's "You leave with" block and the
+handshake left the card entirely. Right-anchoring holds every relationship
+constant: verified at card widths 1240, 1120, 1000 and 928, the lightbulb stays
+35px inside its column, the laptop 25px past its divider, the handshake 23px
+past the card.
+
+**Comp placement now applies from `xl` (1280px), not `lg`.** The comp is a
+1440px design and its proportions only hold once the card reaches its 1240px
+maximum, which needs roughly a 1336px viewport. Between `lg` and `xl` the
+columns are 300–400px, the copy wraps further right, and comp-scale spots
+collided with the eyebrow and heading.
+
+Between `lg` and `xl` the spots are 96px wide and lifted clear of the card's top
+edge, so they cannot reach the eyebrow row at any column width in that range.
+
 ## Open questions
 
 - Sub-`lg` placement remains invented; the comp is desktop-only.

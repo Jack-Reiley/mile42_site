@@ -13,9 +13,10 @@ const OFFERINGS = [
     href: '/what-we-do/advisory',
     linkLabel: 'Explore advisory',
     spot: 'lightbulb',
-    // Breaks the card's TOP edge. Comp: 101x121 at x=377 (277px into col1), 38px above the card.
-    spotClass: 'lg:left-[277px] lg:right-auto lg:top-[-38px] lg:w-[101px]',
-    spotSizes: '(min-width: 1024px) 101px, 112px',
+    // Breaks the card's TOP edge. Anchored 35px inside its column's right edge,
+    // which is where the comp puts it, and which holds as the column narrows.
+    spotClass: 'lg:-top-20 lg:w-24 xl:right-[35px] xl:top-[-38px] xl:w-[101px]',
+    spotSizes: '(min-width: 1280px) 101px, (min-width: 1024px) 96px, 112px',
   },
   {
     kicker: 'When something must be built',
@@ -26,13 +27,16 @@ const OFFERINGS = [
     linkLabel: 'Explore engineering',
     spot: 'laptop',
     // Breaks its COLUMN DIVIDER, 27px into col3, while staying inside the card.
+    // Anchored to the right and the bottom, so both relationships hold as the
+    // card narrows and as copy length changes. Fixed left offsets drifted the
+    // spot out of its column between lg and the card's 1240px max width.
     // Bottom-anchored: stable as copy length changes, where a top offset would
     // drift. The comp puts it 169px above the card's bottom; 184px sits better
     // against our slightly shorter card and is a deliberate departure. z-10
     // lifts it over the divider, which is the next column's left border and
     // paints later.
-    spotClass: 'lg:left-[309px] lg:right-auto lg:top-auto lg:bottom-[184px] lg:w-32 lg:z-10',
-    spotSizes: '(min-width: 1024px) 128px, 112px',
+    spotClass: 'lg:-top-20 lg:w-24 xl:-right-[25px] xl:top-auto xl:bottom-[184px] xl:w-32 xl:z-10',
+    spotSizes: '(min-width: 1280px) 128px, (min-width: 1024px) 96px, 112px',
   },
   {
     kicker: 'When starting from zero is unnecessary',
@@ -42,13 +46,12 @@ const OFFERINGS = [
     href: '/what-we-do/ai-products',
     linkLabel: 'Explore AI-driven products',
     spot: 'handshake',
-    // Breaks the card's RIGHT edge. The comp puts it 98px below the card's top,
-    // beside the heading and clear of the body copy. Our card is 456px tall
-    // against the comp's 555, so that literal offset lands on the body text and
-    // obscures it. Raised to 56px to restore the comp's relationship: level with
-    // the heading, above the body.
-    spotClass: 'lg:left-[309px] lg:right-auto lg:top-[56px] lg:w-32',
-    spotSizes: '(min-width: 1024px) 128px, 112px',
+    // Breaks the card's RIGHT edge, anchored 24px past it so the overhang is
+    // constant at any card width. The comp puts it 98px below the card's top,
+    // beside the heading and clear of the body. Our card was shorter when this
+    // was set, so 56px restores that relationship: level with the heading.
+    spotClass: 'lg:-top-20 lg:w-24 xl:-right-[24px] xl:top-[56px] xl:w-32',
+    spotSizes: '(min-width: 1280px) 128px, (min-width: 1024px) 96px, 112px',
   },
 ]
 
@@ -139,7 +142,7 @@ export default function Home() {
                       up the subgrid already places the row, and leaving mt-auto on
                       would bottom-align each block inside its own row — which is what
                       pushed the shorter columns' labels below the taller one's. */}
-                  <div className="mt-auto pt-6 lg:mt-0 lg:pt-24">
+                  <div className="mt-auto pt-6 lg:mt-0 xl:pt-24">
                     <Eyebrow tone="ink" className="mb-1">You leave with:</Eyebrow>
                     <p className="text-body text-ink">{o.leave}</p>
                   </div>
