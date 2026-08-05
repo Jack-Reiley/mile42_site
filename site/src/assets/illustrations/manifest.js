@@ -1,7 +1,4 @@
-import heroDesk from './hero-desk.webp'
-import handshake from './handshake.webp'
-import laptop from './laptop.webp'
-import lightbulb from './lightbulb.webp'
+import data from './illustrations.data.json'
 
 /**
  * Illustrations are data, not markup. Pages reference entries by key and never
@@ -13,39 +10,58 @@ import lightbulb from './lightbulb.webp'
  *   2 — mid-size spot, ink line art with one flat fill
  *   3 — small spot
  *
- * `placeholder` marks artwork that is temporary. Everything here is now custom
+ * `placeholder` marks artwork that is temporary. Everything here is custom
  * artwork, so nothing is flagged. `npm run illustrations:placeholders` reports
  * what remains outstanding, and should stay empty.
  *
- * These files are built from the masters in `design/illustrations/` by
- * `npm run illustrations:build`. Do not edit them by hand.
+ * Dimensions and variants come from `illustrations.data.json`, which is emitted
+ * by `npm run illustrations:build` alongside the assets themselves. They are
+ * generated rather than hand-written because Vite resolves an imported asset to
+ * a URL but does not expose its size, and measuring it at runtime would mean
+ * loading the image — the very thing that causes layout shift.
+ *
+ * Only the human judgement below is authored by hand: alt text, level, and
+ * whether the artwork is still a placeholder.
  */
-export const illustrations = {
+
+// Resolved through Vite so every file is content-hashed. Keyed by filename.
+const urls = import.meta.glob('./*.webp', { eager: true, query: '?url', import: 'default' })
+const urlFor = (name) => urls[`./${name}`]
+
+const META = {
   'hero-desk': {
-    src: heroDesk,
     level: 1,
     alt: 'A person seated at a desk typing, with a cursor, a star and a gear floating around them',
     placeholder: false,
   },
   handshake: {
-    src: handshake,
     level: 2,
     alt: 'A robotic hand and a human hand shaking',
     placeholder: false,
   },
   laptop: {
-    src: laptop,
     level: 2,
     alt: 'Hands typing on a laptop',
     placeholder: false,
   },
   lightbulb: {
-    src: lightbulb,
     level: 3,
     alt: 'A lit lightbulb',
     placeholder: false,
   },
 }
+
+export const illustrations = Object.fromEntries(
+  Object.entries(META).map(([key, meta]) => {
+    const { width, height, variants } = data[key]
+    const srcSet = [
+      ...variants.map((v) => `${urlFor(`${key}-${v.width}.webp`)} ${v.width}w`),
+      `${urlFor(`${key}.webp`)} ${width}w`,
+    ].join(', ')
+
+    return [key, { ...meta, src: urlFor(`${key}.webp`), width, height, srcSet }]
+  }),
+)
 
 export const placeholderKeys = Object.entries(illustrations)
   .filter(([, v]) => v.placeholder)

@@ -136,16 +136,31 @@ export function Placeholder({ tag, className = '', children }) {
 /**
  * A spot illustration that deliberately overlaps its container's edge. That
  * break-out is the design's signature move, so containers must not clip it.
+ *
+ * `width`/`height` are the artwork's intrinsic pixels, not its rendered size.
+ * The browser uses their ratio to reserve space before the image arrives, which
+ * is what stops content shifting as illustrations load.
+ *
+ * `sizes` must describe the real rendered width or the browser cannot pick
+ * sensibly from `srcSet`; it defaults to the spot layout and the hero overrides it.
+ *
+ * `priority` is opt-in and belongs only to an above-the-fold image. Everything
+ * else stays lazy.
  */
-export function Spot({ name, className = '', width }) {
+export function Spot({ name, className = '', sizes = '128px', priority = false }) {
   const art = illustrations[name]
   if (!art) return null
   return (
     <img
       src={art.src}
+      srcSet={art.srcSet}
+      sizes={sizes}
       alt={art.alt}
-      width={width}
-      loading="lazy"
+      width={art.width}
+      height={art.height}
+      loading={priority ? 'eager' : 'lazy'}
+      fetchPriority={priority ? 'high' : undefined}
+      decoding={priority ? 'sync' : 'async'}
       className={`pointer-events-none select-none ${className}`}
     />
   )

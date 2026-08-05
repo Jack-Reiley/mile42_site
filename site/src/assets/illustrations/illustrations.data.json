@@ -1,0 +1,71 @@
+{
+  "hero-desk": {
+    "width": 1543,
+    "height": 1212,
+    "variants": [
+      {
+        "width": 384,
+        "height": 302,
+        "bytes": 35740
+      },
+      {
+        "width": 768,
+        "height": 603,
+        "bytes": 87176
+      },
+      {
+        "width": 1100,
+        "height": 864,
+        "bytes": 135384
+      }
+    ]
+  },
+  "handshake": {
+    "width": 1116,
+    "height": 701,
+    "variants": [
+      {
+        "width": 256,
+        "height": 161,
+        "bytes": 15200
+      },
+      {
+        "width": 512,
+        "height": 322,
+        "bytes": 38836
+      }
+    ]
+  },
+  "laptop": {
+    "width": 1117,
+    "height": 1026,
+    "variants": [
+      {
+        "width": 256,
+        "height": 235,
+        "bytes": 17604
+      },
+      {
+        "width": 512,
+        "height": 470,
+        "bytes": 41348
+      }
+    ]
+  },
+  "lightbulb": {
+    "width": 815,
+    "height": 978,
+    "variants": [
+      {
+        "width": 256,
+        "height": 307,
+        "bytes": 13782
+      },
+      {
+        "width": 512,
+        "height": 614,
+        "bytes": 30998
+      }
+    ]
+  }
+}

@@ -75,7 +75,12 @@ export default function Home() {
               </Button>
             </ButtonRow>
           </div>
-          <Spot name="hero-desk" className="w-full max-w-[34rem] justify-self-center lg:justify-self-end" />
+          <Spot
+            name="hero-desk"
+            priority
+            sizes="(min-width: 1024px) 34rem, 90vw"
+            className="h-auto w-full max-w-[34rem] justify-self-center lg:justify-self-end"
+          />
         </Wrap>
       </Section>
 
@@ -98,7 +103,8 @@ export default function Home() {
                 >
                   <Spot
                     name={o.spot}
-                    className="pointer-events-none absolute -top-12 right-4 w-28 lg:w-32"
+                    sizes="(min-width: 1024px) 128px, 112px"
+                    className="pointer-events-none absolute -top-12 right-4 h-auto w-28 lg:w-32"
                   />
                   <Eyebrow>{o.kicker}</Eyebrow>
                   <H3>{o.title}</H3>
