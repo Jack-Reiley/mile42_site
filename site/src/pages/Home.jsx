@@ -111,11 +111,15 @@ export default function Home() {
           </Lead>
 
           <div className="relative rounded-card border border-ink bg-page shadow-hard">
-            <div className="grid lg:grid-cols-3">
+            {/* Five explicit rows, with each column a subgrid, so every row —
+                eyebrow, heading, body, "you leave with", button — lines up across
+                all three cards no matter how each one wraps. Without this, a
+                two-line value in one column lifts its label above the others. */}
+            <div className="grid lg:grid-cols-3 lg:grid-rows-[auto_auto_auto_auto_auto]">
               {OFFERINGS.map((o, i) => (
                 <article
                   key={o.title}
-                  className={`relative flex flex-col gap-3 p-card ${
+                  className={`relative flex flex-col gap-3 p-card lg:row-span-5 lg:grid lg:grid-rows-subgrid ${
                     i > 0 ? 'border-t border-ink lg:border-t-0 lg:border-l' : ''
                   }`}
                 >
@@ -127,12 +131,15 @@ export default function Home() {
                   <Eyebrow>{o.kicker}</Eyebrow>
                   <H3>{o.title}</H3>
                   <Body className="max-w-none">{o.body}</Body>
-                  {/* The comp leaves ~107px of whitespace between the body copy and this
-                      label — 120px baseline to baseline against a 26px line-height.
-                      That gap is deliberate: it is where the laptop spot sits. pt-6 gave
-                      column 2 only 36px, because its body is the longest and mt-auto
-                      leaves it the least slack, so the laptop clipped the copy. */}
-                  <div className="mt-auto pt-24">
+                  {/* The comp leaves ~107px between the body copy and this label —
+                      120px baseline to baseline against a 26px line-height — and the
+                      laptop spot sits in that gap. From lg up only: below that the
+                      spots sit inside the column, so the space would be dead. */}
+                  {/* mt-auto bottoms this block in the stacked flex layout. From lg
+                      up the subgrid already places the row, and leaving mt-auto on
+                      would bottom-align each block inside its own row — which is what
+                      pushed the shorter columns' labels below the taller one's. */}
+                  <div className="mt-auto pt-6 lg:mt-0 lg:pt-24">
                     <Eyebrow tone="ink" className="mb-1">You leave with:</Eyebrow>
                     <p className="text-body text-ink">{o.leave}</p>
                   </div>

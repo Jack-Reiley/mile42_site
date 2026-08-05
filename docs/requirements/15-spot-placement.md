@@ -79,6 +79,25 @@ and the card is 528px tall against the comp's 555 — previously 456.
 
 All three spots clear their body copy as a result.
 
+### Third and fourth deviations, found on review
+
+**Rows now align across the three cards.** The "You leave with" labels sat at
+384 / 358 / 384 because column 2's value wraps to two lines, and `mt-auto`
+bottoms each block within its own column. Each column is now a subgrid spanning
+five explicit rows, so eyebrow, heading, body, label, value, and button all line
+up regardless of wrapping. Verified: every row identical across all three.
+
+`mt-auto` also had to become `lg:mt-0`. Left in place it fought the subgrid,
+bottom-aligning each block inside its own row and reproducing the very
+misalignment the subgrid was added to fix.
+
+**The tall gap is now `lg:` only.** `pt-24` was applied at every breakpoint,
+but the spots only sit beside the copy from `lg` up; below that they are inside
+the column and the whitespace was dead. Mobile returns to the original
+`mt-auto pt-6`.
+
+Card height is now 560px against the comp's 555.
+
 ## Open questions
 
 - Sub-`lg` placement remains invented; the comp is desktop-only.
