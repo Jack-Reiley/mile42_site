@@ -13,6 +13,10 @@ const OFFERINGS = [
     href: '/what-we-do/advisory',
     linkLabel: 'Explore advisory',
     spot: 'lightbulb',
+    // Breaks the card's TOP edge. Anchored 35px inside its column's right edge,
+    // which is where the comp puts it, and which holds as the column narrows.
+    spotClass: 'lg:-top-[54px] lg:w-[86px] xl:right-[35px] xl:top-[-38px] xl:w-[101px]',
+    spotSizes: '(min-width: 1280px) 101px, (min-width: 1024px) 86px, 112px',
   },
   {
     kicker: 'When something must be built',
@@ -22,6 +26,17 @@ const OFFERINGS = [
     href: '/what-we-do/engineering',
     linkLabel: 'Explore engineering',
     spot: 'laptop',
+    // Breaks its COLUMN DIVIDER, 27px into col3, while staying inside the card.
+    // Anchored to the right and the bottom, so both relationships hold as the
+    // card narrows and as copy length changes. Fixed left offsets drifted the
+    // spot out of its column between lg and the card's 1240px max width.
+    // Bottom-anchored: stable as copy length changes, where a top offset would
+    // drift. The comp puts it 169px above the card's bottom; 184px sits better
+    // against our slightly shorter card and is a deliberate departure. z-10
+    // lifts it over the divider, which is the next column's left border and
+    // paints later.
+    spotClass: 'lg:-top-[35px] lg:w-24 xl:-right-[25px] xl:top-auto xl:bottom-[184px] xl:w-32 xl:z-10',
+    spotSizes: '(min-width: 1280px) 128px, (min-width: 1024px) 96px, 112px',
   },
   {
     kicker: 'When starting from zero is unnecessary',
@@ -31,6 +46,12 @@ const OFFERINGS = [
     href: '/what-we-do/ai-products',
     linkLabel: 'Explore AI-driven products',
     spot: 'handshake',
+    // Breaks the card's RIGHT edge, anchored 24px past it so the overhang is
+    // constant at any card width. The comp puts it 98px below the card's top,
+    // beside the heading and clear of the body. Our card was shorter when this
+    // was set, so 56px restores that relationship: level with the heading.
+    spotClass: 'lg:-top-[35px] lg:w-24 xl:-right-[24px] xl:top-[56px] xl:w-32',
+    spotSizes: '(min-width: 1280px) 128px, (min-width: 1024px) 96px, 112px',
   },
 ]
 
@@ -93,23 +114,35 @@ export default function Home() {
           </Lead>
 
           <div className="relative rounded-card border border-ink bg-page shadow-hard">
-            <div className="grid lg:grid-cols-3">
+            {/* Five explicit rows, with each column a subgrid, so every row —
+                eyebrow, heading, body, "you leave with", button — lines up across
+                all three cards no matter how each one wraps. Without this, a
+                two-line value in one column lifts its label above the others. */}
+            <div className="grid lg:grid-cols-3 lg:grid-rows-[auto_auto_auto_auto_auto]">
               {OFFERINGS.map((o, i) => (
                 <article
                   key={o.title}
-                  className={`relative flex flex-col gap-3 p-card ${
+                  className={`relative flex flex-col gap-3 p-card lg:row-span-5 lg:grid lg:grid-rows-subgrid ${
                     i > 0 ? 'border-t border-ink lg:border-t-0 lg:border-l' : ''
                   }`}
                 >
                   <Spot
                     name={o.spot}
-                    sizes="(min-width: 1024px) 128px, 112px"
-                    className="pointer-events-none absolute -top-12 right-4 h-auto w-28 lg:w-32"
+                    sizes={o.spotSizes}
+                    className={`absolute -top-12 right-4 h-auto w-28 ${o.spotClass}`}
                   />
                   <Eyebrow>{o.kicker}</Eyebrow>
                   <H3>{o.title}</H3>
                   <Body className="max-w-none">{o.body}</Body>
-                  <div className="mt-auto pt-6">
+                  {/* The comp leaves ~107px between the body copy and this label —
+                      120px baseline to baseline against a 26px line-height — and the
+                      laptop spot sits in that gap. From lg up only: below that the
+                      spots sit inside the column, so the space would be dead. */}
+                  {/* mt-auto bottoms this block in the stacked flex layout. From lg
+                      up the subgrid already places the row, and leaving mt-auto on
+                      would bottom-align each block inside its own row — which is what
+                      pushed the shorter columns' labels below the taller one's. */}
+                  <div className="mt-auto pt-6 lg:mt-0 xl:pt-24">
                     <Eyebrow tone="ink" className="mb-1">You leave with:</Eyebrow>
                     <p className="text-body text-ink">{o.leave}</p>
                   </div>

@@ -52,8 +52,19 @@ Still extrapolated about illustration:
 
 - **Four pieces for sixteen pages**, so reuse is visible. Accepted rather than
   disguised.
-- Placement follows the comp's signature break-out: spots overlap their
-  container's edge instead of sitting inside it.
+- Placement follows the comp: **each spot breaks a different boundary.** The
+  lightbulb crosses the card's top edge, the laptop crosses its column divider
+  into the next column, and the handshake crosses the card's right edge. That
+  variation is why the band does not read as three identical columns.
+- Vertical offsets are adapted rather than copied. Our card is 456px tall
+  against the comp's 555, so the comp's literal offsets land on body copy. The
+  handshake sits 56px below the card's top rather than the comp's 98px, which
+  restores the comp's actual relationship: level with the heading, clear of the
+  body.
+- Comp placement applies from `lg` upward only. Below that the columns stack
+  full width and the spots sit inside them, since a right-edge overhang would
+  risk horizontal scrolling. That arrangement is invented — the comp is
+  desktop-only.
 - `hero-desk` is Level One and hero-only. Do not scale it down for section use.
 - Nothing references an image path. Pages resolve entries through
   `src/assets/illustrations/manifest.js`.
