@@ -13,6 +13,9 @@ const OFFERINGS = [
     href: '/what-we-do/advisory',
     linkLabel: 'Explore advisory',
     spot: 'lightbulb',
+    // Breaks the card's TOP edge. Comp: 101x121 at x=377 (277px into col1), 38px above the card.
+    spotClass: 'lg:left-[277px] lg:right-auto lg:top-[-38px] lg:w-[101px]',
+    spotSizes: '(min-width: 1024px) 101px, 112px',
   },
   {
     kicker: 'When something must be built',
@@ -22,6 +25,12 @@ const OFFERINGS = [
     href: '/what-we-do/engineering',
     linkLabel: 'Explore engineering',
     spot: 'laptop',
+    // Breaks its COLUMN DIVIDER, 27px into col3, while staying inside the card.
+    // Bottom-anchored: the comp puts it 169px above the card's bottom, which is
+    // stable as copy length changes; a top offset would drift. z-10 lifts it over
+    // the divider, which is the next column's left border and paints later.
+    spotClass: 'lg:left-[309px] lg:right-auto lg:top-auto lg:bottom-[169px] lg:w-32 lg:z-10',
+    spotSizes: '(min-width: 1024px) 128px, 112px',
   },
   {
     kicker: 'When starting from zero is unnecessary',
@@ -31,6 +40,13 @@ const OFFERINGS = [
     href: '/what-we-do/ai-products',
     linkLabel: 'Explore AI-driven products',
     spot: 'handshake',
+    // Breaks the card's RIGHT edge. The comp puts it 98px below the card's top,
+    // beside the heading and clear of the body copy. Our card is 456px tall
+    // against the comp's 555, so that literal offset lands on the body text and
+    // obscures it. Raised to 56px to restore the comp's relationship: level with
+    // the heading, above the body.
+    spotClass: 'lg:left-[309px] lg:right-auto lg:top-[56px] lg:w-32',
+    spotSizes: '(min-width: 1024px) 128px, 112px',
   },
 ]
 
@@ -103,8 +119,8 @@ export default function Home() {
                 >
                   <Spot
                     name={o.spot}
-                    sizes="(min-width: 1024px) 128px, 112px"
-                    className="pointer-events-none absolute -top-12 right-4 h-auto w-28 lg:w-32"
+                    sizes={o.spotSizes}
+                    className={`absolute -top-12 right-4 h-auto w-28 ${o.spotClass}`}
                   />
                   <Eyebrow>{o.kicker}</Eyebrow>
                   <H3>{o.title}</H3>
