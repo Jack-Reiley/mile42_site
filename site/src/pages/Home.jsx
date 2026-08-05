@@ -15,8 +15,8 @@ const OFFERINGS = [
     spot: 'lightbulb',
     // Breaks the card's TOP edge. Anchored 35px inside its column's right edge,
     // which is where the comp puts it, and which holds as the column narrows.
-    spotClass: 'lg:-top-20 lg:w-24 xl:right-[35px] xl:top-[-38px] xl:w-[101px]',
-    spotSizes: '(min-width: 1280px) 101px, (min-width: 1024px) 96px, 112px',
+    spotClass: 'lg:-top-[54px] lg:w-[86px] xl:right-[35px] xl:top-[-38px] xl:w-[101px]',
+    spotSizes: '(min-width: 1280px) 101px, (min-width: 1024px) 86px, 112px',
   },
   {
     kicker: 'When something must be built',
@@ -35,7 +35,7 @@ const OFFERINGS = [
     // against our slightly shorter card and is a deliberate departure. z-10
     // lifts it over the divider, which is the next column's left border and
     // paints later.
-    spotClass: 'lg:-top-20 lg:w-24 xl:-right-[25px] xl:top-auto xl:bottom-[184px] xl:w-32 xl:z-10',
+    spotClass: 'lg:-top-[35px] lg:w-24 xl:-right-[25px] xl:top-auto xl:bottom-[184px] xl:w-32 xl:z-10',
     spotSizes: '(min-width: 1280px) 128px, (min-width: 1024px) 96px, 112px',
   },
   {
@@ -50,7 +50,7 @@ const OFFERINGS = [
     // constant at any card width. The comp puts it 98px below the card's top,
     // beside the heading and clear of the body. Our card was shorter when this
     // was set, so 56px restores that relationship: level with the heading.
-    spotClass: 'lg:-top-20 lg:w-24 xl:-right-[24px] xl:top-[56px] xl:w-32',
+    spotClass: 'lg:-top-[35px] lg:w-24 xl:-right-[24px] xl:top-[56px] xl:w-32',
     spotSizes: '(min-width: 1280px) 128px, (min-width: 1024px) 96px, 112px',
   },
 ]
