@@ -53,6 +53,10 @@ design amendment 1.
   illustration over the body copy and obscured a word. 56px restores the comp's
   actual relationship: level with the heading, clear of the body. Found by a
   browser pass, not by inspection of the numbers, which were on target.
+- **The laptop sits 184px above the card's bottom, not the comp's 169px.**
+  Adjusted on review: it reads better against our 528px card than the comp's
+  literal offset, which was measured against a 555px one. Placement, divider
+  crossing, and body clearance are all unaffected.
 - **The handshake overhangs the card by 24px rather than the comp's 45px.** That
   follows from keeping it at 128px wide instead of the comp's 149px, which was
   an agreed size decision.

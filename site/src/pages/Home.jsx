@@ -26,10 +26,12 @@ const OFFERINGS = [
     linkLabel: 'Explore engineering',
     spot: 'laptop',
     // Breaks its COLUMN DIVIDER, 27px into col3, while staying inside the card.
-    // Bottom-anchored: the comp puts it 169px above the card's bottom, which is
-    // stable as copy length changes; a top offset would drift. z-10 lifts it over
-    // the divider, which is the next column's left border and paints later.
-    spotClass: 'lg:left-[309px] lg:right-auto lg:top-auto lg:bottom-[169px] lg:w-32 lg:z-10',
+    // Bottom-anchored: stable as copy length changes, where a top offset would
+    // drift. The comp puts it 169px above the card's bottom; 184px sits better
+    // against our slightly shorter card and is a deliberate departure. z-10
+    // lifts it over the divider, which is the next column's left border and
+    // paints later.
+    spotClass: 'lg:left-[309px] lg:right-auto lg:top-auto lg:bottom-[184px] lg:w-32 lg:z-10',
     spotSizes: '(min-width: 1024px) 128px, 112px',
   },
   {
