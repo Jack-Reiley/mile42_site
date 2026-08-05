@@ -38,23 +38,29 @@ Every page except the homepage. Fifteen of sixteen.
 | **Placeholders** | Dashed ink border on cream | Prototype scaffolding, kept visibly provisional |
 | **Spine, logo slots** | Bordered cards with the hard shadow | No comp |
 
-## Extrapolated — illustration
+## Illustration — now custom artwork
 
-The current artwork is a **placeholder set sourced from elsewhere**, harvested
-from the two PDFs at 192 DPI and background-keyed to transparency. Custom
-illustrations are being drawn and will replace the set wholesale.
+The placeholder set has been replaced. All four illustrations are custom
+artwork, built from the masters in `design/illustrations/` by
+`npm run illustrations:build`, which trims transparent margin and encodes
+lossless WebP. The script fails if any pixel with `alpha > 0` differs from its
+trimmed master, so "lossless" is enforced rather than claimed.
 
-- **Four pieces for sixteen pages**, so reuse is visible. That is accepted for
-  this pass rather than disguised.
+`npm run illustrations:placeholders` reports none remaining.
+
+Still extrapolated about illustration:
+
+- **Four pieces for sixteen pages**, so reuse is visible. Accepted rather than
+  disguised.
 - Placement follows the comp's signature break-out: spots overlap their
   container's edge instead of sitting inside it.
 - `hero-desk` is Level One and hero-only. Do not scale it down for section use.
 - Nothing references an image path. Pages resolve entries through
-  `src/assets/illustrations/manifest.js`, so swapping the set is one directory
-  plus one edit.
+  `src/assets/illustrations/manifest.js`.
 
-Run `npm run illustrations:placeholders` to list what is still temporary.
-**Treat "no placeholders remaining" as a gate before any public deploy.**
+**Comp fidelity now carries a documented exception.** `design/Homepage.pdf`
+shows the previous artwork, so the illustrations deliberately differ from the
+comp while composition, colour, type, and shape still match.
 
 ## Not fixed here, on purpose
 
