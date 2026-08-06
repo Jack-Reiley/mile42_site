@@ -28,7 +28,18 @@ yarn-error.log*
 # Local overrides
 *.local
 
-# Agent delivery runtime state (.agents/ and .claude/commands/ are tracked)
+# Agent delivery runtime state
 .delivery/
-.claude/*.state.json
+
+# A global gitignore on some machines excludes .claude/ entirely. Git will not
+# descend into an excluded directory, so a bare negation for a file inside it
+# has no effect — the directory itself has to be re-included first, then its
+# contents re-excluded selectively.
+!.claude/
+.claude/*
+!.claude/commands/
+.claude/commands/*.local.md
+
+# Local-only Claude state: machine specific, not shared.
 .claude/settings.local.json
+.claude/*.state.json
