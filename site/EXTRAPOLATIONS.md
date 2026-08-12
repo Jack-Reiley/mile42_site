@@ -26,7 +26,7 @@ Every page except the homepage. Fifteen of sixteen.
 
 | Decision | What we did | Why it is a guess |
 | --- | --- | --- |
-| **Header** | Wordmark, inline nav, CTA button, "Menu" toggle under `lg` | No comp, and **no logo exists in either PDF** — no lockup, clearspace, or minimum size. The wordmark stands in. |
+| **Header** | Wordmark, inline nav, CTA button, "Menu" toggle under `lg`. Horizontal inset matches the page grid: padding outside `max-w-site`, as `Section` and `Footer` do, and the mobile panel steps at `md` with them. | No comp, and **no logo exists in either PDF** — no lockup, clearspace, or minimum size. The wordmark stands in. The inset was corrected in #23; before that the wordmark sat 48px inside page content above 1336px, and the open panel sat 24px outside it between 768px and 1023px. |
 | **Footer** | Four link columns on a cream band | No comp |
 | **Responsive** | Mobile-first: single column, opting into `md:` and `lg:` | The comp is a single desktop frame at 1440px. **Every** breakpoint choice is invented. |
 | **Responsive type** | Steps down the existing scale, e.g. `text-heading-2 lg:text-heading-1` | 57px is unusable at 375px. Deliberately does not add mobile tokens to `theme.css`. |
