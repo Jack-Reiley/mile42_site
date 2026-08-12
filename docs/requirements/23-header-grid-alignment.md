@@ -1,7 +1,7 @@
 # #23 — Align the header with the page grid
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/23
-- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/PENDING
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/25
 - Parent epic: none
 - Delivery unit: `unit-header-alignment`
 - Requirement version: 1
