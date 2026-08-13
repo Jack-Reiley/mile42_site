@@ -46,7 +46,9 @@ export default function HowWeWork() {
         <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.6fr)]">
           <div>
             <Eyebrow tone="ink" className="mb-4">How we work</Eyebrow>
-            <H1 className="mb-6">Execution is the product, so how we work is the product.</H1>
+            {/* Balanced so the break falls at the comma. Left to itself the
+                line orphans "not a" and strands "sales pitch." on its own. */}
+            <H1 className="mb-6 text-balance">Execution is a system, not a sales pitch.</H1>
             <Lead>Most firms describe what they sell. Fewer are willing to show how the work actually runs, because that is where the difference between firms is real.</Lead>
           </div>
           {/* Stacked under the copy below `lg`, so it is capped far smaller
