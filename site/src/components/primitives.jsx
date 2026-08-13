@@ -24,6 +24,8 @@ const BAND = {
   brand: 'bg-brand',
   navy: 'bg-navy',
   blue: 'bg-[color-mix(in_srgb,var(--color-accent)_92%,black)]',
+  // The detail comps' `#e6f1fe`, which is the accent at 10% over white.
+  tint: 'bg-[color-mix(in_srgb,var(--color-accent)_10%,white)]',
 }
 
 /**
@@ -35,6 +37,11 @@ const BAND = {
 const SECTION_PAD = {
   default: 'py-16 lg:py-24',
   tight: 'py-10 lg:py-15',
+  // The detail comps run a shorter rhythm than the homepage language: a compact
+  // navy page header, tighter bands, and a full-height CTA.
+  header: 'py-[22px] lg:py-[30px]',
+  band: 'py-[34px] lg:py-[54px]',
+  cta: 'py-[52px] lg:py-23',
 }
 
 export function Section({ band = 'page', pad = 'default', className = '', children, ...rest }) {
@@ -48,8 +55,18 @@ export function Section({ band = 'page', pad = 'default', className = '', childr
   )
 }
 
-export function Wrap({ className = '', children }) {
-  return <div className={`mx-auto w-full max-w-site ${className}`}>{children}</div>
+/**
+ * `detail` is the narrower content column the three detail comps draw: 1120px
+ * against the site's 1240px. Above 1336px the cap binds before the horizontal
+ * padding does, so the measure — not the padding — is what sets the inset.
+ */
+const MEASURE = {
+  site: 'max-w-site',
+  detail: 'max-w-detail',
+}
+
+export function Wrap({ measure = 'site', className = '', children }) {
+  return <div className={`mx-auto w-full ${MEASURE[measure]} ${className}`}>{children}</div>
 }
 
 /** `sky` and `ice` are the on-dark tones: sky on navy, ice on the blue band. */
@@ -135,8 +152,14 @@ export function ButtonRow({ className = '', children }) {
 }
 
 /** The style guide's "Tertiary Link": label plus a trailing arrow, no underline. */
+const TEXT_LINK_TONE = {
+  ink: 'text-ink',
+  accent: 'text-accent',
+  'on-dark': 'text-hero-heading',
+}
+
 export function TextLink({ to, tone = 'ink', className = '', children }) {
-  const color = tone === 'on-dark' ? 'text-hero-heading' : 'text-ink'
+  const color = TEXT_LINK_TONE[tone]
   return (
     <Link
       to={to}
@@ -193,6 +216,71 @@ export function PathCard({ to, spot, eyebrow, title, heading = 'h2', className =
         &#8250;
       </span>
     </Link>
+  )
+}
+
+/**
+ * The detail pages' page header trail. The comp draws it as decoration with no
+ * link markup; a breadcrumb has to be real navigation, so this is authored
+ * rather than copied — a landmark, a link to the parent, and the current page
+ * marked as current rather than linked.
+ *
+ * `markClass` carries the page accent, which differs per detail page.
+ */
+export function Breadcrumb({ to, parent, current, markClass }) {
+  return (
+    <nav aria-label="Breadcrumb" className="mb-[10px] flex items-center gap-[10px]">
+      <span aria-hidden="true" className={`h-[5px] w-6 rounded-[3px] ${markClass}`} />
+      <ol className="flex items-center gap-2 text-eyebrow font-eyebrow uppercase text-sky">
+        <li>
+          <Link to={to} className="text-sky no-underline hover:underline">{parent}</Link>
+        </li>
+        {/* Decoration. Hidden so it is not announced between the two levels. */}
+        <li aria-hidden="true">/</li>
+        <li aria-current="page">{current}</li>
+      </ol>
+    </nav>
+  )
+}
+
+/**
+ * The detail comps' recurring two-column section: an eyebrow, heading, and
+ * optional note on the left, the content on the right. Collapses to one column
+ * below `lg`, label above body.
+ */
+export function LabelBody({ label, className = '', children }) {
+  return (
+    <div
+      className={`grid items-start gap-[18px] lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.6fr)] lg:gap-14 ${className}`}
+    >
+      <div>{label}</div>
+      <div>{children}</div>
+    </div>
+  )
+}
+
+/**
+ * A single bordered panel carrying one named offering: icon, eyebrow, heading,
+ * and note on the left, body and link on the right.
+ *
+ * The eyebrow is ink rather than the page accent. Every detail page's accent
+ * fails AA as 12px text on the surface fill, and darkening it far enough to
+ * pass stops it reading as the accent at all. The icon beside it carries the
+ * colour instead.
+ */
+export function FeaturePanel({ spot, eyebrow, title, note, className = '', children }) {
+  return (
+    <div
+      className={`grid items-center gap-5 rounded-card border border-ink bg-surface p-7 shadow-hard lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.5fr)] lg:gap-12 lg:p-[46px] ${className}`}
+    >
+      <div>
+        <Spot name={spot} decorative sizes="52px" className="mb-[14px] h-[52px] w-[52px] object-contain" />
+        <Eyebrow as="span" tone="ink" className="mb-2 block">{eyebrow}</Eyebrow>
+        <H2>{title}</H2>
+        {note ? <Note className="mt-3 text-[15px]">{note}</Note> : null}
+      </div>
+      <div>{children}</div>
+    </div>
   )
 }
 

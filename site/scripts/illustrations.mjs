@@ -67,6 +67,7 @@ const MAP = {
   'lightbulb_mono.png': { key: 'path-lightbulb', widths: [96, 192], tint: '--color-orange' },
   'gears_mono.png': { key: 'path-gears', widths: [96, 192], tint: '--color-brand' },
   'handshake_mono.png': { key: 'path-handshake', widths: [96, 192], tint: '--color-red' },
+  'clipboard_mono.png': { key: 'path-clipboard', widths: [104, 208], tint: '--color-orange' },
 }
 
 /** The declared value of a colour token, read the way the token checker does. */

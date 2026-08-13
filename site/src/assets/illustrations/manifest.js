@@ -68,6 +68,11 @@ const META = {
     alt: 'A robotic hand and a human hand shaking',
     placeholder: false,
   },
+  'path-clipboard': {
+    level: 3,
+    alt: 'A clipboard holding a checklist',
+    placeholder: false,
+  },
 }
 
 export const illustrations = Object.fromEntries(

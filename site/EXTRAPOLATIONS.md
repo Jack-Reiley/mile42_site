@@ -13,6 +13,7 @@ In the source, extrapolated sections carry `{/* EXTRAPOLATED — no comp */}`.
 | Homepage hero | `design/Homepage.pdf` |
 | Homepage "Three ways" band | `design/Homepage.pdf` |
 | `/what-we-do`, all four bands | `design/what-we-do-combined.html` |
+| `/what-we-do/advisory`, all six bands | `design/advisory-detail.html` |
 | Buttons, colours, type, shadow, radii | `design/tokens/` (from `design/Style Guide.pdf`) |
 
 Note the band's heading differs from the comp. The comp re-headlines it as
@@ -21,7 +22,8 @@ so its wording is used and copy parity is enforced against it.
 
 ## Extrapolated — whole pages
 
-Every page except the homepage and `/what-we-do`. Fourteen of sixteen.
+Every page except the homepage, `/what-we-do`, and `/what-we-do/advisory`.
+Thirteen of sixteen.
 
 ## `/what-we-do` — deviations from its comp
 
@@ -36,11 +38,30 @@ The page follows `design/what-we-do-combined.html`. Six things differ on purpose
 | **Horizontal padding** | `clamp(24px,5vw,72px)` | `px-6 md:px-12` | Changing it means moving `Section`, `Header`, and `Footer` together or misaligning content against the wordmark. #23 measured it and retired the change: above 1336px `--container-site` binds first and the site already matches the comp. |
 | **Footer** | two-item ink bar | the site's four-column footer | The site footer is shared by sixteen routes and is not this page's to replace. |
 
-Still extrapolated on this page: every breakpoint below 1440 for **type** — the
-site steps headings down its own scale rather than adopting the comp's 42/33px
-H1 steps, which is the convention the rest of the site already uses. Layout
-breakpoints are not extrapolated: the comp collapses at 1023 and 767, which are
-Tailwind's `lg` and `md` exactly.
+## `/what-we-do/advisory` — deviations from its comp
+
+The page follows `design/advisory-detail.html`. It is the first of the three
+detail pages, so it also lands the patterns the other two consume.
+
+| What | Comp | Built | Why |
+| --- | --- | --- | --- |
+| **Accent as text** | step numeral `--color-orange`, feature eyebrow `--color-orange` | numeral darkened to 94%, `#f05800`; eyebrow `--color-ink` | The numeral measures 2.68 on the tint against the 3.0 it needs; 6% darkening reaches **3.01**. The eyebrow would need a 24% darkening to reach 4.5 as 12px text, which stops reading as the accent, so it moves to ink and the 52px icon carries the colour instead. **This rule generalises to #21 and #22.** |
+| **Off-scale type** | h1 38, h2 27, h3 18, lead 17 | nearest token: 36, 36, 26, 18 | The #7 precedent. The page header is still the only `h1`; it just carries the H2 token, because 38px snaps to 36 rather than to H1's 57. |
+| **Panel shape** | 14px radius, `0 5px 0` shadow, badge `0 3px 0` | `--radius-card` 12px and `--shadow-hard` `0 4px 0` | Same precedent. |
+| **Term titles** | 14px muted, in the comp as rendered | 16px semibold ink | The comp's own `.term-title` asks for 16px and is overridden by a later `.term p` rule, so its rendered 14px looks like an accident rather than intent. Shipping the intent, with the title distinguished from its definition by more than weight. |
+| **Breadcrumb** | decoration, no link markup | a `nav` landmark, a real link to `/what-we-do`, `aria-current` on the leaf, and an `aria-hidden` separator | A breadcrumb is navigation. Authored rather than copied, and #21 and #22 use the same component. |
+| **Eyebrow tracking** | `.09em` | the token's `.08em` | One hundredth of an em, and the token is the source of truth. |
+| **Phase Zero link** | `href="#"` | `/contact` | The Phase Zero page does not exist yet, and `App.jsx` bounces an unknown path to the homepage, which reads as a broken site. The ticket that owns the route flips it. |
+| **Horizontal padding** | `clamp(22px,5vw,64px)` | `px-6 md:px-12` | As on `/what-we-do`. Retired by #23 after measurement. |
+
+The content **measure** is not a deviation: `--container-detail` is 1120px and
+the page renders 1120px at a 160px inset at 1440, matching the comp exactly.
+
+Still extrapolated on both comped pages: every breakpoint below 1440 for
+**type**. The site steps headings down its own scale rather than adopting the
+comps' intermediate sizes, which is the convention the rest of the site already
+uses. Layout breakpoints are not extrapolated: all four comps collapse at 1023
+and 767, which are Tailwind's `lg` and `md` exactly.
 
 ## Extrapolated — structural decisions
 

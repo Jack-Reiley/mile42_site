@@ -105,6 +105,7 @@
   --spacing-btn-gap: 21px; /* derived — gap between the two hero buttons */
 
   --container-site: 1240px; /* derived — 1440 less two 100px margins */
+  --container-detail: 1120px; /* derived — the detail comps' content column */
 
   /* ----------------------------------------------------------------- shape */
   /* The design contains exactly two UI radii. Read corner radius from the path

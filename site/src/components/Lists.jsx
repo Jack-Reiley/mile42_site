@@ -1,4 +1,4 @@
-import { Body } from './primitives.jsx'
+import { Body, H3 } from './primitives.jsx'
 
 /** The prototype's recurring list shapes, restyled onto the theme. */
 
@@ -18,8 +18,35 @@ export function NumList({ items, as: Tag = 'ul', className = '' }) {
   )
 }
 
-/** Two-column term/definition list. `items` are [term, definition] pairs. */
-export function TermList({ items, className = '' }) {
+/** Column counts for the ruled variant, which steps 3 -> 2 -> 1. */
+const RULED_COLUMNS = {
+  1: '',
+  2: 'md:grid-cols-2',
+  3: 'md:grid-cols-2 lg:grid-cols-3',
+}
+
+/**
+ * Two-column term/definition list. `items` are [term, definition] pairs.
+ *
+ * `ruled` is the detail comps' treatment: the same terms laid out in columns,
+ * each row divided from the one above by a hairline, with a smaller muted
+ * definition. It is a variant rather than a second component because the
+ * semantics are identical; six pages render the default and none of them change.
+ */
+export function TermList({ items, variant = 'stacked', columns = 1, className = '' }) {
+  if (variant === 'ruled') {
+    return (
+      <dl className={`grid gap-x-10 ${RULED_COLUMNS[columns]} ${className}`}>
+        {items.map(([term, definition]) => (
+          <div key={term} className="border-t border-ink/14 py-4">
+            <dt className="text-body font-semibold text-ink">{term}</dt>
+            <dd className="mt-1 text-[14px] leading-[1.5] text-ink/72">{definition}</dd>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+
   return (
     <dl className={`flex flex-col gap-5 ${className}`}>
       {items.map(([term, definition]) => (
@@ -46,6 +73,83 @@ export function PlainList({ items, variant = 'body', className = '' }) {
           }
         >
           {text}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/**
+ * Numbered process steps: a large accent numeral beside a heading and body.
+ *
+ * An `ol` rather than styled divs, because the numerals carry sequence. The
+ * accent is darkened 6% to clear 3:1 as large text against the tint band; at
+ * full strength `--color-orange` measures 2.68.
+ */
+export function NumberedSteps({ items, className = '' }) {
+  return (
+    <ol className={`flex flex-col gap-5 ${className}`}>
+      {items.map(({ title, body }, i) => (
+        <li key={title} className="grid grid-cols-[50px_1fr] items-start gap-4">
+          {/* Announced, not hidden. The numeral carries sequence, and an `ol`
+              alone does not survive `list-style: none` in every screen reader. */}
+          <span className="font-heading text-[27px] leading-none text-[color-mix(in_srgb,var(--color-orange)_94%,black)]">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <div>
+            <H3 className="mb-[5px]">{title}</H3>
+            <Body className="max-w-none">{body}</Body>
+          </div>
+        </li>
+      ))}
+    </ol>
+  )
+}
+
+/**
+ * Outcomes with a ticked badge. The badge is decorative: it repeats nothing the
+ * text does not already say, and its ink border carries the 3:1 the accent fill
+ * on its own would not.
+ *
+ * Items carrying a `title` render as a description list, which is what they are
+ * — a label and its explanation. Items that are a bare statement render as a
+ * plain list instead, because wrapping a sentence in a `dt` with no `dd` would
+ * be a description list that describes nothing.
+ */
+export function CheckList({ items, columns = 1, badgeClass = 'bg-orange', className = '' }) {
+  const titled = items.some((i) => i.title)
+  const grid = `grid gap-4 ${columns === 2 ? 'md:grid-cols-2 md:gap-x-9' : ''} ${className}`
+  // The tick is drawn as generated content rather than as a text node: it is a
+  // glyph, not copy, and copy parity compares the two projects' text.
+  const Badge = () => (
+    <span
+      aria-hidden="true"
+      className={`mt-0.5 grid h-6 w-6 flex-none place-items-center rounded-pill border border-ink text-[12px] font-bold text-white shadow-hard before:content-['✓'] ${badgeClass}`}
+    />
+  )
+
+  if (titled) {
+    return (
+      <dl className={grid}>
+        {items.map(({ title, body }) => (
+          <div key={title} className="grid grid-cols-[auto_1fr] items-start gap-3">
+            <Badge />
+            <div>
+              <dt className="text-body font-semibold text-ink">{title}</dt>
+              <dd className="mt-1 text-[14px] leading-[1.5] text-ink/72">{body}</dd>
+            </div>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+
+  return (
+    <ul className={grid}>
+      {items.map(({ body }) => (
+        <li key={body} className="grid grid-cols-[auto_1fr] items-start gap-3">
+          <Badge />
+          <p className="text-[14px] leading-[1.5] text-ink">{body}</p>
         </li>
       ))}
     </ul>

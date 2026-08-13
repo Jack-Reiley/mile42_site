@@ -115,5 +115,21 @@
         "bytes": 10980
       }
     ]
+  },
+  "path-clipboard": {
+    "width": 837,
+    "height": 1022,
+    "variants": [
+      {
+        "width": 104,
+        "height": 127,
+        "bytes": 11180
+      },
+      {
+        "width": 208,
+        "height": 254,
+        "bytes": 27948
+      }
+    ]
   }
 }
