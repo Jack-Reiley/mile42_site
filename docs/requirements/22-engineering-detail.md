@@ -1,7 +1,7 @@
 # #22 — Redesign the Engineering detail page to the detail concept comp
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/22
-- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/PENDING
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/29
 - Parent epic: none
 - Delivery unit: `unit-engineering`
 - Requirement version: 1
