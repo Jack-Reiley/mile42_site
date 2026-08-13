@@ -11,15 +11,38 @@ import { illustrations } from '../assets/illustrations/manifest.js'
  * EXTRAPOLATED. See EXTRAPOLATIONS.md.
  */
 
+/**
+ * `blue` is the accent darkened 8%. No palette colour reaches AA on
+ * `--color-accent` — white peaks at 4.41 — so the band, not the text, is what
+ * moves. At 92% the ice eyebrow reaches 4.55 and the on-dark body 4.92. It is
+ * derived from the token rather than added as a hex; if a second page needs it,
+ * promote it to a token then.
+ */
 const BAND = {
   page: 'bg-page',
   surface: 'bg-surface',
   brand: 'bg-brand',
+  navy: 'bg-navy',
+  blue: 'bg-[color-mix(in_srgb,var(--color-accent)_92%,black)]',
 }
 
-export function Section({ band = 'page', className = '', children, ...rest }) {
+/**
+ * `tight` is the comp's shorter band rhythm, drawn only on the blue core
+ * practice band. It is a prop rather than an override class because two padding
+ * utilities on one element resolve by stylesheet order, not by the order they
+ * are written in.
+ */
+const SECTION_PAD = {
+  default: 'py-16 lg:py-24',
+  tight: 'py-10 lg:py-15',
+}
+
+export function Section({ band = 'page', pad = 'default', className = '', children, ...rest }) {
   return (
-    <section className={`${BAND[band]} px-6 py-16 md:px-12 lg:py-24 ${className}`} {...rest}>
+    <section
+      className={`${BAND[band]} px-6 ${SECTION_PAD[pad]} md:px-12 ${className}`}
+      {...rest}
+    >
       {children}
     </section>
   )
@@ -29,10 +52,19 @@ export function Wrap({ className = '', children }) {
   return <div className={`mx-auto w-full max-w-site ${className}`}>{children}</div>
 }
 
-export function Eyebrow({ tone = 'accent', className = '', children }) {
-  const color = tone === 'ink' ? 'text-ink' : 'text-accent'
+/** `sky` and `ice` are the on-dark tones: sky on navy, ice on the blue band. */
+const EYEBROW_TONE = {
+  accent: 'text-accent',
+  ink: 'text-ink',
+  sky: 'text-sky',
+  ice: 'text-ice',
+}
+
+export function Eyebrow({ as: Tag = 'p', tone = 'accent', className = '', children }) {
   return (
-    <p className={`text-eyebrow font-eyebrow uppercase ${color} ${className}`}>{children}</p>
+    <Tag className={`text-eyebrow font-eyebrow uppercase ${EYEBROW_TONE[tone]} ${className}`}>
+      {children}
+    </Tag>
   )
 }
 
@@ -45,24 +77,28 @@ export function H1({ tone = 'ink', className = '', children }) {
   )
 }
 
-export function H2({ className = '', children }) {
+export function H2({ as: Tag = 'h2', tone = 'ink', className = '', children }) {
+  const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
   return (
-    <h2 className={`font-heading text-heading-3 lg:text-heading-2 text-ink ${className}`}>
+    <Tag className={`font-heading text-heading-3 lg:text-heading-2 ${color} ${className}`}>
       {children}
-    </h2>
+    </Tag>
   )
 }
 
-export function H3({ as: Tag = 'h3', className = '', children }) {
-  return <Tag className={`font-heading text-heading-3 text-ink ${className}`}>{children}</Tag>
+export function H3({ as: Tag = 'h3', tone = 'ink', className = '', children }) {
+  const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
+  return <Tag className={`font-heading text-heading-3 ${color} ${className}`}>{children}</Tag>
 }
 
-export function Lead({ className = '', children }) {
-  return <p className={`text-body-lg text-ink max-w-[46rem] ${className}`}>{children}</p>
+export function Lead({ tone = 'ink', className = '', children }) {
+  const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
+  return <p className={`text-body-lg ${color} max-w-[46rem] ${className}`}>{children}</p>
 }
 
-export function Body({ as: Tag = 'p', className = '', children }) {
-  return <Tag className={`text-body text-ink max-w-[46rem] ${className}`}>{children}</Tag>
+export function Body({ as: Tag = 'p', tone = 'ink', className = '', children }) {
+  const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
+  return <Tag className={`text-body ${color} max-w-[46rem] ${className}`}>{children}</Tag>
 }
 
 export function Quote({ className = '', children }) {
@@ -99,11 +135,12 @@ export function ButtonRow({ className = '', children }) {
 }
 
 /** The style guide's "Tertiary Link": label plus a trailing arrow, no underline. */
-export function TextLink({ to, className = '', children }) {
+export function TextLink({ to, tone = 'ink', className = '', children }) {
+  const color = tone === 'on-dark' ? 'text-hero-heading' : 'text-ink'
   return (
     <Link
       to={to}
-      className={`group inline-flex items-center gap-2 text-body font-semibold text-ink no-underline ${className}`}
+      className={`group inline-flex items-center gap-2 text-body font-semibold ${color} no-underline ${className}`}
     >
       {children}
       <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
@@ -120,6 +157,42 @@ export function Card({ as: Tag = 'div', className = '', children }) {
     >
       {children}
     </Tag>
+  )
+}
+
+/**
+ * A whole-card link on a dark band: icon, eyebrow, heading, one line of body,
+ * and a trailing chevron.
+ *
+ * Deliberately not `Card`. It has no ink border and no hard shadow, because it
+ * reads as a target rather than as a raised object, so its fill is transparent
+ * and its edge is a white hairline that brightens on hover.
+ *
+ * `heading` is the element to render the title as. It has to sit one level
+ * below whatever heading the band already carries, and the band decides that,
+ * not the card.
+ */
+export function PathCard({ to, spot, eyebrow, title, heading = 'h2', className = '', children }) {
+  return (
+    <Link
+      to={to}
+      className={`group grid grid-cols-[3rem_1fr_auto] items-center gap-[18px] rounded-card border border-white/15 px-[22px] py-[15px] no-underline transition-colors hover:border-white/30 hover:bg-white/5 motion-reduce:transition-none ${className}`}
+    >
+      <Spot name={spot} decorative priority sizes="48px" className="h-12 w-12 object-contain" />
+      <span>
+        <Eyebrow as="span" tone="sky" className="block">{eyebrow}</Eyebrow>
+        <H3 as={heading} tone="hero" className="mt-1">{title}</H3>
+        <span className="mt-1 block text-body text-hero-heading/72">{children}</span>
+      </span>
+      {/* A character, not an icon, so it has to be hidden or it lands in the
+          link's accessible name. */}
+      <span
+        aria-hidden="true"
+        className="text-[22px] leading-none text-hero-heading/75 transition-transform group-hover:translate-x-1 motion-reduce:transition-none"
+      >
+        &#8250;
+      </span>
+    </Link>
   )
 }
 
@@ -146,8 +219,13 @@ export function Placeholder({ tag, className = '', children }) {
  *
  * `priority` is opt-in and belongs only to an above-the-fold image. Everything
  * else stays lazy.
+ *
+ * `decorative` empties the alt so the artwork is skipped by assistive
+ * technology. Use it when the image sits beside a full text label that already
+ * says what it says — inside a link, an announced alt would otherwise be
+ * concatenated into the link's accessible name.
  */
-export function Spot({ name, className = '', sizes = '128px', priority = false }) {
+export function Spot({ name, className = '', sizes = '128px', priority = false, decorative = false }) {
   const art = illustrations[name]
   if (!art) return null
   return (
@@ -155,7 +233,7 @@ export function Spot({ name, className = '', sizes = '128px', priority = false }
       src={art.src}
       srcSet={art.srcSet}
       sizes={sizes}
-      alt={art.alt}
+      alt={decorative ? '' : art.alt}
       width={art.width}
       height={art.height}
       loading={priority ? 'eager' : 'lazy'}

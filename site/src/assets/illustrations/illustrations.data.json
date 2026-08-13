@@ -67,5 +67,53 @@
         "bytes": 30998
       }
     ]
+  },
+  "path-lightbulb": {
+    "width": 1019,
+    "height": 1222,
+    "variants": [
+      {
+        "width": 96,
+        "height": 115,
+        "bytes": 6190
+      },
+      {
+        "width": 192,
+        "height": 230,
+        "bytes": 14574
+      }
+    ]
+  },
+  "path-gears": {
+    "width": 1349,
+    "height": 1502,
+    "variants": [
+      {
+        "width": 96,
+        "height": 107,
+        "bytes": 7794
+      },
+      {
+        "width": 192,
+        "height": 214,
+        "bytes": 19520
+      }
+    ]
+  },
+  "path-handshake": {
+    "width": 1376,
+    "height": 860,
+    "variants": [
+      {
+        "width": 96,
+        "height": 60,
+        "bytes": 4086
+      },
+      {
+        "width": 192,
+        "height": 120,
+        "bytes": 10980
+      }
+    ]
   }
 }

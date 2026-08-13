@@ -10,6 +10,10 @@ import data from './illustrations.data.json'
  *   2 — mid-size spot, ink line art with one flat fill
  *   3 — small spot
  *
+ * Level Three now covers two visual treatments. The `path-*` entries are flat
+ * single-colour linework tinted from a token at build time, not the ink-plus-fill
+ * drawing the level system was written around. Size is what the level records.
+ *
  * `placeholder` marks artwork that is temporary. Everything here is custom
  * artwork, so nothing is flagged. `npm run illustrations:placeholders` reports
  * what remains outstanding, and should stay empty.
@@ -47,6 +51,21 @@ const META = {
   lightbulb: {
     level: 3,
     alt: 'A lit lightbulb',
+    placeholder: false,
+  },
+  'path-lightbulb': {
+    level: 3,
+    alt: 'A lit lightbulb',
+    placeholder: false,
+  },
+  'path-gears': {
+    level: 3,
+    alt: 'Two interlocking gears',
+    placeholder: false,
+  },
+  'path-handshake': {
+    level: 3,
+    alt: 'A robotic hand and a human hand shaking',
     placeholder: false,
   },
 }

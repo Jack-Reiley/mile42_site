@@ -12,6 +12,7 @@ In the source, extrapolated sections carry `{/* EXTRAPOLATED — no comp */}`.
 | --- | --- |
 | Homepage hero | `design/Homepage.pdf` |
 | Homepage "Three ways" band | `design/Homepage.pdf` |
+| `/what-we-do`, all four bands | `design/what-we-do-combined.html` |
 | Buttons, colours, type, shadow, radii | `design/tokens/` (from `design/Style Guide.pdf`) |
 
 Note the band's heading differs from the comp. The comp re-headlines it as
@@ -20,7 +21,26 @@ so its wording is used and copy parity is enforced against it.
 
 ## Extrapolated — whole pages
 
-Every page except the homepage. Fifteen of sixteen.
+Every page except the homepage and `/what-we-do`. Fourteen of sixteen.
+
+## `/what-we-do` — deviations from its comp
+
+The page follows `design/what-we-do-combined.html`. Six things differ on purpose.
+
+| What | Comp | Built | Why |
+| --- | --- | --- | --- |
+| **Blue band** | `--accent` `#0073f4` | accent darkened to 92%, `#006ae0` | No palette colour reaches AA on the accent; white peaks at **4.41**. Darkening the band instead of the text clears every element: ice eyebrow **4.55**, on-dark body, link, and H2 **4.92**. Expressed as `color-mix` on the token, so nothing is added to `theme.css`. |
+| **Path icon colour** | handshake `#ff5c9d` | `--color-red` `#ff203d` | The comp's magenta is off-palette. Red matches the AI-driven Products page the card links to, so the three path icons read orange, green, red and icon colour becomes wayfinding. Contrast on navy drops to 3.98 from pink's 9.87; the icons are decorative and carry a full text label. |
+| **Off-scale type** | h3 22, path h3 19, path body 14, quote 24, H1 54 | nearest token: 26, 26, 16, 26, 57 | The #7 radius precedent: the token scale wins over a comp value that is not on it. The path cards absorb the growth — verified at 1440, 1024, 768, 390, and 320, where they wrap rather than clip. |
+| **Path card radius** | 14px | `--radius-card` 12px | Same precedent. #7 settled that card radius is token-driven. |
+| **Horizontal padding** | `clamp(24px,5vw,72px)` | `px-6 md:px-12` | Changing it means moving `Section`, `Header`, and `Footer` together or misaligning content against the wordmark. #23 measured it and retired the change: above 1336px `--container-site` binds first and the site already matches the comp. |
+| **Footer** | two-item ink bar | the site's four-column footer | The site footer is shared by sixteen routes and is not this page's to replace. |
+
+Still extrapolated on this page: every breakpoint below 1440 for **type** — the
+site steps headings down its own scale rather than adopting the comp's 42/33px
+H1 steps, which is the convention the rest of the site already uses. Layout
+breakpoints are not extrapolated: the comp collapses at 1023 and 767, which are
+Tailwind's `lg` and `md` exactly.
 
 ## Extrapolated — structural decisions
 
@@ -40,7 +60,7 @@ Every page except the homepage. Fifteen of sixteen.
 
 ## Illustration — now custom artwork
 
-The placeholder set has been replaced. All four illustrations are custom
+The placeholder set has been replaced. All seven illustrations are custom
 artwork, built from the masters in `design/illustrations/` by
 `npm run illustrations:build`, which trims transparent margin and encodes
 lossless WebP. The script fails if any pixel with `alpha > 0` differs from its
@@ -48,10 +68,19 @@ trimmed master, so "lossless" is enforced rather than claimed.
 
 `npm run illustrations:placeholders` reports none remaining.
 
+**Level Three now covers two visual treatments.** The three `path-*` entries are
+flat single-colour linework rather than the ink-plus-fill drawing the level
+system was written around. Their masters are 2001×2001 black-on-transparent
+alpha masks, and the colour is applied at build time from a token named in the
+`MAP` entry, so a token change propagates on the next build instead of requiring
+new binaries. A tinted entry is held to a stricter assertion than the lossless
+one: every alpha value byte-identical to the trimmed master, and every visible
+pixel exactly the tint. Level records size, not treatment.
+
 Still extrapolated about illustration:
 
-- **Four pieces for sixteen pages**, so reuse is visible. Accepted rather than
-  disguised.
+- **Four scene pieces for sixteen pages**, so reuse is visible. Accepted rather
+  than disguised. The three path icons are additional and used on one page.
 - Placement follows the comp: **each spot breaks a different boundary.** The
   lightbulb crosses the card's top edge, the laptop crosses its column divider
   into the next column, and the handshake crosses the card's right edge. That
