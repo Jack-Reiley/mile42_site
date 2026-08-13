@@ -1,9 +1,9 @@
 import { Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote, Button, TextLink, Card, Spot } from '../components/primitives.jsx'
 
 const TOPICS = [
-  { kicker: 'What happens, and in what order?', title: 'Client journey', body: 'Four stages, and the stronger position each one leaves you in. Understand, design, build, evolve.', get: 'A view of where you would enter and what changes at each stage', href: '/how-we-work/client-journey', linkLabel: 'See the client journey' },
-  { kicker: 'How does the work get done?', title: 'Delivery model', body: 'An AI-assisted operating system with agents across every major role, and humans accountable for judgment and outcomes.', get: 'The specifics of who does what, including what stays human', href: '/how-we-work/delivery-model', linkLabel: 'See the delivery model' },
-  { kicker: 'How do we engage commercially?', title: 'Engagement model', body: 'How we think about pricing, and why we would rather sell an outcome than a timesheet.', get: 'Our posture, before the conversation about specifics', href: '/how-we-work/engagement-model', linkLabel: 'See the engagement model' },
+  { kicker: 'What happens, and in what order?', title: 'Client journey', body: 'Four stages, and the stronger position each one leaves you in. Understand, design, build, evolve. You get a view of where you would enter and what changes at each stage.', href: '/how-we-work/client-journey', linkLabel: 'See the client journey' },
+  { kicker: 'How does the work get done?', title: 'Delivery model', body: 'An AI-assisted operating system with agents across every major role, and humans accountable for judgment and outcomes. You get the specifics of who does what, including what stays human.', href: '/how-we-work/delivery-model', linkLabel: 'See the delivery model' },
+  { kicker: 'How do we engage commercially?', title: 'Engagement model', body: 'How we think about pricing, and why we would rather sell an outcome than a timesheet. You get our posture, before the conversation about specifics.', href: '/how-we-work/engagement-model', linkLabel: 'See the engagement model' },
 ]
 
 /* EXTRAPOLATED — no comp for this page. */
@@ -42,11 +42,10 @@ export default function HowWeWork() {
                 <Eyebrow>{t.kicker}</Eyebrow>
                 <H3>{t.title}</H3>
                 <Body className="max-w-none">{t.body}</Body>
-                <div className="mt-auto pt-4">
-                  <Eyebrow tone="ink" className="mb-1">You get:</Eyebrow>
-                  <p className="text-body text-ink">{t.get}</p>
-                </div>
-                <div className="pt-4"><TextLink to={t.href}>{t.linkLabel}</TextLink></div>
+                {/* `mt-auto` sat on the "You get" block before it was folded into
+                    the body. It has to stay on whatever is last, or the links
+                    stop aligning across cards of unequal length. */}
+                <div className="mt-auto pt-4"><TextLink to={t.href}>{t.linkLabel}</TextLink></div>
               </Card>
             ))}
           </div>
