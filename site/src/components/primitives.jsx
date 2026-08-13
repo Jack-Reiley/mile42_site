@@ -42,6 +42,9 @@ const BAND = {
  */
 const SECTION_PAD = {
   default: 'py-16 lg:py-24',
+  // For a band whose own panels carry the padding. Anything here would show as
+  // a strip of the section's fill between it and the bands it sits against.
+  none: '',
   tight: 'py-10 lg:py-15',
   // The detail comps run a shorter rhythm than the homepage language: a compact
   // navy page header, tighter bands, and a full-height CTA.

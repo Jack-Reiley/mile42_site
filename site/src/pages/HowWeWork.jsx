@@ -64,7 +64,7 @@ export default function HowWeWork() {
           topics that evidence it stacked on the right. The argument used to sit
           in its own band below the topics, where it read as an aside rather
           than as the thing the topics are answering. */}
-      <Section band="page" inset="flush" pad="tight">
+      <Section band="page" inset="flush" pad="none">
         <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           <div className="flex flex-col justify-center bg-surface px-6 py-14 md:px-12 lg:px-16 lg:py-20">
             {/* Top of the type scale on an h2. This block is the section's
