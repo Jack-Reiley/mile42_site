@@ -15,6 +15,7 @@ In the source, extrapolated sections carry `{/* EXTRAPOLATED — no comp */}`.
 | `/what-we-do`, all four bands | `design/what-we-do-combined.html` |
 | `/what-we-do/advisory`, all six bands | `design/advisory-detail.html` |
 | `/what-we-do/ai-products`, all six bands | `design/ai-products-detail.html` |
+| `/what-we-do/engineering`, all six bands | `design/engineering-detail.html` |
 | Buttons, colours, type, shadow, radii | `design/tokens/` (from `design/Style Guide.pdf`) |
 
 Note the band's heading differs from the comp. The comp re-headlines it as
@@ -23,8 +24,8 @@ so its wording is used and copy parity is enforced against it.
 
 ## Extrapolated — whole pages
 
-Every page except the homepage, `/what-we-do`, `/what-we-do/advisory`, and
-`/what-we-do/ai-products`. Twelve of sixteen.
+Every page except the homepage and the four `/what-we-do` pages. Eleven of
+sixteen.
 
 ## `/what-we-do` — deviations from its comp
 
@@ -71,6 +72,22 @@ cross-cutting decision above. Two things are its own.
 The checked outcomes render as a **description list**: they are a bold label and
 its explanation, which is a term and a definition, and that keeps the labels out
 of the heading outline.
+
+## `/what-we-do/engineering` — deviations from its comp
+
+The page follows `design/engineering-detail.html` and introduces no pattern of
+its own: its capability section is the AI-driven Products ruled column wrapping
+the Advisory term rows, composed rather than built. Two deviations are its own,
+and both are deliberate.
+
+| What | Comp | Built | Why |
+| --- | --- | --- | --- |
+| **A fifth capability** | four items under "Systems and platforms" | five, including "Source data consolidation and readiness" | The comp is a layout render; `copy_prototype/` is the copy authority. Accepting the cut would mean deleting a claimed capability on the strength of a column that looked crowded — a sales decision reached from a layout constraint. The missing item is the only one with a two-line description, which explains its disappearance better than a decision would. The rendered page therefore differs from the comp by one visible row. |
+| **Green on light backgrounds** | `--color-brand` `#00b785` | darkened to 92%, `#00a87a` | Brand green is the faintest of the three accents. The group rules measure **2.59** at full strength against orange's 3.06 and red's 3.80, so they would read visibly weaker and undercut the accent-as-wayfinding the three pages build. No WCAG threshold applies — these are decorative — so this is a quality decision. Darkened, the rules measure **3.05**. **The breadcrumb mark on navy keeps the pure token** at 5.84, because darkening it there would reduce contrast rather than improve it. |
+
+The term rows inside each group use the Advisory values, 16px padding and a 16px
+title, rather than the comp's 14px and 15px: one component, not two, and 15px
+snaps to the 16px token anyway.
 
 Still extrapolated on both comped pages: every breakpoint below 1440 for
 **type**. The site steps headings down its own scale rather than adopting the

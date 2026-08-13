@@ -94,9 +94,19 @@
         "bytes": 7794
       },
       {
+        "width": 104,
+        "height": 116,
+        "bytes": 8682
+      },
+      {
         "width": 192,
         "height": 214,
         "bytes": 19520
+      },
+      {
+        "width": 208,
+        "height": 232,
+        "bytes": 21716
       }
     ]
   },

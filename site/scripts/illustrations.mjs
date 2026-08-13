@@ -65,7 +65,7 @@ const MAP = {
   'laptop_with_color.png': { key: 'laptop', widths: [256, 512] },
   'lightbulb_with_color.png': { key: 'lightbulb', widths: [256, 512] },
   'lightbulb_mono.png': { key: 'path-lightbulb', widths: [96, 192], tint: '--color-orange' },
-  'gears_mono.png': { key: 'path-gears', widths: [96, 192], tint: '--color-brand' },
+  'gears_mono.png': { key: 'path-gears', widths: [96, 104, 192, 208], tint: '--color-brand' },
   // 96/192 for the 48px path card, 104/208 for the 52px feature panel.
   'handshake_mono.png': { key: 'path-handshake', widths: [96, 104, 192, 208], tint: '--color-red' },
   'clipboard_mono.png': { key: 'path-clipboard', widths: [104, 208], tint: '--color-orange' },
