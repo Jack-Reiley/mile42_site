@@ -1,7 +1,7 @@
 # #19 — Redesign the What We Do page to the combined-hero comp
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/19
-- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/PENDING
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/26
 - Parent epic: none
 - Delivery unit: `unit-what-we-do`
 - Requirement version: 1
