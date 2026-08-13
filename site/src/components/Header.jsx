@@ -17,59 +17,71 @@ export default function Header() {
   const [open, setOpen] = useState(false)
   const isCurrent = (href) => pathname === href || pathname.startsWith(`${href}/`)
 
+  /* Horizontal padding sits outside `max-w-site`, matching Section and Footer,
+     so the wordmark shares the page grid's inset once the container cap binds.
+     It cannot move onto `header` itself: the panel is a sibling of the bar, and
+     padding there would inset the panel's top border. */
   return (
     <header className="border-b border-ink bg-page">
-      <div className="mx-auto flex w-full max-w-site items-center justify-between gap-6 px-6 py-5 md:px-12">
-        <Link to="/" className="font-heading text-heading-3 text-ink no-underline">
-          Mile42
-        </Link>
+      <div className="px-6 py-5 md:px-12">
+        <div className="mx-auto flex w-full max-w-site items-center justify-between gap-6">
+          <Link to="/" className="font-heading text-heading-3 text-ink no-underline">
+            Mile42
+          </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
-          {NAV.map(({ href, label }) => (
-            <Link
-              key={href}
-              to={href}
-              aria-current={isCurrent(href) ? 'page' : undefined}
-              className="text-body text-ink no-underline aria-[current=page]:font-semibold hover:underline"
-            >
-              {label}
-            </Link>
-          ))}
-          <Button to="/contact">Start a conversation</Button>
-        </nav>
+          <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
+            {NAV.map(({ href, label }) => (
+              <Link
+                key={href}
+                to={href}
+                aria-current={isCurrent(href) ? 'page' : undefined}
+                className="text-body text-ink no-underline aria-[current=page]:font-semibold hover:underline"
+              >
+                {label}
+              </Link>
+            ))}
+            <Button to="/contact">Start a conversation</Button>
+          </nav>
 
-        <button
-          type="button"
-          className="lg:hidden rounded-pill border border-ink shadow-hard bg-surface px-btn-x py-2 text-body font-semibold"
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          onClick={() => setOpen((v) => !v)}
-        >
-          Menu
-        </button>
+          <button
+            type="button"
+            className="lg:hidden rounded-pill border border-ink shadow-hard bg-surface px-btn-x py-2 text-body font-semibold"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen((v) => !v)}
+          >
+            Menu
+          </button>
+        </div>
       </div>
 
       {open && (
-        <nav id="mobile-nav" className="border-t border-ink px-6 py-4 lg:hidden" aria-label="Primary">
-          <ul className="flex flex-col gap-4">
-            {NAV.map(({ href, label }) => (
-              <li key={href}>
-                <Link
-                  to={href}
-                  aria-current={isCurrent(href) ? 'page' : undefined}
-                  onClick={() => setOpen(false)}
-                  className="text-body text-ink no-underline aria-[current=page]:font-semibold"
-                >
-                  {label}
-                </Link>
+        <nav
+          id="mobile-nav"
+          className="border-t border-ink px-6 py-4 md:px-12 lg:hidden"
+          aria-label="Primary"
+        >
+          <div className="mx-auto w-full max-w-site">
+            <ul className="flex flex-col gap-4">
+              {NAV.map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    to={href}
+                    aria-current={isCurrent(href) ? 'page' : undefined}
+                    onClick={() => setOpen(false)}
+                    className="text-body text-ink no-underline aria-[current=page]:font-semibold"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+              <li className="pt-2">
+                <Button to="/contact" className="w-full" onClick={() => setOpen(false)}>
+                  Start a conversation
+                </Button>
               </li>
-            ))}
-            <li className="pt-2">
-              <Button to="/contact" className="w-full" onClick={() => setOpen(false)}>
-                Start a conversation
-              </Button>
-            </li>
-          </ul>
+            </ul>
+          </div>
         </nav>
       )}
     </header>
