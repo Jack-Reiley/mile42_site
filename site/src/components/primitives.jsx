@@ -26,6 +26,12 @@ const BAND = {
   blue: 'bg-[color-mix(in_srgb,var(--color-accent)_92%,black)]',
   // The detail comps' `#e6f1fe`, which is the accent at 10% over white.
   tint: 'bg-[color-mix(in_srgb,var(--color-accent)_10%,white)]',
+  // A light band, unlike every other coloured band here. Nothing off-white
+  // survives on it — the hero heading colour reaches 1.7:1 — so headings on a
+  // `gold` band take the default ink tone, which reaches 8.9:1. The deeper gold
+  // is used rather than `--color-cta` so the yellow CTA button still separates
+  // from the band it sits on.
+  gold: 'bg-gold',
 }
 
 /**

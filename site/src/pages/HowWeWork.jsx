@@ -10,10 +10,13 @@ const TOPICS = [
 export default function HowWeWork() {
   return (
     <>
-      <Section band="brand">
+      {/* Gold rather than the site's usual brand green, so the section reads as
+          its own place rather than as the homepage. It is a light band, so the
+          heading is ink — see the `gold` note in primitives.jsx. */}
+      <Section band="gold">
         <Wrap>
           <Eyebrow tone="ink" className="mb-4">How we work</Eyebrow>
-          <H1 tone="hero" className="mb-6">Execution is the product, so how we work is the product.</H1>
+          <H1 className="mb-6">Execution is the product, so how we work is the product.</H1>
           <Lead>Most firms describe what they sell. Fewer are willing to show how the work actually runs, because that is where the difference between firms is real.</Lead>
         </Wrap>
       </Section>
