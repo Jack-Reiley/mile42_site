@@ -14,6 +14,7 @@ In the source, extrapolated sections carry `{/* EXTRAPOLATED — no comp */}`.
 | Homepage "Three ways" band | `design/Homepage.pdf` |
 | `/what-we-do`, all four bands | `design/what-we-do-combined.html` |
 | `/what-we-do/advisory`, all six bands | `design/advisory-detail.html` |
+| `/what-we-do/ai-products`, all six bands | `design/ai-products-detail.html` |
 | Buttons, colours, type, shadow, radii | `design/tokens/` (from `design/Style Guide.pdf`) |
 
 Note the band's heading differs from the comp. The comp re-headlines it as
@@ -22,8 +23,8 @@ so its wording is used and copy parity is enforced against it.
 
 ## Extrapolated — whole pages
 
-Every page except the homepage, `/what-we-do`, and `/what-we-do/advisory`.
-Thirteen of sixteen.
+Every page except the homepage, `/what-we-do`, `/what-we-do/advisory`, and
+`/what-we-do/ai-products`. Twelve of sixteen.
 
 ## `/what-we-do` — deviations from its comp
 
@@ -56,6 +57,20 @@ detail pages, so it also lands the patterns the other two consume.
 
 The content **measure** is not a deviation: `--container-detail` is 1120px and
 the page renders 1120px at a 160px inset at 1440, matching the comp exactly.
+
+## `/what-we-do/ai-products` — deviations from its comp
+
+The page follows `design/ai-products-detail.html` and inherits every
+cross-cutting decision above. Two things are its own.
+
+| What | Comp | Built | Why |
+| --- | --- | --- | --- |
+| **Page accent** | `--pop` `#d4537e`, a magenta | `--color-red` `#ff203d` | The magenta is not in the style guide, and it is the only one of the three detail accents that is not already a token. Red is the nearest palette hue and its contrast is within a hundredth of the comp's in every position: 3.80 on white against 3.93, 3.98 on navy against 3.84. The rendered page therefore differs from the comp in three places — the breadcrumb mark, the three column rules, and the check badge fill. The red-as-error connotation was weighed and accepted. |
+| **Group title size** | 17px | `--text-heading-3` 26px | The snapping rule. The comp sets its section subheading at 18px and its group titles at 17px, a one-pixel difference, so both landing on the same token preserves the relationship rather than flattening it. |
+
+The checked outcomes render as a **description list**: they are a bold label and
+its explanation, which is a term and a definition, and that keeps the labels out
+of the heading outline.
 
 Still extrapolated on both comped pages: every breakpoint below 1440 for
 **type**. The site steps headings down its own scale rather than adopting the

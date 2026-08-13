@@ -135,8 +135,8 @@ export function CheckList({ items, columns = 1, badgeClass = 'bg-orange', classN
           <div key={title} className="grid grid-cols-[auto_1fr] items-start gap-3">
             <Badge />
             <div>
-              <dt className="text-body font-semibold text-ink">{title}</dt>
-              <dd className="mt-1 text-[14px] leading-[1.5] text-ink/72">{body}</dd>
+              <dt className="font-heading text-body font-bold text-ink">{title}</dt>
+              <dd className="mt-0.5 text-[14px] leading-[1.5] text-ink/72">{body}</dd>
             </div>
           </div>
         ))}
@@ -153,6 +153,31 @@ export function CheckList({ items, columns = 1, badgeClass = 'bg-orange', classN
         </li>
       ))}
     </ul>
+  )
+}
+
+/**
+ * The detail comps' ruled group columns: three across, then two, then one.
+ *
+ * Separate from `TermList` rather than another variant of it, because the two
+ * are structurally different. A term list is sibling rows divided by hairlines;
+ * a group is one column with an accent rule on top and arbitrary content
+ * beneath. `RuledGroup` takes children for exactly that reason — the AI-driven
+ * Products page passes a paragraph and the Engineering page passes term rows,
+ * and neither has to fork the other's shape.
+ */
+export function GroupColumns({ className = '', children }) {
+  return (
+    <div className={`grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 ${className}`}>{children}</div>
+  )
+}
+
+export function RuledGroup({ title, ruleClass, className = '', children }) {
+  return (
+    <div className={`border-t-[3px] pt-4 ${ruleClass} ${className}`}>
+      <H3 as="h4" className="mb-[10px]">{title}</H3>
+      {children}
+    </div>
   )
 }
 

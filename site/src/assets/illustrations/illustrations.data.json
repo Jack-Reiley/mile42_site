@@ -110,9 +110,19 @@
         "bytes": 4086
       },
       {
+        "width": 104,
+        "height": 65,
+        "bytes": 4648
+      },
+      {
         "width": 192,
         "height": 120,
         "bytes": 10980
+      },
+      {
+        "width": 208,
+        "height": 130,
+        "bytes": 12412
       }
     ]
   },
