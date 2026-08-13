@@ -99,7 +99,10 @@ export default function HowWeWork() {
         </div>
       </Section>
 
-      <Section band="brand">
+      {/* Gold again, bookending the hero. The yellow CTA button only clears the
+          fill at 1.36:1, so its ink border and hard shadow are what separate it
+          here — see the `gold` note in primitives.jsx. */}
+      <Section band="gold">
         <Wrap className="text-center">
           <H2 className="mb-4">The fastest way to judge this is to use it.</H2>
           <Lead className="mx-auto mb-8">Bring us a problem that has to work. How we operate will be obvious within the first conversation.</Lead>
