@@ -1,7 +1,7 @@
 # #21 — Redesign the AI-driven Products detail page to the detail concept comp
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/21
-- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/PENDING
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/28
 - Parent epic: none
 - Delivery unit: `unit-ai-products`
 - Requirement version: 1
