@@ -1,7 +1,7 @@
 # #20 — Redesign the Advisory detail page to the detail concept comp
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/20
-- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/PENDING
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/27
 - Parent epic: none
 - Delivery unit: `unit-advisory`
 - Requirement version: 1
