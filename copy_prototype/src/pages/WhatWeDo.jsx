@@ -1,45 +1,43 @@
 import { Link } from 'react-router'
 import TLink from '../components/TLink.jsx'
 
-const OFFERINGS = [
+const PATHS = [
   {
     kicker: 'Before a major investment',
     title: 'You need clarity',
-    body: 'Something significant is about to be decided and the context is not yet good enough to decide it well.',
-    leave: 'Direction, context, and decision confidence',
+    body: 'Decide well before you commit.',
     href: '/what-we-do/advisory',
-    linkLabel: 'Explore advisory',
   },
   {
     kicker: 'When something must be built',
     title: 'You need to execute',
-    body: 'Something important has to work in production, for real users, inside real constraints.',
-    leave: 'Working technology, better execution, and stronger capability',
+    body: 'Make it work in production, not just a demo.',
     href: '/what-we-do/engineering',
-    linkLabel: 'Explore engineering',
   },
   {
     kicker: 'When starting from zero is unnecessary',
     title: 'You need proven solutions',
-    body: 'Part of what you are about to build has been built before, and rebuilding it is the expensive choice.',
-    leave: 'Faster time to value and lower delivery risk',
+    body: 'Reuse what already works.',
     href: '/what-we-do/ai-products',
-    linkLabel: 'Explore AI-driven products',
   },
 ]
 
-const STANDARDS = [
+const BENEFITS = [
   {
-    title: 'The work has to change something.',
-    body: 'Advice that ends at a document, or technology delivered without an outcome, is not enough.',
+    title: 'Cost is predictable.',
+    body: 'We can commit to a price because we are not guessing at how many hours a team will need.',
   },
   {
-    title: 'Context comes first.',
-    body: 'We understand the situation before we recommend or build anything.',
+    title: 'Quality is more consistent.',
+    body: 'Test coverage and documentation happen continuously rather than depending on whether the schedule held.',
   },
   {
-    title: 'You should be stronger afterward.',
-    body: 'Every engagement should leave your organization more capable than it was, not more dependent on us.',
+    title: 'Context is not lost.',
+    body: 'Decisions and rationale are captured as the work happens, so the reasoning survives past the engagement.',
+  },
+  {
+    title: 'Smaller teams, less overhead.',
+    body: 'Fewer people means fewer handoffs, fewer status meetings, and less of your time spent managing us.',
   },
 ]
 
@@ -50,40 +48,24 @@ export default function WhatWeDo() {
         <div className="wrap">
           <p className="eyebrow mb-14">What we do</p>
           <h1 className="h1">Start with what you need right now.</h1>
-          <p className="sub">
-            Organizations come to us at three different moments. The right engagement follows from
-            which one you are in.
+          <p className="sub mb-28">
+            We meet you at three moments. The right engagement follows from which one you are in.
           </p>
-        </div>
-      </section>
-
-      <section className="sec sec--band">
-        <div className="wrap">
-          <h2 className="h2">Three ways organizations work with us.</h2>
-          <div className="grid g3 mb-28">
-            {OFFERINGS.map((o) => (
-              <article className="card" key={o.title}>
-                <p className="kicker">{o.kicker}</p>
-                <h3 className="card-title">{o.title}</h3>
-                <p className="body">{o.body}</p>
-                <div className="card__leave">
-                  <span className="kicker">You leave with:</span>
-                  <span className="card__leave-val">{o.leave}</span>
-                </div>
-                <TLink to={o.href}>{o.linkLabel}</TLink>
-              </article>
+          <Link className="btn" to="/contact">
+            Start a conversation
+          </Link>
+          <Link className="btn" to="/how-we-work">
+            See how we work
+          </Link>
+          <div className="grid g3 mt-28">
+            {PATHS.map((p) => (
+              <Link className="card" key={p.title} to={p.href}>
+                <p className="kicker">{p.kicker}</p>
+                <h2 className="card-title">{p.title}</h2>
+                <p className="body">{p.body}</p>
+              </Link>
             ))}
           </div>
-          <p className="body">
-            It is common to need clarity and execution at the same time, or to be partway into a
-            build and unsure whether the path still holds.
-          </p>
-          <p className="body mb-28">
-            That is normal and it does not need to be resolved before talking to us. Describe the
-            situation and we will tell you which of these it actually is, which is not always the
-            one it feels like.
-          </p>
-          <p className="quote">The offering is a starting point, not a boundary.</p>
         </div>
       </section>
 
@@ -102,17 +84,17 @@ export default function WhatWeDo() {
 
       <section className="sec sec--band">
         <div className="wrap">
-          <h2 className="h2">The same standard applies whichever one you start with.</h2>
-          <div className="grid g3">
-            {STANDARDS.map((s) => (
-              <div className="card" key={s.title}>
-                <h3 className="card-title">{s.title}</h3>
-                <p className="body">{s.body}</p>
+          <h2 className="h2">Speed, consistency, and a commercial model that matches.</h2>
+          <div className="grid g3 mb-28">
+            {BENEFITS.map((b) => (
+              <div className="card" key={b.title}>
+                <h3 className="card-title">{b.title}</h3>
+                <p className="body">{b.body}</p>
               </div>
             ))}
           </div>
-          <p className="mt-28">
-            <TLink to="/how-we-work">See how we work</TLink>
+          <p className="quote">
+            Execution without the overhead is not a slogan. It is what this model produces.
           </p>
         </div>
       </section>

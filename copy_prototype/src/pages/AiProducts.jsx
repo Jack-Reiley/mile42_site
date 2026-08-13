@@ -4,15 +4,15 @@ import TLink from '../components/TLink.jsx'
 const FORMS = [
   {
     title: 'Delivery accelerators',
-    body: 'Reusable methods, agents, workflows, components, and patterns built from prior client work. These are not sold separately. They lower the risk and the cost of the engagement they are used in.',
+    body: 'Reusable methods, agents, workflows, and patterns built from prior client work. Not sold separately: they lower the risk and the cost of the engagement they are used in.',
   },
   {
     title: 'Client-owned products',
-    body: 'Sometimes the right answer is a product built for one organization and owned outright by that organization. You own the code, the IP, and the roadmap. We build it and hand it over.',
+    body: 'Sometimes the right answer is a product built for one organization and owned outright by it. You own the code, the IP, and the roadmap. We build it and hand it over.',
   },
   {
     title: 'Market-facing products',
-    body: 'Occasionally a pattern proves general enough to become a product in its own right. That is rare and we treat it as rare.',
+    body: 'Occasionally a pattern proves general enough to become a product in its own right. That is rare, and we treat it as rare.',
   },
 ]
 
@@ -36,49 +36,64 @@ export default function AiProducts() {
     <>
       <section className="sec sec--hero">
         <div className="wrap">
-          <p className="eyebrow mb-14">AI-driven Products</p>
-          <h1 className="h1">You need proven solutions.</h1>
-          <p className="sub mb-28">
-            Some of what you are about to build has been built before. Starting from zero is a
-            choice, and it is usually the expensive one.
+          <p className="kicker">
+            <Link to="/what-we-do">What we do</Link>
+            <span aria-hidden="true">/</span>
+            <span>AI-driven Products</span>
           </p>
-          <Link className="btn" to="/contact">
-            Ask what already exists
-          </Link>
+          <h1 className="h1">You need proven solutions.</h1>
         </div>
       </section>
 
       <section className="sec">
         <div className="wrap">
           <h2 className="h2">A firm that has done the work should not arrive empty-handed.</h2>
-          <p className="body">
-            Every engagement produces something reusable. A method that worked. An integration
-            pattern that held up. A set of agents that turned out to be right for a class of problem
-            rather than one client.
+          <p className="sub mb-28">
+            Some of what you are about to build has been built before. Starting from zero is a
+            choice, and it is usually the expensive one.
           </p>
-          <p className="body">
-            Most consulting firms let that evaporate at the end of the engagement, then bill the
-            next client to rebuild it. We capture it instead, and the next client gets there faster.
-          </p>
-          <p className="body mb-28">
-            That is what we mean by AI-driven products. Not a catalog you buy from. A body of proven
-            work that reduces what your engagement has to invent.
-          </p>
-          <p className="quote">Use what already works when starting from zero is unnecessary.</p>
+          <p className="eyebrow mb-14">What we offer</p>
+          <h3 className="card-title">Three forms, depending on what the work needs.</h3>
+          <div className="grid g3">
+            {FORMS.map((f) => (
+              <div className="card" key={f.title}>
+                <h4 className="card-title">{f.title}</h4>
+                <p className="body">{f.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap">
+          <div className="card">
+            <p className="eyebrow mb-14">Proof</p>
+            <h2 className="h2">The clearest proof is what we have built ourselves.</h2>
+            <p className="body">
+              Our AI development pipeline is the multi-agent delivery system that lets a small team
+              take on work at this scale, used on engagements rather than sold as software. Blink
+              Social, our content strategy and planning tool, is built by this team and running in
+              production. It is the clearest evidence that we ship products, not just advise on
+              them.
+            </p>
+            <TLink to="/proof">See what we have shipped</TLink>
+          </div>
         </div>
       </section>
 
       <section className="sec sec--band">
         <div className="wrap">
-          <h2 className="h2">Three forms, depending on what the work needs.</h2>
-          <div className="grid g3">
-            {FORMS.map((f) => (
-              <div className="card" key={f.title}>
-                <h3 className="card-title">{f.title}</h3>
-                <p className="body">{f.body}</p>
+          <p className="eyebrow mb-14">What you leave with</p>
+          <h3 className="card-title">Faster time to value and lower delivery risk.</h3>
+          <dl className="grid">
+            {BENEFITS.map((b) => (
+              <div key={b.title}>
+                <dt className="card-title">{b.title}</dt>
+                <dd className="body">{b.body}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
       </section>
 
@@ -93,63 +108,19 @@ export default function AiProducts() {
           <p className="body mb-28">
             So the accelerators are not a marketing asset. They are the reason our commercial model
             works, and the reason it keeps improving. Each engagement should leave you with a better
-            outcome and leave us with sharper methods for the next one.
+            outcome, and leave us with sharper methods for the next one.
           </p>
-          <p className="quote mb-18">The work should not disappear when the engagement ends.</p>
           <TLink to="/how-we-work/engagement-model">See the engagement model</TLink>
-        </div>
-      </section>
-
-      <section className="sec sec--band">
-        <div className="wrap">
-          <h2 className="h2">The clearest proof is what we have built and run ourselves.</h2>
-          <div className="grid g2">
-            <div className="card">
-              <h3 className="card-title">AI development pipeline</h3>
-              <p className="body">
-                Our multi-agent delivery system. It is how the seven delivery roles actually run,
-                and it is the most direct reason a small team can take on work at this scale. Used
-                on engagements, not sold as software.
-              </p>
-            </div>
-            <div className="card">
-              <h3 className="card-title">Blink Social</h3>
-              <p className="body">
-                A content strategy and planning tool. It handles the part of content operations that
-                usually happens in spreadsheets and inboxes: deciding what to produce, why it
-                matters, who it is for, and when it ships. Planning carries through to generation,
-                review, and publishing, so the strategy and the execution stay connected instead of
-                drifting apart.
-              </p>
-              <p className="body">
-                Built by this team and running in production. It is the clearest evidence that we
-                ship products rather than only advise on them.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="sec">
-        <div className="wrap">
-          <h2 className="h2">Faster time to value and lower delivery risk.</h2>
-          <div className="grid g3">
-            {BENEFITS.map((b) => (
-              <div className="card" key={b.title}>
-                <h3 className="card-title">{b.title}</h3>
-                <p className="body">{b.body}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
       <section className="sec sec--cta">
         <div className="wrap">
+          <p className="eyebrow mb-14">AI-driven Products</p>
           <h2 className="h2">Ask what already exists.</h2>
           <p className="sub mb-28">
             Describe what you are planning to build. We will tell you honestly which parts we have
-            solved before and which parts are genuinely new.
+            solved before, and which are genuinely new.
           </p>
           <Link className="btn" to="/contact">
             Start a conversation

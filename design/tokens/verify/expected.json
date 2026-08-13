@@ -53,7 +53,8 @@
     "--spacing-card": "40px",
     "--spacing-btn-x": "24px",
     "--spacing-btn-gap": "21px",
-    "--container-site": "1240px"
+    "--container-site": "1240px",
+    "--container-detail": "1120px"
   },
   "shape": {
     "--radius-pill": "9999px",
