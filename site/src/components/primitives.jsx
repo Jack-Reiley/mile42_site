@@ -50,10 +50,28 @@ const SECTION_PAD = {
   cta: 'py-[52px] lg:py-23',
 }
 
-export function Section({ band = 'page', pad = 'default', className = '', children, ...rest }) {
+/**
+ * `flush` drops the horizontal inset so a band can carry full-bleed panels that
+ * run to the viewport edge. It is a prop for the same reason `pad` is: a padding
+ * utility passed through `className` would resolve by stylesheet order rather
+ * than by being written last.
+ */
+const SECTION_INSET = {
+  default: 'px-6 md:px-12',
+  flush: '',
+}
+
+export function Section({
+  band = 'page',
+  pad = 'default',
+  inset = 'default',
+  className = '',
+  children,
+  ...rest
+}) {
   return (
     <section
-      className={`${BAND[band]} px-6 ${SECTION_PAD[pad]} md:px-12 ${className}`}
+      className={`${BAND[band]} ${SECTION_INSET[inset]} ${SECTION_PAD[pad]} ${className}`}
       {...rest}
     >
       {children}
