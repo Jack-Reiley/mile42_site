@@ -68,6 +68,22 @@
       }
     ]
   },
+  "gears": {
+    "width": 1359,
+    "height": 1510,
+    "variants": [
+      {
+        "width": 384,
+        "height": 427,
+        "bytes": 48962
+      },
+      {
+        "width": 768,
+        "height": 853,
+        "bytes": 116112
+      }
+    ]
+  },
   "path-lightbulb": {
     "width": 1019,
     "height": 1222,

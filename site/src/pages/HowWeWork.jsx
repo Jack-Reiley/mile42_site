@@ -1,4 +1,4 @@
-import { Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote, Button, TextLink, Card } from '../components/primitives.jsx'
+import { Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote, Button, TextLink, Card, Spot } from '../components/primitives.jsx'
 
 const TOPICS = [
   { kicker: 'What happens, and in what order?', title: 'Client journey', body: 'Four stages, and the stronger position each one leaves you in. Understand, design, build, evolve.', get: 'A view of where you would enter and what changes at each stage', href: '/how-we-work/client-journey', linkLabel: 'See the client journey' },
@@ -14,10 +14,22 @@ export default function HowWeWork() {
           its own place rather than as the homepage. It is a light band, so the
           heading is ink — see the `gold` note in primitives.jsx. */}
       <Section band="gold">
-        <Wrap>
-          <Eyebrow tone="ink" className="mb-4">How we work</Eyebrow>
-          <H1 className="mb-6">Execution is the product, so how we work is the product.</H1>
-          <Lead>Most firms describe what they sell. Fewer are willing to show how the work actually runs, because that is where the difference between firms is real.</Lead>
+        {/* The text keeps the wider column. The gears are a mid-size spot, not a
+            hero scene, so an even split would oversize them. */}
+        <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.6fr)]">
+          <div>
+            <Eyebrow tone="ink" className="mb-4">How we work</Eyebrow>
+            <H1 className="mb-6">Execution is the product, so how we work is the product.</H1>
+            <Lead>Most firms describe what they sell. Fewer are willing to show how the work actually runs, because that is where the difference between firms is real.</Lead>
+          </div>
+          {/* Stacked under the copy below `lg`, so it is capped far smaller
+              there — at the desktop cap it would fill a phone's width. */}
+          <Spot
+            name="gears"
+            priority
+            sizes="(min-width: 1024px) 22rem, 14rem"
+            className="h-auto w-full max-w-[14rem] justify-self-center lg:max-w-[22rem] lg:justify-self-end"
+          />
         </Wrap>
       </Section>
 
