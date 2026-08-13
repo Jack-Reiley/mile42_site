@@ -109,12 +109,14 @@ export function Eyebrow({ as: Tag = 'p', tone = 'accent', className = '', childr
   )
 }
 
-export function H1({ tone = 'ink', className = '', children }) {
+/** `as` carries the top of the type scale onto a lower heading level, for a
+ *  statement that has to dominate a band it does not own the h1 of. */
+export function H1({ as: Tag = 'h1', tone = 'ink', className = '', children }) {
   const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
   return (
-    <h1 className={`font-heading text-heading-2 lg:text-heading-1 ${color} ${className}`}>
+    <Tag className={`font-heading text-heading-2 lg:text-heading-1 ${color} ${className}`}>
       {children}
-    </h1>
+    </Tag>
   )
 }
 

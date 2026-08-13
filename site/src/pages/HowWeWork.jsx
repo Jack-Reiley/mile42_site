@@ -60,48 +60,43 @@ export default function HowWeWork() {
         </Wrap>
       </Section>
 
-      {/* Full-bleed alternating panels rather than a three-up card grid. The
-          grid read as the homepage's "three ways" band, which is the one thing
-          this section must not do. */}
+      {/* Four tiled blocks: the argument at full height on the left, the three
+          topics that evidence it stacked on the right. The argument used to sit
+          in its own band below the topics, where it read as an aside rather
+          than as the thing the topics are answering. */}
       <Section band="page" inset="flush" pad="tight">
-        {/* Padded to the panels' own inset rather than wrapped to the site
-            measure, so the heading starts on the same line as the panel copy. */}
-        <div className="px-6 pb-10 md:px-12 lg:px-16">
-          <H2>Three things worth understanding before you engage us.</H2>
-        </div>
-        {TOPICS.map((t, i) => (
-          <article key={t.title} className="grid lg:grid-cols-2">
-            {/* The colour side alternates left and right down the three rows.
-                `order` moves it visually without reordering the DOM, so the
-                heading still precedes its own body for keyboard and screen
-                reader users. */}
-            <div
-              className={`${t.panel} flex flex-col justify-center px-6 py-12 md:px-12 lg:px-16 lg:py-20 ${
-                i % 2 ? 'lg:order-2' : ''
-              }`}
-            >
-              <p className="mb-5 flex items-center gap-4">
-                <span aria-hidden="true" className={`h-1 w-12 rounded-[2px] ${t.mark}`} />
-                <span className="font-heading text-heading-2 text-ink">{t.num}</span>
-              </p>
-              <Eyebrow tone="ink" className="mb-3">{t.kicker}</Eyebrow>
-              <H2 as="h3">{t.title}</H2>
-            </div>
-            <div className="flex flex-col justify-center bg-page px-6 py-12 md:px-12 lg:px-16 lg:py-20">
-              <Body className="mb-7">{t.body}</Body>
-              <p><TextLink to={t.href}>{t.linkLabel}</TextLink></p>
-            </div>
-          </article>
-        ))}
-      </Section>
+        <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+          <div className="flex flex-col justify-center bg-surface px-6 py-14 md:px-12 lg:px-16 lg:py-20">
+            {/* Top of the type scale on an h2. This block is the section's
+                argument and shares its height with three stacked topics, so at
+                heading-2 it read as a caption floating in an empty panel. */}
+            <H1 as="h2" className="mb-7">Any firm can claim it executes well.</H1>
+            <Lead className="mb-4">The claim is free. What is not free is describing the operating model in enough detail that a client can check it, and then being held to that description on a real engagement.</Lead>
+            <Body className="mb-7">So these pages are more specific than they need to be for marketing. That is deliberate. If our delivery model does not survive being written down, it is not a delivery model, it is a story.</Body>
+            {/* The comp's rule above the pull quote, setting it apart from the
+                paragraphs it concludes. */}
+            <hr className="mb-7 border-0 border-t border-ink" />
+            <Quote>Read them, then test them against something real.</Quote>
+          </div>
 
-      <Section>
-        <Wrap>
-          <H2 className="mb-6">Any firm can claim it executes well.</H2>
-          <Body className="mb-4">The claim is free. What is not free is describing the operating model in enough detail that a client can check it, and then being held to that description on a real engagement.</Body>
-          <Body className="mb-8">So these pages are more specific than they need to be for marketing. That is deliberate. If our delivery model does not survive being written down, it is not a delivery model, it is a story.</Body>
-          <Quote>Read them, then test them against something real.</Quote>
-        </Wrap>
+          <div className="grid">
+            {TOPICS.map((t) => (
+              <article
+                key={t.title}
+                className={`${t.panel} flex flex-col justify-center px-6 py-10 md:px-12 lg:px-14`}
+              >
+                <p className="mb-3 flex items-center gap-4">
+                  <span aria-hidden="true" className={`h-1 w-10 rounded-[2px] ${t.mark}`} />
+                  <span className="font-heading text-heading-3 text-ink">{t.num}</span>
+                </p>
+                <Eyebrow tone="ink" className="mb-2">{t.kicker}</Eyebrow>
+                <H2 as="h3" className="mb-3">{t.title}</H2>
+                <Body className="mb-4">{t.body}</Body>
+                <p><TextLink to={t.href}>{t.linkLabel}</TextLink></p>
+              </article>
+            ))}
+          </div>
+        </div>
       </Section>
 
       <Section band="brand">
