@@ -124,8 +124,8 @@ export default function StageJourney({ Spot }) {
       className="relative isolate rounded-card border border-ink bg-page shadow-hard py-10"
       style={{ paddingLeft: PAD, paddingRight: PAD }}
     >
-      <div className="relative grid grid-cols-4">
-        <span aria-hidden="true" className="absolute inset-x-0 top-[61px] h-px bg-ink" />
+      <div className="relative grid grid-cols-1 -mx-[clamp(18px,2.4vw,44px)] min-[700px]:mx-0 min-[700px]:grid-cols-4">
+        <span aria-hidden="true" className="hidden min-[700px]:block absolute inset-x-0 top-[61px] h-px bg-ink" />
 
         {STAGES.map((s, i) => {
           const on = open === i
@@ -140,36 +140,42 @@ export default function StageJourney({ Spot }) {
                  stretched by the grid centres its own content vertically in every
                  browser, which drops the shorter columns below the journey line and
                  leaves only the tallest one on it. Column layout pins them to the top. */
-              className={`relative flex flex-col pb-[34px] text-left ${i ? 'border-l border-ink' : ''}`}
-              style={{ paddingLeft: 'clamp(10px,1.4vw,20px)', paddingRight: 'clamp(10px,1.4vw,20px)' }}
+              className={`relative flex flex-col order-[var(--stage-order)] px-[clamp(18px,2.4vw,44px)] py-[22px] text-left min-[700px]:order-0 min-[700px]:px-[clamp(10px,1.4vw,20px)] min-[700px]:pt-0 min-[700px]:pb-[34px] ${
+                i ? 'border-t border-ink min-[700px]:border-t-0 min-[700px]:border-l' : ''
+              }`}
+              style={{ '--stage-order': String(i * 2) }}
             >
               {/* The connector: the open column's field runs from the journey line
                   down to the rule above the detail, so the two are one surface. */}
               <span
                 aria-hidden="true"
-                className={`absolute inset-x-0 bottom-0 top-[61px] -z-10 origin-top transition-transform motion-reduce:transition-none ${
+                className={`absolute inset-0 -z-10 origin-top transition-transform motion-reduce:transition-none min-[700px]:top-[61px] ${
                   on ? `scale-y-100 ${s.fill}` : 'scale-y-0'
                 }`}
                 style={{ transitionDuration: '380ms', transitionTimingFunction: EASE }}
               />
 
-              <h3
-                className="font-heading font-bold leading-8 text-ink mb-[14px]"
-                style={{ fontSize: 'clamp(19px,1.9vw,26px)' }}
-              >
-                {s.title}
-              </h3>
+              {/* Stacked, title and node sit on one line. On the row they stack, and
+                  `block` restores exactly the flow the 61px line constant assumes. */}
+              <div className="flex items-center gap-3 min-[700px]:block">
+                <h3
+                  className="font-heading font-bold leading-8 text-ink min-[700px]:mb-[14px]"
+                  style={{ fontSize: 'clamp(19px,1.9vw,26px)' }}
+                >
+                  {s.title}
+                </h3>
 
-              {/* The CheckList badge from Lists.jsx, carrying the stage numeral.
-                  Selected presses down and shrinks the shadow — the style guide's press state. */}
-              <span
-                className={`grid h-[30px] w-[30px] place-items-center rounded-pill border border-ink font-eyebrow text-eyebrow text-ink transition-all motion-reduce:transition-none ${
-                  on ? `${s.fill} translate-y-[2px] shadow-[0_1px_0_var(--color-ink)]` : 'bg-page shadow-hard'
-                }`}
-                style={{ transitionDuration: '180ms', transitionTimingFunction: EASE }}
-              >
-                {s.n}
-              </span>
+                {/* The CheckList badge from Lists.jsx, carrying the stage numeral.
+                    Selected presses down and shrinks the shadow — the style guide's press state. */}
+                <span
+                  className={`grid h-[30px] w-[30px] flex-none place-items-center rounded-pill border border-ink font-eyebrow text-eyebrow text-ink transition-all motion-reduce:transition-none ${
+                    on ? `${s.fill} translate-y-[2px] shadow-[0_1px_0_var(--color-ink)]` : 'bg-page shadow-hard'
+                  }`}
+                  style={{ transitionDuration: '180ms', transitionTimingFunction: EASE }}
+                >
+                  {s.n}
+                </span>
+              </div>
 
               <p className="mt-[18px] text-body text-ink">{s.intro}</p>
               <Eyebrow as="span" tone="ink" className="mt-[14px] block">
@@ -178,19 +184,21 @@ export default function StageJourney({ Spot }) {
             </button>
           )
         })}
-      </div>
 
-      {stage === null ? (
-        <p
-          className="border-t border-ink pt-[22px] text-body text-ink"
-          style={{ marginLeft: `calc(-1 * ${PAD})`, marginRight: `calc(-1 * ${PAD})`, paddingLeft: PAD, paddingRight: PAD }}
-        >
-          Select a stage to open it.
-        </p>
-      ) : (
-        /* Keyed by stage so switching stages remounts the detail and replays its
-           entrance rather than swapping copy under a finished animation. */
-        <div key={stage.n} id={DETAIL_ID}>
+        {stage === null ? null : (
+          /* Keyed by stage so switching stages remounts the detail and replays its
+             entrance rather than swapping copy under a finished animation.
+
+             The detail is a grid item so that `order` can place it directly beneath
+             the stage that was tapped once the row is stacked. On the row that
+             ordering is meaningless — four columns are one glance — so it reverts to
+             the last item and spans the full width. */
+          <div
+            key={stage.n}
+            id={DETAIL_ID}
+            className="order-[var(--stage-order)] px-[clamp(18px,2.4vw,44px)] min-[700px]:order-last min-[700px]:col-span-4 min-[700px]:px-0"
+            style={{ '--stage-order': String(open * 2 + 1) }}
+          >
           {/* The rule bleeds past the card padding: it is the card's own division
               between the stage row and the open detail. */}
           <span
@@ -245,8 +253,18 @@ export default function StageJourney({ Spot }) {
               {stage.quote}
             </p>
           ) : null}
-        </div>
-      )}
+          </div>
+        )}
+      </div>
+
+      {stage === null ? (
+        <p
+          className="border-t border-ink pt-[22px] text-body text-ink"
+          style={{ marginLeft: `calc(-1 * ${PAD})`, marginRight: `calc(-1 * ${PAD})`, paddingLeft: PAD, paddingRight: PAD }}
+        >
+          Select a stage to open it.
+        </p>
+      ) : null}
     </div>
   )
 }
