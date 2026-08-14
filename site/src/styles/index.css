@@ -9,6 +9,25 @@
 @import "@fontsource-variable/figtree/index.css";
 @import "@fontsource/ibm-plex-sans-condensed/600.css";
 
+/* The one easing curve the interactive work uses. Not in theme.css because the
+   design system specifies no motion; EXTRAPOLATED from the client journey
+   handoff, which states it for every transition on the stage selector. */
+@theme {
+  --ease-m42: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* A rule drawing itself in from the left. */
+@keyframes m42-draw-x {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* List items rising into place, staggered by the call site's animation-delay. */
+@keyframes m42-item {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
 @layer base {
   body {
     background: var(--color-page);

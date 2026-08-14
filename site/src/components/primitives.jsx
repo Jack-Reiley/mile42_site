@@ -96,6 +96,31 @@ export function Wrap({ measure = 'site', className = '', children }) {
   return <div className={`mx-auto w-full ${MEASURE[measure]} ${className}`}>{children}</div>
 }
 
+/**
+ * An even film of grain over a colour field.
+ *
+ * The tile is 256px per-pixel noise, so it repeats with no visible seam at any
+ * band size. The design system's `grain-texture.jpg` is not a seamless tile and
+ * shows patch seams when repeated; scaling one raster to `cover` instead pools
+ * the texture in one area, which is what this replaces.
+ *
+ * The band must be `relative`. Content above it needs no z-index as long as it
+ * follows this element in the markup, so the overlay is written first.
+ */
+export function Grain({ opacity = 0.5, className = '' }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-0 mix-blend-multiply ${className}`}
+      style={{
+        background: "url('/grain-fine.png') repeat",
+        backgroundSize: '256px 256px',
+        opacity,
+      }}
+    />
+  )
+}
+
 /** `sky` and `ice` are the on-dark tones: sky on navy, ice on the blue band. */
 const EYEBROW_TONE = {
   accent: 'text-accent',
