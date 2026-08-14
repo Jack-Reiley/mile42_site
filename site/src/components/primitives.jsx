@@ -26,6 +26,12 @@ const BAND = {
   blue: 'bg-[color-mix(in_srgb,var(--color-accent)_92%,black)]',
   // The detail comps' `#e6f1fe`, which is the accent at 10% over white.
   tint: 'bg-[color-mix(in_srgb,var(--color-accent)_10%,white)]',
+  // A light band, unlike every other coloured band here. Nothing off-white
+  // survives on it — the hero heading colour reaches 1.7:1 — so headings on a
+  // `gold` band take the default ink tone, which reaches 8.9:1. The deeper gold
+  // is used rather than `--color-cta` so the yellow CTA button still separates
+  // from the band it sits on.
+  gold: 'bg-gold',
 }
 
 /**
@@ -36,6 +42,9 @@ const BAND = {
  */
 const SECTION_PAD = {
   default: 'py-16 lg:py-24',
+  // For a band whose own panels carry the padding. Anything here would show as
+  // a strip of the section's fill between it and the bands it sits against.
+  none: '',
   tight: 'py-10 lg:py-15',
   // The detail comps run a shorter rhythm than the homepage language: a compact
   // navy page header, tighter bands, and a full-height CTA.
@@ -44,10 +53,28 @@ const SECTION_PAD = {
   cta: 'py-[52px] lg:py-23',
 }
 
-export function Section({ band = 'page', pad = 'default', className = '', children, ...rest }) {
+/**
+ * `flush` drops the horizontal inset so a band can carry full-bleed panels that
+ * run to the viewport edge. It is a prop for the same reason `pad` is: a padding
+ * utility passed through `className` would resolve by stylesheet order rather
+ * than by being written last.
+ */
+const SECTION_INSET = {
+  default: 'px-6 md:px-12',
+  flush: '',
+}
+
+export function Section({
+  band = 'page',
+  pad = 'default',
+  inset = 'default',
+  className = '',
+  children,
+  ...rest
+}) {
   return (
     <section
-      className={`${BAND[band]} px-6 ${SECTION_PAD[pad]} md:px-12 ${className}`}
+      className={`${BAND[band]} ${SECTION_INSET[inset]} ${SECTION_PAD[pad]} ${className}`}
       {...rest}
     >
       {children}
@@ -69,6 +96,31 @@ export function Wrap({ measure = 'site', className = '', children }) {
   return <div className={`mx-auto w-full ${MEASURE[measure]} ${className}`}>{children}</div>
 }
 
+/**
+ * An even film of grain over a colour field.
+ *
+ * The tile is 256px per-pixel noise, so it repeats with no visible seam at any
+ * band size. The design system's `grain-texture.jpg` is not a seamless tile and
+ * shows patch seams when repeated; scaling one raster to `cover` instead pools
+ * the texture in one area, which is what this replaces.
+ *
+ * The band must be `relative`. Content above it needs no z-index as long as it
+ * follows this element in the markup, so the overlay is written first.
+ */
+export function Grain({ opacity = 0.5, className = '' }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-0 mix-blend-multiply ${className}`}
+      style={{
+        background: "url('/grain-fine.png') repeat",
+        backgroundSize: '256px 256px',
+        opacity,
+      }}
+    />
+  )
+}
+
 /** `sky` and `ice` are the on-dark tones: sky on navy, ice on the blue band. */
 const EYEBROW_TONE = {
   accent: 'text-accent',
@@ -85,12 +137,14 @@ export function Eyebrow({ as: Tag = 'p', tone = 'accent', className = '', childr
   )
 }
 
-export function H1({ tone = 'ink', className = '', children }) {
+/** `as` carries the top of the type scale onto a lower heading level, for a
+ *  statement that has to dominate a band it does not own the h1 of. */
+export function H1({ as: Tag = 'h1', tone = 'ink', className = '', children }) {
   const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
   return (
-    <h1 className={`font-heading text-heading-2 lg:text-heading-1 ${color} ${className}`}>
+    <Tag className={`font-heading text-heading-2 lg:text-heading-1 ${color} ${className}`}>
       {children}
-    </h1>
+    </Tag>
   )
 }
 

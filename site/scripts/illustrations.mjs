@@ -64,6 +64,8 @@ const MAP = {
   'robo_handshake_with_color.png': { key: 'handshake', widths: [256, 512] },
   'laptop_with_color.png': { key: 'laptop', widths: [256, 512] },
   'lightbulb_with_color.png': { key: 'lightbulb', widths: [256, 512] },
+  // The How we work hero renders it near 352px, so 384/768 covers 1x and 2x.
+  'gears_with_color.png': { key: 'gears', widths: [384, 768] },
   'lightbulb_mono.png': { key: 'path-lightbulb', widths: [96, 192], tint: '--color-orange' },
   'gears_mono.png': { key: 'path-gears', widths: [96, 104, 192, 208], tint: '--color-brand' },
   // 96/192 for the 48px path card, 104/208 for the 52px feature panel.

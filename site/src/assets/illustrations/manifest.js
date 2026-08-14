@@ -53,6 +53,11 @@ const META = {
     alt: 'A lit lightbulb',
     placeholder: false,
   },
+  gears: {
+    level: 2,
+    alt: 'Two interlocking gears',
+    placeholder: false,
+  },
   'path-lightbulb': {
     level: 3,
     alt: 'A lit lightbulb',
