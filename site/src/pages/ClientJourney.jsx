@@ -1,8 +1,17 @@
-import { Section, Wrap, Grain, H2, Lead, Body, Quote, Button, Breadcrumb, Spot } from '../components/primitives.jsx'
+import { Section, Wrap, Grain, H2, Lead, Body, Quote, Button, Breadcrumb, TextLink, Spot } from '../components/primitives.jsx'
 import { TermList } from '../components/Lists.jsx'
 import StageJourney from '../components/StageJourney.jsx'
 
-const ENTRY = [['Understand or Design', 'Advisory'], ['Design or Build', 'Engineering'], ['Build, with parts already solved', 'AI-driven products and accelerators']]
+/* Each entry point names the What we do page that covers it, so the definition
+   is the link rather than a label repeated beside one. */
+const ENTRY = [
+  ['Understand or Design', <TextLink to="/what-we-do/advisory">Advisory</TextLink>],
+  ['Design or Build', <TextLink to="/what-we-do/engineering">Engineering</TextLink>],
+  [
+    'Build, with parts already solved',
+    <TextLink to="/what-we-do/ai-products">AI-driven products and accelerators</TextLink>,
+  ],
+]
 
 /* EXTRAPOLATED — no comp for this page. */
 export default function ClientJourney() {
