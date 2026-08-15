@@ -1,4 +1,4 @@
-import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Quote, Button, TextLink, Spot } from '../components/primitives.jsx'
+import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Quote, Button, TextLink, Spot, PANEL_FILL } from '../components/primitives.jsx'
 
 const TOPICS = [
   {
@@ -8,7 +8,7 @@ const TOPICS = [
     body: 'Four stages, and the stronger position each one leaves you in. Understand, design, build, evolve. You get a view of where you would enter and what changes at each stage.',
     href: '/how-we-work/client-journey',
     linkLabel: 'See the client journey',
-    panel: 'bg-[color-mix(in_srgb,var(--color-accent)_16%,var(--color-surface))]',
+    panel: PANEL_FILL.accent,
     mark: 'bg-accent',
   },
   {
@@ -18,7 +18,7 @@ const TOPICS = [
     body: 'An AI-assisted operating system with agents across every major role, and humans accountable for judgment and outcomes. You get the specifics of who does what, including what stays human.',
     href: '/how-we-work/delivery-model',
     linkLabel: 'See the delivery model',
-    panel: 'bg-[color-mix(in_srgb,var(--color-forest)_18%,var(--color-surface))]',
+    panel: PANEL_FILL.forest,
     mark: 'bg-forest',
   },
   {
@@ -28,7 +28,7 @@ const TOPICS = [
     body: 'How we think about pricing, and why we would rather sell an outcome than a timesheet. You get our posture, before the conversation about specifics.',
     href: '/how-we-work/engagement-model',
     linkLabel: 'See the engagement model',
-    panel: 'bg-[color-mix(in_srgb,var(--color-orange)_16%,var(--color-surface))]',
+    panel: PANEL_FILL.orange,
     mark: 'bg-orange',
   },
 ]

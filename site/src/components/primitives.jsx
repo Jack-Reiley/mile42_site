@@ -12,6 +12,18 @@ import { illustrations } from '../assets/illustrations/manifest.js'
  */
 
 /**
+ * The How We Work topic panel fills: the topic's mark colour laid over the
+ * surface band. Exported because a topic's own child page can carry its panel
+ * fill as the page header, and the two blocks of colour have to be the same
+ * one rather than two literals that drift apart.
+ */
+export const PANEL_FILL = {
+  accent: 'bg-[color-mix(in_srgb,var(--color-accent)_16%,var(--color-surface))]',
+  forest: 'bg-[color-mix(in_srgb,var(--color-forest)_18%,var(--color-surface))]',
+  orange: 'bg-[color-mix(in_srgb,var(--color-orange)_16%,var(--color-surface))]',
+}
+
+/**
  * `blue` is the accent darkened 8%. No palette colour reaches AA on
  * `--color-accent` — white peaks at 4.41 — so the band, not the text, is what
  * moves. At 92% the ice eyebrow reaches 4.55 and the on-dark body 4.92. It is
@@ -32,6 +44,10 @@ const BAND = {
   // is used rather than `--color-cta` so the yellow CTA button still separates
   // from the band it sits on.
   gold: 'bg-gold',
+  // The client journey panel on How We Work, carried onto that topic's own page
+  // as its header so the child page reads as the same block of colour. Light,
+  // like `gold`, so nothing on it takes the off-white hero tone.
+  panel: PANEL_FILL.accent,
 }
 
 /**
@@ -280,14 +296,18 @@ export function PathCard({ to, spot, eyebrow, title, heading = 'h2', className =
  * marked as current rather than linked.
  *
  * `markClass` carries the page accent, which differs per detail page.
+ *
+ * `tone` follows the band: sky on the navy header the comps draw, ink on a
+ * light header, where sky reaches 1.4:1 against the fill.
  */
-export function Breadcrumb({ to, parent, current, markClass }) {
+export function Breadcrumb({ to, parent, current, markClass, tone = 'sky' }) {
+  const color = tone === 'ink' ? 'text-ink' : 'text-sky'
   return (
     <nav aria-label="Breadcrumb" className="mb-[10px] flex items-center gap-[10px]">
       <span aria-hidden="true" className={`h-[5px] w-6 rounded-[3px] ${markClass}`} />
-      <ol className="flex items-center gap-2 text-eyebrow font-eyebrow uppercase text-sky">
+      <ol className={`flex items-center gap-2 text-eyebrow font-eyebrow uppercase ${color}`}>
         <li>
-          <Link to={to} className="text-sky no-underline hover:underline">{parent}</Link>
+          <Link to={to} className={`${color} no-underline hover:underline`}>{parent}</Link>
         </li>
         {/* Decoration. Hidden so it is not announced between the two levels. */}
         <li aria-hidden="true">/</li>

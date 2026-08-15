@@ -1,4 +1,4 @@
-import { Section, Wrap, Grain, Eyebrow, H1, H2, Lead, Body, Quote, Button, Spot } from '../components/primitives.jsx'
+import { Section, Wrap, Grain, H2, Lead, Body, Quote, Button, Breadcrumb, Spot } from '../components/primitives.jsx'
 import { TermList } from '../components/Lists.jsx'
 import StageJourney from '../components/StageJourney.jsx'
 
@@ -8,18 +8,27 @@ const ENTRY = [['Understand or Design', 'Advisory'], ['Design or Build', 'Engine
 export default function ClientJourney() {
   return (
     <>
-      <Section band="brand" className="relative">
-        <Grain />
-        <Wrap className="relative">
-          <Eyebrow tone="ink" className="mb-4">The client journey</Eyebrow>
-          <H1 tone="hero" className="mb-6">Four stages. Four stronger positions to be in.</H1>
-          <Lead>The stage describes what we do together. The outcome describes the state you are left in. Every stage should leave you better off than when it started, whether or not you continue to the next one.</Lead>
+      {/* The compact page header the detail pages draw, in the fill this page's
+          topic panel carries on How We Work. The measure stays the page's own
+          rather than the detail comps' narrower column, so the header aligns
+          with the sections below it. */}
+      <Section band="panel" pad="header">
+        <Wrap>
+          <Breadcrumb
+            to="/how-we-work"
+            parent="How we work"
+            current="Client journey"
+            markClass="bg-accent"
+            tone="ink"
+          />
+          <H2 as="h1">Four stages. Four stronger positions to be in.</H2>
         </Wrap>
       </Section>
 
       <Section band="surface">
         <Wrap>
           <H2 className="mb-3">Understand, design, build, evolve.</H2>
+          <Lead className="mb-4">The stage describes what we do together. The outcome describes the state you are left in. Every stage should leave you better off than when it started, whether or not you continue to the next one.</Lead>
           <Body className="mb-14">Four stages on one line. Select a stage to read what it produces, and what you are left holding when it ends.</Body>
           <StageJourney Spot={Spot} />
           <Quote className="mt-14">The work is complete only when you are stronger for the next decision, build, or initiative.</Quote>
