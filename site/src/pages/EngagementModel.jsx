@@ -1,4 +1,4 @@
-import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Quote, Button, TextLink, ButtonRow } from '../components/primitives.jsx'
+import { Section, Wrap, Eyebrow, H2, Lead, Body, Quote, Button, TextLink, Breadcrumb, ButtonRow } from '../components/primitives.jsx'
 import { TermList } from '../components/Lists.jsx'
 
 const PRICING = [
@@ -11,17 +11,27 @@ const PRICING = [
 export default function EngagementModel() {
   return (
     <>
-      <Section band="brand">
+      {/* The compact page header the detail pages draw, in the fill this page's
+          topic panel carries on How We Work. The measure stays the page's own
+          rather than the detail comps' narrower column, so the header aligns
+          with the sections below it. */}
+      <Section band="panel-orange" pad="header">
         <Wrap>
-          <Eyebrow tone="ink" className="mb-4">How we engage</Eyebrow>
-          <H1 tone="hero" className="mb-6">We price for value, not for effort.</H1>
-          <Lead>The goal is not to sell more hours. Selling hours means our incentive improves when the work takes longer, and we would rather not build a business on that.</Lead>
+          <Breadcrumb
+            to="/how-we-work"
+            parent="How we work"
+            current="Engagement model"
+            markClass="bg-orange"
+            tone="ink"
+          />
+          <H2 as="h1">We price for value, not for effort.</H2>
         </Wrap>
       </Section>
 
       <Section>
         <Wrap>
-          <H2 className="mb-6">Clients want a partner with skin in the game.</H2>
+          <H2 className="mb-3">Clients want a partner with skin in the game.</H2>
+          <Lead className="mb-4">The goal is not to sell more hours. Selling hours means our incentive improves when the work takes longer, and we would rather not build a business on that.</Lead>
           <Body className="mb-4">Large time and materials programs are getting harder to justify, and reasonably so. They place the risk of overrun entirely on the buyer, and they reward the seller for the thing the buyer least wants.</Body>
           <Body className="mb-8">At the same time, buyers expect AI to create real efficiency. If a firm claims AI has transformed its delivery and still bills the same hourly way it did five years ago, one of those two things is not true.</Body>
           <Quote>Our progress is measured by value created, not effort expended.</Quote>

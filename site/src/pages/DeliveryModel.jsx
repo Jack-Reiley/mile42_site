@@ -1,4 +1,4 @@
-import { Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote, Button, TextLink, Card } from '../components/primitives.jsx'
+import { Section, Wrap, Eyebrow, H2, H3, Lead, Body, Quote, Button, TextLink, Breadcrumb, Card } from '../components/primitives.jsx'
 import { NumList, Spine } from '../components/Lists.jsx'
 
 const ROLES = [
@@ -23,17 +23,27 @@ const SPINE = ['Client work', 'What we learn', 'Methods and reusable assets', 'B
 export default function DeliveryModel() {
   return (
     <>
-      <Section band="brand">
+      {/* The compact page header the detail pages draw, in the fill this page's
+          topic panel carries on How We Work. The measure stays the page's own
+          rather than the detail comps' narrower column, so the header aligns
+          with the sections below it. */}
+      <Section band="panel-forest" pad="header">
         <Wrap>
-          <Eyebrow tone="ink" className="mb-4">How we deliver</Eyebrow>
-          <H1 tone="hero" className="mb-6">An AI-assisted operating system, directed by people.</H1>
-          <Lead>AI agents work across every major role in a modern engagement. Humans stay responsible for judgment, your context, the decisions, and the outcome.</Lead>
+          <Breadcrumb
+            to="/how-we-work"
+            parent="How we work"
+            current="Delivery model"
+            markClass="bg-forest"
+            tone="ink"
+          />
+          <H2 as="h1">An AI-assisted operating system, directed by people.</H2>
         </Wrap>
       </Section>
 
       <Section>
         <Wrap>
-          <H2 className="mb-6">The delivery model is the reason the commercial model works.</H2>
+          <H2 className="mb-3">The delivery model is the reason the commercial model works.</H2>
+          <Lead className="mb-4">AI agents work across every major role in a modern engagement. Humans stay responsible for judgment, your context, the decisions, and the outcome.</Lead>
           <Body className="mb-4">Most firms sell hours because hours are the only thing they can predict. If delivery speed is set by headcount, then time and materials is the honest way to price it, and the client carries the risk of everything taking longer than expected.</Body>
           <Body className="mb-8">We built delivery differently so we could price differently. Agents handle the parts of an engagement that are repeatable, documentable, and slow when done by hand. That compresses the work enough that we can price a fixed scope or a milestone schedule and carry the estimate risk ourselves rather than passing it to you.</Body>
           <Quote>Our progress is measured by value created, not effort expended.</Quote>

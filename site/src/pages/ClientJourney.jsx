@@ -21,7 +21,7 @@ export default function ClientJourney() {
           topic panel carries on How We Work. The measure stays the page's own
           rather than the detail comps' narrower column, so the header aligns
           with the sections below it. */}
-      <Section band="panel" pad="header">
+      <Section band="panel-accent" pad="header">
         <Wrap>
           <Breadcrumb
             to="/how-we-work"

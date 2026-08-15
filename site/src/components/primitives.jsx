@@ -44,10 +44,12 @@ const BAND = {
   // is used rather than `--color-cta` so the yellow CTA button still separates
   // from the band it sits on.
   gold: 'bg-gold',
-  // The client journey panel on How We Work, carried onto that topic's own page
+  // The three How We Work topic panels, each carried onto that topic's own page
   // as its header so the child page reads as the same block of colour. Light,
-  // like `gold`, so nothing on it takes the off-white hero tone.
-  panel: PANEL_FILL.accent,
+  // like `gold`, so nothing on them takes the off-white hero tone.
+  'panel-accent': PANEL_FILL.accent,
+  'panel-forest': PANEL_FILL.forest,
+  'panel-orange': PANEL_FILL.orange,
 }
 
 /**
