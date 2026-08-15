@@ -22,6 +22,13 @@
   to   { transform: scaleX(1); }
 }
 
+/* A panel dropping open. Animating a grid track from 0fr to 1fr lets the panel
+   grow to its own content height without that height being measured first. */
+@keyframes m42-drop {
+  from { grid-template-rows: 0fr; }
+  to   { grid-template-rows: 1fr; }
+}
+
 /* List items rising into place, staggered by the call site's animation-delay. */
 @keyframes m42-item {
   from { opacity: 0; transform: translateY(8px); }
