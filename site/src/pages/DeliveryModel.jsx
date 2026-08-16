@@ -56,7 +56,10 @@ export default function DeliveryModel() {
         </Wrap>
       </Section>
 
-      <Section>
+      {/* Every band below this one flips: merging the roles into the section
+          above removed a band, and without the flip this section and the one
+          it follows are both `page`, so the boundary between them disappears. */}
+      <Section band="surface">
         <Wrap>
           <H2 className="mb-6">This is not AI writing your systems unsupervised.</H2>
           <Body className="mb-4">There is a version of this claim that is marketing, and we want to be clear we are not making it.</Body>
@@ -67,7 +70,7 @@ export default function DeliveryModel() {
         </Wrap>
       </Section>
 
-      <Section band="surface">
+      <Section>
         <Wrap>
           <H2 className="mb-10">Speed, consistency, and a commercial model that matches.</H2>
           <div className="mb-8 grid gap-4 md:grid-cols-2">
@@ -77,7 +80,7 @@ export default function DeliveryModel() {
         </Wrap>
       </Section>
 
-      <Section>
+      <Section band="surface">
         <Wrap>
           <H2 className="mb-6">Each engagement should improve the next one.</H2>
           <Body className="mb-4">A firm built around execution cannot treat every engagement as a blank page. What we learn on your work becomes reusable methods, patterns, and components, which lowers the cost and the risk of the work that follows.</Body>
