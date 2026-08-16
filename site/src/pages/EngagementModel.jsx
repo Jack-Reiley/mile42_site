@@ -31,7 +31,10 @@ export default function EngagementModel() {
         </Wrap>
       </Section>
 
-      <Section pad="band">
+      {/* On `surface` rather than `page`. Dropping the pricing band left this
+          section and the one above it on the same fill, so the boundary between
+          two long stretches of copy disappeared. */}
+      <Section band="surface" pad="band">
         <Wrap measure="detail">
           <H2 className="mb-6">The delivery model is what makes the commercial model possible.</H2>
           <Body className="mb-4">When delivery speed is set by headcount, the only honest thing to sell is time, and the risk of everything taking longer sits with you. Our delivery runs AI agents across every major role in an engagement, which compresses the work enough that we can carry the risk of an estimate instead of passing it to you.</Body>
