@@ -112,6 +112,44 @@ async function assertVisuallyLossless(trimmedBuf, encodedBuf, label) {
   return a.info
 }
 
+/**
+ * How far the alpha of a downscaled mask is pulled back up. Applied as
+ * `a ** ALPHA_GAMMA`, so 0 and 255 are fixed points and only the antialiasing
+ * in between moves.
+ *
+ * The masters are line drawings a thousand pixels wide whose ink is 80% solid.
+ * Resampled into a 96px variant for a 48px slot, a stroke lands on about half a
+ * pixel and the ink arrives at 0.31–0.34 average alpha, so on the navy band the
+ * average ink pixel composites to 1.3–1.7:1 rather than the 4–5.8:1 the tint
+ * itself reaches. The drawing is legible; its coverage is not.
+ *
+ * 0.6 takes that average to roughly 0.5. It cannot spread ink into a pixel the
+ * resample left empty, so the shape is the artwork's, not this script's.
+ */
+const ALPHA_GAMMA = 0.6
+
+const ALPHA_CURVE = Uint8Array.from({ length: 256 }, (_, a) =>
+  Math.round(255 * (a / 255) ** ALPHA_GAMMA),
+)
+
+/**
+ * Re-weights the alpha of an already-resized mask. Variants only: the full-size
+ * asset is the one held pixel-identical to its master, and the masters are
+ * solid enough at full size that the curve would be a no-op there anyway.
+ */
+async function boostVariantAlpha(resizedBuf) {
+  const { data, info } = await sharp(resizedBuf)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true })
+
+  for (let i = 3; i < data.length; i += 4) data[i] = ALPHA_CURVE[data[i]]
+
+  return sharp(data, { raw: { width: info.width, height: info.height, channels: 4 } })
+    .png()
+    .toBuffer()
+}
+
 /** Replaces RGB with the tint on every pixel, leaving alpha untouched. */
 async function applyTint(trimmedBuf, [r, g, b]) {
   const { data, info } = await sharp(trimmedBuf)
@@ -185,10 +223,13 @@ async function main() {
     const variants = []
     for (const w of widths) {
       if (w >= info.width) continue // never upscale
-      const buf = await sharp(source)
-        .resize({ width: w })
-        .webp({ quality: 90, effort: 6 })
-        .toBuffer()
+      // Only the tinted entries take the curve. They are the single-colour
+      // masks, where every pixel already carries the tint and lifting alpha
+      // cannot pull a second colour into the edge. The full-colour artwork has
+      // its own edges to respect.
+      const resized = await sharp(source).resize({ width: w }).png().toBuffer()
+      const shaped = rgb ? await boostVariantAlpha(resized) : resized
+      const buf = await sharp(shaped).webp({ quality: 90, effort: 6 }).toBuffer()
       const meta = await sharp(buf).metadata()
       await writeFile(join(OUT, `${key}-${w}.webp`), buf)
       variants.push({ width: meta.width, height: meta.height, bytes: buf.length })

@@ -91,12 +91,12 @@
       {
         "width": 96,
         "height": 115,
-        "bytes": 6190
+        "bytes": 6192
       },
       {
         "width": 192,
         "height": 230,
-        "bytes": 14574
+        "bytes": 14534
       }
     ]
   },
@@ -107,22 +107,22 @@
       {
         "width": 96,
         "height": 107,
-        "bytes": 7794
+        "bytes": 7744
       },
       {
         "width": 104,
         "height": 116,
-        "bytes": 8682
+        "bytes": 8668
       },
       {
         "width": 192,
         "height": 214,
-        "bytes": 19520
+        "bytes": 19440
       },
       {
         "width": 208,
         "height": 232,
-        "bytes": 21716
+        "bytes": 21586
       }
     ]
   },
@@ -133,22 +133,22 @@
       {
         "width": 96,
         "height": 60,
-        "bytes": 4086
+        "bytes": 4060
       },
       {
         "width": 104,
         "height": 65,
-        "bytes": 4648
+        "bytes": 4614
       },
       {
         "width": 192,
         "height": 120,
-        "bytes": 10980
+        "bytes": 10834
       },
       {
         "width": 208,
         "height": 130,
-        "bytes": 12412
+        "bytes": 12274
       }
     ]
   },
@@ -159,12 +159,12 @@
       {
         "width": 104,
         "height": 127,
-        "bytes": 11180
+        "bytes": 11166
       },
       {
         "width": 208,
         "height": 254,
-        "bytes": 27948
+        "bytes": 27756
       }
     ]
   }
