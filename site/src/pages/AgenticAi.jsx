@@ -1,4 +1,4 @@
-import { Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote, Button, TextLink, Card } from '../components/primitives.jsx'
+import { Section, Wrap, Eyebrow, H2, H3, Lead, Body, Quote, Button, TextLink, Breadcrumb, Card } from '../components/primitives.jsx'
 import { NumList, TermList, StatementCards } from '../components/Lists.jsx'
 
 const QUESTIONS = [
@@ -28,18 +28,26 @@ const STACK = [['Model layer', 'Anthropic · OpenAI'], ['Data and AI foundation'
 export default function AgenticAi() {
   return (
     <>
-      <Section band="brand">
+      {/* This page sits under Engineering, so it takes the same header the
+          What we do detail pages draw: navy band, breadcrumb, hero heading. */}
+      <Section band="navy" pad="header">
         <Wrap>
-          <Eyebrow tone="ink" className="mb-4">Core practice</Eyebrow>
-          <H1 tone="hero" className="mb-6">Agentic AI, implemented.</H1>
-          <Lead className="mb-8">Most organizations do not have an AI strategy problem. They have an AI implementation problem. The models work. Getting them to change how work happens is the hard part.</Lead>
-          <Button to="/contact">Tell us what you are trying to automate</Button>
+          <Breadcrumb
+            to="/what-we-do/engineering"
+            parent="Engineering"
+            current="Agentic AI"
+            markClass="bg-brand"
+          />
+          <H2 as="h1" tone="hero">Agentic AI, implemented.</H2>
         </Wrap>
       </Section>
 
       <Section band="surface">
         <Wrap>
           <H2 className="mb-6">Context before solutions.</H2>
+          {/* Carried down from the old hero so the page still opens on the
+              implementation framing. */}
+          <Lead className="mb-6">Most organizations do not have an AI strategy problem. They have an AI implementation problem. The models work. Getting them to change how work happens is the hard part.</Lead>
           <Body className="mb-8">Every engagement starts by understanding the work, not by selecting a technology. That is one of the firm&#39;s operating principles and it matters more here than anywhere else, because agentic systems are unusually sensitive to context. The same architecture that works in one organization fails in another with different data, incentives, and risk tolerance.</Body>
           <div className="mb-8 grid gap-4 lg:grid-cols-3">
             {QUESTIONS.map((q) => <Card key={q.n}><Eyebrow>{q.n}</Eyebrow><H3>{q.title}</H3><Body className="max-w-none">{q.body}</Body></Card>)}
