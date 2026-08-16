@@ -1,5 +1,6 @@
 import { Section, Wrap, Eyebrow, H2, H3, Lead, Body, Quote, Button, TextLink, Breadcrumb, Card } from '../components/primitives.jsx'
 import { NumList, Spine } from '../components/Lists.jsx'
+import WhereAgentsWork from '../components/WhereAgentsWork.jsx'
 
 const ROLES = [
   { title: 'Context and analysis', agents: 'Read the estate, the data, the documentation, and the code. Surface what is actually there rather than what the diagram says', human: 'Deciding what matters and what the findings mean for your situation' },
@@ -46,25 +47,14 @@ export default function DeliveryModel() {
           <Lead className="mb-4">AI agents work across every major role in a modern engagement. Humans stay responsible for judgment, your context, the decisions, and the outcome.</Lead>
           <Body className="mb-4">Most firms sell hours because hours are the only thing they can predict. If delivery speed is set by headcount, then time and materials is the honest way to price it, and the client carries the risk of everything taking longer than expected.</Body>
           <Body className="mb-8">We built delivery differently so we could price differently. Agents handle the parts of an engagement that are repeatable, documentable, and slow when done by hand. That compresses the work enough that we can price a fixed scope or a milestone schedule and carry the estimate risk ourselves rather than passing it to you.</Body>
-          <Quote>Our progress is measured by value created, not effort expended.</Quote>
-        </Wrap>
-      </Section>
+          {/* The roles are the evidence for the argument above them, so the two
+              are one band rather than two. The quote is the seam: the band's
+              own rhythm, not a section break, is what separates them. */}
+          <Quote className="mb-14 lg:mb-20">Our progress is measured by value created, not effort expended.</Quote>
 
-      <Section band="surface">
-        <Wrap>
           <H2 className="mb-4">Where agents work, and what a human is still responsible for.</H2>
           <Lead className="mb-10">These are roles in a delivery system, not sequential steps. Several run at once throughout an engagement.</Lead>
-          <div className="grid gap-3">
-            {ROLES.map((r) => (
-              <Card key={r.title}>
-                <H3>{r.title}</H3>
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div><Eyebrow className="mb-1">What agents do</Eyebrow><Body className="max-w-none">{r.agents}</Body></div>
-                  <div><Eyebrow className="mb-1">What a human owns</Eyebrow><Body className="max-w-none">{r.human}</Body></div>
-                </div>
-              </Card>
-            ))}
-          </div>
+          <WhereAgentsWork roles={ROLES} />
           <Quote className="mt-8">Humans provide judgment. Agents accelerate execution. We own the work.</Quote>
         </Wrap>
       </Section>
