@@ -34,6 +34,29 @@ const FIRST = -90
 const at = (deg, r) => [CX + r * Math.cos((deg * Math.PI) / 180), CY + r * Math.sin((deg * Math.PI) / 180)]
 
 /**
+ * The ring is drawn rather than plotted: two passes of a wobbling radius, the
+ * second offset from the first, which is what a pen does when it goes round
+ * twice. The wobble is a sum of two sines rather than anything random, because
+ * a random ring would redraw differently on every render.
+ *
+ * The sweep runs past 360 degrees so the ends overlap instead of meeting, which
+ * is the other thing a drawn circle does.
+ */
+const SWEEP = 374
+const SAMPLES = 90
+const wobble = (t, phase) => Math.sin(t * 5.2 + phase) * 2.6 + Math.sin(t * 11.7 + phase * 2.3) * 1.4
+
+const ringPath = (phase) => {
+  let d = ''
+  for (let s = 0; s <= SAMPLES; s++) {
+    const t = s / SAMPLES
+    const [x, y] = at(FIRST - 6 + SWEEP * t, R + wobble(t * Math.PI * 2, phase))
+    d += `${s ? ' L ' : 'M '}${x.toFixed(1)} ${y.toFixed(1)}`
+  }
+  return d
+}
+
+/**
  * How far outside the ring a node's label sits, measured in rendered pixels
  * rather than viewBox units because the label's own type does not scale.
  *
@@ -43,7 +66,7 @@ const at = (deg, r) => [CX + r * Math.cos((deg * Math.PI) / 180), CY + r * Math.
  * however much of the label lies along that direction: its half-width when the
  * label sits beside the ring, its half-height when it sits above or below.
  */
-const NODE_R = 23
+const NODE_R = 29
 const labelOffset = (ux, uy, halfW, halfH) =>
   NODE_R + 10 + Math.abs(ux) * halfW + Math.abs(uy) * halfH
 
@@ -65,18 +88,36 @@ export default function ReuseLoop({ items }) {
           viewBox={`0 0 ${W} ${H}`}
           className="pointer-events-none absolute inset-0 hidden h-full w-full min-[700px]:block"
         >
-          <circle cx={CX} cy={CY} r={R} fill="none" stroke="var(--color-ink)" strokeWidth="1" />
+          {[0, 2.4].map((phase, i) => (
+            <path
+              key={phase}
+              d={ringPath(phase)}
+              fill="none"
+              stroke="var(--color-ink)"
+              strokeWidth={i ? 0.8 : 1.2}
+              strokeLinecap="round"
+              opacity={i ? 0.45 : 0.9}
+              vectorEffect="non-scaling-stroke"
+            />
+          ))}
 
           {/* Arrowheads at the arc midpoints, so the circle reads as a
-              direction rather than as decoration. */}
+              direction rather than as decoration. Open chevrons rather than
+              filled triangles: a filled shape reads as printed next to a drawn
+              line. The second stroke is short, the way a quick tick is. */}
           {items.map((s, i) => {
             const mid = FIRST + STEP / 2 + i * STEP
-            const [x, y] = at(mid, R)
+            const [x, y] = at(mid, R + wobble(((i + 0.5) / items.length) * Math.PI * 2, 0))
             return (
               <path
                 key={s.title}
-                d="M -7 -5 L 7 0 L -7 5 Z"
-                fill="var(--color-ink)"
+                d="M -7 -7 L 6 0 L -6.4 6.6"
+                fill="none"
+                stroke="var(--color-ink)"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                vectorEffect="non-scaling-stroke"
                 transform={`translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${mid + 90})`}
               />
             )
@@ -122,7 +163,7 @@ export default function ReuseLoop({ items }) {
               {/* The press state the style guide implies: the selected node
                   sits down into its own shadow. */}
               <span
-                className={`grid h-[46px] w-[46px] flex-none place-items-center rounded-pill border border-ink font-eyebrow text-eyebrow text-accent transition-all duration-[160ms] ease-linear motion-reduce:transition-none ${
+                className={`grid h-[58px] w-[58px] flex-none place-items-center rounded-pill border border-ink font-eyebrow text-eyebrow text-accent transition-all duration-[160ms] ease-linear motion-reduce:transition-none ${
                   open === i ? 'bg-cta translate-y-[2px] shadow-[0_1px_0_var(--color-ink)]' : 'bg-page shadow-hard'
                 }`}
               >
@@ -135,17 +176,20 @@ export default function ReuseLoop({ items }) {
           )
         })}
 
-        {/* Inside the ring on the desktop layout, and nothing at all below it:
-            on a phone the list already names the selected item. */}
-        <p
-          aria-hidden="true"
-          className="hidden min-[700px]:absolute min-[700px]:left-1/2 min-[700px]:top-1/2 min-[700px]:block min-[700px]:w-[38%] min-[700px]:-translate-x-1/2 min-[700px]:-translate-y-1/2 min-[700px]:text-center min-[700px]:font-heading min-[700px]:text-[20px] min-[700px]:font-bold min-[700px]:leading-[28px] min-[700px]:text-ink"
-        >
-          {item.title}
-        </p>
+        {/* The selection reads inside the ring, which is the whole point of
+            drawing a ring. The width is a share of the box rather than a fixed
+            measure, so the text stays inside the circle as the circle grows. */}
+        <div className="hidden min-[700px]:absolute min-[700px]:left-1/2 min-[700px]:top-1/2 min-[700px]:block min-[700px]:w-[38%] min-[700px]:-translate-x-1/2 min-[700px]:-translate-y-1/2 min-[700px]:text-center">
+          <p className="mb-2 font-heading text-[20px] font-bold leading-[28px] text-ink">
+            {item.title}
+          </p>
+          <p className="text-body text-ink">{item.line}</p>
+        </div>
       </div>
 
-      <p className="mt-5 text-body text-ink min-[700px]:mt-2 min-[700px]:text-center">{item.line}</p>
+      {/* The phone layout, where there is no ring to put anything inside of.
+          The list above it already names the selection. */}
+      <p className="mt-5 text-body text-ink min-[700px]:hidden">{item.line}</p>
     </div>
   )
 }
