@@ -34,13 +34,10 @@ const FIRST = -90
 const at = (deg, r) => [CX + r * Math.cos((deg * Math.PI) / 180), CY + r * Math.sin((deg * Math.PI) / 180)]
 
 /**
- * The ring is drawn rather than plotted: two passes of a wobbling radius, the
- * second offset from the first, which is what a pen does when it goes round
- * twice. The wobble is a sum of two sines rather than anything random, because
- * a random ring would redraw differently on every render.
- *
- * The sweep runs past 360 degrees so the ends overlap instead of meeting, which
- * is the other thing a drawn circle does.
+ * The ring is drawn rather than plotted: one pass of a wobbling radius, with a
+ * sweep past 360 degrees so the ends overlap instead of meeting, which is what
+ * a drawn circle does. The wobble is a sum of two sines rather than anything
+ * random, because a random ring would redraw differently on every render.
  */
 const SWEEP = 374
 const SAMPLES = 90
@@ -74,6 +71,24 @@ const labelOffset = (ux, uy, halfW, halfH) =>
    its own width, the 150px one for the ring in three quarters of the row. */
 const LABEL = { sm: [58, 30], lg: [78, 36] }
 
+/**
+ * A fill per node, carrying white numerals.
+ *
+ * EXTRAPOLATED. The style guide has no numbered-node treatment, and white text
+ * is what forces the choice: at 12px it needs 4.5:1, which rules out most of the
+ * palette. `orange` reaches 3.2 against white and `red` 3.8, so both are mixed
+ * toward ink until they clear it, and `accent` is darkened the same way and for
+ * the same reason the `blue` band in primitives.jsx is. `forest` and `navy` are
+ * dark enough to be used as they are.
+ */
+const FILLS = [
+  'color-mix(in srgb, var(--color-accent) 88%, black)',
+  'var(--color-forest)',
+  'color-mix(in srgb, var(--color-orange) 62%, var(--color-ink))',
+  'var(--color-navy)',
+  'color-mix(in srgb, var(--color-red) 58%, var(--color-ink))',
+]
+
 export default function ReuseLoop({ items }) {
   const [open, setOpen] = useState(0)
   const item = items[open]
@@ -88,18 +103,15 @@ export default function ReuseLoop({ items }) {
           viewBox={`0 0 ${W} ${H}`}
           className="pointer-events-none absolute inset-0 hidden h-full w-full min-[700px]:block"
         >
-          {[0, 2.4].map((phase, i) => (
-            <path
-              key={phase}
-              d={ringPath(phase)}
-              fill="none"
-              stroke="var(--color-ink)"
-              strokeWidth={i ? 0.8 : 1.2}
-              strokeLinecap="round"
-              opacity={i ? 0.45 : 0.9}
-              vectorEffect="non-scaling-stroke"
-            />
-          ))}
+          <path
+            d={ringPath(0)}
+            fill="none"
+            stroke="var(--color-ink)"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+          />
+
 
           {/* Arrowheads at the arc midpoints, so the circle reads as a
               direction rather than as decoration. Open chevrons rather than
@@ -160,12 +172,14 @@ export default function ReuseLoop({ items }) {
                 '--dy-lg': `${(uy * offLg).toFixed(0)}px`,
               }}
             >
-              {/* The press state the style guide implies: the selected node
-                  sits down into its own shadow. */}
+              {/* Each node keeps its own colour whether or not it is chosen, so
+                  the press state the style guide implies is what carries the
+                  selection: the chosen node sits down into its own shadow. */}
               <span
-                className={`grid h-[58px] w-[58px] flex-none place-items-center rounded-pill border border-ink font-eyebrow text-eyebrow text-accent transition-all duration-[160ms] ease-linear motion-reduce:transition-none ${
-                  open === i ? 'bg-cta translate-y-[2px] shadow-[0_1px_0_var(--color-ink)]' : 'bg-page shadow-hard'
+                className={`grid h-[58px] w-[58px] flex-none place-items-center rounded-pill border border-ink font-eyebrow text-eyebrow text-page transition-all duration-[160ms] ease-linear motion-reduce:transition-none ${
+                  open === i ? 'translate-y-[2px] shadow-[0_1px_0_var(--color-ink)]' : 'shadow-hard'
                 }`}
+                style={{ backgroundColor: FILLS[i % FILLS.length] }}
               >
                 {String(i + 1).padStart(2, '0')}
               </span>
@@ -178,8 +192,10 @@ export default function ReuseLoop({ items }) {
 
         {/* The selection reads inside the ring, which is the whole point of
             drawing a ring. The width is a share of the box rather than a fixed
-            measure, so the text stays inside the circle as the circle grows. */}
-        <div className="hidden min-[700px]:absolute min-[700px]:left-1/2 min-[700px]:top-1/2 min-[700px]:block min-[700px]:w-[38%] min-[700px]:-translate-x-1/2 min-[700px]:-translate-y-1/2 min-[700px]:text-center">
+            measure, so the text stays inside the circle as the circle grows,
+            and it is set by the ring's waist rather than by its diameter: the
+            two side nodes are what the text has to clear, not the circle. */}
+        <div className="hidden min-[700px]:absolute min-[700px]:left-1/2 min-[700px]:top-1/2 min-[700px]:block min-[700px]:w-[32%] min-[700px]:-translate-x-1/2 min-[700px]:-translate-y-1/2 min-[700px]:text-center">
           <p className="mb-2 font-heading text-[20px] font-bold leading-[28px] text-ink">
             {item.title}
           </p>
