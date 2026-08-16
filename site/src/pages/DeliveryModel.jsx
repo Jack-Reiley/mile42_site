@@ -43,14 +43,11 @@ export default function DeliveryModel() {
 
       <Section>
         <Wrap>
-          <H2 className="mb-3">The delivery model is the reason the commercial model works.</H2>
-          <Lead className="mb-4">AI agents work across every major role in a modern engagement. Humans stay responsible for judgment, your context, the decisions, and the outcome.</Lead>
-          <Body className="mb-4">Most firms sell hours because hours are the only thing they can predict. If delivery speed is set by headcount, then time and materials is the honest way to price it, and the client carries the risk of everything taking longer than expected.</Body>
-          <Body className="mb-8">We built delivery differently so we could price differently. Agents handle the parts of an engagement that are repeatable, documentable, and slow when done by hand. That compresses the work enough that we can price a fixed scope or a milestone schedule and carry the estimate risk ourselves rather than passing it to you.</Body>
-          {/* The roles are the evidence for the argument above them, so the two
-              are one band rather than two. The quote is the seam: the band's
-              own rhythm, not a section break, is what separates them. */}
-          <Quote className="mb-14 lg:mb-20">Our progress is measured by value created, not effort expended.</Quote>
+          <H2 className="mb-3">Our progress is measured by value created, not effort expended.</H2>
+          {/* The roles are the evidence for the claim above them, so the two are
+              one band rather than two. The lead is the seam: the band's own
+              rhythm, not a section break, is what separates them. */}
+          <Lead className="mb-14 lg:mb-20">AI agents work across every major role in a modern engagement. Humans stay responsible for judgment, your context, the decisions, and the outcome.</Lead>
 
           <H2 className="mb-4">Where agents work, and what a human is still responsible for.</H2>
           <Lead className="mb-10">These are roles in a delivery system, not sequential steps. Several run at once throughout an engagement.</Lead>
