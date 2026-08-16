@@ -3,23 +3,26 @@ import {
   Button, ButtonRow, TextLink, Card, PathCard,
 } from '../components/primitives.jsx'
 
+/* The eyebrow names the practice the card leads to, so the three cards read as
+   the three services before they read as three situations. The situation moves
+   down to the line under the title. */
 const PATHS = [
   {
-    eyebrow: 'Before a major investment',
+    eyebrow: 'Advisory',
     title: 'You need clarity',
-    body: 'Decide well before you commit.',
+    body: 'Before a major investment.',
     href: '/what-we-do/advisory',
     spot: 'path-lightbulb',
   },
   {
-    eyebrow: 'When something must be built',
+    eyebrow: 'Engineering',
     title: 'You need to execute',
-    body: 'Make it work in production, not just a demo.',
+    body: 'When something must be built.',
     href: '/what-we-do/engineering',
     spot: 'path-gears',
   },
   {
-    eyebrow: 'When starting from zero is unnecessary',
+    eyebrow: 'AI products and accelerators',
     title: 'You need proven solutions',
     body: 'Reuse what already works.',
     href: '/what-we-do/ai-products',
