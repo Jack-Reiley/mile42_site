@@ -33,7 +33,7 @@
  */
 
 import sharp from 'sharp'
-import { mkdir, readdir, writeFile } from 'node:fs/promises'
+import { mkdir, readdir, rm, writeFile } from 'node:fs/promises'
 import { existsSync, readFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -52,7 +52,7 @@ const OUT = join(SITE, 'src', 'assets', 'illustrations')
  *   hero  — `max-w-[34rem]` is 544px, so ~1088 at 2x DPR; a 375px viewport
  *           renders it near 343px, so ~686 at 2x
  *   spots — `w-28 lg:w-32` is 112–128px, so ~256 at 2x
- *   paths — 48px rendered, so ~96 at 2x
+ *   paths — 64px rendered, so ~128 at 2x
  * A variant wider than the artwork itself is skipped rather than upscaled.
  *
  * `tint` is a token name rather than a hex, so the colour stays a reference to
@@ -66,10 +66,10 @@ const MAP = {
   'lightbulb_with_color.png': { key: 'lightbulb', widths: [256, 512] },
   // The How we work hero renders it near 352px, so 384/768 covers 1x and 2x.
   'gears_with_color.png': { key: 'gears', widths: [384, 768] },
-  'lightbulb_mono.png': { key: 'path-lightbulb', widths: [96, 192], tint: '--color-orange' },
-  'gears_mono.png': { key: 'path-gears', widths: [96, 104, 192, 208], tint: '--color-brand' },
-  // 96/192 for the 48px path card, 104/208 for the 52px feature panel.
-  'handshake_mono.png': { key: 'path-handshake', widths: [96, 104, 192, 208], tint: '--color-red' },
+  'lightbulb_mono.png': { key: 'path-lightbulb', widths: [128, 256], tint: '--color-orange' },
+  'gears_mono.png': { key: 'path-gears', widths: [104, 128, 208, 256], tint: '--color-brand' },
+  // 128/256 for the 64px path card, 104/208 for the 52px feature panel.
+  'handshake_mono.png': { key: 'path-handshake', widths: [104, 128, 208, 256], tint: '--color-red' },
   'clipboard_mono.png': { key: 'path-clipboard', widths: [104, 208], tint: '--color-orange' },
 }
 
@@ -118,13 +118,15 @@ async function assertVisuallyLossless(trimmedBuf, encodedBuf, label) {
  * in between moves.
  *
  * The masters are line drawings a thousand pixels wide whose ink is 80% solid.
- * Resampled into a 96px variant for a 48px slot, a stroke lands on about half a
- * pixel and the ink arrives at 0.31–0.34 average alpha, so on the navy band the
- * average ink pixel composites to 1.3–1.7:1 rather than the 4–5.8:1 the tint
- * itself reaches. The drawing is legible; its coverage is not.
+ * Resampled down for a path card, a stroke lands on well under a pixel and the
+ * ink arrives around a third of full alpha, so on the navy band the average ink
+ * pixel composites to under 2:1 rather than the 4–5.8:1 the tint itself reaches.
+ * The drawing is legible; its coverage is not.
  *
- * 0.6 takes that average to roughly 0.5. It cannot spread ink into a pixel the
- * resample left empty, so the shape is the artwork's, not this script's.
+ * 0.6 lifts that by roughly half again. It cannot spread ink into a pixel the
+ * resample left empty, so the shape is the artwork's, not this script's. It is
+ * the smaller of the two levers: the render size in `MAP` is the other, and
+ * moving the card from 48px to 64px did more than the curve did.
  */
 const ALPHA_GAMMA = 0.6
 
@@ -206,6 +208,7 @@ async function main() {
   }
 
   const data = {}
+  const written = new Set()
 
   for (const [file, { key, widths, tint }] of Object.entries(MAP)) {
     const src = join(MASTERS, file)
@@ -219,6 +222,7 @@ async function main() {
       ? await assertTinted(trimmed, full, rgb, key)
       : await assertVisuallyLossless(trimmed, full, key)
     await writeFile(join(OUT, `${key}.webp`), full)
+    written.add(`${key}.webp`)
 
     const variants = []
     for (const w of widths) {
@@ -232,6 +236,7 @@ async function main() {
       const buf = await sharp(shaped).webp({ quality: 90, effort: 6 }).toBuffer()
       const meta = await sharp(buf).metadata()
       await writeFile(join(OUT, `${key}-${w}.webp`), buf)
+      written.add(`${key}-${w}.webp`)
       variants.push({ width: meta.width, height: meta.height, bytes: buf.length })
     }
 
@@ -245,11 +250,18 @@ async function main() {
     )
   }
 
+  // The manifest globs this directory eagerly, so a variant left behind by an
+  // earlier width list is still bundled even though no `srcSet` names it. The
+  // script owns the directory, so it removes what it no longer emits.
+  const stale = (await readdir(OUT)).filter((f) => f.endsWith('.webp') && !written.has(f))
+  for (const f of stale) await rm(join(OUT, f))
+
   await writeFile(
     join(OUT, 'illustrations.data.json'),
     `${JSON.stringify(data, null, 2)}\n`,
   )
   console.log(`\n${Object.keys(MAP).length} illustrations built from ${MASTERS}`)
+  if (stale.length) console.log(`${stale.length} stale asset(s) removed: ${stale.join(', ')}`)
 }
 
 await main()

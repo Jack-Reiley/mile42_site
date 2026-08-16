@@ -281,9 +281,12 @@ export function PathCard({ to, spot, eyebrow, title, heading = 'h2', className =
   return (
     <Link
       to={to}
-      className={`group grid grid-cols-[3rem_1fr_auto] items-center gap-[18px] rounded-card border border-white/15 px-[22px] py-[15px] no-underline transition-colors hover:border-white/30 hover:bg-white/5 motion-reduce:transition-none ${className}`}
+      className={`group grid grid-cols-[4rem_1fr_auto] items-center gap-[18px] rounded-card border border-white/15 px-[22px] py-[15px] no-underline transition-colors hover:border-white/30 hover:bg-white/5 motion-reduce:transition-none ${className}`}
     >
-      <Spot name={spot} decorative priority sizes="48px" className="h-12 w-12 object-contain" />
+      {/* 64px rather than the 48px this started at. The artwork is single-weight
+          line drawing, so the only way it gains presence on the navy band is
+          more pixels per stroke — see the alpha note in scripts/illustrations.mjs. */}
+      <Spot name={spot} decorative priority sizes="64px" className="h-16 w-16 object-contain" />
       <span>
         <Eyebrow as="span" tone="sky" className="block">{eyebrow}</Eyebrow>
         <H3 as={heading} tone="hero" className="mt-1">{title}</H3>
