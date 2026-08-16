@@ -66,10 +66,12 @@ const MAP = {
   'lightbulb_with_color.png': { key: 'lightbulb', widths: [256, 512] },
   // The How we work hero renders it near 352px, so 384/768 covers 1x and 2x.
   'gears_with_color.png': { key: 'gears', widths: [384, 768] },
-  'lightbulb_mono.png': { key: 'path-lightbulb', widths: [128, 256], tint: '--color-orange' },
-  'gears_mono.png': { key: 'path-gears', widths: [104, 128, 208, 256], tint: '--color-brand' },
-  // 128/256 for the 64px path card, 104/208 for the 52px feature panel.
-  'handshake_mono.png': { key: 'path-handshake', widths: [104, 128, 208, 256], tint: '--color-red' },
+  'lightbulb_mono.png': { key: 'path-lightbulb', widths: [64, 128, 256], tint: '--color-orange' },
+  'gears_mono.png': { key: 'path-gears', widths: [64, 104, 128, 208, 256], tint: '--color-brand' },
+  // 64/128/256 for the 64px path card, 104/208 for the 52px feature panel. The
+  // 64w matters: without a 1x candidate the browser hands a 1x screen the 104w
+  // and downscales it itself, which averages back some of the alpha work below.
+  'handshake_mono.png': { key: 'path-handshake', widths: [64, 104, 128, 208, 256], tint: '--color-red' },
   'clipboard_mono.png': { key: 'path-clipboard', widths: [104, 208], tint: '--color-orange' },
 }
 
@@ -133,6 +135,67 @@ const ALPHA_GAMMA = 0.6
 const ALPHA_CURVE = Uint8Array.from({ length: 256 }, (_, a) =>
   Math.round(255 * (a / 255) ** ALPHA_GAMMA),
 )
+
+/**
+ * How far a mask is grown, in master pixels, before it is downscaled.
+ *
+ * The curve above can only re-weight pixels the resample already touched. This
+ * adds stroke where there was none, which is the difference between a stroke
+ * that survives a 16x reduction and one that dissolves into it.
+ *
+ * 2 is where the busiest drawing stops tolerating it: at 4 the handshake's
+ * knuckle hatching closes up into a solid mass, while the lightbulb and the
+ * gears would still take more. The radius that suits every master is the one
+ * the densest master allows.
+ */
+const DILATE_RADIUS = 2
+
+/**
+ * Morphological dilate on the alpha channel, as two separable max passes.
+ *
+ * The masters are alpha masks whose RGB is already the flat tint on every
+ * pixel, transparent ones included, so growing alpha can only expose more of
+ * that one colour. On artwork with real RGB it would drag colour outward, which
+ * is why only tinted entries take it.
+ */
+function dilateAlpha(data, width, height, radius) {
+  const pass = (src, dst, stride, outer, inner) => {
+    for (let o = 0; o < outer; o++) {
+      for (let i = 0; i < inner; i++) {
+        let max = 0
+        for (let d = -radius; d <= radius; d++) {
+          const at = i + d
+          if (at < 0 || at >= inner) continue
+          const a = src[((stride === 1 ? o * width + at : at * width + o) << 2) + 3]
+          if (a > max) max = a
+        }
+        dst[((stride === 1 ? o * width + i : i * width + o) << 2) + 3] = max
+      }
+    }
+  }
+
+  const horizontal = new Uint8ClampedArray(data)
+  pass(data, horizontal, 1, height, width)
+  const both = new Uint8ClampedArray(horizontal)
+  pass(horizontal, both, width, width, height)
+  return both
+}
+
+/** Grows a tinted mask ahead of the downscale. Variants only, as with the curve. */
+async function thickenMask(tintedBuf) {
+  const { data, info } = await sharp(tintedBuf)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true })
+
+  const grown = dilateAlpha(data, info.width, info.height, DILATE_RADIUS)
+
+  return sharp(Buffer.from(grown), {
+    raw: { width: info.width, height: info.height, channels: 4 },
+  })
+    .png()
+    .toBuffer()
+}
 
 /**
  * Re-weights the alpha of an already-resized mask. Variants only: the full-size
@@ -224,14 +287,16 @@ async function main() {
     await writeFile(join(OUT, `${key}.webp`), full)
     written.add(`${key}.webp`)
 
+    // Only the tinted entries are grown and curved. They are the single-colour
+    // masks, where every pixel already carries the tint and moving alpha cannot
+    // pull a second colour into the edge. The full-colour artwork has its own
+    // edges to respect, and the full-size asset above is untouched by both.
+    const variantSource = rgb ? await thickenMask(source) : source
+
     const variants = []
     for (const w of widths) {
       if (w >= info.width) continue // never upscale
-      // Only the tinted entries take the curve. They are the single-colour
-      // masks, where every pixel already carries the tint and lifting alpha
-      // cannot pull a second colour into the edge. The full-colour artwork has
-      // its own edges to respect.
-      const resized = await sharp(source).resize({ width: w }).png().toBuffer()
+      const resized = await sharp(variantSource).resize({ width: w }).png().toBuffer()
       const shaped = rgb ? await boostVariantAlpha(resized) : resized
       const buf = await sharp(shaped).webp({ quality: 90, effort: 6 }).toBuffer()
       const meta = await sharp(buf).metadata()

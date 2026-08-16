@@ -89,14 +89,19 @@
     "height": 1222,
     "variants": [
       {
+        "width": 64,
+        "height": 77,
+        "bytes": 3744
+      },
+      {
         "width": 128,
         "height": 153,
-        "bytes": 8814
+        "bytes": 8836
       },
       {
         "width": 256,
         "height": 307,
-        "bytes": 20192
+        "bytes": 20464
       }
     ]
   },
@@ -105,24 +110,29 @@
     "height": 1502,
     "variants": [
       {
+        "width": 64,
+        "height": 71,
+        "bytes": 4412
+      },
+      {
         "width": 104,
         "height": 116,
-        "bytes": 8668
+        "bytes": 8712
       },
       {
         "width": 128,
         "height": 143,
-        "bytes": 11582
+        "bytes": 11688
       },
       {
         "width": 208,
         "height": 232,
-        "bytes": 21586
+        "bytes": 21874
       },
       {
         "width": 256,
         "height": 285,
-        "bytes": 27762
+        "bytes": 28632
       }
     ]
   },
@@ -131,24 +141,29 @@
     "height": 860,
     "variants": [
       {
+        "width": 64,
+        "height": 40,
+        "bytes": 2374
+      },
+      {
         "width": 104,
         "height": 65,
-        "bytes": 4614
+        "bytes": 4674
       },
       {
         "width": 128,
         "height": 80,
-        "bytes": 6142
+        "bytes": 6116
       },
       {
         "width": 208,
         "height": 130,
-        "bytes": 12274
+        "bytes": 12236
       },
       {
         "width": 256,
         "height": 160,
-        "bytes": 16550
+        "bytes": 16598
       }
     ]
   },
@@ -159,12 +174,12 @@
       {
         "width": 104,
         "height": 127,
-        "bytes": 11166
+        "bytes": 11136
       },
       {
         "width": 208,
         "height": 254,
-        "bytes": 27756
+        "bytes": 27904
       }
     ]
   }
