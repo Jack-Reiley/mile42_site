@@ -24,7 +24,6 @@ const COLUMNS = [
     heading: 'Company',
     links: [
       { href: '/why-mile42', label: 'Why Mile42' },
-      { href: '/insights', label: 'Insights' },
     ],
   },
   {
