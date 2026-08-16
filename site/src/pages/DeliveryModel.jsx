@@ -1,7 +1,7 @@
 import { Section, Wrap, Eyebrow, H2, H3, Lead, Body, Quote, Button, TextLink, Breadcrumb, Card } from '../components/primitives.jsx'
 import { NumList } from '../components/Lists.jsx'
 import WhereAgentsWork from '../components/WhereAgentsWork.jsx'
-import ReuseSteps from '../components/ReuseSteps.jsx'
+import ReuseLoop from '../components/ReuseLoop.jsx'
 
 const ROLES = [
   { title: 'Context and analysis', agents: 'Read the estate, the data, the documentation, and the code. Surface what is actually there rather than what the diagram says', human: 'Deciding what matters and what the findings mean for your situation' },
@@ -89,14 +89,23 @@ export default function DeliveryModel() {
       </Section>
 
       <Section band="surface">
-        <Wrap>
-          <H2 className="mb-6">Each engagement should improve the next one.</H2>
-          <Body className="mb-4">A firm built around execution cannot treat every engagement as a blank page. What we learn on your work becomes reusable methods, patterns, and components, which lowers the cost and the risk of the work that follows.</Body>
-          <Body className="mb-8">That benefits you directly. You are not paying us to rediscover something we already solved for someone else.</Body>
-          <div className="mb-8"><ReuseSteps items={REUSE} /></div>
-          <Eyebrow className="mb-2">Note on ownership</Eyebrow>
-          <Body className="mb-8">Reusable assets are our methods and patterns, never your data, your business logic, or anything specific to your organization. Where we build something for you, you own it. Ownership terms are explicit in every engagement.</Body>
-          <TextLink to="/what-we-do/ai-products">See AI-driven products</TextLink>
+        {/* The argument on the left, the loop it describes on the right. The
+            columns are centred on each other rather than top-aligned: the ring
+            has no top edge to align a paragraph to. */}
+        {/* The split is three quarters to the loop, and it waits for `xl`: at
+            `lg` the quarter left to the argument is too narrow to set 36px
+            headings in, so the two stack and the loop takes the full measure. */}
+        <Wrap className="grid items-center gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] xl:gap-16">
+          <div>
+            <H2 className="mb-6">Each engagement should improve the next one.</H2>
+            <Body className="mb-4">A firm built around execution cannot treat every engagement as a blank page. What we learn on your work becomes reusable methods, patterns, and components, which lowers the cost and the risk of the work that follows.</Body>
+            <Body className="mb-8">That benefits you directly. You are not paying us to rediscover something we already solved for someone else.</Body>
+            <Eyebrow className="mb-2">Note on ownership</Eyebrow>
+            <Body className="mb-8">Reusable assets are our methods and patterns, never your data, your business logic, or anything specific to your organization. Where we build something for you, you own it. Ownership terms are explicit in every engagement.</Body>
+            <TextLink to="/what-we-do/ai-products">See AI-driven products</TextLink>
+          </div>
+
+          <ReuseLoop items={REUSE} />
         </Wrap>
       </Section>
 

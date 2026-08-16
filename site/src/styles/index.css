@@ -35,6 +35,36 @@
   to   { opacity: 1; transform: none; }
 }
 
+/* The reuse loop's nodes, which are radial above 700px and a plain list below.
+   Radial placement is the one thing utilities cannot express: each node carries
+   its own angle, so the offsets arrive as custom properties from the component
+   and only take effect at the width where the ring is drawn. */
+@media (min-width: 700px) {
+  .m42-loop-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+
+  .m42-loop-label {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 110px;
+    text-align: center;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)));
+  }
+}
+
+/* At the width where the ring gets its own three quarters of the row it is
+   large enough for full-size labels, which need their own offsets: a wider
+   label reaches further along the radius than the one it replaces. */
+@media (min-width: 1024px) {
+  .m42-loop-label {
+    width: 150px;
+    transform: translate(calc(-50% + var(--dx-lg)), calc(-50% + var(--dy-lg)));
+  }
+}
+
 @layer base {
   body {
     background: var(--color-page);
