@@ -109,7 +109,7 @@ export default function DeliveryModel() {
         </Wrap>
       </Section>
 
-      <Section band="brand">
+      <Section band="gold">
         <Wrap className="text-center">
           <H2 className="mb-4">See it on real work.</H2>
           <Lead className="mx-auto mb-8">The fastest way to judge a delivery model is to put a real problem in front of it. Bring one.</Lead>

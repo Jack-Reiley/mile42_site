@@ -58,7 +58,7 @@ export default function EngagementModel() {
         </Wrap>
       </Section>
 
-      <Section band="brand">
+      <Section band="gold">
         <Wrap className="text-center">
           <H2 className="mb-4">Ask us what it would cost.</H2>
           <Lead className="mx-auto mb-8">Describe the outcome you need. We will tell you what we would need to know to price it, and how we would structure the work.</Lead>

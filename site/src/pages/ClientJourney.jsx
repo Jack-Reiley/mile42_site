@@ -1,4 +1,4 @@
-import { Section, Wrap, Grain, H2, Lead, Body, Quote, Button, Breadcrumb, TextLink, Spot } from '../components/primitives.jsx'
+import { Section, Wrap, H2, Lead, Body, Quote, Button, Breadcrumb, TextLink, Spot } from '../components/primitives.jsx'
 import { TermList } from '../components/Lists.jsx'
 import StageJourney from '../components/StageJourney.jsx'
 
@@ -53,9 +53,12 @@ export default function ClientJourney() {
         </Wrap>
       </Section>
 
-      <Section band="brand" className="relative">
-        <Grain />
-        <Wrap className="relative text-center">
+      {/* Gold, matching the other two topic pages and the How We Work band this
+          page is reached from. The grain that sat on the green band is gone with
+          it: multiplied over gold it dulls the fill, and the two bands then read
+          as different yellows. */}
+      <Section band="gold">
+        <Wrap className="text-center">
           <H2 className="mb-4">Tell us where you are.</H2>
           <Lead className="mx-auto mb-8">We will tell you which stage you are actually in, which is not always the one it feels like.</Lead>
           <Button to="/contact">Start a conversation</Button>
