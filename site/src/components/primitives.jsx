@@ -24,6 +24,17 @@ export const PANEL_FILL = {
 }
 
 /**
+ * The same mix taken ten points deeper, for a panel that is itself a link. The
+ * ink type still sits on a tint of the surface, so nothing about the contrast
+ * changes; the panel just admits it is a target.
+ */
+export const PANEL_FILL_HOVER = {
+  accent: 'hover:bg-[color-mix(in_srgb,var(--color-accent)_26%,var(--color-surface))]',
+  forest: 'hover:bg-[color-mix(in_srgb,var(--color-forest)_28%,var(--color-surface))]',
+  orange: 'hover:bg-[color-mix(in_srgb,var(--color-orange)_26%,var(--color-surface))]',
+}
+
+/**
  * `blue` is the accent darkened 8%. No palette colour reaches AA on
  * `--color-accent` — white peaks at 4.41 — so the band, not the text, is what
  * moves. At 92% the ice eyebrow reaches 4.55 and the on-dark body 4.92. It is

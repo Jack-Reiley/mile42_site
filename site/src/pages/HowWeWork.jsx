@@ -1,4 +1,4 @@
-import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Quote, Button, TextLink, Spot, PANEL_FILL } from '../components/primitives.jsx'
+import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Quote, Button, TextLink, Spot, PANEL_FILL, PANEL_FILL_HOVER } from '../components/primitives.jsx'
 
 const TOPICS = [
   {
@@ -9,6 +9,7 @@ const TOPICS = [
     href: '/how-we-work/client-journey',
     linkLabel: 'See the client journey',
     panel: PANEL_FILL.accent,
+    panelHover: PANEL_FILL_HOVER.accent,
     mark: 'bg-accent',
   },
   {
@@ -19,6 +20,7 @@ const TOPICS = [
     href: '/how-we-work/delivery-model',
     linkLabel: 'See the delivery model',
     panel: PANEL_FILL.forest,
+    panelHover: PANEL_FILL_HOVER.forest,
     mark: 'bg-forest',
   },
   {
@@ -29,6 +31,7 @@ const TOPICS = [
     href: '/how-we-work/engagement-model',
     linkLabel: 'See the engagement model',
     panel: PANEL_FILL.orange,
+    panelHover: PANEL_FILL_HOVER.orange,
     mark: 'bg-orange',
   },
 ]
@@ -83,9 +86,13 @@ export default function HowWeWork() {
 
           <div className="grid">
             {TOPICS.map((t) => (
+              /* The whole panel is the click target. The link below stays the
+                 only real link, stretched over the panel by its `after`
+                 pseudo-element, so keyboard and screen reader users still get
+                 one labelled link rather than a clickable div. */
               <article
                 key={t.title}
-                className={`${t.panel} flex flex-col justify-center px-6 py-10 md:px-12 lg:px-14`}
+                className={`${t.panel} ${t.panelHover} group relative flex cursor-pointer flex-col justify-center px-6 py-10 transition-colors motion-reduce:transition-none md:px-12 lg:px-14`}
               >
                 <p className="mb-3 flex items-center gap-4">
                   <span aria-hidden="true" className={`h-1 w-10 rounded-[2px] ${t.mark}`} />
@@ -94,7 +101,7 @@ export default function HowWeWork() {
                 <Eyebrow tone="ink" className="mb-2">{t.kicker}</Eyebrow>
                 <H2 as="h3" className="mb-3">{t.title}</H2>
                 <Body className="mb-4">{t.body}</Body>
-                <p><TextLink to={t.href}>{t.linkLabel}</TextLink></p>
+                <p><TextLink to={t.href} className="after:absolute after:inset-0">{t.linkLabel}</TextLink></p>
               </article>
             ))}
           </div>
