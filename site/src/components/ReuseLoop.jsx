@@ -134,16 +134,6 @@ export default function ReuseLoop({ items }) {
               />
             )
           })}
-
-          {/* The return, named on the arc that closes the loop. */}
-          <text
-            x={at(FIRST - STEP / 2, R + 46)[0].toFixed(1)}
-            y={at(FIRST - STEP / 2, R + 46)[1].toFixed(1)}
-            textAnchor="middle"
-            className="fill-ink font-eyebrow text-eyebrow uppercase"
-          >
-            Returns to 01
-          </text>
         </svg>
 
         {items.map((s, i) => {

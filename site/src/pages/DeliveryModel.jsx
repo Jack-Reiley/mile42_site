@@ -53,8 +53,11 @@ export default function DeliveryModel() {
       <Section>
         <Wrap>
           <H2 className="mb-4">Where agents work, and what a human is still responsible for.</H2>
-          <Lead className="mb-3">AI agents work across every major role in a modern engagement. Humans stay responsible for judgment, your context, the decisions, and the outcome.</Lead>
-          <Lead className="mb-10">These are roles in a delivery system, not sequential steps. Several run at once throughout an engagement.</Lead>
+          {/* `max-w-none` on the copy under a full-width heading, the way the
+              What We Do pages set theirs: the 46rem default is a measure for a
+              column, and this band does not have one. */}
+          <Lead className="mb-3 max-w-none">AI agents work across every major role in a modern engagement. Humans stay responsible for judgment, your context, the decisions, and the outcome.</Lead>
+          <Lead className="mb-10 max-w-none">These are roles in a delivery system, not sequential steps. Several run at once throughout an engagement.</Lead>
           <WhereAgentsWork roles={ROLES} />
           <Quote className="mt-8">Humans provide judgment. Agents accelerate execution. We own the work.</Quote>
         </Wrap>
@@ -66,9 +69,9 @@ export default function DeliveryModel() {
       <Section band="surface">
         <Wrap>
           <H2 className="mb-6">This is not AI writing your systems unsupervised.</H2>
-          <Body className="mb-4">There is a version of this claim that is marketing, and we want to be clear we are not making it.</Body>
-          <Body className="mb-4">Agents do not decide your architecture. They do not judge whether a design serves your customers. They do not carry accountability, because accountability cannot be delegated to a system that cannot be held responsible.</Body>
-          <Body className="mb-8">What they do is remove the drag: the reading, the drafting, the scaffolding, the test coverage, the documentation that usually gets written last or not at all. That is a large share of any engagement, and compressing it is what creates the speed.</Body>
+          <Body className="mb-4 max-w-none">There is a version of this claim that is marketing, and we want to be clear we are not making it.</Body>
+          <Body className="mb-4 max-w-none">Agents do not decide your architecture. They do not judge whether a design serves your customers. They do not carry accountability, because accountability cannot be delegated to a system that cannot be held responsible.</Body>
+          <Body className="mb-8 max-w-none">What they do is remove the drag: the reading, the drafting, the scaffolding, the test coverage, the documentation that usually gets written last or not at all. That is a large share of any engagement, and compressing it is what creates the speed.</Body>
           <Eyebrow className="mb-4">Three things that remain human</Eyebrow>
           <NumList items={HUMAN_ONLY} />
         </Wrap>
