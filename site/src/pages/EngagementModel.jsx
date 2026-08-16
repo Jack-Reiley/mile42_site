@@ -1,22 +1,15 @@
-import { Section, Wrap, Eyebrow, H2, Lead, Body, Quote, Button, TextLink, Breadcrumb, ButtonRow } from '../components/primitives.jsx'
-import { TermList } from '../components/Lists.jsx'
-
-const PRICING = [
-  ['Advisory', 'The value is the decision, not the hours spent reaching it'],
-  ['Engineering', 'You should know the cost of the outcome before committing to it'],
-  ['AI-driven products', 'The value recurs, so the pricing should too'],
-]
+import { Section, Wrap, H2, Lead, Body, Quote, Button, TextLink, Breadcrumb, ButtonRow } from '../components/primitives.jsx'
 
 /* EXTRAPOLATED — no comp for this page. */
 export default function EngagementModel() {
   return (
     <>
       {/* The compact page header the detail pages draw, in the fill this page's
-          topic panel carries on How We Work. The measure stays the page's own
-          rather than the detail comps' narrower column, so the header aligns
-          with the sections below it. */}
+          topic panel carries on How We Work. The column and the band rhythm are
+          the detail comps' too, so this page lines up with every other detail
+          page in the site rather than with the wider homepage language. */}
       <Section band="panel-orange" pad="header">
-        <Wrap>
+        <Wrap measure="detail">
           <Breadcrumb
             to="/how-we-work"
             parent="How we work"
@@ -28,8 +21,8 @@ export default function EngagementModel() {
         </Wrap>
       </Section>
 
-      <Section>
-        <Wrap>
+      <Section pad="band">
+        <Wrap measure="detail">
           <H2 className="mb-3">Clients want a partner with skin in the game.</H2>
           <Lead className="mb-4">The goal is not to sell more hours. Selling hours means our incentive improves when the work takes longer, and we would rather not build a business on that.</Lead>
           <Body className="mb-4">Large time and materials programs are getting harder to justify, and reasonably so. They place the risk of overrun entirely on the buyer, and they reward the seller for the thing the buyer least wants.</Body>
@@ -38,19 +31,11 @@ export default function EngagementModel() {
         </Wrap>
       </Section>
 
-      <Section band="surface">
-        <Wrap>
-          <H2 className="mb-10">Pricing should match how value is created, so no single model fits everything.</H2>
-          <TermList items={PRICING} />
-        </Wrap>
-      </Section>
-
-      <Section>
-        <Wrap>
+      <Section pad="band">
+        <Wrap measure="detail">
           <H2 className="mb-6">The delivery model is what makes the commercial model possible.</H2>
           <Body className="mb-4">When delivery speed is set by headcount, the only honest thing to sell is time, and the risk of everything taking longer sits with you. Our delivery runs AI agents across every major role in an engagement, which compresses the work enough that we can carry the risk of an estimate instead of passing it to you.</Body>
           <Body className="mb-8">Reuse compounds the same effect. Each engagement produces methods and patterns that lower the cost of the next one, so a meaningful share of the work is not being invented on your budget.</Body>
-          <Quote className="mb-8">Larger firms can offer this. Their economics make it hard to mean it. Ours are built to mean it.</Quote>
           <ButtonRow>
             <TextLink to="/how-we-work/delivery-model">See the delivery model</TextLink>
             <TextLink to="/what-we-do/ai-products">See AI-driven products</TextLink>
@@ -58,8 +43,8 @@ export default function EngagementModel() {
         </Wrap>
       </Section>
 
-      <Section band="gold">
-        <Wrap className="text-center">
+      <Section band="gold" pad="cta">
+        <Wrap measure="detail" className="text-center">
           <H2 className="mb-4">Ask us what it would cost.</H2>
           <Lead className="mx-auto mb-8">Describe the outcome you need. We will tell you what we would need to know to price it, and how we would structure the work.</Lead>
           <Button to="/contact">Start a conversation</Button>

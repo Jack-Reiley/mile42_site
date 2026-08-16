@@ -18,11 +18,11 @@ export default function ClientJourney() {
   return (
     <>
       {/* The compact page header the detail pages draw, in the fill this page's
-          topic panel carries on How We Work. The measure stays the page's own
-          rather than the detail comps' narrower column, so the header aligns
-          with the sections below it. */}
+          topic panel carries on How We Work. The column and the band rhythm are
+          the detail comps' too, so this page lines up with every other detail
+          page in the site rather than with the wider homepage language. */}
       <Section band="panel-accent" pad="header">
-        <Wrap>
+        <Wrap measure="detail">
           <Breadcrumb
             to="/how-we-work"
             parent="How we work"
@@ -34,8 +34,8 @@ export default function ClientJourney() {
         </Wrap>
       </Section>
 
-      <Section band="surface">
-        <Wrap>
+      <Section band="surface" pad="band">
+        <Wrap measure="detail">
           <H2 className="mb-3">Understand, design, build, evolve.</H2>
           <Lead className="mb-4">The stage describes what we do together. The outcome describes the state you are left in. Every stage should leave you better off than when it started, whether or not you continue to the next one.</Lead>
           <Body className="mb-14">Four stages on one line. Select a stage to read what it produces, and what you are left holding when it ends.</Body>
@@ -44,8 +44,8 @@ export default function ClientJourney() {
         </Wrap>
       </Section>
 
-      <Section>
-        <Wrap>
+      <Section pad="band">
+        <Wrap measure="detail">
           <H2 className="mb-6">The journey is the same. Where you enter is not.</H2>
           <Body className="mb-8">Not everyone starts at stage one. Some organizations already have clarity and need execution. Some have been building for a year and need an honest read on whether the path still holds.</Body>
           <TermList items={ENTRY} className="mb-8" />
@@ -57,8 +57,8 @@ export default function ClientJourney() {
           page is reached from. The grain that sat on the green band is gone with
           it: multiplied over gold it dulls the fill, and the two bands then read
           as different yellows. */}
-      <Section band="gold">
-        <Wrap className="text-center">
+      <Section band="gold" pad="cta">
+        <Wrap measure="detail" className="text-center">
           <H2 className="mb-4">Tell us where you are.</H2>
           <Lead className="mx-auto mb-8">We will tell you which stage you are actually in, which is not always the one it feels like.</Lead>
           <Button to="/contact">Start a conversation</Button>
