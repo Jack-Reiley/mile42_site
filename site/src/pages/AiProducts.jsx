@@ -41,7 +41,7 @@ export default function AiProducts() {
   return (
     <>
       <Section band="navy" pad="header">
-        <Wrap measure="detail">
+        <Wrap>
           <Breadcrumb
             to="/what-we-do"
             parent="What we do"
@@ -53,7 +53,7 @@ export default function AiProducts() {
       </Section>
 
       <Section pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           <H2 className="mb-3">A firm that has done the work should not arrive empty-handed.</H2>
           <Lead className="mb-9 max-w-none text-ink/70">
             Some of what you are about to build has been built before. Starting from zero is a
@@ -72,7 +72,7 @@ export default function AiProducts() {
       </Section>
 
       <Section pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           <FeaturePanel
             spot="path-handshake"
             eyebrow="Proof"
@@ -93,7 +93,7 @@ export default function AiProducts() {
       </Section>
 
       <Section band="tint" pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           <LabelBody
             label={
               <>
@@ -108,7 +108,7 @@ export default function AiProducts() {
       </Section>
 
       <Section pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           <LabelBody label={<H2>Reuse is why the economics work.</H2>}>
             <Body className="max-w-none">
               Committing to an outcome is difficult when every engagement starts from nothing. It
@@ -130,7 +130,7 @@ export default function AiProducts() {
       </Section>
 
       <Section band="navy" pad="cta">
-        <Wrap measure="detail" className="text-center">
+        <Wrap className="text-center">
           <Eyebrow as="span" tone="sky" className="mb-3 block">AI-driven Products</Eyebrow>
           <H2 tone="hero" className="mb-3">Ask what already exists.</H2>
           <div className="mx-auto mb-6 max-w-[42rem]">

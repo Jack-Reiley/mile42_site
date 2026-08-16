@@ -112,17 +112,16 @@ export function Section({
 }
 
 /**
- * `detail` is the narrower content column the three detail comps draw: 1120px
- * against the site's 1240px. Above 1336px the cap binds before the horizontal
- * padding does, so the measure — not the padding — is what sets the inset.
+ * One content column for every route, 1240px, the width the header and footer
+ * already run. The detail comps draw a narrower 1120px column and the detail
+ * pages used to take it through a `measure` prop; that put six of sixteen pages
+ * on a different left edge from the wordmark above them, so the site measure
+ * won and the prop is gone. Above 1336px the cap binds before the horizontal
+ * padding does, so this — not the padding — is what sets the inset.
+ * See EXTRAPOLATIONS.md.
  */
-const MEASURE = {
-  site: 'max-w-site',
-  detail: 'max-w-detail',
-}
-
-export function Wrap({ measure = 'site', className = '', children }) {
-  return <div className={`mx-auto w-full ${MEASURE[measure]} ${className}`}>{children}</div>
+export function Wrap({ className = '', children }) {
+  return <div className={`mx-auto w-full max-w-site ${className}`}>{children}</div>
 }
 
 /**

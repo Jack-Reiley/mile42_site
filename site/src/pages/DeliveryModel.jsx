@@ -34,11 +34,10 @@ export default function DeliveryModel() {
   return (
     <>
       {/* The compact page header the detail pages draw, in the fill this page's
-          topic panel carries on How We Work. The column and the band rhythm are
-          the detail comps' too, so this page lines up with every other detail
-          page in the site rather than with the wider homepage language. */}
+          topic panel carries on How We Work. The band rhythm is the detail
+          comps' shorter one; the column is the site's single 1240px measure. */}
       <Section band="panel-forest" pad="header">
-        <Wrap measure="detail">
+        <Wrap>
           <Breadcrumb
             to="/how-we-work"
             parent="How we work"
@@ -51,7 +50,7 @@ export default function DeliveryModel() {
       </Section>
 
       <Section pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           <H2 className="mb-4">Where agents work, and what a human is still responsible for.</H2>
           {/* `max-w-none` on the copy under a full-width heading, the way the
               What We Do pages set theirs: the 46rem default is a measure for a
@@ -67,7 +66,7 @@ export default function DeliveryModel() {
           above removed a band, and without the flip this section and the one
           it follows are both `page`, so the boundary between them disappears. */}
       <Section band="surface" pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           <H2 className="mb-6">This is not AI writing your systems unsupervised.</H2>
           <Body className="mb-4 max-w-none">There is a version of this claim that is marketing, and we want to be clear we are not making it.</Body>
           <Body className="mb-4 max-w-none">Agents do not decide your architecture. They do not judge whether a design serves your customers. They do not carry accountability, because accountability cannot be delegated to a system that cannot be held responsible.</Body>
@@ -78,7 +77,7 @@ export default function DeliveryModel() {
       </Section>
 
       <Section pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           <H2 className="mb-10">Our progress is measured by value created, not effort expended.</H2>
           <div className="grid gap-4 md:grid-cols-2">
             {BENEFITS.map((b) => <Card key={b.title}><H3>{b.title}</H3><Body className="max-w-none">{b.body}</Body></Card>)}
@@ -110,7 +109,7 @@ export default function DeliveryModel() {
       </Section>
 
       <Section band="gold" pad="cta">
-        <Wrap measure="detail" className="text-center">
+        <Wrap className="text-center">
           <H2 className="mb-4">See it on real work.</H2>
           <Lead className="mx-auto mb-8">The fastest way to judge a delivery model is to put a real problem in front of it. Bring one.</Lead>
           <Button to="/contact">Start a conversation</Button>
