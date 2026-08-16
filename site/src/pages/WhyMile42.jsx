@@ -1,8 +1,17 @@
 import { Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote, Button, TextLink, Card } from '../components/primitives.jsx'
 import { TermList, PlainList } from '../components/Lists.jsx'
+import ExecutionContrast from '../components/ExecutionContrast.jsx'
 
-const WEAK = ['Unclear context', 'Slow decisions', 'Poor adoption', 'Fragmented delivery', 'Expensive potential']
-const STRONG = ['Clear context', 'Better decisions', 'Sound engineering', 'Adoption and follow-through', 'Measurable value']
+/* The four stages of execution the same platform passes through, and the two
+   readings of each. The result the two arrive at is held apart from them: it is
+   what the diagram ends on rather than one more stage. */
+const CONTRAST = [
+  { label: 'Context', weak: 'Unclear context', strong: 'Clear context' },
+  { label: 'Decisions', weak: 'Slow decisions', strong: 'Better decisions' },
+  { label: 'Build', weak: 'Poor adoption', strong: 'Sound engineering' },
+  { label: 'Delivery', weak: 'Fragmented delivery', strong: 'Adoption and follow-through' },
+]
+const CONTRAST_RESULT = { label: 'Result', weak: 'Expensive potential', strong: 'Measurable value' }
 const DOCTRINE = [['Purpose', 'Better customer outcomes are our purpose'], ['Domain', 'Technology is our domain'], ['Craft', 'Execution is our craft'], ['Legacy', 'Your increased capabilities are our legacy']]
 const SELL = ['Advice that ends at a document', 'Technology delivered without an outcome', 'Execution without context']
 const REQUIRE = ['Judgment tied to action', 'Technology built for outcomes', 'Execution that leaves capability']
@@ -37,12 +46,15 @@ export default function WhyMile42() {
       <Section band="surface">
         <Wrap>
           <H2 className="mb-4">The same technology produces very different outcomes.</H2>
-          <Lead className="mb-10">If technology were the differentiator, two organizations buying the same platform would get the same result. They do not, and the gap between them is often enormous.</Lead>
-          <div className="mb-8 grid gap-4 md:grid-cols-2">
-            <Card><H3>Same technology, weak execution</H3><PlainList items={WEAK} /></Card>
-            <Card><H3>Same technology, strong execution</H3><PlainList items={STRONG} /></Card>
-          </div>
-          <Quote>The tool is not the advantage. The execution system around it is.</Quote>
+          <Lead className="mb-10 lg:mb-16">If technology were the differentiator, two organizations buying the same platform would get the same result. They do not, and the gap between them is often enormous.</Lead>
+          <ExecutionContrast
+            platform="One platform"
+            weakTitle="Same technology, weak execution"
+            strongTitle="Same technology, strong execution"
+            stages={CONTRAST}
+            result={CONTRAST_RESULT}
+          />
+          <Quote className="mt-12 lg:mt-[72px]">The tool is not the advantage. The execution system around it is.</Quote>
         </Wrap>
       </Section>
 
