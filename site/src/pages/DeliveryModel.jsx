@@ -52,11 +52,6 @@ export default function DeliveryModel() {
 
       <Section>
         <Wrap>
-          {/* The roles are the evidence for the claim above them, so the two are
-              one band rather than two. The gap under the claim is the seam: the
-              band's own rhythm, not a section break, is what separates them. */}
-          <H2 className="mb-14 lg:mb-20">Speed, consistency, and a commercial model that matches.</H2>
-
           <H2 className="mb-4">Where agents work, and what a human is still responsible for.</H2>
           <Lead className="mb-3">AI agents work across every major role in a modern engagement. Humans stay responsible for judgment, your context, the decisions, and the outcome.</Lead>
           <Lead className="mb-10">These are roles in a delivery system, not sequential steps. Several run at once throughout an engagement.</Lead>
@@ -92,10 +87,12 @@ export default function DeliveryModel() {
         {/* The argument on the left, the loop it describes on the right. The
             columns are centred on each other rather than top-aligned: the ring
             has no top edge to align a paragraph to. */}
-        {/* The split is three quarters to the loop, and it waits for `xl`: at
-            `lg` the quarter left to the argument is too narrow to set 36px
-            headings in, so the two stack and the loop takes the full measure. */}
-        <Wrap className="grid items-center gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] xl:gap-16">
+        {/* The loop's column is a fixed measure rather than a fraction: below
+            about 800px the ring is too small to hold its own copy, and the
+            argument may have whatever is left over. The split waits for `xl`,
+            since before that the leftover is too narrow to set 36px headings
+            in, and the two stack instead. */}
+        <Wrap className="grid items-center gap-12 xl:grid-cols-[minmax(0,1fr)_800px] xl:gap-14">
           <div>
             <H2 className="mb-6">Each engagement should improve the next one.</H2>
             <Body className="mb-4">A firm built around execution cannot treat every engagement as a blank page. What we learn on your work becomes reusable methods, patterns, and components, which lowers the cost and the risk of the work that follows.</Body>

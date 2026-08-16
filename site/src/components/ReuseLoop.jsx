@@ -107,7 +107,7 @@ export default function ReuseLoop({ items }) {
             d={ringPath(0)}
             fill="none"
             stroke="var(--color-ink)"
-            strokeWidth="1.2"
+            strokeWidth="2"
             strokeLinecap="round"
             vectorEffect="non-scaling-stroke"
           />
@@ -126,7 +126,7 @@ export default function ReuseLoop({ items }) {
                 d="M -7 -7 L 6 0 L -6.4 6.6"
                 fill="none"
                 stroke="var(--color-ink)"
-                strokeWidth="1.4"
+                strokeWidth="2.4"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 vectorEffect="non-scaling-stroke"
@@ -191,21 +191,25 @@ export default function ReuseLoop({ items }) {
         })}
 
         {/* The selection reads inside the ring, which is the whole point of
-            drawing a ring. The width is a share of the box rather than a fixed
-            measure, so the text stays inside the circle as the circle grows,
-            and it is set by the ring's waist rather than by its diameter: the
-            two side nodes are what the text has to clear, not the circle. */}
+            drawing a ring, but only where the ring is large enough to hold it:
+            the width is capped by the ring's waist rather than its diameter,
+            since the two side nodes are what the copy has to clear, and below
+            `xl` that leaves a column too narrow to keep the text off the lower
+            two nodes. So it moves under the ring instead. */}
         <div className="hidden min-[700px]:absolute min-[700px]:left-1/2 min-[700px]:top-1/2 min-[700px]:block min-[700px]:w-[32%] min-[700px]:-translate-x-1/2 min-[700px]:-translate-y-1/2 min-[700px]:text-center">
-          <p className="mb-2 font-heading text-[20px] font-bold leading-[28px] text-ink">
-            {item.title}
-          </p>
-          <p className="text-body text-ink">{item.line}</p>
+          <p className="font-heading text-[20px] font-bold leading-[28px] text-ink">{item.title}</p>
+          <p className="hidden text-body text-ink xl:mt-2 xl:block">{item.line}</p>
         </div>
       </div>
 
-      {/* The phone layout, where there is no ring to put anything inside of.
-          The list above it already names the selection. */}
-      <p className="mt-5 text-body text-ink min-[700px]:hidden">{item.line}</p>
+      {/* What the ring is not holding: the title on a phone, where there is no
+          ring at all, and the line at every width below `xl`. */}
+      <div className="mt-5 min-[700px]:text-center xl:hidden">
+        <p className="mb-2 font-heading text-[20px] font-bold leading-[28px] text-ink min-[700px]:hidden">
+          {item.title}
+        </p>
+        <p className="text-body text-ink min-[700px]:mx-auto min-[700px]:max-w-[46rem]">{item.line}</p>
+      </div>
     </div>
   )
 }
