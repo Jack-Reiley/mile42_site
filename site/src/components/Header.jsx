@@ -146,9 +146,6 @@ export default function Header() {
   const headerRef = useRef(null)
   const triggerRefs = useRef({})
   const backRef = useRef(null)
-  /* A pinned panel was opened by a click and survives the pointer leaving.
-     Without it, clicking a menu the pointer already opened just closes it. */
-  const pinnedRef = useRef(false)
 
   const isCurrent = (href) => pathname === href || pathname.startsWith(`${href}/`)
 
@@ -157,7 +154,6 @@ export default function Header() {
       if (restoreFocus && current) triggerRefs.current[current]?.focus()
       return null
     })
-    pinnedRef.current = false
   }, [])
 
   const closeEverything = useCallback(() => {
@@ -200,26 +196,29 @@ export default function Header() {
   const openItem = NAV.find((item) => item.href === openHref)
   const drilledItem = NAV.find((item) => item.href === drilledHref)
 
-  /* Horizontal padding sits outside `max-w-site`, matching Section and Footer,
-     so the wordmark shares the page grid's inset once the container cap binds
-     (#23). It cannot move onto `header` itself: the panel and drawer are
-     siblings of the bar, and padding there would inset their top borders. The
-     panel and drawer repeat the same wrapper so all three track one edge. */
   return (
-    <header ref={headerRef} className="relative border-b border-ink bg-page">
+    /* The leave handler belongs on the header, not the nav: the panel is a
+       child of the header, so travelling from a trigger down into the panel
+       never leaves this element. On the nav it fired the moment the pointer
+       cleared a nav item, closing the panel on the way to it. */
+    <header
+      ref={headerRef}
+      className="relative border-b border-ink bg-page"
+      onMouseLeave={() => hoverOpens() && closePanel()}
+    >
+      {/* Horizontal padding sits outside `max-w-site`, matching Section and
+          Footer, so the wordmark shares the page grid's inset once the
+          container cap binds (#23). It cannot move onto `header` itself: the
+          panel and drawer are siblings of the bar, and padding there would
+          inset their top borders. The panel and drawer repeat this wrapper so
+          all three track one edge. */}
       <div className="px-6 py-5 md:px-12">
         <div className="mx-auto flex w-full max-w-site items-center justify-between gap-6">
           <Link to="/" className="font-heading text-heading-3 text-ink no-underline">
             Mile42
           </Link>
 
-          <nav
-            className="hidden items-center gap-8 lg:flex"
-            aria-label="Primary"
-            onMouseLeave={() => {
-              if (!pinnedRef.current) closePanel()
-            }}
-          >
+          <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
             {NAV.map((item) => {
               const open = openHref === item.href
               if (!item.columns) {
@@ -235,26 +234,35 @@ export default function Header() {
                   </Link>
                 )
               }
+              /* The label navigates to the section overview and the caret opens
+                 the panel. One control cannot do both: a button would lose the
+                 URL, middle-click and open-in-new-tab, and a link alone would
+                 leave the panel unreachable from the keyboard. */
               return (
-                <button
+                <div
                   key={item.href}
-                  type="button"
-                  ref={(node) => { triggerRefs.current[item.href] = node }}
-                  aria-expanded={open}
-                  aria-controls={panelId}
+                  className="flex items-center"
                   onMouseEnter={() => hoverOpens() && setOpenHref(item.href)}
-                  onClick={() => {
-                    if (open && pinnedRef.current) return closePanel()
-                    pinnedRef.current = true
-                    setOpenHref(item.href)
-                  }}
-                  className={`flex items-center text-body text-ink hover:underline ${
-                    isCurrent(item.href) ? 'font-semibold' : ''
-                  }`}
                 >
-                  {item.label}
-                  <Caret open={open} />
-                </button>
+                  <Link
+                    to={item.href}
+                    aria-current={isCurrent(item.href) ? 'page' : undefined}
+                    className="text-body text-ink no-underline aria-[current=page]:font-semibold hover:underline"
+                  >
+                    {item.label}
+                  </Link>
+                  <button
+                    type="button"
+                    ref={(node) => { triggerRefs.current[item.href] = node }}
+                    aria-expanded={open}
+                    aria-controls={panelId}
+                    aria-label={`${item.label} menu`}
+                    onClick={() => (open ? closePanel() : setOpenHref(item.href))}
+                    className="flex items-center px-1 text-ink"
+                  >
+                    <Caret open={open} />
+                  </button>
+                </div>
               )
             })}
             <Button to="/contact">Start a conversation</Button>
@@ -281,9 +289,6 @@ export default function Header() {
         <div
           id={panelId}
           className="absolute inset-x-0 top-full z-40 hidden border-b border-ink bg-page lg:block"
-          onMouseLeave={() => {
-            if (!pinnedRef.current) closePanel()
-          }}
         >
           {/* The grid takes the bar's wrapper so its edges are the bar's edges.
               No padding on the grid itself: each cell carries its own, so the
@@ -344,16 +349,25 @@ export default function Header() {
               {NAV.map((item) => (
                 <li key={item.href} className="border-b border-ink/15">
                   {item.columns ? (
-                    <button
-                      type="button"
-                      onClick={() => setDrilledHref(item.href)}
-                      className={`flex w-full items-center justify-between px-6 py-4 text-left text-body text-ink md:px-12 ${
-                        isCurrent(item.href) ? 'font-semibold' : ''
-                      }`}
-                    >
-                      {item.label}
-                      <span aria-hidden="true" className="text-lg leading-none">&#8250;</span>
-                    </button>
+                    /* Same split as the desktop nav: the label goes to the
+                       overview, the chevron opens the section. */
+                    <div className="flex items-center">
+                      <Link
+                        to={item.href}
+                        aria-current={isCurrent(item.href) ? 'page' : undefined}
+                        className="flex-1 px-6 py-4 text-body text-ink no-underline aria-[current=page]:font-semibold md:pl-12"
+                      >
+                        {item.label}
+                      </Link>
+                      <button
+                        type="button"
+                        aria-label={`${item.label} menu`}
+                        onClick={() => setDrilledHref(item.href)}
+                        className="self-stretch border-l border-ink/15 px-6 text-ink md:pr-12"
+                      >
+                        <span aria-hidden="true" className="text-lg leading-none">&#8250;</span>
+                      </button>
+                    </div>
                   ) : (
                     <Link
                       to={item.href}
