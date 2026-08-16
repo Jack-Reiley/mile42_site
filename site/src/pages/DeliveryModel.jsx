@@ -43,13 +43,13 @@ export default function DeliveryModel() {
 
       <Section>
         <Wrap>
-          <H2 className="mb-3">Our progress is measured by value created, not effort expended.</H2>
           {/* The roles are the evidence for the claim above them, so the two are
-              one band rather than two. The lead is the seam: the band's own
-              rhythm, not a section break, is what separates them. */}
-          <Lead className="mb-14 lg:mb-20">AI agents work across every major role in a modern engagement. Humans stay responsible for judgment, your context, the decisions, and the outcome.</Lead>
+              one band rather than two. The gap under the claim is the seam: the
+              band's own rhythm, not a section break, is what separates them. */}
+          <H2 className="mb-14 lg:mb-20">Speed, consistency, and a commercial model that matches.</H2>
 
           <H2 className="mb-4">Where agents work, and what a human is still responsible for.</H2>
+          <Lead className="mb-3">AI agents work across every major role in a modern engagement. Humans stay responsible for judgment, your context, the decisions, and the outcome.</Lead>
           <Lead className="mb-10">These are roles in a delivery system, not sequential steps. Several run at once throughout an engagement.</Lead>
           <WhereAgentsWork roles={ROLES} />
           <Quote className="mt-8">Humans provide judgment. Agents accelerate execution. We own the work.</Quote>
@@ -72,11 +72,10 @@ export default function DeliveryModel() {
 
       <Section>
         <Wrap>
-          <H2 className="mb-10">Speed, consistency, and a commercial model that matches.</H2>
-          <div className="mb-8 grid gap-4 md:grid-cols-2">
+          <H2 className="mb-10">Our progress is measured by value created, not effort expended.</H2>
+          <div className="grid gap-4 md:grid-cols-2">
             {BENEFITS.map((b) => <Card key={b.title}><H3>{b.title}</H3><Body className="max-w-none">{b.body}</Body></Card>)}
           </div>
-          <Quote>Execution without the overhead is not a slogan. It is what this model produces.</Quote>
         </Wrap>
       </Section>
 
