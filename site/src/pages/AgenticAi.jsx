@@ -94,8 +94,7 @@ export default function AgenticAi() {
           <Body className="mb-4">We stay close to the platforms shaping enterprise AI without becoming captive to any one of them. Model capability moves quickly, pricing moves quickly, and the right choice today may not be the right choice next year.</Body>
           <Body className="mb-8">So we build so the model layer can change without rebuilding the system around it, and we tell you plainly when a platform decision is being driven by genuine fit rather than by familiarity.</Body>
           <TermList items={STACK} className="mb-8" />
-          <Body className="mb-6">We stay multi-model and partner-literate so you can move with confidence.</Body>
-          <TextLink to="/partners">See our partners</TextLink>
+          <Body>We stay multi-model and partner-literate so you can move with confidence.</Body>
         </Wrap>
       </Section>
 

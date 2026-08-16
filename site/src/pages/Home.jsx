@@ -217,10 +217,9 @@ export default function Home() {
           <Note className="mb-4">
             We stay multi-model and partner-literate so you can move with confidence.
           </Note>
-          <div className="mb-10">
+          <div>
             <LogoSlots />
           </div>
-          <TextLink to="/proof">Why organizations trust us</TextLink>
         </Wrap>
       </Section>
 

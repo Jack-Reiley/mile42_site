@@ -85,9 +85,6 @@ export default function AiProducts() {
               production. It is the clearest evidence that we ship products, not just advise on
               them.
             </Body>
-            <p className="mt-4">
-              <TextLink to="/proof" tone="accent">See what we have shipped</TextLink>
-            </p>
           </FeaturePanel>
         </Wrap>
       </Section>

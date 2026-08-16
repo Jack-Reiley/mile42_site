@@ -12,8 +12,6 @@ import DeliveryModel from './pages/DeliveryModel.jsx'
 import EngagementModel from './pages/EngagementModel.jsx'
 import AgenticAi from './pages/AgenticAi.jsx'
 import WhyMile42 from './pages/WhyMile42.jsx'
-import Proof from './pages/Proof.jsx'
-import Partners from './pages/Partners.jsx'
 import Insights from './pages/Insights.jsx'
 import Contact from './pages/Contact.jsx'
 import Privacy from './pages/Privacy.jsx'
@@ -32,8 +30,6 @@ export const PAGES = [
   { path: '/how-we-work/engagement-model', title: 'Engagement model' + SUFFIX, Component: EngagementModel },
   { path: '/agentic-ai', title: 'Agentic AI' + SUFFIX, Component: AgenticAi },
   { path: '/why-mile42', title: 'Why Mile42' + SUFFIX, Component: WhyMile42 },
-  { path: '/proof', title: 'Proof' + SUFFIX, Component: Proof },
-  { path: '/partners', title: 'Partners' + SUFFIX, Component: Partners },
   { path: '/insights', title: 'Insights' + SUFFIX, Component: Insights },
   { path: '/contact', title: 'Contact' + SUFFIX, Component: Contact },
   { path: '/legal/privacy', title: 'Privacy' + SUFFIX, Component: Privacy },
