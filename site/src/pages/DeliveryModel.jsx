@@ -1,6 +1,7 @@
 import { Section, Wrap, Eyebrow, H2, H3, Lead, Body, Quote, Button, TextLink, Breadcrumb, Card } from '../components/primitives.jsx'
-import { NumList, Spine } from '../components/Lists.jsx'
+import { NumList } from '../components/Lists.jsx'
 import WhereAgentsWork from '../components/WhereAgentsWork.jsx'
+import ReuseSteps from '../components/ReuseSteps.jsx'
 
 const ROLES = [
   { title: 'Context and analysis', agents: 'Read the estate, the data, the documentation, and the code. Surface what is actually there rather than what the diagram says', human: 'Deciding what matters and what the findings mean for your situation' },
@@ -18,7 +19,15 @@ const BENEFITS = [
   { title: 'Context is not lost.', body: 'Decisions and rationale are captured as the work happens, so the reasoning survives past the engagement.' },
   { title: 'Smaller teams, less overhead.', body: 'Fewer people means fewer handoffs, fewer status meetings, and less of your time spent managing us.' },
 ]
-const SPINE = ['Client work', 'What we learn', 'Methods and reusable assets', 'Better delivery', 'Next engagement']
+/* Not steps in a process. These are the things that accumulate across
+   engagements, which is why they are named as things rather than as actions. */
+const REUSE = [
+  { title: 'Client work', line: 'Real engagements, with real constraints. Everything else here comes out of them.' },
+  { title: 'Lessons learned', line: 'What worked, what did not, and why, captured while the work is happening rather than reconstructed at the end.' },
+  { title: 'Reusable methods and assets', line: 'The patterns worth keeping become methods, components, and accelerators we can run again.' },
+  { title: 'Delivery improvements', line: 'Each pass makes the way we deliver better, so the next engagement runs on tested methods rather than a blank page.' },
+  { title: 'A stronger starting point', line: 'Your next initiative starts further along, so more of the budget goes to what is genuinely new.' },
+]
 
 /* EXTRAPOLATED — no comp for this page. */
 export default function DeliveryModel() {
@@ -84,7 +93,7 @@ export default function DeliveryModel() {
           <H2 className="mb-6">Each engagement should improve the next one.</H2>
           <Body className="mb-4">A firm built around execution cannot treat every engagement as a blank page. What we learn on your work becomes reusable methods, patterns, and components, which lowers the cost and the risk of the work that follows.</Body>
           <Body className="mb-8">That benefits you directly. You are not paying us to rediscover something we already solved for someone else.</Body>
-          <div className="mb-8"><Spine items={SPINE} /></div>
+          <div className="mb-8"><ReuseSteps items={REUSE} /></div>
           <Eyebrow className="mb-2">Note on ownership</Eyebrow>
           <Body className="mb-8">Reusable assets are our methods and patterns, never your data, your business logic, or anything specific to your organization. Where we build something for you, you own it. Ownership terms are explicit in every engagement.</Body>
           <TextLink to="/what-we-do/ai-products">See AI-driven products</TextLink>
