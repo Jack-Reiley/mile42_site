@@ -98,7 +98,7 @@ export default function WhatWeDo() {
               workflows, connected to real data, with governance the business can trust. It is the
               thread through advisory, engineering, and the products we ship.
             </Body>
-            <TextLink to="/agentic-ai" tone="on-dark">Inside our agentic AI practice</TextLink>
+            <TextLink to="/what-we-do/engineering/agentic-ai" tone="on-dark">Inside our agentic AI practice</TextLink>
           </div>
         </Wrap>
       </Section>

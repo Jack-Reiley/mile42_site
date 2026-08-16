@@ -113,7 +113,7 @@ export default function Engineering() {
               operational reality handled rather than deferred.
             </Body>
             <p className="mt-4">
-              <TextLink to="/agentic-ai" tone="accent">Inside our agentic AI practice</TextLink>
+              <TextLink to="/what-we-do/engineering/agentic-ai" tone="accent">Inside our agentic AI practice</TextLink>
             </p>
           </FeaturePanel>
         </Wrap>
