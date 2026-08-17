@@ -118,7 +118,7 @@ coverage: the illustration build's own lossless and tint assertions.
 | SCN-001 | Manual | — | N/A | The three cards captured on the navy band |
 | SCN-002 | Manual | — | N/A | Rendered icon box measured at 64px |
 | SCN-003 | Manual | — | N/A | Variant chosen at 1x and 2x, read from network requests |
-| SCN-004 | Measured | — | N/A | Alpha statistics computed over the emitted variants, reported as numbers |
+| SCN-004 | Measured | — | N/A | Alpha statistics computed over the emitted variants, reported as numbers. **Fails as written; see Known failures.** |
 | SCN-005 | Manual | — | N/A | Handshake icon captured at rendered size |
 | SCN-006 | Automated | `site/scripts/illustrations.mjs` lossless and tint assertions | N/A | Masters shown unmodified in `git status` |
 | SCN-007 | Manual | — | N/A | Two builds compared, one with a removed width |
@@ -133,6 +133,35 @@ empty strings in `.agents/software-delivery.config.json` and do not exist yet.
 The alpha figures quoted on the ticket are the measured outcome of the shipped
 pipeline, not a threshold chosen in advance. Verification reports what it
 measures rather than asserting a pass against a number it did not compute.
+
+## Known failures
+
+**SCN-004 fails as written and ships anyway, by developer decision on
+2026-08-17.** Measured over the emitted variants:
+
+| Icon | Avg ink alpha (64w / 128w) | Composited on navy (64w / 128w) |
+| --- | --- | --- |
+| lightbulb | 0.435 / 0.532 | 1.64 / 1.97 |
+| gears | 0.418 / 0.497 | 2.06 / 2.40 |
+| handshake | 0.476 / 0.549 | 1.49 / 1.69 |
+
+The scenario's first clause holds for all six variants: average ink alpha is
+clearly above the third of full alpha the artwork arrived at before. The second
+clause, "rather than under 2:1", does not hold for four of the six.
+
+This ticket contradicted itself about the target. SCN-004 demands above 2:1
+while the assumptions section states the result reaches "roughly 2:1". The
+ambiguity is resolved in favour of the assumptions: roughly 2:1 is the accepted
+ceiling for decorative artwork, and the pipeline has no lever left. `PathCard`
+already renders at 64px, `ALPHA_GAMMA` cannot spread ink into an empty pixel,
+and `DILATE_RADIUS` is capped at 2 by the handshake's knuckle hatching, which
+closes into a solid mass at 4.
+
+The remaining gap is the artwork rather than the pipeline. #45 replaces the
+handshake master with a drawing of fewer, heavier strokes and revisits
+`DILATE_RADIUS` once that constraint is gone, which also unblocks the other two
+icons. SCN-004 stays recorded as failing here rather than being rewritten to
+match what shipped, so the gap is visible until #45 closes it.
 
 ## Deliberate deviations
 
@@ -161,3 +190,8 @@ measures rather than asserting a pass against a number it did not compute.
 - If these icons are ever given informational weight rather than decorative
   weight, the roughly 2:1 ceiling has to be revisited. Carried forward from the
   ticket unresolved.
+- SCN-005, SCN-007, and SCN-010 were not exercised in verification pass one: the
+  handshake hatching at rendered size, build pruning with a changed width list,
+  and build repeatability with no input change. They are gaps in the pass rather
+  than known failures, and #45's build work is the natural place to close the
+  first of them.
