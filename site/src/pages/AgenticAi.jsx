@@ -92,7 +92,10 @@ export default function AgenticAi() {
           build is answered before the argument about why it is hard. */}
       <Section band="surface">
         <Wrap>
-          <H2 className="mb-6">Agentic systems that operate inside real business constraints.</H2>
+          <H2 className="mb-3">Agentic systems that operate inside real business constraints.</H2>
+          {/* The framing that opened the page before the capability listing took
+              the first slot. Muted, above the list, as on the sibling pages. */}
+          <Lead className="mb-9 max-w-none text-ink/70">Most organizations do not have an AI strategy problem. They have an AI implementation problem. The models work. Getting them to change how work happens is the hard part.</Lead>
           <Eyebrow as="span" className="mb-2 block">Capabilities</Eyebrow>
           <H3 className="mb-6">What we build.</H3>
           <GroupColumns>
@@ -108,9 +111,6 @@ export default function AgenticAi() {
       <Section>
         <Wrap>
           <H2 className="mb-6">Context before solutions.</H2>
-          {/* Carried down from the old hero so the page still opens on the
-              implementation framing. */}
-          <Lead className="mb-6">Most organizations do not have an AI strategy problem. They have an AI implementation problem. The models work. Getting them to change how work happens is the hard part.</Lead>
           <Body className="mb-8">Every engagement starts by understanding the work, not by selecting a technology. That is one of the firm&#39;s operating principles and it matters more here than anywhere else, because agentic systems are unusually sensitive to context. The same architecture that works in one organization fails in another with different data, incentives, and risk tolerance.</Body>
           <div className="mb-8 grid gap-4 lg:grid-cols-3">
             {QUESTIONS.map((q) => <Card key={q.n}><Eyebrow>{q.n}</Eyebrow><H3>{q.title}</H3><Body className="max-w-none">{q.body}</Body></Card>)}
