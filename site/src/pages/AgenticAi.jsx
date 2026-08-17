@@ -1,9 +1,12 @@
 import { Section, Wrap, Eyebrow, H2, H3, Lead, Body, Quote, Button, TextLink, Breadcrumb, Card } from '../components/primitives.jsx'
-import { NumList, TermList, StatementCards, CheckList } from '../components/Lists.jsx'
+import {
+  NumList, TermList, StatementCards, CheckList, GroupColumns, RuledGroup,
+} from '../components/Lists.jsx'
 
-/* The page accent darkened 8%, the same badge fill the Engineering page uses so
-   the green reads at weight on a light band. Written out in full because
-   Tailwind scans source text. */
+/* The page accent darkened 8%, the same rule and badge fills the Engineering
+   page uses so the green reads at weight on a light band. Written out in full
+   because Tailwind scans source text. */
+const GREEN_RULE = 'border-t-[color-mix(in_srgb,var(--color-brand)_92%,black)]'
 const GREEN_BADGE = 'bg-[color-mix(in_srgb,var(--color-brand)_92%,black)]'
 
 const QUESTIONS = [
@@ -17,13 +20,31 @@ const HARD_PARTS = [
   { title: 'Governance and risk', body: 'Controls, evaluation, and oversight that let the business trust what it deploys. What the agent is allowed to do, how you know it is working, who is accountable when it is wrong, and how you prove any of that to a regulator or an auditor.' },
   { title: 'Adoption and accountability', body: 'Getting the system used, measured, and improved after go-live. An agent nobody trusts is an expensive way to do nothing.' },
 ]
-const SYSTEMS = [
-  ['Agents', 'Systems that take action inside a workflow, not just answer questions about it'],
-  ['Copilots', 'Assistance embedded where the work already happens, rather than in a separate tool'],
-  ['RAG and knowledge systems', 'Retrieval that is accurate, current, permission-aware, and traceable to a source'],
-  ['Workflow automation', 'Removing manual steps that consume capacity without adding judgment'],
-  ['Enterprise AI applications', 'Applications where AI is the core of how the product works, not a feature bolted on'],
-  ['Data and systems integration', 'The foundation the rest of it depends on, which is usually the real project. Agentic systems fail on data and integration far more often than they fail on reasoning.'],
+/* The prototype's flat systems list, grouped into the Engineering page's
+   capability columns. The six terms and their definitions are unchanged; the
+   three group titles are DRAFT COPY, since the flat list had none. */
+const SYSTEM_GROUPS = [
+  {
+    title: 'Agents and copilots',
+    items: [
+      ['Agents', 'Systems that take action inside a workflow, not just answer questions about it'],
+      ['Copilots', 'Assistance embedded where the work already happens, rather than in a separate tool'],
+    ],
+  },
+  {
+    title: 'Knowledge and automation',
+    items: [
+      ['RAG and knowledge systems', 'Retrieval that is accurate, current, permission-aware, and traceable to a source'],
+      ['Workflow automation', 'Removing manual steps that consume capacity without adding judgment'],
+    ],
+  },
+  {
+    title: 'Applications and data',
+    items: [
+      ['Enterprise AI applications', 'Applications where AI is the core of how the product works, not a feature bolted on'],
+      ['Data and systems integration', 'The foundation the rest of it depends on, which is usually the real project. Agentic systems fail on data and integration far more often than they fail on reasoning.'],
+    ],
+  },
 ]
 const WRONG_TOOL = ['The task is fully deterministic and already well specified.', 'The cost of being occasionally wrong is higher than the cost of being always slow.', 'The real bottleneck is a decision nobody is empowered to make, which no technology fixes.', 'The underlying data is not good enough yet, and the agent would only surface that faster and more expensively.']
 const CONTROLS = ['Defined boundaries on data access and permitted actions.', 'Evaluation that runs continuously, not once at launch.', 'A clear human accountability point for every consequential decision.', 'An audit trail sufficient to explain a specific output after the fact.']
@@ -66,7 +87,25 @@ export default function AgenticAi() {
         </Wrap>
       </Section>
 
+      {/* The What we do detail pages' capability listing: eyebrow, list heading,
+          then accent-ruled groups of term rows. It opens the page, so what we
+          build is answered before the argument about why it is hard. */}
       <Section band="surface">
+        <Wrap>
+          <H2 className="mb-6">Agentic systems that operate inside real business constraints.</H2>
+          <Eyebrow as="span" className="mb-2 block">Capabilities</Eyebrow>
+          <H3 className="mb-6">What we build.</H3>
+          <GroupColumns>
+            {SYSTEM_GROUPS.map((g) => (
+              <RuledGroup key={g.title} title={g.title} ruleClass={GREEN_RULE}>
+                <TermList items={g.items} variant="ruled" />
+              </RuledGroup>
+            ))}
+          </GroupColumns>
+        </Wrap>
+      </Section>
+
+      <Section>
         <Wrap>
           <H2 className="mb-6">Context before solutions.</H2>
           {/* Carried down from the old hero so the page still opens on the
@@ -80,7 +119,7 @@ export default function AgenticAi() {
         </Wrap>
       </Section>
 
-      <Section>
+      <Section band="surface">
         <Wrap>
           <H2 className="mb-6">The distance between an AI pilot and an AI system.</H2>
           <Body className="mb-8">Almost every organization has run the pilot. Someone built a prototype, it demonstrated well, leadership was encouraged, and then it stopped.</Body>
@@ -89,13 +128,6 @@ export default function AgenticAi() {
             {HARD_PARTS.map((h) => <Card key={h.title}><H3>{h.title}</H3><Body className="max-w-none">{h.body}</Body></Card>)}
           </div>
           <Quote>The opportunity is AI. The constraint is implementation.</Quote>
-        </Wrap>
-      </Section>
-
-      <Section band="surface">
-        <Wrap>
-          <H2 className="mb-10">Agentic systems that operate inside real business constraints.</H2>
-          <TermList items={SYSTEMS} />
         </Wrap>
       </Section>
 
