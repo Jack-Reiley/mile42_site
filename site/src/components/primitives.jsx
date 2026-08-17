@@ -241,18 +241,23 @@ const TEXT_LINK_TONE = {
   'on-dark': 'text-hero-heading',
 }
 
+/* A same-page target is a plain anchor rather than a router link: the router
+   changes the location without scrolling, where the browser's own anchor
+   handling moves focus as well as the viewport. */
 export function TextLink({ to, tone = 'ink', className = '', children }) {
   const color = TEXT_LINK_TONE[tone]
+  const Tag = to.startsWith('#') ? 'a' : Link
+  const target = to.startsWith('#') ? { href: to } : { to }
   return (
-    <Link
-      to={to}
+    <Tag
+      {...target}
       className={`group inline-flex items-center gap-2 text-body font-semibold ${color} no-underline ${className}`}
     >
       {children}
       <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
         &#8250;
       </span>
-    </Link>
+    </Tag>
   )
 }
 
