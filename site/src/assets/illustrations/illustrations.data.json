@@ -89,14 +89,19 @@
     "height": 1222,
     "variants": [
       {
-        "width": 96,
-        "height": 115,
-        "bytes": 6190
+        "width": 64,
+        "height": 77,
+        "bytes": 3744
       },
       {
-        "width": 192,
-        "height": 230,
-        "bytes": 14574
+        "width": 128,
+        "height": 153,
+        "bytes": 8836
+      },
+      {
+        "width": 256,
+        "height": 307,
+        "bytes": 20464
       }
     ]
   },
@@ -105,24 +110,29 @@
     "height": 1502,
     "variants": [
       {
-        "width": 96,
-        "height": 107,
-        "bytes": 7794
+        "width": 64,
+        "height": 71,
+        "bytes": 4412
       },
       {
         "width": 104,
         "height": 116,
-        "bytes": 8682
+        "bytes": 8712
       },
       {
-        "width": 192,
-        "height": 214,
-        "bytes": 19520
+        "width": 128,
+        "height": 143,
+        "bytes": 11688
       },
       {
         "width": 208,
         "height": 232,
-        "bytes": 21716
+        "bytes": 21874
+      },
+      {
+        "width": 256,
+        "height": 285,
+        "bytes": 28632
       }
     ]
   },
@@ -131,24 +141,29 @@
     "height": 860,
     "variants": [
       {
-        "width": 96,
-        "height": 60,
-        "bytes": 4086
+        "width": 64,
+        "height": 40,
+        "bytes": 2374
       },
       {
         "width": 104,
         "height": 65,
-        "bytes": 4648
+        "bytes": 4674
       },
       {
-        "width": 192,
-        "height": 120,
-        "bytes": 10980
+        "width": 128,
+        "height": 80,
+        "bytes": 6116
       },
       {
         "width": 208,
         "height": 130,
-        "bytes": 12412
+        "bytes": 12236
+      },
+      {
+        "width": 256,
+        "height": 160,
+        "bytes": 16598
       }
     ]
   },
@@ -159,12 +174,12 @@
       {
         "width": 104,
         "height": 127,
-        "bytes": 11180
+        "bytes": 11136
       },
       {
         "width": 208,
         "height": 254,
-        "bytes": 27948
+        "bytes": 27904
       }
     ]
   }

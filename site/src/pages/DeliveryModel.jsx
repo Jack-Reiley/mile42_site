@@ -1,5 +1,7 @@
-import { Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote, Button, TextLink, Card } from '../components/primitives.jsx'
-import { NumList, Spine } from '../components/Lists.jsx'
+import { Section, Wrap, Eyebrow, H2, H3, Lead, Body, Quote, Button, TextLink, Breadcrumb, Card } from '../components/primitives.jsx'
+import { NumList } from '../components/Lists.jsx'
+import WhereAgentsWork from '../components/WhereAgentsWork.jsx'
+import ReuseLoop from '../components/ReuseLoop.jsx'
 
 const ROLES = [
   { title: 'Context and analysis', agents: 'Read the estate, the data, the documentation, and the code. Surface what is actually there rather than what the diagram says', human: 'Deciding what matters and what the findings mean for your situation' },
@@ -17,82 +19,96 @@ const BENEFITS = [
   { title: 'Context is not lost.', body: 'Decisions and rationale are captured as the work happens, so the reasoning survives past the engagement.' },
   { title: 'Smaller teams, less overhead.', body: 'Fewer people means fewer handoffs, fewer status meetings, and less of your time spent managing us.' },
 ]
-const SPINE = ['Client work', 'What we learn', 'Methods and reusable assets', 'Better delivery', 'Next engagement']
+/* Not steps in a process. These are the things that accumulate across
+   engagements, which is why they are named as things rather than as actions. */
+const REUSE = [
+  { title: 'Client work', line: 'Real engagements, with real constraints. Everything else here comes out of them.' },
+  { title: 'Lessons learned', line: 'What worked, what did not, and why, captured while the work is happening rather than reconstructed at the end.' },
+  { title: 'Reusable methods and assets', line: 'The patterns worth keeping become methods, components, and accelerators we can run again.' },
+  { title: 'Delivery improvements', line: 'Each pass makes the way we deliver better, so the next engagement runs on tested methods rather than a blank page.' },
+  { title: 'A stronger starting point', line: 'Your next initiative starts further along, so more of the budget goes to what is genuinely new.' },
+]
 
 /* EXTRAPOLATED — no comp for this page. */
 export default function DeliveryModel() {
   return (
     <>
-      <Section band="brand">
+      {/* The compact page header the detail pages draw, in the fill this page's
+          topic panel carries on How We Work. The band rhythm is the detail
+          comps' shorter one; the column is the site's single 1240px measure. */}
+      <Section band="panel-forest" pad="header">
         <Wrap>
-          <Eyebrow tone="ink" className="mb-4">How we deliver</Eyebrow>
-          <H1 tone="hero" className="mb-6">An AI-assisted operating system, directed by people.</H1>
-          <Lead>AI agents work across every major role in a modern engagement. Humans stay responsible for judgment, your context, the decisions, and the outcome.</Lead>
+          <Breadcrumb
+            to="/how-we-work"
+            parent="How we work"
+            current="Delivery model"
+            markClass="bg-forest"
+            tone="ink"
+          />
+          <H2 as="h1">An AI-assisted operating system, directed by people.</H2>
         </Wrap>
       </Section>
 
-      <Section>
-        <Wrap>
-          <H2 className="mb-6">The delivery model is the reason the commercial model works.</H2>
-          <Body className="mb-4">Most firms sell hours because hours are the only thing they can predict. If delivery speed is set by headcount, then time and materials is the honest way to price it, and the client carries the risk of everything taking longer than expected.</Body>
-          <Body className="mb-8">We built delivery differently so we could price differently. Agents handle the parts of an engagement that are repeatable, documentable, and slow when done by hand. That compresses the work enough that we can price a fixed scope or a milestone schedule and carry the estimate risk ourselves rather than passing it to you.</Body>
-          <Quote>Our progress is measured by value created, not effort expended.</Quote>
-        </Wrap>
-      </Section>
-
-      <Section band="surface">
+      <Section pad="band">
         <Wrap>
           <H2 className="mb-4">Where agents work, and what a human is still responsible for.</H2>
-          <Lead className="mb-10">These are roles in a delivery system, not sequential steps. Several run at once throughout an engagement.</Lead>
-          <div className="grid gap-3">
-            {ROLES.map((r) => (
-              <Card key={r.title}>
-                <H3>{r.title}</H3>
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div><Eyebrow className="mb-1">What agents do</Eyebrow><Body className="max-w-none">{r.agents}</Body></div>
-                  <div><Eyebrow className="mb-1">What a human owns</Eyebrow><Body className="max-w-none">{r.human}</Body></div>
-                </div>
-              </Card>
-            ))}
-          </div>
+          {/* `max-w-none` on the copy under a full-width heading, the way the
+              What We Do pages set theirs: the 46rem default is a measure for a
+              column, and this band does not have one. */}
+          <Lead className="mb-3 max-w-none">AI agents work across every major role in a modern engagement. Humans stay responsible for judgment, your context, the decisions, and the outcome.</Lead>
+          <Lead className="mb-10 max-w-none">These are roles in a delivery system, not sequential steps. Several run at once throughout an engagement.</Lead>
+          <WhereAgentsWork roles={ROLES} />
           <Quote className="mt-8">Humans provide judgment. Agents accelerate execution. We own the work.</Quote>
         </Wrap>
       </Section>
 
-      <Section>
+      {/* Every band below this one flips: merging the roles into the section
+          above removed a band, and without the flip this section and the one
+          it follows are both `page`, so the boundary between them disappears. */}
+      <Section band="surface" pad="band">
         <Wrap>
           <H2 className="mb-6">This is not AI writing your systems unsupervised.</H2>
-          <Body className="mb-4">There is a version of this claim that is marketing, and we want to be clear we are not making it.</Body>
-          <Body className="mb-4">Agents do not decide your architecture. They do not judge whether a design serves your customers. They do not carry accountability, because accountability cannot be delegated to a system that cannot be held responsible.</Body>
-          <Body className="mb-8">What they do is remove the drag: the reading, the drafting, the scaffolding, the test coverage, the documentation that usually gets written last or not at all. That is a large share of any engagement, and compressing it is what creates the speed.</Body>
+          <Body className="mb-4 max-w-none">There is a version of this claim that is marketing, and we want to be clear we are not making it.</Body>
+          <Body className="mb-4 max-w-none">Agents do not decide your architecture. They do not judge whether a design serves your customers. They do not carry accountability, because accountability cannot be delegated to a system that cannot be held responsible.</Body>
+          <Body className="mb-8 max-w-none">What they do is remove the drag: the reading, the drafting, the scaffolding, the test coverage, the documentation that usually gets written last or not at all. That is a large share of any engagement, and compressing it is what creates the speed.</Body>
           <Eyebrow className="mb-4">Three things that remain human</Eyebrow>
           <NumList items={HUMAN_ONLY} />
         </Wrap>
       </Section>
 
-      <Section band="surface">
+      <Section pad="band">
         <Wrap>
-          <H2 className="mb-10">Speed, consistency, and a commercial model that matches.</H2>
-          <div className="mb-8 grid gap-4 md:grid-cols-2">
+          <H2 className="mb-10">Our progress is measured by value created, not effort expended.</H2>
+          <div className="grid gap-4 md:grid-cols-2">
             {BENEFITS.map((b) => <Card key={b.title}><H3>{b.title}</H3><Body className="max-w-none">{b.body}</Body></Card>)}
           </div>
-          <Quote>Execution without the overhead is not a slogan. It is what this model produces.</Quote>
         </Wrap>
       </Section>
 
-      <Section>
-        <Wrap>
-          <H2 className="mb-6">Each engagement should improve the next one.</H2>
-          <Body className="mb-4">A firm built around execution cannot treat every engagement as a blank page. What we learn on your work becomes reusable methods, patterns, and components, which lowers the cost and the risk of the work that follows.</Body>
-          <Body className="mb-8">That benefits you directly. You are not paying us to rediscover something we already solved for someone else.</Body>
-          <div className="mb-8"><Spine items={SPINE} /></div>
-          <Eyebrow className="mb-2">Note on ownership</Eyebrow>
-          <Body className="mb-8">Reusable assets are our methods and patterns, never your data, your business logic, or anything specific to your organization. Where we build something for you, you own it. Ownership terms are explicit in every engagement.</Body>
-          <TextLink to="/what-we-do/ai-products">See AI-driven products</TextLink>
+      <Section band="surface" pad="band">
+        {/* The argument on the left, the loop it describes on the right. The
+            columns are centred on each other rather than top-aligned: the ring
+            has no top edge to align a paragraph to. */}
+        {/* The loop's column is a fixed measure rather than a fraction: below
+            about 800px the ring is too small to hold its own copy, and the
+            argument may have whatever is left over. The split waits for `xl`,
+            since before that the leftover is too narrow to set 36px headings
+            in, and the two stack instead. */}
+        <Wrap className="grid items-center gap-12 xl:grid-cols-[minmax(0,1fr)_800px] xl:gap-14">
+          <div>
+            <H2 className="mb-6">Each engagement should improve the next one.</H2>
+            <Body className="mb-4">A firm built around execution cannot treat every engagement as a blank page. What we learn on your work becomes reusable methods, patterns, and components, which lowers the cost and the risk of the work that follows.</Body>
+            <Body className="mb-8">That benefits you directly. You are not paying us to rediscover something we already solved for someone else.</Body>
+            <Eyebrow className="mb-2">Note on ownership</Eyebrow>
+            <Body className="mb-8">Reusable assets are our methods and patterns, never your data, your business logic, or anything specific to your organization. Where we build something for you, you own it. Ownership terms are explicit in every engagement.</Body>
+            <TextLink to="/what-we-do/ai-products">See AI-driven products</TextLink>
+          </div>
+
+          <ReuseLoop items={REUSE} />
         </Wrap>
       </Section>
 
-      <Section band="brand">
+      <Section band="gold" pad="cta">
         <Wrap className="text-center">
           <H2 className="mb-4">See it on real work.</H2>
           <Lead className="mx-auto mb-8">The fastest way to judge a delivery model is to put a real problem in front of it. Bring one.</Lead>

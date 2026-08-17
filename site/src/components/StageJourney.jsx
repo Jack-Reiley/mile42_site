@@ -113,9 +113,24 @@ const PAD = 'clamp(18px,2.4vw,44px)'
 
 const DETAIL_ID = 'stage-journey-detail'
 
+/* Hover previews the detail on a mouse; a tap must not, because a touch browser
+   fires a synthetic mouseenter on tap and the preview would race the click. */
+const canHover = () =>
+  typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
+
 export default function StageJourney({ Spot }) {
-  const [open, setOpen] = useState(null)
+  /* Two sources, one open stage. Hovering previews a stage, clicking pins one so
+     it survives the pointer leaving. A preview outranks the pin while it lasts,
+     so hovering across the row reads the row rather than fighting the pinned
+     stage, and the pin comes back when the pointer leaves the card. */
+  const [pinned, setPinned] = useState(null)
+  const [hovered, setHovered] = useState(null)
+  const open = hovered === null ? pinned : hovered
   const stage = open === null ? null : STAGES[open]
+
+  const preview = (i) => {
+    if (canHover()) setHovered(i)
+  }
 
   return (
     /* `isolate` is required: the open column's field is a -z-10 child, and without a
@@ -124,7 +139,10 @@ export default function StageJourney({ Spot }) {
       className="relative isolate rounded-card border border-ink bg-page shadow-hard py-10"
       style={{ paddingLeft: PAD, paddingRight: PAD }}
     >
-      <div className="relative grid grid-cols-1 -mx-[clamp(18px,2.4vw,44px)] min-[700px]:mx-0 min-[700px]:grid-cols-4">
+      <div
+        className="relative grid grid-cols-1 -mx-[clamp(18px,2.4vw,44px)] min-[700px]:mx-0 min-[700px]:grid-cols-4"
+        onMouseLeave={() => setHovered(null)}
+      >
         <span aria-hidden="true" className="hidden min-[700px]:block absolute inset-x-0 top-[61px] h-px bg-ink" />
 
         {STAGES.map((s, i) => {
@@ -135,7 +153,14 @@ export default function StageJourney({ Spot }) {
               type="button"
               aria-expanded={on}
               aria-controls={on ? DETAIL_ID : undefined}
-              onClick={() => setOpen(on ? null : i)}
+              onMouseEnter={() => preview(i)}
+              /* Clearing the preview on click is what makes the pinned stage
+                 close on a second click: with no preview left to fall back to,
+                 nothing reopens it until the pointer moves to another stage. */
+              onClick={() => {
+                setPinned(pinned === i ? null : i)
+                setHovered(null)
+              }}
               /* `flex flex-col` is load-bearing, not layout preference. A `button`
                  stretched by the grid centres its own content vertically in every
                  browser, which drops the shorter columns below the journey line and
@@ -186,85 +211,90 @@ export default function StageJourney({ Spot }) {
         })}
 
         {stage === null ? null : (
-          /* Keyed by stage so switching stages remounts the detail and replays its
-             entrance rather than swapping copy under a finished animation.
+          /* The drop. This wrapper is deliberately NOT keyed by stage: it mounts
+             once when a stage opens and animates its single grid track from 0fr,
+             so the detail grows out of the row instead of appearing under it.
+             Switching stages swaps the copy inside an already-open panel.
+
+             It also bleeds to the card's edges so the inner clip, which is what
+             makes the 0fr track actually hide the content, cuts exactly where the
+             card's own border is rather than mid-rule.
 
              The detail is a grid item so that `order` can place it directly beneath
              the stage that was tapped once the row is stacked. On the row that
              ordering is meaningless — four columns are one glance — so it reverts to
              the last item and spans the full width. */
           <div
-            key={stage.n}
             id={DETAIL_ID}
-            className="order-[var(--stage-order)] px-[clamp(18px,2.4vw,44px)] min-[700px]:order-last min-[700px]:col-span-4 min-[700px]:px-0"
+            className="grid grid-rows-[1fr] order-[var(--stage-order)] animate-[m42-drop_440ms_var(--ease-m42)_both] motion-reduce:animate-none min-[700px]:order-last min-[700px]:col-span-4 min-[700px]:-mx-[clamp(18px,2.4vw,44px)]"
             style={{ '--stage-order': String(open * 2 + 1) }}
           >
-          {/* The rule bleeds past the card padding: it is the card's own division
-              between the stage row and the open detail. */}
-          <span
-            aria-hidden="true"
-            className="mb-[30px] block h-px origin-left bg-ink animate-[m42-draw-x_440ms_var(--ease-m42)_both] motion-reduce:animate-none"
-            style={{ marginLeft: `calc(-1 * ${PAD})`, marginRight: `calc(-1 * ${PAD})` }}
-          />
+            {/* `overflow-hidden` is the clip, and it is also what gives the grid
+                item the min-height of 0 that lets the 0fr track collapse. */}
+            <div className="overflow-hidden">
+              {/* Keyed by stage so switching stages replays the rule and the item
+                  stagger rather than swapping copy under a finished animation. */}
+              <div key={stage.n}>
+                {/* The card's own division between the stage row and the open
+                    detail, edge to edge because the wrapper already bled out. */}
+                <span
+                  aria-hidden="true"
+                  className="mb-[30px] block h-px origin-left bg-ink animate-[m42-draw-x_440ms_var(--ease-m42)_both] motion-reduce:animate-none"
+                />
 
-          <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] items-start">
-            <div>
-              <Eyebrow className="mb-[10px]">{stage.eyebrow}</Eyebrow>
-              <h4 className="mb-[18px] font-heading text-heading-2 text-ink text-pretty">
-                {stage.heading}
-              </h4>
-              {stage.paras.map((p, i) => (
-                <p key={i} className={`text-body text-ink ${i ? '' : 'mb-[14px]'}`}>
-                  {p}
-                </p>
-              ))}
-              {stage.link ? (
-                <TextLink to={stage.link.to} className="mt-[22px]">
-                  {stage.link.label}
-                </TextLink>
-              ) : null}
+                <div style={{ paddingLeft: PAD, paddingRight: PAD }}>
+                  <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] items-start">
+                    <div>
+                      <Eyebrow className="mb-[10px]">{stage.eyebrow}</Eyebrow>
+                      <h4 className="mb-[18px] font-heading text-heading-2 text-ink text-pretty">
+                        {stage.heading}
+                      </h4>
+                      {stage.paras.map((p, i) => (
+                        <p key={i} className={`text-body text-ink ${i ? '' : 'mb-[14px]'}`}>
+                          {p}
+                        </p>
+                      ))}
+                      {stage.link ? (
+                        <TextLink to={stage.link.to} className="mt-[22px]">
+                          {stage.link.label}
+                        </TextLink>
+                      ) : null}
+                    </div>
+
+                    <div>
+                      {Spot ? <Spot name={stage.spot} decorative sizes="76px" className="mb-4 h-[76px] w-[76px] object-contain" /> : null}
+                      <Eyebrow tone="ink" className="mb-4">You leave with:</Eyebrow>
+                      <ol className="flex flex-col gap-[14px]">
+                        {stage.items.map((text, i) => (
+                          <li
+                            key={text}
+                            className="grid grid-cols-[34px_minmax(0,1fr)] gap-[10px] animate-[m42-item_420ms_var(--ease-m42)_both] motion-reduce:animate-none"
+                            style={{ animationDelay: `${260 + i * 60}ms` }}
+                          >
+                            <span className="pt-[5px] font-eyebrow text-eyebrow text-accent">
+                              {String(i + 1).padStart(2, '0')}
+                            </span>
+                            <span className="text-body text-ink">{text}</span>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  </div>
+
+                  {/* Not the `Quote` primitive: this measure is 44rem against its 46rem, and
+                      two `max-w-*` utilities on one element resolve by stylesheet order
+                      rather than by the order they are written in. */}
+                  {stage.quote ? (
+                    <p className="mt-9 max-w-[44rem] font-heading text-heading-3 text-ink text-pretty">
+                      {stage.quote}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
             </div>
-
-            <div>
-              {Spot ? <Spot name={stage.spot} decorative sizes="76px" className="mb-4 h-[76px] w-[76px] object-contain" /> : null}
-              <Eyebrow tone="ink" className="mb-4">You leave with:</Eyebrow>
-              <ol className="flex flex-col gap-[14px]">
-                {stage.items.map((text, i) => (
-                  <li
-                    key={text}
-                    className="grid grid-cols-[34px_minmax(0,1fr)] gap-[10px] animate-[m42-item_420ms_var(--ease-m42)_both] motion-reduce:animate-none"
-                    style={{ animationDelay: `${260 + i * 60}ms` }}
-                  >
-                    <span className="pt-[5px] font-eyebrow text-eyebrow text-accent">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-body text-ink">{text}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-
-          {/* Not the `Quote` primitive: this measure is 44rem against its 46rem, and
-              two `max-w-*` utilities on one element resolve by stylesheet order
-              rather than by the order they are written in. */}
-          {stage.quote ? (
-            <p className="mt-9 max-w-[44rem] font-heading text-heading-3 text-ink text-pretty">
-              {stage.quote}
-            </p>
-          ) : null}
           </div>
         )}
       </div>
-
-      {stage === null ? (
-        <p
-          className="border-t border-ink pt-[22px] text-body text-ink"
-          style={{ marginLeft: `calc(-1 * ${PAD})`, marginRight: `calc(-1 * ${PAD})`, paddingLeft: PAD, paddingRight: PAD }}
-        >
-          Select a stage to open it.
-        </p>
-      ) : null}
     </div>
   )
 }

@@ -194,7 +194,7 @@ export default function Home() {
             by fixing a process or writing conventional software, and we say so.
           </Body>
           <Quote className="mb-6">The opportunity is AI. The constraint is implementation.</Quote>
-          <TextLink to="/agentic-ai">Inside our agentic AI practice</TextLink>
+          <TextLink to="/what-we-do/engineering/agentic-ai">Inside our agentic AI practice</TextLink>
         </Wrap>
       </Section>
 
@@ -217,10 +217,9 @@ export default function Home() {
           <Note className="mb-4">
             We stay multi-model and partner-literate so you can move with confidence.
           </Note>
-          <div className="mb-10">
+          <div>
             <LogoSlots />
           </div>
-          <TextLink to="/proof">Why organizations trust us</TextLink>
         </Wrap>
       </Section>
 

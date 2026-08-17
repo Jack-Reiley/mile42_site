@@ -33,7 +33,7 @@
  */
 
 import sharp from 'sharp'
-import { mkdir, readdir, writeFile } from 'node:fs/promises'
+import { mkdir, readdir, rm, writeFile } from 'node:fs/promises'
 import { existsSync, readFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -52,7 +52,7 @@ const OUT = join(SITE, 'src', 'assets', 'illustrations')
  *   hero  — `max-w-[34rem]` is 544px, so ~1088 at 2x DPR; a 375px viewport
  *           renders it near 343px, so ~686 at 2x
  *   spots — `w-28 lg:w-32` is 112–128px, so ~256 at 2x
- *   paths — 48px rendered, so ~96 at 2x
+ *   paths — 64px rendered, so ~128 at 2x
  * A variant wider than the artwork itself is skipped rather than upscaled.
  *
  * `tint` is a token name rather than a hex, so the colour stays a reference to
@@ -66,10 +66,12 @@ const MAP = {
   'lightbulb_with_color.png': { key: 'lightbulb', widths: [256, 512] },
   // The How we work hero renders it near 352px, so 384/768 covers 1x and 2x.
   'gears_with_color.png': { key: 'gears', widths: [384, 768] },
-  'lightbulb_mono.png': { key: 'path-lightbulb', widths: [96, 192], tint: '--color-orange' },
-  'gears_mono.png': { key: 'path-gears', widths: [96, 104, 192, 208], tint: '--color-brand' },
-  // 96/192 for the 48px path card, 104/208 for the 52px feature panel.
-  'handshake_mono.png': { key: 'path-handshake', widths: [96, 104, 192, 208], tint: '--color-red' },
+  'lightbulb_mono.png': { key: 'path-lightbulb', widths: [64, 128, 256], tint: '--color-orange' },
+  'gears_mono.png': { key: 'path-gears', widths: [64, 104, 128, 208, 256], tint: '--color-brand' },
+  // 64/128/256 for the 64px path card, 104/208 for the 52px feature panel. The
+  // 64w matters: without a 1x candidate the browser hands a 1x screen the 104w
+  // and downscales it itself, which averages back some of the alpha work below.
+  'handshake_mono.png': { key: 'path-handshake', widths: [64, 104, 128, 208, 256], tint: '--color-red' },
   'clipboard_mono.png': { key: 'path-clipboard', widths: [104, 208], tint: '--color-orange' },
 }
 
@@ -110,6 +112,107 @@ async function assertVisuallyLossless(trimmedBuf, encodedBuf, label) {
     )
   }
   return a.info
+}
+
+/**
+ * How far the alpha of a downscaled mask is pulled back up. Applied as
+ * `a ** ALPHA_GAMMA`, so 0 and 255 are fixed points and only the antialiasing
+ * in between moves.
+ *
+ * The masters are line drawings a thousand pixels wide whose ink is 80% solid.
+ * Resampled down for a path card, a stroke lands on well under a pixel and the
+ * ink arrives around a third of full alpha, so on the navy band the average ink
+ * pixel composites to under 2:1 rather than the 4–5.8:1 the tint itself reaches.
+ * The drawing is legible; its coverage is not.
+ *
+ * 0.6 lifts that by roughly half again. It cannot spread ink into a pixel the
+ * resample left empty, so the shape is the artwork's, not this script's. It is
+ * the smaller of the two levers: the render size in `MAP` is the other, and
+ * moving the card from 48px to 64px did more than the curve did.
+ */
+const ALPHA_GAMMA = 0.6
+
+const ALPHA_CURVE = Uint8Array.from({ length: 256 }, (_, a) =>
+  Math.round(255 * (a / 255) ** ALPHA_GAMMA),
+)
+
+/**
+ * How far a mask is grown, in master pixels, before it is downscaled.
+ *
+ * The curve above can only re-weight pixels the resample already touched. This
+ * adds stroke where there was none, which is the difference between a stroke
+ * that survives a 16x reduction and one that dissolves into it.
+ *
+ * 2 is where the busiest drawing stops tolerating it: at 4 the handshake's
+ * knuckle hatching closes up into a solid mass, while the lightbulb and the
+ * gears would still take more. The radius that suits every master is the one
+ * the densest master allows.
+ */
+const DILATE_RADIUS = 2
+
+/**
+ * Morphological dilate on the alpha channel, as two separable max passes.
+ *
+ * The masters are alpha masks whose RGB is already the flat tint on every
+ * pixel, transparent ones included, so growing alpha can only expose more of
+ * that one colour. On artwork with real RGB it would drag colour outward, which
+ * is why only tinted entries take it.
+ */
+function dilateAlpha(data, width, height, radius) {
+  const pass = (src, dst, stride, outer, inner) => {
+    for (let o = 0; o < outer; o++) {
+      for (let i = 0; i < inner; i++) {
+        let max = 0
+        for (let d = -radius; d <= radius; d++) {
+          const at = i + d
+          if (at < 0 || at >= inner) continue
+          const a = src[((stride === 1 ? o * width + at : at * width + o) << 2) + 3]
+          if (a > max) max = a
+        }
+        dst[((stride === 1 ? o * width + i : i * width + o) << 2) + 3] = max
+      }
+    }
+  }
+
+  const horizontal = new Uint8ClampedArray(data)
+  pass(data, horizontal, 1, height, width)
+  const both = new Uint8ClampedArray(horizontal)
+  pass(horizontal, both, width, width, height)
+  return both
+}
+
+/** Grows a tinted mask ahead of the downscale. Variants only, as with the curve. */
+async function thickenMask(tintedBuf) {
+  const { data, info } = await sharp(tintedBuf)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true })
+
+  const grown = dilateAlpha(data, info.width, info.height, DILATE_RADIUS)
+
+  return sharp(Buffer.from(grown), {
+    raw: { width: info.width, height: info.height, channels: 4 },
+  })
+    .png()
+    .toBuffer()
+}
+
+/**
+ * Re-weights the alpha of an already-resized mask. Variants only: the full-size
+ * asset is the one held pixel-identical to its master, and the masters are
+ * solid enough at full size that the curve would be a no-op there anyway.
+ */
+async function boostVariantAlpha(resizedBuf) {
+  const { data, info } = await sharp(resizedBuf)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true })
+
+  for (let i = 3; i < data.length; i += 4) data[i] = ALPHA_CURVE[data[i]]
+
+  return sharp(data, { raw: { width: info.width, height: info.height, channels: 4 } })
+    .png()
+    .toBuffer()
 }
 
 /** Replaces RGB with the tint on every pixel, leaving alpha untouched. */
@@ -168,6 +271,7 @@ async function main() {
   }
 
   const data = {}
+  const written = new Set()
 
   for (const [file, { key, widths, tint }] of Object.entries(MAP)) {
     const src = join(MASTERS, file)
@@ -181,16 +285,23 @@ async function main() {
       ? await assertTinted(trimmed, full, rgb, key)
       : await assertVisuallyLossless(trimmed, full, key)
     await writeFile(join(OUT, `${key}.webp`), full)
+    written.add(`${key}.webp`)
+
+    // Only the tinted entries are grown and curved. They are the single-colour
+    // masks, where every pixel already carries the tint and moving alpha cannot
+    // pull a second colour into the edge. The full-colour artwork has its own
+    // edges to respect, and the full-size asset above is untouched by both.
+    const variantSource = rgb ? await thickenMask(source) : source
 
     const variants = []
     for (const w of widths) {
       if (w >= info.width) continue // never upscale
-      const buf = await sharp(source)
-        .resize({ width: w })
-        .webp({ quality: 90, effort: 6 })
-        .toBuffer()
+      const resized = await sharp(variantSource).resize({ width: w }).png().toBuffer()
+      const shaped = rgb ? await boostVariantAlpha(resized) : resized
+      const buf = await sharp(shaped).webp({ quality: 90, effort: 6 }).toBuffer()
       const meta = await sharp(buf).metadata()
       await writeFile(join(OUT, `${key}-${w}.webp`), buf)
+      written.add(`${key}-${w}.webp`)
       variants.push({ width: meta.width, height: meta.height, bytes: buf.length })
     }
 
@@ -204,11 +315,18 @@ async function main() {
     )
   }
 
+  // The manifest globs this directory eagerly, so a variant left behind by an
+  // earlier width list is still bundled even though no `srcSet` names it. The
+  // script owns the directory, so it removes what it no longer emits.
+  const stale = (await readdir(OUT)).filter((f) => f.endsWith('.webp') && !written.has(f))
+  for (const f of stale) await rm(join(OUT, f))
+
   await writeFile(
     join(OUT, 'illustrations.data.json'),
     `${JSON.stringify(data, null, 2)}\n`,
   )
   console.log(`\n${Object.keys(MAP).length} illustrations built from ${MASTERS}`)
+  if (stale.length) console.log(`${stale.length} stale asset(s) removed: ${stale.join(', ')}`)
 }
 
 await main()

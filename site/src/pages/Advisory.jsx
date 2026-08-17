@@ -34,7 +34,7 @@ export default function Advisory() {
   return (
     <>
       <Section band="navy" pad="header">
-        <Wrap measure="detail">
+        <Wrap>
           <Breadcrumb to="/what-we-do" parent="What we do" current="Advisory" markClass="bg-orange" />
           {/* The comp sets the page header at 38px, which snaps to the H2 token
               rather than H1's 57px. It is still the page's only h1. */}
@@ -43,7 +43,7 @@ export default function Advisory() {
       </Section>
 
       <Section pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           <H2 className="mb-3">Most technology decisions are made with incomplete context.</H2>
           <Lead className="mb-9 max-w-none text-ink/70">
             Before a major investment, the expensive mistake is rarely choosing the wrong option. It
@@ -60,7 +60,7 @@ export default function Advisory() {
       </Section>
 
       <Section pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           {/* Phase Zero has no page yet. It points at /contact until the ticket
               that owns the route lands and flips it, because App.jsx bounces an
               unknown path to the homepage, which reads as a broken site. */}
@@ -84,7 +84,7 @@ export default function Advisory() {
       </Section>
 
       <Section band="tint" pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           <LabelBody
             label={
               <>
@@ -117,7 +117,7 @@ export default function Advisory() {
       </Section>
 
       <Section pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           <LabelBody label={<H2>We write recommendations we could execute ourselves.</H2>}>
             <Body className="max-w-none">
               The failure mode of consulting advisory is the document. A deck lands, everyone agrees
@@ -142,7 +142,7 @@ export default function Advisory() {
       </Section>
 
       <Section band="navy" pad="cta">
-        <Wrap measure="detail" className="text-center">
+        <Wrap className="text-center">
           <Eyebrow as="span" tone="sky" className="mb-3 block">Advisory</Eyebrow>
           <H2 tone="hero" className="mb-3">Tell us what you are trying to decide.</H2>
           <div className="mx-auto mb-6 max-w-[42rem]">

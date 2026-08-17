@@ -66,7 +66,7 @@ export default function Engineering() {
   return (
     <>
       <Section band="navy" pad="header">
-        <Wrap measure="detail">
+        <Wrap>
           <Breadcrumb
             to="/what-we-do"
             parent="What we do"
@@ -78,7 +78,7 @@ export default function Engineering() {
       </Section>
 
       <Section pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           <H2 className="mb-3">
             The distance between a plan and a working system is where most initiatives fail.
           </H2>
@@ -100,7 +100,7 @@ export default function Engineering() {
       </Section>
 
       <Section pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           <FeaturePanel
             spot="path-gears"
             eyebrow="Core practice"
@@ -113,14 +113,14 @@ export default function Engineering() {
               operational reality handled rather than deferred.
             </Body>
             <p className="mt-4">
-              <TextLink to="/agentic-ai" tone="accent">Inside our agentic AI practice</TextLink>
+              <TextLink to="/what-we-do/engineering/agentic-ai" tone="accent">Inside our agentic AI practice</TextLink>
             </p>
           </FeaturePanel>
         </Wrap>
       </Section>
 
       <Section band="tint" pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           <LabelBody
             label={
               <>
@@ -135,7 +135,7 @@ export default function Engineering() {
       </Section>
 
       <Section pad="band">
-        <Wrap measure="detail">
+        <Wrap>
           <LabelBody label={<H2>We build capability, not dependence.</H2>}>
             <Body className="max-w-none">
               The strategy was sound, the vendor was capable, the technology was proven somewhere
@@ -156,7 +156,7 @@ export default function Engineering() {
       </Section>
 
       <Section band="navy" pad="cta">
-        <Wrap measure="detail" className="text-center">
+        <Wrap className="text-center">
           <Eyebrow as="span" tone="sky" className="mb-3 block">Engineering</Eyebrow>
           <H2 tone="hero" className="mb-3">Tell us what needs to work.</H2>
           <div className="mx-auto mb-6 max-w-[42rem]">

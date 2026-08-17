@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { Link } from 'react-router'
 import { illustrations } from '../assets/illustrations/manifest.js'
 
@@ -12,6 +13,29 @@ import { illustrations } from '../assets/illustrations/manifest.js'
  */
 
 /**
+ * The How We Work topic panel fills: the topic's mark colour laid over the
+ * surface band. Exported because a topic's own child page can carry its panel
+ * fill as the page header, and the two blocks of colour have to be the same
+ * one rather than two literals that drift apart.
+ */
+export const PANEL_FILL = {
+  accent: 'bg-[color-mix(in_srgb,var(--color-accent)_16%,var(--color-surface))]',
+  forest: 'bg-[color-mix(in_srgb,var(--color-forest)_18%,var(--color-surface))]',
+  orange: 'bg-[color-mix(in_srgb,var(--color-orange)_16%,var(--color-surface))]',
+}
+
+/**
+ * The same mix taken ten points deeper, for a panel that is itself a link. The
+ * ink type still sits on a tint of the surface, so nothing about the contrast
+ * changes; the panel just admits it is a target.
+ */
+export const PANEL_FILL_HOVER = {
+  accent: 'hover:bg-[color-mix(in_srgb,var(--color-accent)_26%,var(--color-surface))]',
+  forest: 'hover:bg-[color-mix(in_srgb,var(--color-forest)_28%,var(--color-surface))]',
+  orange: 'hover:bg-[color-mix(in_srgb,var(--color-orange)_26%,var(--color-surface))]',
+}
+
+/**
  * `blue` is the accent darkened 8%. No palette colour reaches AA on
  * `--color-accent` — white peaks at 4.41 — so the band, not the text, is what
  * moves. At 92% the ice eyebrow reaches 4.55 and the on-dark body 4.92. It is
@@ -23,6 +47,12 @@ const BAND = {
   surface: 'bg-surface',
   brand: 'bg-brand',
   navy: 'bg-navy',
+  // Why Mile42's page identity, the way `navy` is What We Do's and `gold` is
+  // How We Work's. Dark, so it takes the on-dark tones: the off-white heading
+  // reaches 8.7:1 and a sky eyebrow 6.0:1. `brand` was what this page used, but
+  // it is the hero on Home and six others, and its off-white heading measures
+  // 2.51:1 — under the 3:1 floor for text that size.
+  forest: 'bg-forest',
   blue: 'bg-[color-mix(in_srgb,var(--color-accent)_92%,black)]',
   // The detail comps' `#e6f1fe`, which is the accent at 10% over white.
   tint: 'bg-[color-mix(in_srgb,var(--color-accent)_10%,white)]',
@@ -32,6 +62,12 @@ const BAND = {
   // is used rather than `--color-cta` so the yellow CTA button still separates
   // from the band it sits on.
   gold: 'bg-gold',
+  // The three How We Work topic panels, each carried onto that topic's own page
+  // as its header so the child page reads as the same block of colour. Light,
+  // like `gold`, so nothing on them takes the off-white hero tone.
+  'panel-accent': PANEL_FILL.accent,
+  'panel-forest': PANEL_FILL.forest,
+  'panel-orange': PANEL_FILL.orange,
 }
 
 /**
@@ -83,17 +119,16 @@ export function Section({
 }
 
 /**
- * `detail` is the narrower content column the three detail comps draw: 1120px
- * against the site's 1240px. Above 1336px the cap binds before the horizontal
- * padding does, so the measure — not the padding — is what sets the inset.
+ * One content column for every route, 1240px, the width the header and footer
+ * already run. The detail comps draw a narrower 1120px column and the detail
+ * pages used to take it through a `measure` prop; that put six of sixteen pages
+ * on a different left edge from the wordmark above them, so the site measure
+ * won and the prop is gone. Above 1336px the cap binds before the horizontal
+ * padding does, so this — not the padding — is what sets the inset.
+ * See EXTRAPOLATIONS.md.
  */
-const MEASURE = {
-  site: 'max-w-site',
-  detail: 'max-w-detail',
-}
-
-export function Wrap({ measure = 'site', className = '', children }) {
-  return <div className={`mx-auto w-full ${MEASURE[measure]} ${className}`}>{children}</div>
+export function Wrap({ className = '', children }) {
+  return <div className={`mx-auto w-full max-w-site ${className}`}>{children}</div>
 }
 
 /**
@@ -212,18 +247,23 @@ const TEXT_LINK_TONE = {
   'on-dark': 'text-hero-heading',
 }
 
+/* A same-page target is a plain anchor rather than a router link: the router
+   changes the location without scrolling, where the browser's own anchor
+   handling moves focus as well as the viewport. */
 export function TextLink({ to, tone = 'ink', className = '', children }) {
   const color = TEXT_LINK_TONE[tone]
+  const Tag = to.startsWith('#') ? 'a' : Link
+  const target = to.startsWith('#') ? { href: to } : { to }
   return (
-    <Link
-      to={to}
+    <Tag
+      {...target}
       className={`group inline-flex items-center gap-2 text-body font-semibold ${color} no-underline ${className}`}
     >
       {children}
       <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
         &#8250;
       </span>
-    </Link>
+    </Tag>
   )
 }
 
@@ -253,9 +293,12 @@ export function PathCard({ to, spot, eyebrow, title, heading = 'h2', className =
   return (
     <Link
       to={to}
-      className={`group grid grid-cols-[3rem_1fr_auto] items-center gap-[18px] rounded-card border border-white/15 px-[22px] py-[15px] no-underline transition-colors hover:border-white/30 hover:bg-white/5 motion-reduce:transition-none ${className}`}
+      className={`group grid grid-cols-[4rem_1fr_auto] items-center gap-[18px] rounded-card border border-white/15 px-[22px] py-[15px] no-underline transition-colors hover:border-white/30 hover:bg-white/5 motion-reduce:transition-none ${className}`}
     >
-      <Spot name={spot} decorative priority sizes="48px" className="h-12 w-12 object-contain" />
+      {/* 64px rather than the 48px this started at. The artwork is single-weight
+          line drawing, so the only way it gains presence on the navy band is
+          more pixels per stroke — see the alpha note in scripts/illustrations.mjs. */}
+      <Spot name={spot} decorative priority sizes="64px" className="h-16 w-16 object-contain" />
       <span>
         <Eyebrow as="span" tone="sky" className="block">{eyebrow}</Eyebrow>
         <H3 as={heading} tone="hero" className="mt-1">{title}</H3>
@@ -280,17 +323,29 @@ export function PathCard({ to, spot, eyebrow, title, heading = 'h2', className =
  * marked as current rather than linked.
  *
  * `markClass` carries the page accent, which differs per detail page.
+ *
+ * `tone` follows the band: sky on the navy header the comps draw, ink on a
+ * light header, where sky reaches 1.4:1 against the fill.
+ *
+ * `ancestors` is an optional `[to, label]` list rendered ahead of the parent,
+ * for a page nested more than one level below the top of a section.
  */
-export function Breadcrumb({ to, parent, current, markClass }) {
+export function Breadcrumb({ to, parent, current, markClass, tone = 'sky', ancestors = [] }) {
+  const color = tone === 'ink' ? 'text-ink' : 'text-sky'
+  const links = [...ancestors, [to, parent]]
   return (
     <nav aria-label="Breadcrumb" className="mb-[10px] flex items-center gap-[10px]">
       <span aria-hidden="true" className={`h-[5px] w-6 rounded-[3px] ${markClass}`} />
-      <ol className="flex items-center gap-2 text-eyebrow font-eyebrow uppercase text-sky">
-        <li>
-          <Link to={to} className="text-sky no-underline hover:underline">{parent}</Link>
-        </li>
-        {/* Decoration. Hidden so it is not announced between the two levels. */}
-        <li aria-hidden="true">/</li>
+      <ol className={`flex items-center gap-2 text-eyebrow font-eyebrow uppercase ${color}`}>
+        {links.map(([href, label]) => (
+          <Fragment key={href}>
+            <li>
+              <Link to={href} className={`${color} no-underline hover:underline`}>{label}</Link>
+            </li>
+            {/* Decoration. Hidden so it is not announced between the levels. */}
+            <li aria-hidden="true">/</li>
+          </Fragment>
+        ))}
         <li aria-current="page">{current}</li>
       </ol>
     </nav>

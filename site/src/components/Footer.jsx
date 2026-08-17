@@ -8,8 +8,8 @@ const COLUMNS = [
     links: [
       { href: '/what-we-do/advisory', label: 'Advisory' },
       { href: '/what-we-do/engineering', label: 'Engineering' },
+      { href: '/what-we-do/engineering/agentic-ai', label: 'Agentic AI', nested: true },
       { href: '/what-we-do/ai-products', label: 'AI-driven Products' },
-      { href: '/agentic-ai', label: 'Agentic AI' },
     ],
   },
   {
@@ -24,9 +24,6 @@ const COLUMNS = [
     heading: 'Company',
     links: [
       { href: '/why-mile42', label: 'Why Mile42' },
-      { href: '/proof', label: 'Proof' },
-      { href: '/partners', label: 'Partners' },
-      { href: '/insights', label: 'Insights' },
     ],
   },
   {
@@ -48,8 +45,8 @@ export default function Footer() {
             <div key={heading}>
               <h2 className="text-eyebrow font-eyebrow uppercase text-accent mb-4">{heading}</h2>
               <ul className="flex flex-col gap-2">
-                {links.map(({ href, label }) => (
-                  <li key={label}>
+                {links.map(({ href, label, nested }) => (
+                  <li key={label} className={nested ? 'ml-3 border-l border-ink/25 pl-3' : undefined}>
                     <Link to={href} className="text-body text-ink no-underline hover:underline">
                       {label}
                     </Link>

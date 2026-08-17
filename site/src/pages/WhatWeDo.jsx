@@ -3,24 +3,27 @@ import {
   Button, ButtonRow, TextLink, Card, PathCard,
 } from '../components/primitives.jsx'
 
+/* The title names the practice the card leads to, so the three headings are the
+   three service names rather than three sentences beginning "You need". The
+   situation stays on the card as the eyebrow above it. */
 const PATHS = [
   {
-    eyebrow: 'Before a major investment',
-    title: 'You need clarity',
-    body: 'Decide well before you commit.',
+    eyebrow: 'You need clarity',
+    title: 'Advisory',
+    body: 'Before a major investment.',
     href: '/what-we-do/advisory',
     spot: 'path-lightbulb',
   },
   {
-    eyebrow: 'When something must be built',
-    title: 'You need to execute',
-    body: 'Make it work in production, not just a demo.',
+    eyebrow: 'You need to execute',
+    title: 'Engineering',
+    body: 'When something must be built.',
     href: '/what-we-do/engineering',
     spot: 'path-gears',
   },
   {
-    eyebrow: 'When starting from zero is unnecessary',
-    title: 'You need proven solutions',
+    eyebrow: 'You need proven solutions',
+    title: 'AI products and accelerators',
     body: 'Reuse what already works.',
     href: '/what-we-do/ai-products',
     spot: 'path-handshake',
@@ -95,7 +98,7 @@ export default function WhatWeDo() {
               workflows, connected to real data, with governance the business can trust. It is the
               thread through advisory, engineering, and the products we ship.
             </Body>
-            <TextLink to="/agentic-ai" tone="on-dark">Inside our agentic AI practice</TextLink>
+            <TextLink to="/what-we-do/engineering/agentic-ai" tone="on-dark">Inside our agentic AI practice</TextLink>
           </div>
         </Wrap>
       </Section>

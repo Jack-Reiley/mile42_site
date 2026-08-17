@@ -12,8 +12,6 @@ import DeliveryModel from './pages/DeliveryModel.jsx'
 import EngagementModel from './pages/EngagementModel.jsx'
 import AgenticAi from './pages/AgenticAi.jsx'
 import WhyMile42 from './pages/WhyMile42.jsx'
-import Proof from './pages/Proof.jsx'
-import Partners from './pages/Partners.jsx'
 import Insights from './pages/Insights.jsx'
 import Contact from './pages/Contact.jsx'
 import Privacy from './pages/Privacy.jsx'
@@ -25,18 +23,22 @@ export const PAGES = [
   { path: '/what-we-do', title: 'What we do' + SUFFIX, Component: WhatWeDo },
   { path: '/what-we-do/advisory', title: 'Advisory' + SUFFIX, Component: Advisory },
   { path: '/what-we-do/engineering', title: 'Engineering' + SUFFIX, Component: Engineering },
+  { path: '/what-we-do/engineering/agentic-ai', title: 'Agentic AI' + SUFFIX, Component: AgenticAi },
   { path: '/what-we-do/ai-products', title: 'AI-driven Products' + SUFFIX, Component: AiProducts },
   { path: '/how-we-work', title: 'How we work' + SUFFIX, Component: HowWeWork },
   { path: '/how-we-work/client-journey', title: 'Client journey' + SUFFIX, Component: ClientJourney },
   { path: '/how-we-work/delivery-model', title: 'Delivery model' + SUFFIX, Component: DeliveryModel },
   { path: '/how-we-work/engagement-model', title: 'Engagement model' + SUFFIX, Component: EngagementModel },
-  { path: '/agentic-ai', title: 'Agentic AI' + SUFFIX, Component: AgenticAi },
   { path: '/why-mile42', title: 'Why Mile42' + SUFFIX, Component: WhyMile42 },
-  { path: '/proof', title: 'Proof' + SUFFIX, Component: Proof },
-  { path: '/partners', title: 'Partners' + SUFFIX, Component: Partners },
   { path: '/insights', title: 'Insights' + SUFFIX, Component: Insights },
   { path: '/contact', title: 'Contact' + SUFFIX, Component: Contact },
   { path: '/legal/privacy', title: 'Privacy' + SUFFIX, Component: Privacy },
+]
+
+/* Netlify serves a 301 for these before the app ever loads, so this only
+   catches in-app navigation to a path that has since moved. */
+const MOVED = [
+  { from: '/agentic-ai', to: '/what-we-do/engineering/agentic-ai' },
 ]
 
 export default function App() {
@@ -52,6 +54,9 @@ export default function App() {
             </Layout>
           }
         />
+      ))}
+      {MOVED.map(({ from, to }) => (
+        <Route key={from} path={from} element={<Navigate to={to} replace />} />
       ))}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
