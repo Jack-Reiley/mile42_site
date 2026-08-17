@@ -76,7 +76,7 @@ const LABEL = { sm: [58, 30], lg: [78, 36] }
  *
  * EXTRAPOLATED. The style guide has no numbered-node treatment, and white text
  * is what forces the choice: at 12px it needs 4.5:1, which rules out most of the
- * palette. `orange` reaches 3.2 against white and `red` 3.8, so both are mixed
+ * palette. `orange` reaches 3.06 against white and `red` 3.8, so both are mixed
  * toward ink until they clear it, and `accent` is darkened the same way and for
  * the same reason the `blue` band in primitives.jsx is. `forest` and `navy` are
  * dark enough to be used as they are.
