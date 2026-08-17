@@ -1,7 +1,7 @@
 # #32 — Give the client journey page the detail header and open its stages on hover
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/32
-- Pull request: pending
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/44
 - Parent epic: none
 - Delivery unit: `unit-nav-ia-cleanup`
 - Requirement version: 1

@@ -1,7 +1,7 @@
 # #35 — Give the How We Work section one header, one band rhythm, and clickable panels
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/35
-- Pull request: pending
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/44
 - Parent epic: none
 - Delivery unit: `unit-nav-ia-cleanup`
 - Requirement version: 1

@@ -1,7 +1,7 @@
 # #36 — Six routes run a narrower content column than the rest of the site
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/36
-- Pull request: pending
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/44
 - Parent epic: none
 - Delivery unit: `unit-nav-ia-cleanup`
 - Requirement version: 1

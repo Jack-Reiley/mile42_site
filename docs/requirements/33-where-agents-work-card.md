@@ -1,7 +1,7 @@
 # #33 — Replace the delivery model's role tiles with one interactive handoff card
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/33
-- Pull request: pending
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/44
 - Parent epic: none
 - Delivery unit: `unit-nav-ia-cleanup`
 - Requirement version: 1

@@ -1,7 +1,7 @@
 # #38 — Remove the proof and partners pages
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/38
-- Pull request: pending
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/44
 - Parent epic: none
 - Delivery unit: `unit-nav-ia-cleanup`
 - Requirement version: 1

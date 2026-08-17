@@ -1,7 +1,7 @@
 # #39 — Move Agentic AI under the Engineering practice
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/39
-- Pull request: pending
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/44
 - Parent epic: none
 - Delivery unit: `unit-nav-ia-cleanup`
 - Requirement version: 1

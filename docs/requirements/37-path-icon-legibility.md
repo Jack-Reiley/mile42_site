@@ -1,7 +1,7 @@
 # #37 — Make the What We Do path card icons legible on the navy band
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/37
-- Pull request: pending
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/44
 - Parent epic: none
 - Delivery unit: `unit-nav-ia-cleanup`
 - Requirement version: 1

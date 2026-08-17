@@ -1,7 +1,7 @@
 # #43 — Lead the What We Do panel and cards with the practice name
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/43
-- Pull request: pending
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/44
 - Parent epic: none
 - Delivery unit: `unit-nav-ia-cleanup`
 - Requirement version: 1
