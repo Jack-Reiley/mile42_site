@@ -1,5 +1,10 @@
 import { Section, Wrap, Eyebrow, H2, H3, Lead, Body, Quote, Button, TextLink, Breadcrumb, Card } from '../components/primitives.jsx'
-import { NumList, TermList, StatementCards } from '../components/Lists.jsx'
+import { NumList, TermList, StatementCards, CheckList } from '../components/Lists.jsx'
+
+/* The page accent darkened 8%, the same badge fill the Engineering page uses so
+   the green reads at weight on a light band. Written out in full because
+   Tailwind scans source text. */
+const GREEN_BADGE = 'bg-[color-mix(in_srgb,var(--color-brand)_92%,black)]'
 
 const QUESTIONS = [
   { n: '01', title: 'What outcome actually matters, and how will we know if it moved?', body: 'If nobody can name the measure, the project has no definition of done.' },
@@ -22,6 +27,15 @@ const SYSTEMS = [
 ]
 const WRONG_TOOL = ['The task is fully deterministic and already well specified.', 'The cost of being occasionally wrong is higher than the cost of being always slow.', 'The real bottleneck is a decision nobody is empowered to make, which no technology fixes.', 'The underlying data is not good enough yet, and the agent would only surface that faster and more expensively.']
 const CONTROLS = ['Defined boundaries on data access and permitted actions.', 'Evaluation that runs continuously, not once at launch.', 'A clear human accountability point for every consequential decision.', 'An audit trail sufficient to explain a specific output after the fact.']
+/* DRAFT COPY — written for this section, not carried from the prototype.
+   Expands the "Adoption and accountability" card, which had no section. */
+const ADOPTION = [
+  { title: 'A named owner', body: 'One person accountable for the system after we leave, identified while it is still being built rather than at handover.' },
+  { title: 'A measure that predates the agent', body: 'The number the work was already judged on, so improvement can be shown rather than asserted.' },
+  { title: 'A route for the people using it', body: 'A way to report a bad output that reaches someone who can change the system, and a record of what changed as a result.' },
+  { title: 'A review cadence', body: 'Scheduled examination of what the system is actually doing, because the work it supports will not hold still.' },
+]
+
 /* DRAFT COPY — written for this section, not carried from the prototype.
    Each row expands one clause of the "Architecture and integration" card. */
 const OPERATIONAL = [
@@ -119,6 +133,19 @@ export default function AgenticAi() {
           <Body className="mb-8">So we build so the model layer can change without rebuilding the system around it, and we tell you plainly when a platform decision is being driven by genuine fit rather than by familiarity.</Body>
           <TermList items={STACK} className="mb-8" />
           <Body>We stay multi-model and partner-literate so you can move with confidence.</Body>
+        </Wrap>
+      </Section>
+
+      {/* The "Adoption and accountability" hard part, which had no section of
+          its own until now. */}
+      <Section band="surface">
+        <Wrap>
+          <H2 className="mb-6">Go-live is the middle of the project, not the end.</H2>
+          <Body className="mb-4">A system that works and is not used produces the same business result as a system that does not work. Adoption is not a communications exercise added at launch. It is a constraint that shapes what gets built, who it is built with, and what it is allowed to change.</Body>
+          <Body className="mb-8">So we plan for the part after go-live before there is anything to go live with: who owns the system, what gets measured, how the people doing the work say it is wrong, and what happens to that signal once they do.</Body>
+          <Eyebrow className="mb-4">What is in place before launch</Eyebrow>
+          <CheckList items={ADOPTION} columns={2} badgeClass={GREEN_BADGE} className="mb-8" />
+          <Quote>The measure of the work is what the organization does differently six months after launch.</Quote>
         </Wrap>
       </Section>
 
