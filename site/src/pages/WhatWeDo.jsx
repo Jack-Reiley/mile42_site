@@ -3,27 +3,27 @@ import {
   Button, ButtonRow, TextLink, Card, PathCard,
 } from '../components/primitives.jsx'
 
-/* The eyebrow names the practice the card leads to, so the three cards read as
-   the three services before they read as three situations. The situation moves
-   down to the line under the title. */
+/* The title names the practice the card leads to, so the three headings are the
+   three service names rather than three sentences beginning "You need". The
+   situation stays on the card as the eyebrow above it. */
 const PATHS = [
   {
-    eyebrow: 'Advisory',
-    title: 'You need clarity',
+    eyebrow: 'You need clarity',
+    title: 'Advisory',
     body: 'Before a major investment.',
     href: '/what-we-do/advisory',
     spot: 'path-lightbulb',
   },
   {
-    eyebrow: 'Engineering',
-    title: 'You need to execute',
+    eyebrow: 'You need to execute',
+    title: 'Engineering',
     body: 'When something must be built.',
     href: '/what-we-do/engineering',
     spot: 'path-gears',
   },
   {
-    eyebrow: 'AI products and accelerators',
-    title: 'You need proven solutions',
+    eyebrow: 'You need proven solutions',
+    title: 'AI products and accelerators',
     body: 'Reuse what already works.',
     href: '/what-we-do/ai-products',
     spot: 'path-handshake',

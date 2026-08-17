@@ -19,14 +19,14 @@ const NAV = [
     columns: [
       {
         href: '/what-we-do/advisory',
-        eyebrow: 'Advisory',
-        title: 'You need clarity',
+        eyebrow: 'You need clarity',
+        title: 'Advisory',
         body: 'Before a major investment.',
       },
       {
         href: '/what-we-do/engineering',
-        eyebrow: 'Engineering',
-        title: 'You need to execute',
+        eyebrow: 'You need to execute',
+        title: 'Engineering',
         body: 'When something must be built.',
         child: {
           href: '/what-we-do/engineering/agentic-ai',
@@ -36,8 +36,8 @@ const NAV = [
       },
       {
         href: '/what-we-do/ai-products',
-        eyebrow: 'AI products and accelerators',
-        title: 'You need proven solutions',
+        eyebrow: 'You need proven solutions',
+        title: 'AI products and accelerators',
         body: 'Reuse what already works.',
       },
     ],
@@ -83,7 +83,7 @@ function Caret({ open }) {
 }
 
 /* The column's eyebrow and title are one link, so its accessible name reads
-   "Advisory: You need clarity" rather than the title alone. The body sits
+   "You need clarity: Advisory" rather than the title alone. The body sits
    outside it, and a nested child needs its own link, which cannot be nested
    inside another. */
 /* The design system's smallest heading is 26px, which wraps every title in a
