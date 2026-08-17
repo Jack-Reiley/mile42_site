@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { Link } from 'react-router'
 import { illustrations } from '../assets/illustrations/manifest.js'
 
@@ -314,18 +315,26 @@ export function PathCard({ to, spot, eyebrow, title, heading = 'h2', className =
  *
  * `tone` follows the band: sky on the navy header the comps draw, ink on a
  * light header, where sky reaches 1.4:1 against the fill.
+ *
+ * `ancestors` is an optional `[to, label]` list rendered ahead of the parent,
+ * for a page nested more than one level below the top of a section.
  */
-export function Breadcrumb({ to, parent, current, markClass, tone = 'sky' }) {
+export function Breadcrumb({ to, parent, current, markClass, tone = 'sky', ancestors = [] }) {
   const color = tone === 'ink' ? 'text-ink' : 'text-sky'
+  const links = [...ancestors, [to, parent]]
   return (
     <nav aria-label="Breadcrumb" className="mb-[10px] flex items-center gap-[10px]">
       <span aria-hidden="true" className={`h-[5px] w-6 rounded-[3px] ${markClass}`} />
       <ol className={`flex items-center gap-2 text-eyebrow font-eyebrow uppercase ${color}`}>
-        <li>
-          <Link to={to} className={`${color} no-underline hover:underline`}>{parent}</Link>
-        </li>
-        {/* Decoration. Hidden so it is not announced between the two levels. */}
-        <li aria-hidden="true">/</li>
+        {links.map(([href, label]) => (
+          <Fragment key={href}>
+            <li>
+              <Link to={href} className={`${color} no-underline hover:underline`}>{label}</Link>
+            </li>
+            {/* Decoration. Hidden so it is not announced between the levels. */}
+            <li aria-hidden="true">/</li>
+          </Fragment>
+        ))}
         <li aria-current="page">{current}</li>
       </ol>
     </nav>

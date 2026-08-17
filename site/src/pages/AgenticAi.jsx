@@ -18,7 +18,7 @@ const SYSTEMS = [
   ['RAG and knowledge systems', 'Retrieval that is accurate, current, permission-aware, and traceable to a source'],
   ['Workflow automation', 'Removing manual steps that consume capacity without adding judgment'],
   ['Enterprise AI applications', 'Applications where AI is the core of how the product works, not a feature bolted on'],
-  ['Data and systems integration', 'The foundation the rest of it depends on, which is usually the real project'],
+  ['Data and systems integration', 'The foundation the rest of it depends on, which is usually the real project. Agentic systems fail on data and integration far more often than they fail on reasoning.'],
 ]
 const WRONG_TOOL = ['The task is fully deterministic and already well specified.', 'The cost of being occasionally wrong is higher than the cost of being always slow.', 'The real bottleneck is a decision nobody is empowered to make, which no technology fixes.', 'The underlying data is not good enough yet, and the agent would only surface that faster and more expensively.']
 const CONTROLS = ['Defined boundaries on data access and permitted actions.', 'Evaluation that runs continuously, not once at launch.', 'A clear human accountability point for every consequential decision.', 'An audit trail sufficient to explain a specific output after the fact.']
@@ -33,6 +33,7 @@ export default function AgenticAi() {
       <Section band="navy" pad="header">
         <Wrap>
           <Breadcrumb
+            ancestors={[['/what-we-do', 'What we do']]}
             to="/what-we-do/engineering"
             parent="Engineering"
             current="Agentic AI"
@@ -71,8 +72,7 @@ export default function AgenticAi() {
       <Section band="surface">
         <Wrap>
           <H2 className="mb-10">Agentic systems that operate inside real business constraints.</H2>
-          <TermList items={SYSTEMS} className="mb-8" />
-          <Body>The last row is the one most programs underestimate. Agentic systems fail on data and integration far more often than they fail on reasoning.</Body>
+          <TermList items={SYSTEMS} />
         </Wrap>
       </Section>
 
@@ -106,10 +106,11 @@ export default function AgenticAi() {
         </Wrap>
       </Section>
 
-      <Section band="brand">
+      {/* Same navy as the page header, matching the detail pages' CTA band. */}
+      <Section band="navy" pad="cta">
         <Wrap className="text-center">
-          <H2 className="mb-4">Tell us what you are trying to automate.</H2>
-          <Lead className="mx-auto mb-8">Describe the work. We will tell you honestly whether an agent is the right answer, what it would take, and where the risk sits.</Lead>
+          <H2 tone="hero" className="mb-4">Tell us what you are trying to automate.</H2>
+          <Lead tone="hero" className="mx-auto mb-8">Describe the work. We will tell you honestly whether an agent is the right answer, what it would take, and where the risk sits.</Lead>
           <Button to="/contact">Start a conversation</Button>
         </Wrap>
       </Section>
