@@ -22,6 +22,15 @@ const SYSTEMS = [
 ]
 const WRONG_TOOL = ['The task is fully deterministic and already well specified.', 'The cost of being occasionally wrong is higher than the cost of being always slow.', 'The real bottleneck is a decision nobody is empowered to make, which no technology fixes.', 'The underlying data is not good enough yet, and the agent would only surface that faster and more expensively.']
 const CONTROLS = ['Defined boundaries on data access and permitted actions.', 'Evaluation that runs continuously, not once at launch.', 'A clear human accountability point for every consequential decision.', 'An audit trail sufficient to explain a specific output after the fact.']
+/* DRAFT COPY — written for this section, not carried from the prototype.
+   Each row expands one clause of the "Architecture and integration" card. */
+const OPERATIONAL = [
+  ['Permissions', 'The agent reaches what the person it acts for is allowed to reach, enforced by the access model you already run rather than a second one built beside it.'],
+  ['Latency', 'A response fast enough for the workflow it sits inside. An answer that arrives after the decision was made is not an answer.'],
+  ['Failure modes', 'Defined behavior when the model is wrong, the call times out, or the input looks nothing like the examples it was built against.'],
+  ['Cost control', 'Knowing what a transaction costs before volume turns it into a budget conversation, and having somewhere to go when it does.'],
+  ['Dependency outages', 'What the workflow does when a system the agent depends on is down, including whether the work can still be done by hand.'],
+]
 const STACK = [['Model layer', 'Anthropic · OpenAI'], ['Data and AI foundation', 'Databricks · Snowflake'], ['Enterprise workflow', 'Salesforce Agentforce · ServiceNow'], ['Content platforms', 'Contentstack · Contentful'], ['Commerce platforms', 'commercetools · Shopify · SAP Hybris']]
 
 /* EXTRAPOLATED — no comp for this page. */
@@ -96,9 +105,16 @@ export default function AgenticAi() {
         </Wrap>
       </Section>
 
+      {/* The "Architecture and integration" hard part, with the model layer as
+          one part of it rather than the whole subject. */}
       <Section>
         <Wrap>
-          <H2 className="mb-6">Multi-model by default.</H2>
+          <H2 className="mb-6">Connecting an agent to real systems is most of the work.</H2>
+          <Body className="mb-4">The reasoning is rarely the hard part. The engineering sits in everything around it: reaching the data where it actually lives, respecting the permissions that already exist, and behaving predictably when something upstream is slow, wrong, or unavailable.</Body>
+          <Body className="mb-8">We design for those constraints from the start, because every one of them is cheaper to handle in the architecture than to discover in production.</Body>
+          <Eyebrow className="mb-4">What the architecture has to account for</Eyebrow>
+          <TermList items={OPERATIONAL} className="mb-12" />
+          <H3 className="mb-4">Multi-model by default.</H3>
           <Body className="mb-4">We stay close to the platforms shaping enterprise AI without becoming captive to any one of them. Model capability moves quickly, pricing moves quickly, and the right choice today may not be the right choice next year.</Body>
           <Body className="mb-8">So we build so the model layer can change without rebuilding the system around it, and we tell you plainly when a platform decision is being driven by genuine fit rather than by familiarity.</Body>
           <TermList items={STACK} className="mb-8" />
