@@ -47,6 +47,12 @@ const BAND = {
   surface: 'bg-surface',
   brand: 'bg-brand',
   navy: 'bg-navy',
+  // Why Mile42's page identity, the way `navy` is What We Do's and `gold` is
+  // How We Work's. Dark, so it takes the on-dark tones: the off-white heading
+  // reaches 8.7:1 and a sky eyebrow 6.0:1. `brand` was what this page used, but
+  // it is the hero on Home and six others, and its off-white heading measures
+  // 2.51:1 — under the 3:1 floor for text that size.
+  forest: 'bg-forest',
   blue: 'bg-[color-mix(in_srgb,var(--color-accent)_92%,black)]',
   // The detail comps' `#e6f1fe`, which is the accent at 10% over white.
   tint: 'bg-[color-mix(in_srgb,var(--color-accent)_10%,white)]',
