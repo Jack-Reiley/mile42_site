@@ -137,7 +137,12 @@ function OverviewCell({ item, onNavigate, className = '' }) {
 
 export default function Header() {
   const { pathname } = useLocation()
-  const panelId = useId()
+  const idPrefix = useId()
+  /* A panel id per section rather than one shared id. Only one panel is
+     rendered at a time, so a shared id would have every caret pointing at
+     whichever section happened to be open, and at nothing at all while the
+     panel is closed. */
+  const panelId = (href) => `${idPrefix}${href.replace(/\W+/g, '-')}`
 
   const [openHref, setOpenHref] = useState(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -255,7 +260,7 @@ export default function Header() {
                     type="button"
                     ref={(node) => { triggerRefs.current[item.href] = node }}
                     aria-expanded={open}
-                    aria-controls={panelId}
+                    aria-controls={open ? panelId(item.href) : undefined}
                     aria-label={`${item.label} menu`}
                     onClick={() => (open ? closePanel() : setOpenHref(item.href))}
                     className="flex items-center px-1 text-ink"
@@ -287,7 +292,7 @@ export default function Header() {
           columns can hold the section pages' own copy. */}
       {openItem && (
         <div
-          id={panelId}
+          id={panelId(openItem.href)}
           className="absolute inset-x-0 top-full z-40 hidden border-b border-ink bg-page lg:block"
         >
           {/* The grid takes the bar's wrapper so its edges are the bar's edges.
