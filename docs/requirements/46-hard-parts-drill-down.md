@@ -1,7 +1,7 @@
 # #46 — Turn the four hard parts into an on-page drill-down on the Agentic AI page
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/46
-- Pull request: <pending>
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/48
 - Parent epic: none
 - Delivery unit: `unit-46-hard-parts-drill-down`
 - Requirement version: 1
