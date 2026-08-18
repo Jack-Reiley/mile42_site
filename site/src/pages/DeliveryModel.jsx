@@ -1,5 +1,5 @@
-import { Section, Wrap, Eyebrow, H2, H3, Lead, Body, Quote, Button, TextLink, Breadcrumb, Card } from '../components/primitives.jsx'
-import { NumList } from '../components/Lists.jsx'
+import { Section, Wrap, Eyebrow, H2, Lead, Body, Quote, Button, TextLink, Breadcrumb } from '../components/primitives.jsx'
+import { NumList, RuledGroup } from '../components/Lists.jsx'
 import WhereAgentsWork from '../components/WhereAgentsWork.jsx'
 import ReuseLoop from '../components/ReuseLoop.jsx'
 
@@ -78,9 +78,29 @@ export default function DeliveryModel() {
 
       <Section pad="band">
         <Wrap>
-          <H2 className="mb-10">Our progress is measured by value created, not effort expended.</H2>
-          <div className="grid gap-4 md:grid-cols-2">
-            {BENEFITS.map((b) => <Card key={b.title}><H3>{b.title}</H3><Body className="max-w-none">{b.body}</Body></Card>)}
+          <H2 className="mb-9">Our progress is measured by value created, not effort expended.</H2>
+          {/* Ruled columns rather than cards. Four bodies of unequal length in a
+              box grid leaves ragged trailing space in every box; the page's own
+              forest rule carries the grouping and lets each benefit run to its
+              own height. The rule is the page identity, the same colour the
+              header panel and the breadcrumb mark draw. */}
+          {/* Two explicit rows per column, each column a subgrid, so the bodies
+              start on the same line whether the title above them wrapped or not.
+              The row count is per breakpoint: four columns need two rows, two
+              columns need four, and declaring rows the layout does not use would
+              add their gaps to the bottom of the band. */}
+          <div className="grid gap-x-10 gap-y-9 md:grid-cols-2 md:grid-rows-[repeat(4,auto)] lg:grid-cols-4 lg:grid-rows-[auto_auto]">
+            {BENEFITS.map((b) => (
+              <RuledGroup
+                key={b.title}
+                as="h3"
+                title={b.title}
+                ruleClass="border-t-forest"
+                className="md:row-span-2 md:grid md:grid-rows-subgrid md:gap-y-0"
+              >
+                <Body className="max-w-none">{b.body}</Body>
+              </RuledGroup>
+            ))}
           </div>
         </Wrap>
       </Section>

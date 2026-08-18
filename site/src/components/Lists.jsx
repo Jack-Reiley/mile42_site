@@ -193,10 +193,15 @@ export function GroupColumns({ className = '', children }) {
   )
 }
 
-export function RuledGroup({ title, ruleClass, className = '', children }) {
+export function RuledGroup({ title, ruleClass, as = 'h4', className = '', children }) {
   return (
     <div className={`border-t-[3px] pt-4 ${ruleClass} ${className}`}>
-      <H3 as="h4" className="mb-[10px]">{title}</H3>
+      {/* Balanced because these titles are short sentences in a narrow column.
+          Left to the default, "Context is not lost." breaks after the negation
+          and strands one word on the second line at the delivery model's 202px
+          columns. Balancing evens the two lines and is a no-op for a title that
+          already fits on one. */}
+      <H3 as={as} className="mb-[10px] text-balance">{title}</H3>
       {children}
     </div>
   )
