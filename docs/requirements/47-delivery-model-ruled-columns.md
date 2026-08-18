@@ -1,7 +1,7 @@
 # #47 — Replace the delivery model's benefit cards with ruled columns
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/47
-- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/PENDING
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/51
 - Parent epic: none
 - Delivery unit: `unit-47-delivery-benefits-ruled-columns`
 - Requirement version: 1
