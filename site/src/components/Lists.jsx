@@ -172,10 +172,10 @@ export function GroupColumns({ className = '', children }) {
   )
 }
 
-export function RuledGroup({ title, ruleClass, className = '', children }) {
+export function RuledGroup({ title, ruleClass, as = 'h4', className = '', children }) {
   return (
     <div className={`border-t-[3px] pt-4 ${ruleClass} ${className}`}>
-      <H3 as="h4" className="mb-[10px]">{title}</H3>
+      <H3 as={as} className="mb-[10px]">{title}</H3>
       {children}
     </div>
   )
