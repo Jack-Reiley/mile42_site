@@ -12,6 +12,7 @@
     "preview": "npm --prefix site run preview",
     "setup": "npm --prefix site install",
     "tokens:check": "node design/tokens/verify/check.mjs",
+    "test:unit": "npm --prefix site run test",
     "copy:parity": "node site/verify/copy-parity.mjs",
     "illustrations:placeholders": "node site/verify/placeholders.mjs",
     "copy": "npm --prefix copy_prototype run dev",
