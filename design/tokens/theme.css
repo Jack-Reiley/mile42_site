@@ -47,6 +47,19 @@
   --color-forest: #00543d; /* measured; name INFERRED */
   --color-mint: #c7ffb1; /* measured; name INFERRED */
 
+  /* Darkened variants, for a small glyph that has to stay legible on white.
+   * At full strength the palette greens, golds, and oranges are field colours
+   * rather than text colours: gold measures 1.79:1 on white, brand 2.59, and
+   * orange 3.06. Derived from the colour each one darkens rather than added as
+   * a fourth hex, so a change to the parent carries through — the same reason
+   * `blue` in primitives.jsx and the green rule in AgenticAi.jsx are mixes.
+   * Navy needs no variant; it is already 15.7:1 on white.
+   * INFERRED. The design system has no darkened-variant convention.
+   * See OPEN-QUESTIONS.md. */
+  --color-brand-deep: color-mix(in srgb, var(--color-brand) 66%, black); /* #007958, 5.43:1 on white */
+  --color-gold-deep: color-mix(in srgb, var(--color-gold) 55%, black); /* #8a6400, 5.39:1 on white */
+  --color-orange-deep: color-mix(in srgb, var(--color-orange) 76%, black); /* #c24700, 5.00:1 on white */
+
   /* ------------------------------------------------------------ typeface */
   --font-heading: "Merriweather Sans", ui-sans-serif, system-ui, sans-serif; /* measured */
   --font-body: "Figtree", ui-sans-serif, system-ui, sans-serif; /* measured */
