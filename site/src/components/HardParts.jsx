@@ -13,12 +13,11 @@ import { TermList } from './Lists.jsx'
  *   lg and up  — a tablist over one panel. One part visible at a time.
  *   below lg   — four independent disclosures. Any number open at once.
  *
- * Both are rendered and CSS chooses. `display: none` takes a subtree out of the
- * accessibility tree, so nothing is announced twice, and a render-time
- * `matchMedia` is not available: site/verify/copy-parity.mjs renders every route
- * through `renderToStaticMarkup` with no DOM. The cost is two pieces of state,
- * so a part selected on the spine is not carried across a resize. Both forms
- * start on the first part, so a resize lands somewhere defined.
+ * Both are rendered and CSS chooses, rather than a width read in JavaScript.
+ * `display: none` takes a subtree out of the accessibility tree, so nothing is
+ * announced twice. The cost is two pieces of state, so a part selected on the
+ * spine is not carried across a resize. Both forms start on the first part, so
+ * a resize lands somewhere defined.
  *
  * `parts` is the page's own `PARTS`, passed in rather than copied, as
  * `WhereAgentsWork` takes `ROLES` — the copy belongs beside the rest of the
