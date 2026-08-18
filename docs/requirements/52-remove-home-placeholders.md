@@ -1,7 +1,7 @@
 # #52 — Remove the home page's placeholder blocks and give Contact a real email
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/52
-- Pull request: TBD
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/53
 - Parent epic: none
 - Delivery unit: `unit-52-remove-home-placeholders`
 - Requirement version: 1
