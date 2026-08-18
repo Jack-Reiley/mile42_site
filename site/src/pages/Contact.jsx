@@ -56,7 +56,7 @@ export default function Contact() {
             </ul>
             <Body className="mb-8">No sequence of nurture emails. No sales development representative. Just a conversation.</Body>
             <Eyebrow className="mb-2">Other ways to reach us</Eyebrow>
-            <a href="mailto:hello@mile42.ai" className="text-body text-ink underline underline-offset-4">
+            <a href="mailto:hello@mile42.ai" className="text-body text-ink no-underline hover:underline">
               hello@mile42.ai
             </a>
           </div>
