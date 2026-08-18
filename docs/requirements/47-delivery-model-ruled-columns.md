@@ -24,6 +24,8 @@ trailing space.
   already hardcoded.
 - `Card` and `H3` leave the DeliveryModel import; nothing else on the page used
   them.
+- `RuledGroup`'s title balances its line breaks, so a two-line title splits
+  evenly rather than stranding a word.
 
 ## Out of scope
 
@@ -143,6 +145,16 @@ Automated tests do not read this document, and no test was generated from it.
   returns a blank frame, so the visual scenarios are evidenced by measured
   geometry and computed styles at those same five widths instead. This is an
   environment limitation, not a behavior gap.
+
+- `text-wrap: balance` on the `RuledGroup` title was added after the contract
+  was accepted, at the reviewer's request, once a 1024px check showed
+  "Context is not lost." breaking after the negation and stranding `lost.` on
+  its own line in a 202px column. It balances to "Context is / not lost." and is
+  inert for a title that already fits on one line. It sits in the shared
+  component rather than behind a new prop: the three other pages calling
+  `RuledGroup` set their titles on one line at every width checked, except
+  "Knowledge and automation" at 768px, which balances to an even two-line break.
+  No scenario constrains line breaking, so this changes no scenario result.
 
 ## Open questions
 
