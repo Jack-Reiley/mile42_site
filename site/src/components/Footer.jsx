@@ -30,7 +30,7 @@ const COLUMNS = [
     heading: 'Contact',
     links: [
       { href: '/contact', label: 'Start a conversation' },
-      { href: '/contact', label: 'Email' },
+      { href: 'mailto:hello@mile42.ai', label: 'Email' },
       { href: '/contact', label: 'LinkedIn' },
     ],
   },

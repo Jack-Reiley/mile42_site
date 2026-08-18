@@ -109,7 +109,7 @@ and 767, which are Tailwind's `lg` and `md` exactly.
 | **Muted text** | `text-ink/70` for notes and placeholders | The palette has **no muted text colour**, while the prototype relies on a three-step grey ramp. |
 | **Form fields** | Ink hairline, card radius, accent focus ring | **No form spec exists at all**, and contact is the conversion point. |
 | **Placeholders** | Dashed ink border on cream | Prototype scaffolding, kept visibly provisional |
-| **Spine, logo slots** | Bordered cards with the hard shadow | No comp |
+| **Spine** | Bordered cards with the hard shadow | No comp |
 
 ## Agentic AI hard-parts drill-down (#46)
 

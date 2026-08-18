@@ -1,8 +1,8 @@
 import {
-  Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote, Note,
-  Button, ButtonRow, TextLink, Card, Placeholder, Spot,
+  Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote,
+  Button, ButtonRow, TextLink, Card, Spot,
 } from '../components/primitives.jsx'
-import { NumList, LogoSlots } from '../components/Lists.jsx'
+import { NumList } from '../components/Lists.jsx'
 
 const OFFERINGS = [
   {
@@ -66,12 +66,6 @@ const PRACTICE = [
   { title: 'Architecture and integration', body: 'Connecting agents to real data, real systems, and the platforms you already run.' },
   { title: 'Governance and risk', body: 'Controls, evaluation, and oversight that let the business trust what it deploys.' },
   { title: 'Adoption and accountability', body: 'Getting the system used, measured, and improved after go-live.' },
-]
-
-const PROOF = [
-  'Proof statement 1 · commerce',
-  'Proof statement 2 · content',
-  'Proof statement 3 · integration',
 ]
 
 export default function Home() {
@@ -195,31 +189,6 @@ export default function Home() {
           </Body>
           <Quote className="mb-6">The opportunity is AI. The constraint is implementation.</Quote>
           <TextLink to="/what-we-do/engineering/agentic-ai">Inside our agentic AI practice</TextLink>
-        </Wrap>
-      </Section>
-
-      {/* EXTRAPOLATED */}
-      <Section>
-        <Wrap>
-          <H2 className="mb-4">
-            Deep experience where it counts, in a firm shaped for what comes next.
-          </H2>
-          <Lead className="mb-10">
-            Enterprise and mid-market content, commerce, and large-scale integration work.
-          </Lead>
-          <div className="mb-10 grid gap-4 md:grid-cols-3">
-            {PROOF.map((tag) => (
-              <Placeholder key={tag} tag={tag}>
-                Anonymized client work by category and scale, one to two lines, no client named.
-              </Placeholder>
-            ))}
-          </div>
-          <Note className="mb-4">
-            We stay multi-model and partner-literate so you can move with confidence.
-          </Note>
-          <div>
-            <LogoSlots />
-          </div>
         </Wrap>
       </Section>
 
