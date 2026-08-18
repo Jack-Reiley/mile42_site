@@ -226,19 +226,3 @@ export function Spine({ items }) {
     </ol>
   )
 }
-
-/** Logo placeholder slots. Prototype scaffolding. */
-export function LogoSlots({ count = 6 }) {
-  return (
-    <div className="grid grid-cols-3 gap-3 md:grid-cols-6">
-      {Array.from({ length: count }, (_, i) => (
-        <div
-          key={i}
-          className="grid min-h-14 place-items-center rounded-card border border-dashed border-ink/40 bg-surface text-eyebrow font-eyebrow uppercase text-ink/50"
-        >
-          LOGO {i + 1}
-        </div>
-      ))}
-    </div>
-  )
-}

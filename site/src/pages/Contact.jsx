@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Note, Placeholder } from '../components/primitives.jsx'
+import { Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Note } from '../components/primitives.jsx'
 
 const EXPECTATIONS = [
   { lead: 'We read it.', rest: ' A founder, not a form queue.' },
@@ -56,9 +56,9 @@ export default function Contact() {
             </ul>
             <Body className="mb-8">No sequence of nurture emails. No sales development representative. Just a conversation.</Body>
             <Eyebrow className="mb-2">Other ways to reach us</Eyebrow>
-            <Placeholder tag="Placeholder · contact details">
-              General enquiries email and LinkedIn company page do not exist yet. Both depend on the final company name.
-            </Placeholder>
+            <a href="mailto:hello@mile42.ai" className="text-body text-ink underline underline-offset-4">
+              hello@mile42.ai
+            </a>
           </div>
 
           <div>
