@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/tokens/fonts.css">
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/styles.css">
+<script src="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/_ds_bundle.js"></script>
+</helmet>
+<div style="display:flex;flex-direction:column;gap:24px">
+  <sc-if value="{{ showHead }}" hint-placeholder-val="{{ true }}">
+    <div>
+      <span style="display:block;font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#0073f4;margin-bottom:6px">{{ headEyebrow }}</span>
+      <h3 style="font:700 26px/34px 'Merriweather Sans',sans-serif;color:#2f1e14;margin:0;max-width:30ch;text-wrap:pretty">{{ headTitle }}</h3>
+    </div>
+  </sc-if>
+
+  <sc-for list="{{ blocks }}" as="b" hint-placeholder-count="4">
+    <sc-if value="{{ b.isLead }}">
+      <p style="font:400 18px/32px Figtree,sans-serif;color:#2f1e14;margin:0;max-width:52rem;text-wrap:pretty">{{ b.text }}</p>
+    </sc-if>
+
+    <sc-if value="{{ b.isBody }}">
+      <p style="font:400 16px/26px Figtree,sans-serif;color:#2f1e14;margin:0;max-width:52rem;text-wrap:pretty">{{ b.text }}</p>
+    </sc-if>
+
+    <sc-if value="{{ b.isNum }}">
+      <div style="border-top:1px solid rgba(47,30,20,.16);padding-top:22px">
+        <p style="font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#2f1e14;margin:0 0 16px">{{ b.label }}</p>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px">
+          <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3">
+            <li style="display:grid;grid-template-columns:2.25rem 1fr;gap:12px">
+              <span style="font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;color:#0073f4;padding-top:6px">{{ it.n }}</span>
+              <span>
+                <span style="display:block;font:700 16px/24px 'Merriweather Sans',sans-serif;color:#2f1e14;text-wrap:pretty">{{ it.title }}</span>
+                <span style="display:block;margin-top:2px;font:400 14px/21px Figtree,sans-serif;color:rgba(47,30,20,.72);text-wrap:pretty">{{ it.body }}</span>
+              </span>
+            </li>
+          </sc-for>
+        </ul>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ b.isChecks }}">
+      <div style="border-top:1px solid rgba(47,30,20,.16);padding-top:22px">
+        <p style="font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#2f1e14;margin:0 0 16px">{{ b.label }}</p>
+        <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px 36px">
+          <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="4">
+            <li style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start">
+              <span aria-hidden="true" style="display:grid;place-items:center;width:22px;height:22px;margin-top:2px;border:1px solid #2f1e14;border-radius:9999px;background:#00b785;box-shadow:0 2px 0 #2f1e14;font:700 11px/1 Figtree,sans-serif;color:#fff">{{ it.n }}</span>
+              <span style="font:400 15px/24px Figtree,sans-serif;color:#2f1e14;text-wrap:pretty">{{ it.text }}</span>
+            </li>
+          </sc-for>
+        </ul>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ b.isTerms }}">
+      <div>
+        <sc-if value="{{ b.label }}" hint-placeholder-val="{{ true }}">
+          <p style="font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#0073f4;margin:0 0 10px">{{ b.label }}</p>
+        </sc-if>
+        <dl style="margin:0">
+          <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:230px 1fr;gap:24px;border-top:1px solid rgba(47,30,20,.16);padding:14px 0">
+              <dt style="font:700 16px/24px 'Merriweather Sans',sans-serif;color:#2f1e14">{{ it.term }}</dt>
+              <dd style="margin:0;font:400 15px/24px Figtree,sans-serif;color:#2f1e14;text-wrap:pretty">{{ it.def }}</dd>
+            </div>
+          </sc-for>
+        </dl>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ b.isTitled }}">
+      <div>
+        <p style="font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#0073f4;margin:0 0 16px">{{ b.label }}</p>
+        <dl style="margin:0;display:grid;grid-template-columns:1fr 1fr;gap:22px 44px">
+          <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="4">
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start">
+              <span aria-hidden="true" style="display:grid;place-items:center;width:24px;height:24px;margin-top:2px;border:1px solid #2f1e14;border-radius:9999px;background:#00b785;box-shadow:0 2px 0 #2f1e14;font:700 12px/1 Figtree,sans-serif;color:#fffbf3">{{ it.n }}</span>
+              <div>
+                <dt style="font:700 16px/24px 'Merriweather Sans',sans-serif;color:#2f1e14;text-wrap:pretty">{{ it.term }}</dt>
+                <dd style="margin:3px 0 0;font:400 15px/23px Figtree,sans-serif;color:rgba(47,30,20,.72);text-wrap:pretty">{{ it.def }}</dd>
+              </div>
+            </div>
+          </sc-for>
+        </dl>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ b.isSubhead }}">
+      <h4 style="font:700 26px/34px 'Merriweather Sans',sans-serif;color:#2f1e14;margin:16px 0 0;max-width:30ch;text-wrap:pretty">{{ b.text }}</h4>
+    </sc-if>
+
+    <sc-if value="{{ b.isGap }}">
+      <div style="border:1px dashed rgba(47,30,20,.42);border-radius:12px;background:#fff;padding:24px">
+        <span style="display:block;font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(47,30,20,.62);margin-bottom:8px">Copy slot</span>
+        <p style="font:400 16px/26px Figtree,sans-serif;color:rgba(47,30,20,.78);margin:0;max-width:52rem;text-wrap:pretty">{{ b.text }}</p>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ b.isQuote }}">
+      <p style="font:700 26px/34px 'Merriweather Sans',sans-serif;color:#2f1e14;margin:0;max-width:44rem;text-wrap:pretty">{{ b.text }}</p>
+    </sc-if>
+
+    <sc-if value="{{ b.isLink }}">
+      <a href="#" style="display:inline-flex;align-items:center;gap:8px;font:600 16px/1 Figtree,sans-serif;color:#2f1e14;text-decoration:none;width:fit-content">{{ b.text }}<span aria-hidden="true" style="font-size:20px">&#8250;</span></a>
+    </sc-if>
+  </sc-for>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:600},&quot;part&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;Part&quot;},&quot;showHead&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const KINDS = ['lead', 'body', 'num', 'checks', 'terms', 'gap', 'quote', 'link', 'subhead', 'titled'];
+
+class Component extends DCLogic {
+  renderVals() {
+    const part = this.props.part || {};
+    const blocks = (part.blocks || []).map((b, i) => {
+      const flags = { key: i };
+      for (const k of KINDS) flags['is' + k[0].toUpperCase() + k.slice(1)] = b.kind === k;
+      if (b.kind === 'checks' || b.kind === 'titled') {
+        flags.items = (b.items || []).map((it, j) => Object.assign({ n: j + 1 }, it));
+      }
+      return Object.assign(flags, b, flags.items ? { items: flags.items } : {});
+    });
+    return {
+      blocks,
+      showHead: this.props.showHead ?? false,
+      headEyebrow: part.title,
+      headTitle: part.heading,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

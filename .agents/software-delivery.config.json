@@ -61,7 +61,7 @@
     "dev": "npm run dev",
     "lint": "",
     "typecheck": "",
-    "test": "npm run tokens:check && npm run copy:parity",
+    "test": "npm run test:unit && npm run tokens:check && npm run copy:parity",
     "coverage": "",
     "verify": "npm run build && npm run copy:build"
   },

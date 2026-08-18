@@ -32,8 +32,29 @@ const RULED_COLUMNS = {
  * each row divided from the one above by a hairline, with a smaller muted
  * definition. It is a variant rather than a second component because the
  * semantics are identical; six pages render the default and none of them change.
+ *
+ * `wide` is the same hairline division run full width instead of in columns: one
+ * row per term, a fixed term column, and a definition at full ink rather than
+ * muted. It exists for a term list inside a panel that is already inset, where
+ * two-up columns would break the definitions into three and four words a line.
  */
 export function TermList({ items, variant = 'stacked', columns = 1, className = '' }) {
+  if (variant === 'wide') {
+    return (
+      <dl className={className}>
+        {items.map(([term, definition]) => (
+          <div
+            key={term}
+            className="grid gap-2 border-t border-ink/16 py-[14px] md:grid-cols-[230px_1fr] md:gap-6"
+          >
+            <dt className="font-heading text-body font-bold leading-6 text-ink">{term}</dt>
+            <dd className="text-[15px] leading-6 text-ink text-pretty">{definition}</dd>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+
   if (variant === 'ruled') {
     return (
       <dl className={`grid gap-x-10 ${RULED_COLUMNS[columns]} ${className}`}>

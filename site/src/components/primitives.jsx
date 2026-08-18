@@ -164,9 +164,15 @@ const EYEBROW_TONE = {
   ice: 'text-ice',
 }
 
-export function Eyebrow({ as: Tag = 'p', tone = 'accent', className = '', children }) {
+/* `rest` is spread so a call site can hide an eyebrow that duplicates a name
+   something else already carries, the way `Section` passes its own attributes
+   through. */
+export function Eyebrow({ as: Tag = 'p', tone = 'accent', className = '', children, ...rest }) {
   return (
-    <Tag className={`text-eyebrow font-eyebrow uppercase ${EYEBROW_TONE[tone]} ${className}`}>
+    <Tag
+      className={`text-eyebrow font-eyebrow uppercase ${EYEBROW_TONE[tone]} ${className}`}
+      {...rest}
+    >
       {children}
     </Tag>
   )

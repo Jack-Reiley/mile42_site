@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/tokens/fonts.css">
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/tokens/colors.css">
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/tokens/typography.css">
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/tokens/spacing.css">
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/tokens/shape.css">
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/tokens/effects.css">
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/styles.css">
+<script src="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#e9e4dc;font-family:Figtree,system-ui,sans-serif}
+a{color:#2f1e14}a:hover{color:#0073f4}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(47,30,20,.12);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#2f1e14;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 Figtree,system-ui,sans-serif;color:#2f1e14}
+.dv-opts{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(47,30,20,.1);color:#2f1e14;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11.5px/1.3 Figtree,system-ui,sans-serif;color:rgba(47,30,20,.6);max-width:1120px}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(47,30,20,.14);border-radius:8px;box-shadow:0 1px 3px rgba(47,30,20,.08);overflow:hidden}
+.dv-opt:target .dv-oid{background:#0073f4;color:#fff}
+.dv-next{margin:22px 0 0;font:12px/1.7 Figtree,system-ui,sans-serif;color:rgba(47,30,20,.55);max-width:1120px}
+.m42-above{display:flex;align-items:center;gap:12px;padding:12px 48px;background:#f9f4ec;border-bottom:1px dashed rgba(47,30,20,.32)}
+.m42-above span{font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(47,30,20,.55)}
+.m42-band{padding:48px;background:#fff}
+.m42-h2{font:700 36px/42px 'Merriweather Sans',sans-serif;color:#2f1e14;margin:0 0 20px;max-width:22ch;text-wrap:pretty}
+.m42-body{font:400 16px/26px Figtree,sans-serif;color:#2f1e14;margin:0 0 16px;max-width:46rem}
+.m42-lead{font:400 18px/32px Figtree,sans-serif;color:#2f1e14;margin:0 0 32px;max-width:46rem}
+.m42-panel{border:1px solid #2f1e14;border-radius:12px;box-shadow:0 4px 0 #2f1e14;background:#f9f4ec;padding:40px}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Selector treatments for <a class="dv-oid" href="#1a">1a</a> &mdash; same swap-panel-below behaviour, no boxes</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="2a">
+<div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Ruled column heads. Borrows the &ldquo;What we build&rdquo; vocabulary already on the page &mdash; a rule over a title, no card, no shadow. The rule going solid is the whole selected state.</div>
+<div class="dv-card" style="width:1120px">
+  <div class="m42-above"><span>Unchanged &mdash; navy hero, then &ldquo;What we build&rdquo;</span></div>
+  <div class="m42-band">
+    <h2 class="m42-h2">The distance between an AI pilot and an AI system.</h2>
+    <p class="m42-lead">Anyone can call an API. The difficulty sits in everything around the call.</p>
+    <div role="tablist" style="display:grid;grid-template-columns:repeat(4,1fr);gap:0 34px;margin-bottom:32px">
+      <sc-for list="{{ ruled }}" as="c" hint-placeholder-count="4">
+        <button type="button" role="tab" aria-selected="{{ c.active }}" onClick="{{ c.onSelect }}" style="{{ c.style }}">
+          <span style="display:block;height:3px;margin-bottom:14px;background:{{ c.rule }}"></span>
+          <span style="display:block;font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;color:{{ c.numColor }};margin-bottom:6px">{{ c.n }}</span>
+          <span style="display:block;font:700 19px/25px 'Merriweather Sans',sans-serif;color:{{ c.titleColor }};text-wrap:pretty">{{ c.title }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div role="tabpanel" class="m42-panel">
+      <dc-import name="DrillPanel" part="{{ ruledPart }}" show-head="{{ true }}" hint-size="100%,420px"></dc-import>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="2b">
+<div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Pill bar. The four collapse to one compact row of CTA-shaped pills, so the panel starts higher up the page. Reads as a control, not as content.</div>
+<div class="dv-card" style="width:1120px">
+  <div class="m42-above"><span>Unchanged &mdash; navy hero, then &ldquo;What we build&rdquo;</span></div>
+  <div class="m42-band">
+    <h2 class="m42-h2">The distance between an AI pilot and an AI system.</h2>
+    <p class="m42-lead">Anyone can call an API. The difficulty sits in everything around the call.</p>
+    <div role="tablist" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px">
+      <sc-for list="{{ pills }}" as="c" hint-placeholder-count="4">
+        <button type="button" role="tab" aria-selected="{{ c.active }}" onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.title }}</button>
+      </sc-for>
+    </div>
+    <div role="tabpanel" class="m42-panel">
+      <dc-import name="DrillPanel" part="{{ pillPart }}" show-head="{{ true }}" hint-size="100%,420px"></dc-import>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="2c">
+<div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>Ruled side list. The four become a vertical index and the panel sits alongside rather than below, so the selector stays in view while you read. Nothing swaps out of sight.</div>
+<div class="dv-card" style="width:1120px">
+  <div class="m42-above"><span>Unchanged &mdash; navy hero, then &ldquo;What we build&rdquo;</span></div>
+  <div class="m42-band">
+    <h2 class="m42-h2">The distance between an AI pilot and an AI system.</h2>
+    <p class="m42-lead">Anyone can call an API. The difficulty sits in everything around the call.</p>
+    <div style="display:grid;grid-template-columns:320px 1fr;gap:44px;align-items:start">
+      <div role="tablist" style="display:flex;flex-direction:column">
+        <sc-for list="{{ side }}" as="c" hint-placeholder-count="4">
+          <button type="button" role="tab" aria-selected="{{ c.active }}" onClick="{{ c.onSelect }}" style="{{ c.style }}">
+            <span style="display:block;font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;color:{{ c.numColor }};margin-bottom:5px">{{ c.n }}</span>
+            <span style="display:block;font:700 19px/25px 'Merriweather Sans',sans-serif;color:#2f1e14;text-wrap:pretty">{{ c.title }}</span>
+            <span style="display:block;margin-top:4px;font:400 14px/21px Figtree,sans-serif;color:rgba(47,30,20,.66);text-wrap:pretty">{{ c.heading }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <div role="tabpanel" class="m42-panel" style="padding:34px">
+        <dc-import name="DrillPanel" part="{{ sidePart }}" show-head="{{ false }}" hint-size="100%,460px"></dc-import>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="2d">
+<div class="dv-olabel"><a class="dv-oid" href="#2d">2d</a>Numbered spine. The four read as the sequence of an implementation rather than four topics, which is closer to what the copy actually argues. Connected nodes on a rule, no containers.</div>
+<div class="dv-card" style="width:1120px">
+  <div class="m42-above"><span>Unchanged &mdash; navy hero, then &ldquo;What we build&rdquo;</span></div>
+  <div class="m42-band">
+    <h2 class="m42-h2">The distance between an AI pilot and an AI system.</h2>
+    <p class="m42-lead">Anyone can call an API. The difficulty sits in everything around the call.</p>
+    <div role="tablist" style="position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:0 24px;margin-bottom:34px">
+      <span aria-hidden="true" style="position:absolute;left:22px;right:calc(25% - 40px);top:22px;height:1px;background:rgba(47,30,20,.25)"></span>
+      <sc-for list="{{ spine }}" as="c" hint-placeholder-count="4">
+        <button type="button" role="tab" aria-selected="{{ c.active }}" onClick="{{ c.onSelect }}" style="{{ c.style }}">
+          <span aria-hidden="true" style="{{ c.dot }}">&#10003;</span>
+          <span style="display:block;margin-top:14px;font:700 19px/25px 'Merriweather Sans',sans-serif;color:{{ c.titleColor }};text-wrap:pretty">{{ c.title }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div role="tabpanel" class="m42-panel">
+      <dc-import name="DrillPanel" part="{{ spinePart }}" show-head="{{ true }}" hint-size="100%,420px"></dc-import>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">All four keep <a class="dv-oid" href="#1a">1a</a>&rsquo;s mechanic and drop the boxes. Try next: &ldquo;build <a class="dv-oid" href="#2c">2c</a> as the real page&rdquo; &middot; &ldquo;<a class="dv-oid" href="#2a">2a</a> but teal rules like &lsquo;What we build&rsquo;&rdquo; &middot; &ldquo;<a class="dv-oid" href="#2d">2d</a> with the panel on a cream band&rdquo;.</p>
+</section>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Four on-page drill-down structures for the four hard parts</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Tab row. The four cards keep their grid position and one panel swaps beneath them. Cheapest to scan, one part visible at a time.</div>
+<div class="dv-card" style="width:1120px">
+  <div class="m42-above"><span>Unchanged &mdash; navy hero, then &ldquo;What we build&rdquo;</span></div>
+  <div class="m42-band">
+    <h2 class="m42-h2">The distance between an AI pilot and an AI system.</h2>
+    <p class="m42-body">Almost every organization has run the pilot. Someone built a prototype, it demonstrated well, leadership was encouraged, and then it stopped.</p>
+    <p class="m42-lead">Anyone can call an API. The difficulty sits in everything around the call.</p>
+    <div role="tablist" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px">
+      <sc-for list="{{ tabs }}" as="c" hint-placeholder-count="4">
+        <button type="button" role="tab" aria-selected="{{ c.active }}" onClick="{{ c.onSelect }}" style="{{ c.style }}">
+          <span style="display:block;font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;color:#0073f4;margin-bottom:8px">{{ c.n }}</span>
+          <span style="display:block;font:700 17px/23px 'Merriweather Sans',sans-serif;color:#2f1e14;text-wrap:pretty">{{ c.title }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div role="tabpanel" class="m42-panel">
+      <dc-import name="DrillPanel" part="{{ activeTab }}" show-head="{{ true }}" hint-size="100%,420px"></dc-import>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Stacked disclosure. All four stay readable at rest with a one-line summary; any number can be open at once. Best for comparing two parts side by side.</div>
+<div class="dv-card" style="width:1120px">
+  <div class="m42-above"><span>Unchanged &mdash; navy hero, then &ldquo;What we build&rdquo;</span></div>
+  <div class="m42-band">
+    <h2 class="m42-h2">The distance between an AI pilot and an AI system.</h2>
+    <p class="m42-lead">Anyone can call an API. The difficulty sits in everything around the call.</p>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <sc-for list="{{ rows }}" as="c" hint-placeholder-count="4">
+        <div style="border:1px solid #2f1e14;border-radius:12px;box-shadow:0 4px 0 #2f1e14;background:#fff;overflow:hidden">
+          <button type="button" aria-expanded="{{ c.open }}" onClick="{{ c.onToggle }}" style="{{ c.headStyle }}">
+            <span style="font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;color:#0073f4;padding-top:8px">{{ c.n }}</span>
+            <span>
+              <span style="display:block;font:700 22px/28px 'Merriweather Sans',sans-serif;color:#2f1e14">{{ c.title }}</span>
+              <span style="display:block;margin-top:6px;font:400 15px/24px Figtree,sans-serif;color:rgba(47,30,20,.72);max-width:62ch;text-wrap:pretty">{{ c.heading }}</span>
+            </span>
+            <span aria-hidden="true" style="display:grid;place-items:center;width:34px;height:34px;border:1px solid #2f1e14;border-radius:9999px;background:#ffdf65;box-shadow:0 2px 0 #2f1e14;font:700 17px/1 Figtree,sans-serif;color:#000">{{ c.caret }}</span>
+          </button>
+          <sc-if value="{{ c.open }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:32px;background:#f9f4ec;border-top:1px solid #2f1e14">
+              <dc-import name="DrillPanel" part="{{ c.part }}" show-head="{{ false }}" hint-size="100%,320px"></dc-import>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Sticky rail. Nothing is hidden &mdash; all four sections are one continuous scroll and the four boxes become a position indicator you can jump with.</div>
+<div class="dv-card" style="width:1120px">
+  <div class="m42-above"><span>Unchanged &mdash; navy hero, then &ldquo;What we build&rdquo;</span></div>
+  <div class="m42-band">
+    <h2 class="m42-h2">The distance between an AI pilot and an AI system.</h2>
+    <p class="m42-lead">Anyone can call an API. The difficulty sits in everything around the call.</p>
+    <div style="display:grid;grid-template-columns:296px 1fr;gap:36px;align-items:start">
+      <nav style="display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ rail }}" as="c" hint-placeholder-count="4">
+          <button type="button" onClick="{{ c.onSelect }}" style="{{ c.style }}">
+            <span style="display:block;font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;color:#0073f4;margin-bottom:4px">{{ c.n }}</span>
+            <span style="display:block;font:700 17px/23px 'Merriweather Sans',sans-serif;color:#2f1e14;text-wrap:pretty">{{ c.title }}</span>
+          </button>
+        </sc-for>
+      </nav>
+      <div ref="{{ scrollRef }}" onScroll="{{ onRailScroll }}" style="height:640px;overflow-y:auto;border:1px solid #2f1e14;border-radius:12px;box-shadow:0 4px 0 #2f1e14;background:#f9f4ec;padding:32px">
+        <sc-for list="{{ railPanels }}" as="c" hint-placeholder-count="4">
+          <div ref="{{ c.setRef }}" style="padding-bottom:32px;margin-bottom:32px;border-bottom:1px solid rgba(47,30,20,.18)">
+            <dc-import name="DrillPanel" part="{{ c.part }}" show-head="{{ true }}" hint-size="100%,360px"></dc-import>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="1d">
+<div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Two-step drill. The 2&times;2 grid stays the home state; picking one replaces the grid in place and gives that part the full width, with a navy header carrying the level. Most room per part.</div>
+<div class="dv-card" style="width:1120px">
+  <div class="m42-above"><span>Unchanged &mdash; navy hero, then &ldquo;What we build&rdquo;</span></div>
+  <div class="m42-band">
+    <h2 class="m42-h2">The distance between an AI pilot and an AI system.</h2>
+    <p class="m42-lead">Anyone can call an API. The difficulty sits in everything around the call.</p>
+    <sc-if value="{{ gridShown }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <sc-for list="{{ grid }}" as="c" hint-placeholder-count="4">
+          <button type="button" onClick="{{ c.onSelect }}" style="display:block;width:100%;text-align:left;border:1px solid #2f1e14;border-radius:12px;box-shadow:0 4px 0 #2f1e14;background:#fff;padding:32px;cursor:pointer;font-family:inherit;transition:transform 140ms cubic-bezier(.2,0,0,1)" style-hover="transform:translateY(-1px)" style-active="transform:translateY(3px);box-shadow:0 1px 0 #2f1e14">
+            <span style="display:block;font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;color:#0073f4;margin-bottom:8px">{{ c.n }}</span>
+            <span style="display:block;font:700 22px/28px 'Merriweather Sans',sans-serif;color:#2f1e14;margin-bottom:10px">{{ c.title }}</span>
+            <span style="display:block;font:400 15px/24px Figtree,sans-serif;color:rgba(47,30,20,.72);text-wrap:pretty">{{ c.heading }}</span>
+            <span style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;font:600 16px/1 Figtree,sans-serif;color:#2f1e14">Go deeper<span aria-hidden="true" style="font-size:20px">&#8250;</span></span>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ drillShown }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+          <button type="button" onClick="{{ onBack }}" style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border:1px solid #2f1e14;border-radius:9999px;box-shadow:0 4px 0 #2f1e14;background:#f9f4ec;font:600 16px/1 Figtree,sans-serif;color:#000;cursor:pointer;font-family:inherit;white-space:nowrap;flex:none"><span aria-hidden="true" style="font-size:20px">&#8249;</span>All four</button>
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
+            <button type="button" onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.n }}</button>
+          </sc-for>
+        </div>
+        <div style="border:1px solid #2f1e14;border-radius:12px;box-shadow:0 4px 0 #2f1e14;background:#f9f4ec;overflow:hidden">
+          <div style="padding:36px 40px;background:#002161">
+            <span style="display:block;font:600 12px/17px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#73e1ff;margin-bottom:8px">{{ drill.n }} &middot; The hard parts</span>
+            <h3 style="font:700 36px/42px 'Merriweather Sans',sans-serif;color:#fffbf3;margin:0 0 12px;text-wrap:pretty">{{ drill.title }}</h3>
+            <p style="font:400 16px/26px Figtree,sans-serif;color:rgba(255,251,243,.8);margin:0;max-width:62ch;text-wrap:pretty">{{ drill.heading }}</p>
+          </div>
+          <div style="padding:36px 40px">
+            <dc-import name="DrillPanel" part="{{ drill }}" show-head="{{ false }}" hint-size="100%,420px"></dc-import>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Two copy slots are marked in every option &mdash; the body of &ldquo;Connecting an agent to real systems is most of the work.&rdquo; and &ldquo;Go-live is the middle of the project, not the end.&rdquo; are in your local build, not in the repo, so paste them and they drop straight in. Try next: &ldquo;build out <a class="dv-oid" href="#1b">1b</a> as the real page&rdquo; &middot; &ldquo;<a class="dv-oid" href="#1a">1a</a> but keep the four cards as cards, not tabs&rdquo; &middot; &ldquo;combine <a class="dv-oid" href="#1c">1c</a>&rsquo;s rail with <a class="dv-oid" href="#1d">1d</a>&rsquo;s navy header&rdquo;.</p>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const Q = [
+  { n: '01', title: 'What outcome actually matters, and how will we know if it moved?', body: 'If nobody can name the measure, the project has no definition of done.' },
+  { n: '02', title: 'Where is execution breaking down today?', body: 'Automating around a broken process usually preserves the break and hides it.' },
+  { n: '03', title: 'What is the smallest system that would prove this works in production?', body: 'Not a demo. Something real, narrow, and used by actual people.' },
+];
+const STACK = [
+  ['Model layer', 'Anthropic \u00b7 OpenAI'],
+  ['Data and AI foundation', 'Databricks \u00b7 Snowflake'],
+  ['Enterprise workflow', 'Salesforce Agentforce \u00b7 ServiceNow'],
+  ['Content platforms', 'Contentstack \u00b7 Contentful'],
+  ['Commerce platforms', 'commercetools \u00b7 Shopify \u00b7 SAP Hybris'],
+];
+const ACCOUNT_FOR = [
+  { term: 'Permissions', def: 'The agent reaches what the person it acts for is allowed to reach, enforced by the access model you already run rather than a second one built beside it.' },
+  { term: 'Latency', def: 'A response fast enough for the workflow it sits inside. An answer that arrives after the decision was made is not an answer.' },
+  { term: 'Failure modes', def: 'Defined behavior when the model is wrong, the call times out, or the input looks nothing like the examples it was built against.' },
+  { term: 'Cost control', def: 'Knowing what a transaction costs before volume turns it into a budget conversation, and having somewhere to go when it does.' },
+  { term: 'Dependency outages', def: 'What the workflow does when a system the agent depends on is down, including whether the work can still be done by hand.' },
+];
+const CONTROLS = [
+  'Defined boundaries on data access and permitted actions.',
+  'Evaluation that runs continuously, not once at launch.',
+  'A clear human accountability point for every consequential decision.',
+  'An audit trail sufficient to explain a specific output after the fact.',
+];
+
+const BEFORE_LAUNCH = [
+  { term: 'A named owner', def: 'One person accountable for the system after we leave, identified while it is still being built rather than at handover.' },
+  { term: 'A measure that predates the agent', def: 'The number the work was already judged on, so improvement can be shown rather than asserted.' },
+  { term: 'A route for the people using it', def: 'A way to report a bad output that reaches someone who can change the system, and a record of what changed as a result.' },
+  { term: 'A review cadence', def: 'Scheduled examination of what the system is actually doing, because the work it supports will not hold still.' },
+];
+
+const PARTS = [
+  {
+    n: '01',
+    title: 'Context and workflow design',
+    heading: 'Context before solutions.',
+    blocks: [
+      { kind: 'lead', text: 'Understanding the work well enough to know where an agent belongs and, more importantly, where it does not. Most failed AI projects automated a step that was never the bottleneck.' },
+      { kind: 'body', text: 'Every engagement starts by understanding the work, not by selecting a technology. That is one of the firm\u2019s operating principles and it matters more here than anywhere else, because agentic systems are unusually sensitive to context. The same architecture that works in one organization fails in another with different data, incentives, and risk tolerance.' },
+      { kind: 'num', label: 'Three questions we answer before building anything', items: Q },
+      { kind: 'link', text: 'See the client journey' },
+    ],
+  },
+  {
+    n: '02',
+    title: 'Architecture and integration',
+    heading: 'Connecting an agent to real systems is most of the work.',
+    blocks: [
+      { kind: 'lead', text: 'The reasoning is rarely the hard part. The engineering sits in everything around it: reaching the data where it actually lives, respecting the permissions that already exist, and behaving predictably when something upstream is slow, wrong, or unavailable.' },
+      { kind: 'body', text: 'We design for those constraints from the start, because every one of them is cheaper to handle in the architecture than to discover in production.' },
+      { kind: 'terms', label: 'What the architecture has to account for', items: ACCOUNT_FOR },
+      { kind: 'subhead', text: 'Multi-model by default.' },
+      { kind: 'body', text: 'We stay close to the platforms shaping enterprise AI without becoming captive to any one of them. Model capability moves quickly, pricing moves quickly, and the right choice today may not be the right choice next year.' },
+      { kind: 'body', text: 'So we build so the model layer can change without rebuilding the system around it, and we tell you plainly when a platform decision is being driven by genuine fit rather than by familiarity.' },
+      { kind: 'terms', items: STACK.map(([term, def]) => ({ term, def })) },
+      { kind: 'body', text: 'We stay multi-model and partner-literate so you can move with confidence.' },
+    ],
+  },
+  {
+    n: '03',
+    title: 'Governance and risk',
+    heading: 'The controls are part of the build, not a review at the end.',
+    blocks: [
+      { kind: 'lead', text: 'Enterprise AI gets stopped by risk, legal, and security more often than it gets stopped by engineering. Treating governance as a final gate is how programs die two weeks before launch.' },
+      { kind: 'body', text: 'We design for it from the start: what data the system can reach, what actions it is permitted to take, what a human has to approve, how outputs are evaluated over time, and what audit trail exists when someone asks what happened and why.' },
+      { kind: 'checks', label: 'Four things every system we build has', items: CONTROLS.map((text) => ({ text })) },
+      { kind: 'quote', text: 'A system the business cannot trust will not be used, and an unused system has no value regardless of how good the model is.' },
+    ],
+  },
+  {
+    n: '04',
+    title: 'Adoption and accountability',
+    heading: 'Go-live is the middle of the project, not the end.',
+    blocks: [
+      { kind: 'lead', text: 'A system that works and is not used produces the same business result as a system that does not work. Adoption is not a communications exercise added at launch. It is a constraint that shapes what gets built, who it is built with, and what it is allowed to change.' },
+      { kind: 'body', text: 'So we plan for the part after go-live before there is anything to go live with: who owns the system, what gets measured, how the people doing the work say it is wrong, and what happens to that signal once they do.' },
+      { kind: 'titled', label: 'What is in place before launch', items: BEFORE_LAUNCH },
+      { kind: 'quote', text: 'The measure of the work is what the organization does differently six months after launch.' },
+    ],
+  },
+];
+
+/* One measured palette colour per part; the mark flips to whichever of ink or
+   off-white clears contrast on that fill. */
+const SPINE_COLORS = [
+  { fill: '#00b785', mark: '#2f1e14', rest: '#00785a' },
+  { fill: '#fab600', mark: '#2f1e14', rest: '#8a6400' },
+  { fill: '#ff5e00', mark: '#fffbf3', rest: '#c93f00' },
+  { fill: '#002161', mark: '#fffbf3', rest: '#002161' },
+];
+
+/* A UA `button` centres its content box when the grid stretches it past its own
+   content height, which drops the one single-line title by half a line. Flex
+   column with a flush start defeats that; `display:block` does not. */
+const CARD_BASE = 'display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;width:100%;text-align:left;border-radius:12px;padding:22px 20px;cursor:pointer;font-family:inherit;transition:transform 140ms cubic-bezier(.2,0,0,1),background 140ms cubic-bezier(.2,0,0,1);';
+
+class Component extends DCLogic {
+  state = { tab: 0, open: { 0: true }, railActive: 0, drill: null, ruled: 0, pill: 0, side: 0, spine: 0 };
+
+  pick = (key, i) => this.setState({ [key]: i });
+  panelEls = {};
+
+  select = (i) => this.setState({ tab: i });
+  toggle = (i) => this.setState((s) => ({ open: Object.assign({}, s.open, { [i]: !s.open[i] }) }));
+
+  railTo = (i) => {
+    this.setState({ railActive: i });
+    const box = this.scroll;
+    const el = this.panelEls[i];
+    if (box && el) box.scrollTop = el.offsetTop - box.offsetTop;
+  };
+
+  onRailScroll = () => {
+    const box = this.scroll;
+    if (!box) return;
+    let best = 0;
+    PARTS.forEach((_, i) => {
+      const el = this.panelEls[i];
+      if (el && el.offsetTop - box.offsetTop - 24 <= box.scrollTop) best = i;
+    });
+    if (best !== this.state.railActive) this.setState({ railActive: best });
+  };
+
+  renderVals() {
+    const { tab, open, railActive, drill, ruled, pill, side, spine } = this.state;
+    const bare = 'display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;width:100%;text-align:left;border:0;background:none;padding:0;cursor:pointer;font-family:inherit;';
+
+    return {
+      ruled: PARTS.map((p, i) => ({
+        key: i, n: p.n, title: p.title, active: i === ruled,
+        onSelect: () => this.pick('ruled', i),
+        rule: i === ruled ? '#2f1e14' : 'rgba(47,30,20,.22)',
+        numColor: i === ruled ? '#0073f4' : 'rgba(47,30,20,.45)',
+        titleColor: i === ruled ? '#2f1e14' : 'rgba(47,30,20,.55)',
+        style: bare,
+      })),
+      ruledPart: PARTS[ruled],
+
+      pills: PARTS.map((p, i) => ({
+        key: i, title: p.title, active: i === pill,
+        onSelect: () => this.pick('pill', i),
+        style: 'padding:13px 24px;border-radius:9999px;cursor:pointer;font:600 16px/1 Figtree,sans-serif;font-family:inherit;transition:transform 140ms cubic-bezier(.2,0,0,1);' + (i === pill
+          ? 'border:1px solid #2f1e14;background:#ffdf65;color:#000;box-shadow:0 4px 0 #2f1e14;'
+          : 'border:1px solid rgba(47,30,20,.3);background:#fff;color:#2f1e14;'),
+      })),
+      pillPart: PARTS[pill],
+
+      side: PARTS.map((p, i) => ({
+        key: i, n: p.n, title: p.title, heading: p.heading, active: i === side,
+        onSelect: () => this.pick('side', i),
+        numColor: i === side ? '#0073f4' : 'rgba(47,30,20,.45)',
+        style: 'display:block;width:100%;text-align:left;border:0;border-top:1px solid rgba(47,30,20,.18);border-left:3px solid ' + (i === side ? '#00b785' : 'transparent') + ';padding:18px 0 18px 18px;cursor:pointer;font-family:inherit;background:' + (i === side ? '#f9f4ec' : 'transparent') + ';',
+      })),
+      sidePart: PARTS[side],
+
+      spine: PARTS.map((p, i) => ({
+        key: i, n: p.n, title: p.title, active: i === spine,
+        onSelect: () => this.pick('spine', i),
+        titleColor: i === spine ? '#2f1e14' : 'rgba(47,30,20,.55)',
+        dot: 'display:grid;place-items:center;width:44px;height:44px;border-radius:9999px;border:1px solid #2f1e14;font:700 19px/1 Figtree,sans-serif;position:relative;transition:transform 140ms cubic-bezier(.2,0,0,1);' + (i === spine
+          ? 'background:' + SPINE_COLORS[i].fill + ';color:' + SPINE_COLORS[i].mark + ';box-shadow:0 4px 0 #2f1e14;transform:translateY(-1px);'
+          : 'background:#fff;color:' + SPINE_COLORS[i].rest + ';'),
+        style: bare,
+      })),
+      spinePart: PARTS[spine],
+
+      tabs: PARTS.map((p, i) => ({
+        key: i, n: p.n, title: p.title, active: i === tab,
+        onSelect: () => this.select(i),
+        style: CARD_BASE + (i === tab
+          ? 'border:1px solid #2f1e14;background:#ffdf65;box-shadow:0 4px 0 #2f1e14;transform:translateY(-1px);'
+          : 'border:1px solid rgba(47,30,20,.28);background:#fff;box-shadow:0 4px 0 rgba(47,30,20,.18);'),
+      })),
+      activeTab: PARTS[tab],
+
+      rows: PARTS.map((p, i) => ({
+        key: i, n: p.n, title: p.title, heading: p.heading,
+        open: !!open[i], caret: open[i] ? '\u2212' : '+',
+        part: p,
+        onToggle: () => this.toggle(i),
+        headStyle: 'display:grid;grid-template-columns:2.75rem 1fr auto;align-items:start;gap:18px;width:100%;padding:26px 30px;border:0;text-align:left;cursor:pointer;font-family:inherit;background:' + (open[i] ? '#fff' : '#fff') + ';',
+      })),
+
+      rail: PARTS.map((p, i) => ({
+        key: i, n: p.n, title: p.title,
+        onSelect: () => this.railTo(i),
+        style: CARD_BASE + (i === railActive
+          ? 'border:1px solid #2f1e14;background:#ffdf65;box-shadow:0 4px 0 #2f1e14;'
+          : 'border:1px solid rgba(47,30,20,.28);background:#fff;box-shadow:0 4px 0 rgba(47,30,20,.18);'),
+      })),
+      railPanels: PARTS.map((p, i) => ({
+        key: i, part: p,
+        setRef: (el) => { this.panelEls[i] = el; },
+      })),
+      scrollRef: (el) => { this.scroll = el; },
+      onRailScroll: this.onRailScroll,
+
+      gridShown: drill === null,
+      drillShown: drill !== null,
+      grid: PARTS.map((p, i) => ({
+        key: i, n: p.n, title: p.title, heading: p.heading,
+        onSelect: () => this.setState({ drill: i }),
+      })),
+      drill: drill === null ? PARTS[0] : PARTS[drill],
+      chips: PARTS.map((p, i) => ({
+        key: i, n: p.n,
+        onSelect: () => this.setState({ drill: i }),
+        style: 'padding:10px 18px;border-radius:9999px;cursor:pointer;font:600 14px/1 Figtree,sans-serif;font-family:inherit;' + (i === drill
+          ? 'border:1px solid #2f1e14;background:#2f1e14;color:#fffbf3;'
+          : 'border:1px solid rgba(47,30,20,.3);background:#fff;color:#2f1e14;'),
+      })),
+      onBack: () => this.setState({ drill: null }),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
