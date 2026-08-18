@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/tokens/fonts.css">
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/tokens/colors.css">
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/tokens/typography.css">
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/tokens/spacing.css">
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/tokens/shape.css">
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/tokens/effects.css">
+<link rel="stylesheet" href="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/styles.css">
+<script src="../_ds/mile42-design-system-6a9297dd-ebe2-4285-835a-e6672442a188/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#fff;font-family:Figtree,system-ui,sans-serif}
+a{color:#2f1e14}a:hover{color:#0073f4}
+</style>
+</helmet>
+
+<section style="background:#fff;padding:96px 48px">
+  <div style="max-width:1120px;margin:0 auto">
+    <h2 style="font:700 36px/42px 'Merriweather Sans',sans-serif;color:#2f1e14;margin:0 0 20px;max-width:22ch;text-wrap:pretty">The distance between an AI pilot and an AI system.</h2>
+    <p style="font:400 16px/26px Figtree,sans-serif;color:#2f1e14;margin:0 0 16px;max-width:46rem">Almost every organization has run the pilot. Someone built a prototype, it demonstrated well, leadership was encouraged, and then it stopped.</p>
+    <p style="font:400 18px/32px Figtree,sans-serif;color:#2f1e14;margin:0 0 40px;max-width:46rem">Anyone can call an API. The difficulty sits in everything around the call.</p>
+
+    <div role="tablist" aria-label="The four hard parts" style="position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:0 24px;margin-bottom:34px">
+      <span aria-hidden="true" style="position:absolute;left:22px;right:calc(25% - 40px);top:22px;height:1px;background:rgba(47,30,20,.25)"></span>
+      <sc-for list="{{ tabs }}" as="c" hint-placeholder-count="4">
+        <button type="button" role="tab" id="{{ c.tabId }}" aria-selected="{{ c.active }}" aria-controls="hard-parts-panel" tabIndex="{{ c.tabIndex }}" onClick="{{ c.onSelect }}" onKeyDown="{{ onKeyDown }}" ref="{{ c.setRef }}" style="{{ c.style }}">
+          <span aria-hidden="true" style="{{ c.dot }}">&#10003;</span>
+          <span style="display:block;margin-top:14px;font:700 19px/25px 'Merriweather Sans',sans-serif;color:{{ c.titleColor }};text-wrap:pretty">{{ c.title }}</span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div role="tabpanel" id="hard-parts-panel" aria-labelledby="{{ activeTabId }}" tabIndex="0" style="border:1px solid #2f1e14;border-radius:12px;box-shadow:0 4px 0 #2f1e14;background:#f9f4ec;padding:40px">
+      <dc-import name="DrillPanel" part="{{ activePart }}" show-head="{{ true }}" hint-size="100%,460px"></dc-import>
+    </div>
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const Q = [
+  { n: '01', title: 'What outcome actually matters, and how will we know if it moved?', body: 'If nobody can name the measure, the project has no definition of done.' },
+  { n: '02', title: 'Where is execution breaking down today?', body: 'Automating around a broken process usually preserves the break and hides it.' },
+  { n: '03', title: 'What is the smallest system that would prove this works in production?', body: 'Not a demo. Something real, narrow, and used by actual people.' },
+];
+const ACCOUNT_FOR = [
+  { term: 'Permissions', def: 'The agent reaches what the person it acts for is allowed to reach, enforced by the access model you already run rather than a second one built beside it.' },
+  { term: 'Latency', def: 'A response fast enough for the workflow it sits inside. An answer that arrives after the decision was made is not an answer.' },
+  { term: 'Failure modes', def: 'Defined behavior when the model is wrong, the call times out, or the input looks nothing like the examples it was built against.' },
+  { term: 'Cost control', def: 'Knowing what a transaction costs before volume turns it into a budget conversation, and having somewhere to go when it does.' },
+  { term: 'Dependency outages', def: 'What the workflow does when a system the agent depends on is down, including whether the work can still be done by hand.' },
+];
+const STACK = [
+  { term: 'Model layer', def: 'Anthropic \u00b7 OpenAI' },
+  { term: 'Data and AI foundation', def: 'Databricks \u00b7 Snowflake' },
+  { term: 'Enterprise workflow', def: 'Salesforce Agentforce \u00b7 ServiceNow' },
+  { term: 'Content platforms', def: 'Contentstack \u00b7 Contentful' },
+  { term: 'Commerce platforms', def: 'commercetools \u00b7 Shopify \u00b7 SAP Hybris' },
+];
+const CONTROLS = [
+  'Defined boundaries on data access and permitted actions.',
+  'Evaluation that runs continuously, not once at launch.',
+  'A clear human accountability point for every consequential decision.',
+  'An audit trail sufficient to explain a specific output after the fact.',
+];
+const BEFORE_LAUNCH = [
+  { term: 'A named owner', def: 'One person accountable for the system after we leave, identified while it is still being built rather than at handover.' },
+  { term: 'A measure that predates the agent', def: 'The number the work was already judged on, so improvement can be shown rather than asserted.' },
+  { term: 'A route for the people using it', def: 'A way to report a bad output that reaches someone who can change the system, and a record of what changed as a result.' },
+  { term: 'A review cadence', def: 'Scheduled examination of what the system is actually doing, because the work it supports will not hold still.' },
+];
+
+const PARTS = [
+  {
+    n: '01',
+    title: 'Context and workflow design',
+    heading: 'Context before solutions.',
+    blocks: [
+      { kind: 'lead', text: 'Understanding the work well enough to know where an agent belongs and, more importantly, where it does not. Most failed AI projects automated a step that was never the bottleneck.' },
+      { kind: 'body', text: 'Every engagement starts by understanding the work, not by selecting a technology. That is one of the firm\u2019s operating principles and it matters more here than anywhere else, because agentic systems are unusually sensitive to context. The same architecture that works in one organization fails in another with different data, incentives, and risk tolerance.' },
+      { kind: 'num', label: 'Three questions we answer before building anything', items: Q },
+      { kind: 'link', text: 'See the client journey' },
+    ],
+  },
+  {
+    n: '02',
+    title: 'Architecture and integration',
+    heading: 'Connecting an agent to real systems is most of the work.',
+    blocks: [
+      { kind: 'lead', text: 'The reasoning is rarely the hard part. The engineering sits in everything around it: reaching the data where it actually lives, respecting the permissions that already exist, and behaving predictably when something upstream is slow, wrong, or unavailable.' },
+      { kind: 'body', text: 'We design for those constraints from the start, because every one of them is cheaper to handle in the architecture than to discover in production.' },
+      { kind: 'terms', label: 'What the architecture has to account for', items: ACCOUNT_FOR },
+      { kind: 'subhead', text: 'Multi-model by default.' },
+      { kind: 'body', text: 'We stay close to the platforms shaping enterprise AI without becoming captive to any one of them. Model capability moves quickly, pricing moves quickly, and the right choice today may not be the right choice next year.' },
+      { kind: 'body', text: 'So we build so the model layer can change without rebuilding the system around it, and we tell you plainly when a platform decision is being driven by genuine fit rather than by familiarity.' },
+      { kind: 'terms', items: STACK },
+      { kind: 'body', text: 'We stay multi-model and partner-literate so you can move with confidence.' },
+    ],
+  },
+  {
+    n: '03',
+    title: 'Governance and risk',
+    heading: 'The controls are part of the build, not a review at the end.',
+    blocks: [
+      { kind: 'lead', text: 'Enterprise AI gets stopped by risk, legal, and security more often than it gets stopped by engineering. Treating governance as a final gate is how programs die two weeks before launch.' },
+      { kind: 'body', text: 'We design for it from the start: what data the system can reach, what actions it is permitted to take, what a human has to approve, how outputs are evaluated over time, and what audit trail exists when someone asks what happened and why.' },
+      { kind: 'checks', label: 'Four things every system we build has', items: CONTROLS.map((text) => ({ text })) },
+      { kind: 'quote', text: 'A system the business cannot trust will not be used, and an unused system has no value regardless of how good the model is.' },
+    ],
+  },
+  {
+    n: '04',
+    title: 'Adoption and accountability',
+    heading: 'Go-live is the middle of the project, not the end.',
+    blocks: [
+      { kind: 'lead', text: 'A system that works and is not used produces the same business result as a system that does not work. Adoption is not a communications exercise added at launch. It is a constraint that shapes what gets built, who it is built with, and what it is allowed to change.' },
+      { kind: 'body', text: 'So we plan for the part after go-live before there is anything to go live with: who owns the system, what gets measured, how the people doing the work say it is wrong, and what happens to that signal once they do.' },
+      { kind: 'titled', label: 'What is in place before launch', items: BEFORE_LAUNCH },
+      { kind: 'quote', text: 'The measure of the work is what the organization does differently six months after launch.' },
+    ],
+  },
+];
+
+/* One measured palette colour per part. `mark` is whichever of ink or off-white
+   clears contrast on that fill; `rest` is the fill darkened far enough to stay
+   legible as a glyph on white. */
+const COLORS = [
+  { fill: '#00b785', mark: '#2f1e14', rest: '#00785a' },
+  { fill: '#fab600', mark: '#2f1e14', rest: '#8a6400' },
+  { fill: '#ff5e00', mark: '#fffbf3', rest: '#c93f00' },
+  { fill: '#002161', mark: '#fffbf3', rest: '#002161' },
+];
+
+/* A UA `button` centres its content box when the grid stretches it past its own
+   content height, which drops the one single-line title by half a line. Flex
+   column with a flush start defeats that; `display:block` does not. */
+const TAB = 'display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;width:100%;text-align:left;border:0;background:none;padding:0;cursor:pointer;font-family:inherit;';
+
+class Component extends DCLogic {
+  state = { active: 0 };
+  tabEls = {};
+
+  go = (i) => {
+    this.setState({ active: i });
+    const el = this.tabEls[i];
+    if (el) el.focus();
+  };
+
+  onKeyDown = (e) => {
+    const last = PARTS.length - 1;
+    const i = this.state.active;
+    if (e.key === 'ArrowRight') { e.preventDefault(); this.go(i === last ? 0 : i + 1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); this.go(i === 0 ? last : i - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); this.go(0); }
+    else if (e.key === 'End') { e.preventDefault(); this.go(last); }
+  };
+
+  renderVals() {
+    const { active } = this.state;
+    return {
+      tabs: PARTS.map((p, i) => ({
+        key: i,
+        title: p.title,
+        active: i === active,
+        tabId: 'hard-parts-tab-' + i,
+        tabIndex: i === active ? 0 : -1,
+        onSelect: () => this.setState({ active: i }),
+        setRef: (el) => { this.tabEls[i] = el; },
+        titleColor: i === active ? '#2f1e14' : 'rgba(47,30,20,.55)',
+        dot: 'display:grid;place-items:center;width:44px;height:44px;border-radius:9999px;border:1px solid #2f1e14;font:700 19px/1 Figtree,sans-serif;transition:transform 140ms cubic-bezier(.2,0,0,1);' + (i === active
+          ? 'background:' + COLORS[i].fill + ';color:' + COLORS[i].mark + ';box-shadow:0 4px 0 #2f1e14;transform:translateY(-1px);'
+          : 'background:#fff;color:' + COLORS[i].rest + ';'),
+        style: TAB,
+      })),
+      activePart: PARTS[active],
+      activeTabId: 'hard-parts-tab-' + active,
+      onKeyDown: this.onKeyDown,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -141,3 +141,32 @@ No durations, easings, or transition principles.
 
 **Question:** is there an intended motion character, and is there a
 reduced-motion position?
+
+## 15. No darkened-variant convention
+
+Three palette colours are field colours rather than text colours. On white,
+`--color-gold` measures **1.79:1**, `--color-brand` **2.59**, and
+`--color-orange` **3.06**. A small glyph set in any of them disappears.
+
+#46 needed exactly that — a 19px checkmark on white — so it added three
+darkened variants, written as `color-mix` derivations of the parent rather than
+as new hexes, following how `blue` in `primitives.jsx` and the ruled-group green
+are already derived:
+
+| Token | Derivation | Result | On white |
+| --- | --- | --- | --- |
+| `--color-brand-deep` | `--color-brand` at 66% | `#007958` | 5.43 |
+| `--color-gold-deep` | `--color-gold` at 55% | `#8a6400` | 5.39 |
+| `--color-orange-deep` | `--color-orange` at 76% | `#c24700` | 5.00 |
+
+The percentages were chosen to land on the tones the design handoff measured.
+Gold matches exactly. Brand is 2/255 off on one channel. Orange cannot be
+reproduced by a uniform darken at all — the handoff's `#c93f00` scales red to
+78.8% and green to 67% — so 76% was chosen to match its contrast (5.00 against
+5.01) rather than its exact channels.
+
+`--color-navy` needs no variant; it is already 15.7:1 on white.
+
+**Question:** is `-deep` the right suffix, and should the whole palette get
+darkened variants systematically rather than three of them arriving as one
+ticket needs them? A designer-supplied set would replace these.

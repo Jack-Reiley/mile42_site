@@ -111,6 +111,24 @@ and 767, which are Tailwind's `lg` and `md` exactly.
 | **Placeholders** | Dashed ink border on cream | Prototype scaffolding, kept visibly provisional |
 | **Spine, logo slots** | Bordered cards with the hard shadow | No comp |
 
+## Agentic AI hard-parts drill-down (#46)
+
+Built from a high-fidelity design handoff rather than from a comp, so the
+measured values are the designer's. These five are ours.
+
+| Decision | What we did | Why it is a guess |
+| --- | --- | --- |
+| **Off-scale tab title** | `19px/25px` for the four spine labels | Between `--text-body-lg` (18) and `--text-heading-3` (26) and on neither step. It is the handoff's own deliberate exception for a four-across label: 18px reads acceptably, 26px does not fit four across. |
+| **Half-height badge shadow** | `0 2px 0` on the 22px and 24px in-panel badges | The design system specifies exactly one elevation, `0 4px 0`, and states there is no ladder. A 4px shadow on a 22px object swallows it. `StageJourney` already ships a `0 1px 0` pressed node, so this is the second small-object exception, not the first. |
+| **Spine hover** | Unselected dot border to full ink, unselected title to `ink/80` | The design system specifies no hover and the prototype has none. Recommended by the handoff and adopted; the alternative is no hover affordance at all on a control that is unmistakably a control. |
+| **Both responsive forms in the DOM** | Tab list and disclosures both render; `hidden`/`lg:block` chooses | `role` is markup, so one set of buttons cannot be a tab list at one width and a disclosure set at another, and `copy-parity.mjs` renders every route with no DOM, so a render-time `matchMedia` is not available. `display: none` removes a subtree from the accessibility tree, so nothing is announced twice. The cost is two pieces of state: a hard part selected on the spine is not carried across a resize below `lg`. Both forms open on hard part one, so a resize lands somewhere defined. |
+| **Disclosure chrome below `sm`** | Numeral column `2rem`, gutters `20px/24px`, region padding `24px` | The handoff draws the disclosure option at 1120px only. At 375px its fixed gutters leave the title a 151px column and three lines. The chrome steps down rather than the type. |
+
+The panel measure is the site's 1240px `Wrap`, not the handoff's 1120px. That is
+not an extrapolation but a correction: the `measure` prop was removed in #36. The
+spine rule inset `calc(25% - 40px)` is derived from column count and gap rather
+than a fixed width, so it holds unchanged.
+
 ## Illustration — now custom artwork
 
 The placeholder set has been replaced. All seven illustrations are custom
