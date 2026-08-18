@@ -318,11 +318,15 @@ function Disclosures({ parts }) {
     <div className="flex flex-col gap-[14px] lg:hidden">
       {parts.map((p, i) => {
         const on = !!open[i]
-        /* `overflow-hidden` is what keeps the open region inside the card's
-           radius. Without it the region's square top corners paint over the
-           12px curve and the card reads as a rectangle. */
         return (
-          <div key={p.title} className="overflow-hidden rounded-card border border-ink bg-page shadow-hard">
+          /* Deliberately not `overflow-hidden`, which is what the design
+             reference uses to keep the open region inside the card's radius.
+             The header button fills the card edge to edge, so a clip here eats
+             its focus ring: the site's `:focus-visible` draws 3px at 3px
+             offset and the button has 1px of slack. The region rounds its own
+             bottom corners instead, and the button needs no rounding because
+             it has no fill of its own. */
+          <div key={p.title} className="rounded-card border border-ink bg-page shadow-hard">
             {/* A heading wrapping the control, so the four parts are navigable
                 as headings rather than only as buttons. */}
             <h3>
@@ -361,7 +365,9 @@ function Disclosures({ parts }) {
                 id={`${ROW_PANEL}-${i}`}
                 role="region"
                 aria-labelledby={`${ROW_HEAD}-${i}`}
-                className="border-t border-ink bg-surface p-6 sm:p-8"
+                /* 11px, not 12: the card's radius less its 1px border, which is
+                   the curve this fill actually sits inside. */
+                className="rounded-b-[11px] border-t border-ink bg-surface p-6 sm:p-8"
               >
                 <DrillPanel blocks={p.blocks} />
               </div>
