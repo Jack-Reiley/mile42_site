@@ -1,7 +1,7 @@
 # #49 — Retire the copy parity gate
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/49
-- Pull request: <pending>
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/50
 - Parent epic: none
 - Delivery unit: `unit-49-retire-copy-parity`
 - Requirement version: 1
