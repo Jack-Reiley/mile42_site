@@ -58,7 +58,10 @@ export default function WhatWeDo() {
           lists them, which is what makes the choice the first thing on the page. */}
       <Section band="navy">
         <Wrap className="grid items-center gap-11 lg:grid-cols-[0.92fr_1.08fr]">
-          <div className={REVEAL.left}>
+          {/* A relay: the column holds still and its eyebrow, heading, lead and
+              buttons each enter from the left in turn. As one block it read as
+              a slab sliding; in sequence it reads as a page composing itself. */}
+          <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
             <Eyebrow tone="sky" className="mb-4">What we do</Eyebrow>
             <H1 tone="hero" className="mb-4">Start with what you need right now.</H1>
             <Lead tone="hero">
@@ -110,7 +113,7 @@ export default function WhatWeDo() {
       <Section band="surface">
         <Wrap>
           <H2>Speed, consistency, and a commercial model that matches.</H2>
-          <div className="mt-11 mb-7 grid gap-6 md:grid-cols-2">
+          <div className={`${REVEAL_GROUP.relay} mt-11 mb-7 grid gap-6 md:grid-cols-2`}>
             {BENEFITS.map((b) => (
               <Card key={b.title}>
                 <H3>{b.title}</H3>

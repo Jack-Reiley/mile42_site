@@ -411,13 +411,13 @@ export function FeaturePanel({ spot, eyebrow, title, note, className = '', child
       {/* The two halves converge: the labelled side enters from the left and
           its explanation from the right, so the panel assembles from its edges
           rather than sliding in as one slab. */}
-      <div className={REVEAL.left}>
+      <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
         <Spot name={spot} decorative sizes="52px" className="mb-[14px] h-[52px] w-[52px] object-contain" />
         <Eyebrow as="span" tone="ink" className="mb-2 block">{eyebrow}</Eyebrow>
         <H2>{title}</H2>
         {note ? <Note className="mt-3 text-[15px]">{note}</Note> : null}
       </div>
-      <div className={REVEAL.right}>{children}</div>
+      <div className={`${REVEAL_GROUP.right} ${REVEAL.still}`}>{children}</div>
     </div>
   )
 }

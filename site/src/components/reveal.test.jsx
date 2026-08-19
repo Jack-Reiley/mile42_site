@@ -101,8 +101,18 @@ describe('SCN-005 — direction is consistent and declared once', () => {
     expect(REVEAL.left).toContain('m42-in-left')
     expect(REVEAL.right).toContain('m42-in-right')
     const home = read('../pages/Home.jsx')
-    expect(home).toMatch(/REVEAL\.left/)
+    expect(home).toMatch(/REVEAL_GROUP\.left/)
     expect(home).toMatch(/REVEAL\.right/)
+  })
+
+  it('relays a container so its parts arrive in turn instead of as a slab', () => {
+    // A relay holds still and hands the motion to its children. Without it a
+    // container that is both a group child and a group animates itself and its
+    // contents, compounding two transforms.
+    expect(REVEAL_GROUP.relay).toContain('m42-in-still')
+    expect(REVEAL_GROUP.relay).toContain('m42-in-group')
+    const lists = read('./Lists.jsx')
+    expect(lists).toMatch(/REVEAL_GROUP\.relay/)
   })
 
   it('names group children for direction, since a direct declaration beats an inherited one', () => {
@@ -125,7 +135,8 @@ describe('SCN-006 — the reveal declares no literal duration, easing or distanc
     const rules = stylesheet.slice(start, stylesheet.indexOf('.m42-band'))
     expect(rules).toMatch(/var\(--distance-reveal-y\)/)
     expect(rules).toMatch(/var\(--distance-reveal-x\)/)
-    expect(rules).toMatch(/var\(--ease-m42\)/)
+    expect(rules).toMatch(/var\(--scale-reveal\)/)
+    expect(rules).toMatch(/var\(--ease-reveal\)/)
     expect(rules).toMatch(/var\(--scroll-reveal\)/)
     expect(rules).toMatch(/var\(--stagger-reveal\)/)
     expect(rules).not.toMatch(/:\s*\d+px/)
@@ -135,6 +146,8 @@ describe('SCN-006 — the reveal declares no literal duration, easing or distanc
     const theme = read('../../../design/tokens/theme.css')
     for (const token of [
       '--ease-m42',
+      '--ease-reveal',
+      '--scale-reveal',
       '--duration-reveal',
       '--distance-reveal-y',
       '--distance-reveal-x',
@@ -145,6 +158,7 @@ describe('SCN-006 — the reveal declares no literal duration, easing or distanc
       expect(theme).toMatch(new RegExp(`${token}:`))
     }
     expect(css()).not.toMatch(/--ease-m42:\s*cubic-bezier/)
+    expect(css()).not.toMatch(/--ease-reveal:\s*cubic-bezier/)
   })
 })
 

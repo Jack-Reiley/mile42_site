@@ -30,6 +30,16 @@ export const REVEAL_GROUP = {
   up: 'm42-in-group',
   left: 'm42-in-group m42-in-group-left',
   right: 'm42-in-group m42-in-group-right',
+  /**
+   * A container that hands the motion down instead of taking it, for a
+   * container that is itself inside a group. A list of six items is not one
+   * thing arriving, it is six; without this the list moves as a slab and the
+   * two transforms compound.
+   *
+   * This is the rising case. For a directional relay, compose the two parts it
+   * is made of: `${REVEAL_GROUP.left} ${REVEAL.still}`.
+   */
+  relay: 'm42-in-still m42-in-group',
 }
 
 /* Asked at call time, not at module load. A value captured on import would be

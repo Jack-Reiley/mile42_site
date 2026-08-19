@@ -151,6 +151,17 @@
    */
   --ease-m42: cubic-bezier(0.2, 0, 0, 1); /* INFERRED */
 
+  /* The reveal has its own curve. --ease-m42 is the interaction curve: it is
+   * built for a button or a panel, where the reader has just acted and wants
+   * the result immediately. An entrance is the opposite situation — nobody
+   * asked for it, so it has to earn its place by being unhurried at the end.
+   *
+   * This is an exponential-out: almost all the distance is covered in the first
+   * third, then it settles for a long time. That reads as fast and composed at
+   * once, which is the difference between motion that feels expensive and
+   * motion that feels merely present. */
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1); /* INFERRED */
+
   /* The static-content entrance. An element travels, fades, and settles while
    * it is still in the lower part of the viewport, so the movement happens
    * where it can be seen rather than finishing off screen.
@@ -159,22 +170,31 @@
    * which is a third of a line-height and reads as nothing at all. Copy enters
    * horizontally and everything else rises, so the two axes differ: horizontal
    * travel needs more distance to register because it crosses the reading
-   * direction rather than opposing it. */
-  --duration-reveal: 620ms; /* INFERRED */
+   * direction rather than opposing it.
+   *
+   * The scale is the smallest value that still registers. It is what stops an
+   * entrance reading as a div sliding and starts it reading as an object
+   * arriving — the element has to grow into its place, not just move to it.
+   * Above about 0.97 it becomes a zoom and text visibly softens on the way. */
+  --duration-reveal: 900ms; /* INFERRED */
   --distance-reveal-y: 32px; /* INFERRED — how far rising content travels */
   --distance-reveal-x: 48px; /* INFERRED — how far side-entering content travels */
+  --scale-reveal: 0.985; /* INFERRED — how much content grows into place */
 
   /* Where the reveal is scrubbed by scroll position rather than played over
    * time, progress is measured in scroll distance, so it needs its own pair of
    * values. This is a fixed distance rather than a percentage on purpose: a
    * percentage is a share of the element's own size, which makes a tall block
    * finish long after it has left the part of the screen you are looking at.
-   * A fixed distance settles every element at the same height in the viewport
-   * no matter how big it is. */
-  --scroll-reveal: 280px; /* INFERRED — scroll distance the reveal completes over */
+   * A fixed distance settles every element at the same height in the viewport. */
+  --scroll-reveal: 340px; /* INFERRED — scroll distance the reveal completes over */
 
   /* Siblings arrive in sequence rather than in unison. Sequence is what reads
-   * as alive; a row of cards moving as one block reads as a page jolt. */
-  --stagger-reveal: 90ms; /* INFERRED — time path */
-  --stagger-reveal-scroll: 70px; /* INFERRED — scroll path */
+   * as alive; a row of cards moving as one block reads as a page jolt.
+   *
+   * Tuned down as the motion got finer. When the unit was a whole block a long
+   * interval read as deliberate; now that a heading, its paragraph and its
+   * buttons each arrive separately, the same interval reads as waiting. */
+  --stagger-reveal: 80ms; /* INFERRED — time path */
+  --stagger-reveal-scroll: 60px; /* INFERRED — scroll path */
 }

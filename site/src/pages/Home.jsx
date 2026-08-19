@@ -75,7 +75,10 @@ export default function Home() {
       {/* Follows design/Homepage.pdf */}
       <Section band="brand" className="overflow-hidden">
         <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <div className={REVEAL.left}>
+          {/* A relay: the column holds still and its eyebrow, heading, lead and
+              buttons each enter from the left in turn. As one block it read as
+              a slab sliding; in sequence it reads as a page composing itself. */}
+          <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
             <p className="text-body-lg text-ink mb-6">Execution without the overhead.</p>
             <H1 tone="hero" className="mb-6">
               We help organizations deliver their most important work.
@@ -185,7 +188,7 @@ export default function Home() {
           <Lead className="mb-10">
             AI is not valuable because it is impressive. It is valuable when it changes work.
           </Lead>
-          <div className="mb-10 grid gap-4 md:grid-cols-2">
+          <div className={`${REVEAL_GROUP.relay} mb-10 grid gap-4 md:grid-cols-2`}>
             {PRACTICE.map((p) => (
               <Card key={p.title}>
                 <H3>{p.title}</H3>

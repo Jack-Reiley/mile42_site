@@ -1,5 +1,5 @@
 import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Quote, Button, TextLink, Spot, PANEL_FILL, PANEL_FILL_HOVER } from '../components/primitives.jsx'
-import { REVEAL } from '../components/reveal.js'
+import { REVEAL, REVEAL_GROUP } from '../components/reveal.js'
 
 const TOPICS = [
   {
@@ -48,7 +48,10 @@ export default function HowWeWork() {
         {/* The text keeps the wider column. The gears are a mid-size spot, not a
             hero scene, so an even split would oversize them. */}
         <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.6fr)]">
-          <div className={REVEAL.left}>
+          {/* A relay: the column holds still and its eyebrow, heading, lead and
+              buttons each enter from the left in turn. As one block it read as
+              a slab sliding; in sequence it reads as a page composing itself. */}
+          <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
             <Eyebrow tone="ink" className="mb-4">How we work</Eyebrow>
             {/* Balanced so the break falls at the comma. Left to itself the
                 line orphans "not a" and strands "sales pitch." on its own. */}

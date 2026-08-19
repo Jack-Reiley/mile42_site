@@ -1,11 +1,18 @@
 import { Body, H3 } from './primitives.jsx'
+import { REVEAL_GROUP } from './reveal.js'
 
-/** The prototype's recurring list shapes, restyled onto the theme. */
+/** The prototype's recurring list shapes, restyled onto the theme.
+ *
+ * Every shape here is a relay: the container holds still and its items arrive
+ * one at a time. A list is not one thing entering, it is several, and treating
+ * it as one is what made an earlier pass read as blocks sliding around. Doing
+ * it here rather than at each call site means all sixteen routes get it, and a
+ * new page cannot forget. */
 
 /** Numbered list: 01 / 02 / 03 in the gutter, statement alongside. */
 export function NumList({ items, as: Tag = 'ul', className = '' }) {
   return (
-    <Tag className={`flex flex-col gap-4 ${className}`}>
+    <Tag className={`${REVEAL_GROUP.relay} flex flex-col gap-4 ${className}`}>
       {items.map((text, i) => (
         <li key={typeof text === 'string' ? text : i} className="grid grid-cols-[2.5rem_1fr] gap-3">
           <span className="text-eyebrow font-eyebrow text-accent pt-1">
@@ -41,7 +48,7 @@ const RULED_COLUMNS = {
 export function TermList({ items, variant = 'stacked', columns = 1, className = '' }) {
   if (variant === 'wide') {
     return (
-      <dl className={className}>
+      <dl className={`${REVEAL_GROUP.relay} ${className}`}>
         {items.map(([term, definition]) => (
           <div
             key={term}
@@ -57,7 +64,7 @@ export function TermList({ items, variant = 'stacked', columns = 1, className = 
 
   if (variant === 'ruled') {
     return (
-      <dl className={`grid gap-x-10 ${RULED_COLUMNS[columns]} ${className}`}>
+      <dl className={`${REVEAL_GROUP.relay} grid gap-x-10 ${RULED_COLUMNS[columns]} ${className}`}>
         {items.map(([term, definition]) => (
           <div key={term} className="border-t border-ink/14 py-4">
             <dt className="text-body font-semibold text-ink">{term}</dt>
@@ -69,7 +76,7 @@ export function TermList({ items, variant = 'stacked', columns = 1, className = 
   }
 
   return (
-    <dl className={`flex flex-col gap-5 ${className}`}>
+    <dl className={`${REVEAL_GROUP.relay} flex flex-col gap-5 ${className}`}>
       {items.map(([term, definition]) => (
         <div key={term} className="grid gap-1 md:grid-cols-[16rem_1fr] md:gap-6">
           <dt className="font-heading text-body font-bold text-ink">{term}</dt>
@@ -83,7 +90,7 @@ export function TermList({ items, variant = 'stacked', columns = 1, className = 
 /** Single-column list of short statements. */
 export function PlainList({ items, variant = 'body', className = '' }) {
   return (
-    <ul className={`flex flex-col gap-2 ${className}`}>
+    <ul className={`${REVEAL_GROUP.relay} flex flex-col gap-2 ${className}`}>
       {items.map((text) => (
         <li
           key={text}
@@ -109,7 +116,7 @@ export function PlainList({ items, variant = 'body', className = '' }) {
  */
 export function NumberedSteps({ items, className = '' }) {
   return (
-    <ol className={`flex flex-col gap-5 ${className}`}>
+    <ol className={`${REVEAL_GROUP.relay} flex flex-col gap-5 ${className}`}>
       {items.map(({ title, body }, i) => (
         <li key={title} className="grid grid-cols-[50px_1fr] items-start gap-4">
           {/* Announced, not hidden. The numeral carries sequence, and an `ol`
@@ -139,7 +146,7 @@ export function NumberedSteps({ items, className = '' }) {
  */
 export function CheckList({ items, columns = 1, badgeClass = 'bg-orange', className = '' }) {
   const titled = items.some((i) => i.title)
-  const grid = `grid gap-4 ${columns === 2 ? 'md:grid-cols-2 md:gap-x-9' : ''} ${className}`
+  const grid = `${REVEAL_GROUP.relay} grid gap-4 ${columns === 2 ? 'md:grid-cols-2 md:gap-x-9' : ''} ${className}`
   // The tick is drawn as generated content rather than as a text node: it is a
   // glyph, not copy, and copy parity compares the two projects' text.
   const Badge = () => (
@@ -189,7 +196,9 @@ export function CheckList({ items, columns = 1, badgeClass = 'bg-orange', classN
  */
 export function GroupColumns({ className = '', children }) {
   return (
-    <div className={`grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 ${className}`}>{children}</div>
+    <div className={`${REVEAL_GROUP.relay} grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 ${className}`}>
+      {children}
+    </div>
   )
 }
 
@@ -219,7 +228,7 @@ export function StatementCards({ items }) {
 /** The delivery-model spine. EXTRAPOLATED — no comp. */
 export function Spine({ items }) {
   return (
-    <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+    <ol className={`${REVEAL_GROUP.relay} grid gap-3 sm:grid-cols-2 lg:grid-cols-5`}>
       {items.map((node) => (
         <li
           key={node}

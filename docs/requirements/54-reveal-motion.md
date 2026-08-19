@@ -4,7 +4,7 @@
 - Pull request: https://github.com/Jack-Reiley/mile42_site/pull/55
 - Parent epic: none
 - Delivery unit: `unit-1-reveal-motion`
-- Requirement version: 2
+- Requirement version: 3
 
 ## Why there is a version 2
 
@@ -30,6 +30,26 @@ So there were three faults, all following from one decision:
 Version 1's own open questions recorded "staggering children is a follow-up if
 it feels flat." It felt flat. That is now the requirement rather than a
 follow-up.
+
+## What version 3 changed
+
+Version 2 fixed the mechanism. Version 3 is craft: the motion was correct but
+coarse, and read as blocks sliding rather than a page composing itself.
+
+- **Granularity.** A relay lets a container hand the motion to its children
+  instead of taking it. Every list and card grid is now a relay, so items arrive
+  one at a time; hero copy columns are relays, so an eyebrow, heading, lead and
+  buttons each enter in turn. A page went from roughly five moving parts to
+  twenty-three.
+- **Curve.** The reveal has its own easing. `--ease-m42` is built for a button,
+  where the reader has just acted and wants the result now. An entrance nobody
+  asked for has to earn its place, so it is an exponential-out: most of the
+  distance covered early, then a long settle.
+- **Weight.** A 0.985 scale, so an element grows into place rather than sliding
+  to it.
+- **Timing.** 900ms and a 340px scroll range, with the stagger tightened from
+  90ms to 80ms — when the unit was a whole block a long interval read as
+  deliberate; with finer parts it read as waiting.
 
 ## Objective
 
@@ -74,12 +94,19 @@ Revised on the ticket. SCN-001 to SCN-011 are carried from there by reference.
 | SCN-003 | Integration + Manual | `reveal.test.jsx` | Browser | Nothing hidden under reduced motion; StageJourney still opens |
 | SCN-004 | Integration + Manual | `reveal.test.jsx` | Browser | `m42-in-solid` on both eager heroes; start opacity 1 |
 | SCN-005 | Integration | `reveal.test.jsx` | N/A | `REVEAL.left` / `REVEAL.right` on the two-column blocks |
-| SCN-006 | Manual | — | Browser | Three offerings measured at progress 0.764 / 0.514 / 0.264 |
+| SCN-006 | Integration + Manual | `reveal.test.jsx` | Browser | Offerings measured at progress 0.764 / 0.514 / 0.264; hero copy staggered at 0 / 80 / 160 / 240ms |
 | SCN-007 | Integration | `reveal.test.jsx` | N/A | Every value resolves from a token; no literal in the rules |
 | SCN-008 | Manual | — | Browser | Opacity and transform only; no layout property animated |
 | SCN-009 | Integration + Manual | `reveal.test.jsx` | Browser | Fallback rules driven by an observer; see deviation |
 | SCN-010 | Manual | — | Browser | Page that cannot scroll renders everything visible |
 | SCN-011 | Integration + Manual | `reveal.test.jsx` | Browser | First band plays over time, since a view timeline reports it finished |
+
+## Regression guard added
+
+`site/src/pages/routes.test.jsx` renders all fourteen routes. It exists because
+the bundler does not catch a missing import: two pages referenced a shared
+constant without importing it, built cleanly, and would have thrown on first
+paint. Only the page nobody opened would have shown it.
 
 ## Deliberate deviations
 

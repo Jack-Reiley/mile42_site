@@ -45,21 +45,27 @@
    so fading the largest above-the-fold image in would hand that work straight
    back. Moving it costs nothing — it paints immediately and slides. */
 @keyframes m42-in-up {
-  from { opacity: var(--reveal-from, 0); transform: translateY(var(--distance-reveal-y)); }
-  to   { opacity: 1; transform: none; }
+  from {
+    opacity: var(--reveal-from, 0);
+    transform: translateY(var(--distance-reveal-y)) scale(var(--scale-reveal));
+  }
+  to { opacity: 1; transform: none; }
 }
 
 @keyframes m42-in-left {
   from {
     opacity: var(--reveal-from, 0);
-    transform: translateX(calc(-1 * var(--distance-reveal-x)));
+    transform: translateX(calc(-1 * var(--distance-reveal-x))) scale(var(--scale-reveal));
   }
   to { opacity: 1; transform: none; }
 }
 
 @keyframes m42-in-right {
-  from { opacity: var(--reveal-from, 0); transform: translateX(var(--distance-reveal-x)); }
-  to   { opacity: 1; transform: none; }
+  from {
+    opacity: var(--reveal-from, 0);
+    transform: translateX(var(--distance-reveal-x)) scale(var(--scale-reveal));
+  }
+  to { opacity: 1; transform: none; }
 }
 
 /* Two ways to opt in. `.m42-in` marks one element. `.m42-in-group` marks a
@@ -107,7 +113,7 @@
   .m42-in-group > * {
     animation-name: var(--reveal-name);
     animation-fill-mode: both;
-    animation-timing-function: var(--ease-m42);
+    animation-timing-function: var(--ease-reveal);
     animation-timeline: view();
     /* Offsets in length units, not percentages. A percentage of the entry range
        is a share of the element's own height, so a tall card would finish much
@@ -145,13 +151,19 @@
 
   [data-reveal="js"] .m42-in.is-in,
   [data-reveal="js"] .m42-in-group > .is-in {
-    animation: var(--reveal-name) var(--duration-reveal) var(--ease-m42) both;
+    animation: var(--reveal-name) var(--duration-reveal) var(--ease-reveal) both;
     animation-delay: calc(var(--reveal-i) * var(--stagger-reveal));
   }
 }
 
 /* An escape hatch for a group child that must not move: a decorative overlay, a
-   sticky rail, anything whose position is the point. */
+   sticky rail, anything whose position is the point.
+
+   Combined with .m42-in-group it becomes a relay — a container that hands the
+   motion down instead of taking it. That is what keeps a list from arriving as
+   one slab: the list itself holds still and its items arrive one at a time.
+   Without it, a container that is both a group child and a group would animate
+   and so would everything inside it, compounding two transforms into a muddle. */
 .m42-in-still,
 .m42-in-group > .m42-in-still {
   animation: none !important;
