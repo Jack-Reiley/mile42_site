@@ -200,10 +200,15 @@ export function Eyebrow({ as: Tag = 'p', tone = 'accent', className = '', childr
 
 /** `as` carries the top of the type scale onto a lower heading level, for a
  *  statement that has to dominate a band it does not own the h1 of. */
+/* Headings balance and body copy is set pretty, in the components rather than at
+   call sites. One of nine H1s balanced before this, so where a heading broke was
+   whatever the box happened to allow. Balance evens the lines of a short block;
+   pretty only prevents a last-line orphan, which is what long copy needs — using
+   balance on a paragraph would even out lines nobody reads as a shape. */
 export function H1({ as: Tag = 'h1', tone = 'ink', className = '', children }) {
   const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
   return (
-    <Tag className={`font-heading text-heading-2 lg:text-heading-1 ${color} ${className}`}>
+    <Tag className={`font-heading text-balance text-heading-2 lg:text-heading-1 ${color} ${className}`}>
       {children}
     </Tag>
   )
@@ -212,7 +217,7 @@ export function H1({ as: Tag = 'h1', tone = 'ink', className = '', children }) {
 export function H2({ as: Tag = 'h2', tone = 'ink', className = '', children }) {
   const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
   return (
-    <Tag className={`font-heading text-heading-3 lg:text-heading-2 ${color} ${className}`}>
+    <Tag className={`font-heading text-balance text-heading-3 lg:text-heading-2 ${color} ${className}`}>
       {children}
     </Tag>
   )
@@ -220,35 +225,46 @@ export function H2({ as: Tag = 'h2', tone = 'ink', className = '', children }) {
 
 export function H3({ as: Tag = 'h3', tone = 'ink', className = '', children }) {
   const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
-  return <Tag className={`font-heading text-heading-3 ${color} ${className}`}>{children}</Tag>
+  return (
+    <Tag className={`font-heading text-balance text-heading-3 ${color} ${className}`}>{children}</Tag>
+  )
 }
 
 export function Lead({ tone = 'ink', className = '', children }) {
   const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
-  return <p className={`text-body-lg ${color} max-w-[46rem] ${className}`}>{children}</p>
+  return <p className={`text-body-lg text-pretty ${color} max-w-[46rem] ${className}`}>{children}</p>
 }
 
 export function Body({ as: Tag = 'p', tone = 'ink', className = '', children }) {
   const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
-  return <Tag className={`text-body ${color} max-w-[46rem] ${className}`}>{children}</Tag>
+  return <Tag className={`text-body text-pretty ${color} max-w-[46rem] ${className}`}>{children}</Tag>
 }
 
 export function Quote({ className = '', children }) {
   return (
-    <p className={`font-heading text-heading-3 text-ink max-w-[46rem] ${className}`}>{children}</p>
+    <p className={`font-heading text-balance text-heading-3 text-ink max-w-[46rem] ${className}`}>
+      {children}
+    </p>
   )
 }
 
 /** The design has no muted text colour. EXTRAPOLATED: ink at reduced opacity. */
 export function Note({ className = '', children }) {
-  return <p className={`text-body text-ink/70 ${className}`}>{children}</p>
+  return <p className={`text-body text-pretty text-ink/70 ${className}`}>{children}</p>
 }
 
 const BTN_BASE =
   'inline-flex items-center justify-center rounded-pill border border-ink shadow-hard ' +
-  'px-btn-x py-3 font-body font-semibold text-body no-underline transition-transform ' +
+  'px-btn-x py-3 font-body font-semibold text-body no-underline ' +
   // EXTRAPOLATED: no interaction states are specified. The 4px hard shadow
   // implies a press-down, so active translates into the shadow and drops it.
+  // Hover is the other half of that: the button lifts before it is pushed, so
+  // the whole gesture reads as one physical thing rather than a click target
+  // that only reacts once it is too late to matter.
+  // duration-[var(...)] rather than duration-btn: Tailwind has no --duration-*
+  // theme namespace, so the bare name silently produces no utility at all.
+  'transition-[transform,box-shadow] duration-[var(--duration-btn)] ease-m42 ' +
+  'hover:-translate-y-0.5 hover:shadow-hard-lift ' +
   'active:translate-y-1 active:shadow-none motion-reduce:transition-none'
 
 const BTN_TONE = {

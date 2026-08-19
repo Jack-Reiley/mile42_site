@@ -86,8 +86,17 @@ describe('SCN-002 — content is never left waiting on JavaScript', () => {
 describe('SCN-004 — the hero illustration keeps the LCP work from #12', () => {
   it('moves the home hero illustration without fading it', () => {
     const home = read('../pages/Home.jsx')
-    const spot = home.slice(home.indexOf('name="hero-desk"'))
-    expect(spot.slice(0, 400)).toMatch(/m42-in-solid/)
+    // The reveal sits on the wrapper, above the parallax and the image, because
+    // both the reveal and the drift are transforms.
+    const hero = home.slice(0, home.indexOf('name="hero-desk"'))
+    expect(hero.slice(-400)).toMatch(/m42-in-solid/)
+  })
+
+  it('keeps the drift off the element that carries the reveal', () => {
+    const home = read('../pages/Home.jsx')
+    const wrapper = home.slice(home.indexOf('m42-in-solid'))
+    // PointerParallax is nested inside, never applied to the same element.
+    expect(wrapper.indexOf('<PointerParallax')).toBeGreaterThan(0)
   })
 
   it('takes the start opacity from a variable, so a no-fade variant is possible', () => {

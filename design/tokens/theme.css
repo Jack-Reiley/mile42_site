@@ -75,10 +75,23 @@
   --text-heading-1: 57px; /* measured */
   --text-heading-1--line-height: 63px; /* derived — 1.105 */
   --text-heading-1--font-weight: 700; /* INFERRED — "Merriweather Sans Bold" */
+  /* INFERRED. The style guide states no tracking at any size, so zero was a
+   * default rather than a decision — see OPEN-QUESTIONS.md question 3. Type set
+   * large needs to close up: the space between letters is optically constant,
+   * so at 57px the same relative gap that reads as even at 16px reads as loose.
+   * Only the two display steps are tightened. Heading Three was too, until it
+   * turned out to change a line break the comp draws: "You need proven
+   * solutions" is two lines on Homepage.pdf, and at -0.011em it collapsed onto
+   * one and ran into the handshake illustration that #15 placed beside it. The
+   * threshold is a measurement, not a rule of thumb — at 26px the tightening is
+   * worth about 7px of width, which is enough to move a wrap and not enough to
+   * be worth seeing. Body text is left alone for the same reason. */
+  --text-heading-1--letter-spacing: -0.022em; /* INFERRED */
 
   --text-heading-2: 36px; /* measured */
   --text-heading-2--line-height: 42px; /* INFERRED — never set multi-line */
   --text-heading-2--font-weight: 700; /* INFERRED */
+  --text-heading-2--letter-spacing: -0.018em; /* INFERRED */
 
   --text-heading-3: 26px; /* measured */
   --text-heading-3--line-height: 32px; /* derived — 1.231 */
@@ -132,6 +145,12 @@
    * and no spread. Not a soft elevation shadow, and there is only one level.
    * Kept as a literal hex so Tailwind can parse the colour out of the value. */
   --shadow-hard: 0 4px 0 #2f1e14; /* measured */
+  /* INFERRED. The hard shadow is a 4px drop, so the element already reads as
+   * sitting above the page — the press-down on :active was built from that. The
+   * hover is the other half of the same idea: the element lifts a little
+   * further before it is pushed. No interaction states are specified anywhere in
+   * the style guide; see OPEN-QUESTIONS.md question 9. */
+  --shadow-hard-lift: 0 6px 0 var(--color-ink); /* INFERRED */
 
   /* --------------------------------------------------------------- breakpoint
    * INFERRED. The comp is a single desktop frame at 1440px and specifies no
@@ -177,6 +196,18 @@
    * arriving — the element has to grow into its place, not just move to it.
    * Above about 0.97 it becomes a zoom and text visibly softens on the way. */
   --duration-reveal: 900ms; /* INFERRED */
+
+  /* The reader's own gesture, so it is short. An entrance can afford to settle
+   * because nobody is waiting on it; a button answering a pointer cannot. */
+  --duration-btn: 160ms; /* INFERRED */
+
+  /* The hero's pointer drift. The distance is small on purpose: this is a
+   * hand-drawn illustration, and moving it far enough to notice consciously
+   * would turn a detail into a trick. The duration is what makes it read as
+   * drift rather than tracking — the artwork trails the pointer instead of
+   * being pinned to it. */
+  --distance-parallax: 10px; /* INFERRED */
+  --duration-parallax: 400ms; /* INFERRED */
   --distance-reveal-y: 32px; /* INFERRED — how far rising content travels */
   --distance-reveal-x: 48px; /* INFERRED — how far side-entering content travels */
   --scale-reveal: 0.985; /* INFERRED — how much content grows into place */
