@@ -9,11 +9,34 @@
 @import "@fontsource-variable/figtree/index.css";
 @import "@fontsource/ibm-plex-sans-condensed/600.css";
 
-/* The one easing curve the interactive work uses. Not in theme.css because the
-   design system specifies no motion; EXTRAPOLATED from the client journey
-   handoff, which states it for every transition on the stage selector. */
-@theme {
-  --ease-m42: cubic-bezier(0.2, 0, 0, 1);
+/* Motion tokens — including --ease-m42, which used to be declared here — now
+   live in design/tokens/theme.css alongside every other token. */
+
+/* Static content reveal.
+ *
+ * CSS-only by design. Nothing here waits on a script, so content React has
+ * already rendered can never be stranded invisible by a callback that did not
+ * fire. That is the reason this is not an IntersectionObserver.
+ *
+ * The @supports gate gives three behaviours from one declaration: motion where
+ * scroll-driven animation is available, plain visible content where it is not,
+ * and — via the reduced-motion rule in the base layer below — no motion for
+ * readers who ask for less.
+ *
+ * The range completes early rather than scrubbing the whole scroll. Tracking
+ * the full range is what reads as lag rather than life.
+ */
+@keyframes m42-reveal {
+  from { opacity: 0; transform: translateY(var(--distance-reveal)); }
+  to   { opacity: 1; transform: none; }
+}
+
+@supports (animation-timeline: view()) {
+  .m42-reveal {
+    animation: m42-reveal var(--duration-reveal) var(--ease-m42) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 28%;
+  }
 }
 
 /* A rule drawing itself in from the left. */
@@ -79,5 +102,44 @@
     outline: 3px solid var(--color-accent);
     outline-offset: 3px;
     border-radius: 2px;
+  }
+
+  /* One rule for the whole site, rather than a modifier remembered at each call
+     site. Fourteen scattered motion-reduce: usages existed before this with no
+     safety net, so new motion would eventually have missed one.
+
+     This deliberately covers the interactive components too. A reader who asks
+     for reduced motion gets it everywhere; panels still open and stages still
+     select, instantly rather than animated.
+
+     Near-zero durations rather than `animation: none` — that distinction is
+     load-bearing. StageJourney opens its panel by animating grid-template-rows
+     from 0fr to 1fr; removing the animation outright would strand the panel
+     closed. Collapsing the duration keeps the end state and removes only the
+     perceptible movement. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    /* The rule above does not disable the reveal. A scroll-driven animation is
+       scrubbed by position, not played over time, so collapsing its duration
+       changes nothing — it would still track the scroll and still hold content
+       at opacity 0 while off screen. It has to be switched off outright.
+
+       `animation: none` is safe here precisely where it was unsafe above: the
+       reveal's resting state is the finished state, so removing the animation
+       leaves content visible. StageJourney's is the opposite — its resting
+       state is closed — which is why the two need different treatment. */
+    .m42-reveal {
+      animation: none !important;
+    }
   }
 }

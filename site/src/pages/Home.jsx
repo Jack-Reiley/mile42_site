@@ -72,7 +72,10 @@ export default function Home() {
   return (
     <>
       {/* Follows design/Homepage.pdf */}
-      <Section band="brand" className="overflow-hidden">
+      {/* reveal={false}: #12 made the hero illustration eager and high fetch
+          priority to fix LCP. Fading in the largest above-the-fold element
+          would hand that back. */}
+      <Section band="brand" reveal={false} className="overflow-hidden">
         <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           <div>
             <p className="text-body-lg text-ink mb-6">Execution without the overhead.</p>

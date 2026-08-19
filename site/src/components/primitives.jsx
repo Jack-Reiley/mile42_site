@@ -100,17 +100,32 @@ const SECTION_INSET = {
   flush: '',
 }
 
+/**
+ * Every route composes its content from these, so the static-content reveal
+ * attaches here and all sixteen pages inherit it rather than opting in.
+ *
+ * `reveal={false}` opts a section out. The home hero uses it: #12 made that
+ * illustration eager and high fetch priority to fix LCP, and fading in the
+ * largest above-the-fold element would give that back.
+ *
+ * The motion itself is CSS — see site/src/styles/index.css. Nothing here waits
+ * on a script, so a section can never be left invisible by a callback that did
+ * not fire.
+ */
 export function Section({
   band = 'page',
   pad = 'default',
   inset = 'default',
+  reveal = true,
   className = '',
   children,
   ...rest
 }) {
   return (
     <section
-      className={`${BAND[band]} ${SECTION_INSET[inset]} ${SECTION_PAD[pad]} ${className}`}
+      className={`${BAND[band]} ${SECTION_INSET[inset]} ${SECTION_PAD[pad]} ${
+        reveal ? 'm42-reveal ' : ''
+      }${className}`}
       {...rest}
     >
       {children}

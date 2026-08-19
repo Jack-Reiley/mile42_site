@@ -139,4 +139,17 @@
    * this only names the width the design was drawn at.
    */
   --breakpoint-comp: 1440px; /* derived — Homepage.pdf frame width */
+
+  /* ------------------------------------------------------------------ motion
+   * INFERRED throughout. The style guide specifies no motion at all: no
+   * durations, no easings, no principles. See OPEN-QUESTIONS.md question 14,
+   * which asks the designer for an intended motion character and a
+   * reduced-motion position. These answer it as our decision, not theirs.
+   *
+   * --ease-m42 previously lived in site/src/styles/index.css. It is here now so
+   * there is one source for motion values.
+   */
+  --ease-m42: cubic-bezier(0.2, 0, 0, 1); /* INFERRED */
+  --duration-reveal: 420ms; /* INFERRED — the static-content entrance */
+  --distance-reveal: 8px; /* INFERRED — how far revealed content rises */
 }
