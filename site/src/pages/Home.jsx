@@ -3,6 +3,7 @@ import {
   Button, ButtonRow, TextLink, Card, Spot,
 } from '../components/primitives.jsx'
 import { NumList } from '../components/Lists.jsx'
+import { REVEAL, REVEAL_GROUP } from '../components/reveal.js'
 
 const OFFERINGS = [
   {
@@ -72,12 +73,9 @@ export default function Home() {
   return (
     <>
       {/* Follows design/Homepage.pdf */}
-      {/* reveal={false}: #12 made the hero illustration eager and high fetch
-          priority to fix LCP. Fading in the largest above-the-fold element
-          would hand that back. */}
-      <Section band="brand" reveal={false} className="overflow-hidden">
+      <Section band="brand" className="overflow-hidden">
         <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <div>
+          <div className={REVEAL.left}>
             <p className="text-body-lg text-ink mb-6">Execution without the overhead.</p>
             <H1 tone="hero" className="mb-6">
               We help organizations deliver their most important work.
@@ -93,11 +91,15 @@ export default function Home() {
               </Button>
             </ButtonRow>
           </div>
+          {/* Enters without fading. #12 made this eager and high fetch priority
+              to fix LCP, and an element at opacity 0 is not yet contentful, so
+              fading the largest above-the-fold image in would give that back.
+              Moving it costs nothing. */}
           <Spot
             name="hero-desk"
             priority
             sizes="(min-width: 1024px) 34rem, 90vw"
-            className="h-auto w-full max-w-[34rem] justify-self-center lg:justify-self-end"
+            className={`h-auto w-full max-w-[34rem] justify-self-center lg:justify-self-end ${REVEAL.right} m42-in-solid`}
           />
         </Wrap>
       </Section>
@@ -115,7 +117,12 @@ export default function Home() {
                 eyebrow, heading, body, "you leave with", button — lines up across
                 all three cards no matter how each one wraps. Without this, a
                 two-line value in one column lifts its label above the others. */}
-            <div className="grid lg:grid-cols-3 lg:grid-rows-[auto_auto_auto_auto_auto]">
+            {/* A group, so the three offerings arrive one after another rather
+                than the whole frame appearing at once. Transform on a grid item
+                does not disturb the subgrid row alignment from #15. */}
+            <div
+              className={`${REVEAL_GROUP.up} grid lg:grid-cols-3 lg:grid-rows-[auto_auto_auto_auto_auto]`}
+            >
               {OFFERINGS.map((o, i) => (
                 <article
                   key={o.title}

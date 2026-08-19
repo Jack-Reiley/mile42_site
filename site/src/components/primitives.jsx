@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { Link } from 'react-router'
 import { illustrations } from '../assets/illustrations/manifest.js'
+import { REVEAL, REVEAL_GROUP } from './reveal.js'
 
 /**
  * The mapping from the copy prototype's ~15 recurring patterns onto the design
@@ -104,28 +105,28 @@ const SECTION_INSET = {
  * Every route composes its content from these, so the static-content reveal
  * attaches here and all sixteen pages inherit it rather than opting in.
  *
- * `reveal={false}` opts a section out. The home hero uses it: #12 made that
- * illustration eager and high fetch priority to fix LCP, and fading in the
- * largest above-the-fold element would give that back.
+ * The home hero illustration enters without fading: #12 made it eager and high
+ * fetch priority to fix LCP, and an element at opacity 0 is not yet contentful.
+ * See the no-fade note on the keyframes in site/src/styles/index.css.
  *
- * The motion itself is CSS — see site/src/styles/index.css. Nothing here waits
- * on a script, so a section can never be left invisible by a callback that did
- * not fire.
+ * Bands no longer animate as a whole. A band is often taller than the viewport,
+ * so animating it moved everything inside it as one rigid object and finished
+ * while much of that content was still below the fold. The motion lives on the
+ * contents now; Wrap is what opts them in. What a band contributes is the
+ * horizontal clip, because content entering from the side starts outside the
+ * band and would otherwise widen the document.
  */
 export function Section({
   band = 'page',
   pad = 'default',
   inset = 'default',
-  reveal = true,
   className = '',
   children,
   ...rest
 }) {
   return (
     <section
-      className={`${BAND[band]} ${SECTION_INSET[inset]} ${SECTION_PAD[pad]} ${
-        reveal ? 'm42-reveal ' : ''
-      }${className}`}
+      className={`m42-band ${BAND[band]} ${SECTION_INSET[inset]} ${SECTION_PAD[pad]} ${className}`}
       {...rest}
     >
       {children}
@@ -142,8 +143,12 @@ export function Section({
  * padding does, so this — not the padding — is what sets the inset.
  * See EXTRAPOLATIONS.md.
  */
-export function Wrap({ className = '', children }) {
-  return <div className={`mx-auto w-full max-w-site ${className}`}>{children}</div>
+export function Wrap({ reveal = true, className = '', children }) {
+  return (
+    <div className={`mx-auto w-full max-w-site ${reveal ? `${REVEAL_GROUP.up} ` : ''}${className}`}>
+      {children}
+    </div>
+  )
 }
 
 /**
@@ -403,13 +408,16 @@ export function FeaturePanel({ spot, eyebrow, title, note, className = '', child
     <div
       className={`grid items-center gap-5 rounded-card border border-ink bg-surface p-7 shadow-hard lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.5fr)] lg:gap-12 lg:p-[46px] ${className}`}
     >
-      <div>
+      {/* The two halves converge: the labelled side enters from the left and
+          its explanation from the right, so the panel assembles from its edges
+          rather than sliding in as one slab. */}
+      <div className={REVEAL.left}>
         <Spot name={spot} decorative sizes="52px" className="mb-[14px] h-[52px] w-[52px] object-contain" />
         <Eyebrow as="span" tone="ink" className="mb-2 block">{eyebrow}</Eyebrow>
         <H2>{title}</H2>
         {note ? <Note className="mt-3 text-[15px]">{note}</Note> : null}
       </div>
-      <div>{children}</div>
+      <div className={REVEAL.right}>{children}</div>
     </div>
   )
 }

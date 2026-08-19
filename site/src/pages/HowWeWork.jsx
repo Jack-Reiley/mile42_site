@@ -1,4 +1,5 @@
 import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Quote, Button, TextLink, Spot, PANEL_FILL, PANEL_FILL_HOVER } from '../components/primitives.jsx'
+import { REVEAL } from '../components/reveal.js'
 
 const TOPICS = [
   {
@@ -47,7 +48,7 @@ export default function HowWeWork() {
         {/* The text keeps the wider column. The gears are a mid-size spot, not a
             hero scene, so an even split would oversize them. */}
         <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.6fr)]">
-          <div>
+          <div className={REVEAL.left}>
             <Eyebrow tone="ink" className="mb-4">How we work</Eyebrow>
             {/* Balanced so the break falls at the comma. Left to itself the
                 line orphans "not a" and strands "sales pitch." on its own. */}
@@ -55,12 +56,15 @@ export default function HowWeWork() {
             <Lead>Most firms describe what they sell. Fewer are willing to show how the work actually runs, because that is where the difference between firms is real.</Lead>
           </div>
           {/* Stacked under the copy below `lg`, so it is capped far smaller
-              there — at the desktop cap it would fill a phone's width. */}
+              there — at the desktop cap it would fill a phone's width.
+
+              Enters without fading, for the same reason as the home hero: it is
+              eager and above the fold, and opacity 0 is not contentful. */}
           <Spot
             name="gears"
             priority
             sizes="(min-width: 1024px) 22rem, 14rem"
-            className="h-auto w-full max-w-[14rem] justify-self-center lg:max-w-[22rem] lg:justify-self-end"
+            className={`h-auto w-full max-w-[14rem] justify-self-center lg:max-w-[22rem] lg:justify-self-end ${REVEAL.right} m42-in-solid`}
           />
         </Wrap>
       </Section>

@@ -2,6 +2,7 @@ import {
   Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote,
   Button, ButtonRow, TextLink, Card, PathCard,
 } from '../components/primitives.jsx'
+import { REVEAL, REVEAL_GROUP } from '../components/reveal.js'
 
 /* The title names the practice the card leads to, so the three headings are the
    three service names rather than three sentences beginning "You need". The
@@ -57,7 +58,7 @@ export default function WhatWeDo() {
           lists them, which is what makes the choice the first thing on the page. */}
       <Section band="navy">
         <Wrap className="grid items-center gap-11 lg:grid-cols-[0.92fr_1.08fr]">
-          <div>
+          <div className={REVEAL.left}>
             <Eyebrow tone="sky" className="mb-4">What we do</Eyebrow>
             <H1 tone="hero" className="mb-4">Start with what you need right now.</H1>
             <Lead tone="hero">
@@ -69,8 +70,11 @@ export default function WhatWeDo() {
             </ButtonRow>
           </div>
 
-          {/* The band's own heading is the h1, so the cards take h2. */}
-          <div className="flex flex-col gap-4">
+          {/* The band's own heading is the h1, so the cards take h2.
+
+              A group, so the three cards arrive from the right one after
+              another rather than as a single slab. */}
+          <div className={`${REVEAL_GROUP.right} flex flex-col gap-4`}>
             {PATHS.map((p) => (
               <PathCard
                 key={p.title}

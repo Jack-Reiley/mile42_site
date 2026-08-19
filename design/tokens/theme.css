@@ -150,6 +150,31 @@
    * there is one source for motion values.
    */
   --ease-m42: cubic-bezier(0.2, 0, 0, 1); /* INFERRED */
-  --duration-reveal: 420ms; /* INFERRED — the static-content entrance */
-  --distance-reveal: 8px; /* INFERRED — how far revealed content rises */
+
+  /* The static-content entrance. An element travels, fades, and settles while
+   * it is still in the lower part of the viewport, so the movement happens
+   * where it can be seen rather than finishing off screen.
+   *
+   * The distances are what make the motion legible. An earlier pass used 8px,
+   * which is a third of a line-height and reads as nothing at all. Copy enters
+   * horizontally and everything else rises, so the two axes differ: horizontal
+   * travel needs more distance to register because it crosses the reading
+   * direction rather than opposing it. */
+  --duration-reveal: 620ms; /* INFERRED */
+  --distance-reveal-y: 32px; /* INFERRED — how far rising content travels */
+  --distance-reveal-x: 48px; /* INFERRED — how far side-entering content travels */
+
+  /* Where the reveal is scrubbed by scroll position rather than played over
+   * time, progress is measured in scroll distance, so it needs its own pair of
+   * values. This is a fixed distance rather than a percentage on purpose: a
+   * percentage is a share of the element's own size, which makes a tall block
+   * finish long after it has left the part of the screen you are looking at.
+   * A fixed distance settles every element at the same height in the viewport
+   * no matter how big it is. */
+  --scroll-reveal: 280px; /* INFERRED — scroll distance the reveal completes over */
+
+  /* Siblings arrive in sequence rather than in unison. Sequence is what reads
+   * as alive; a row of cards moving as one block reads as a page jolt. */
+  --stagger-reveal: 90ms; /* INFERRED — time path */
+  --stagger-reveal-scroll: 70px; /* INFERRED — scroll path */
 }

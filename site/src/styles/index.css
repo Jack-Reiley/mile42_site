@@ -14,29 +14,156 @@
 
 /* Static content reveal.
  *
- * CSS-only by design. Nothing here waits on a script, so content React has
- * already rendered can never be stranded invisible by a callback that did not
- * fire. That is the reason this is not an IntersectionObserver.
+ * Individual pieces of content animate, not the bands that hold them. That
+ * distinction is the whole thing. An earlier pass animated the <section>, and a
+ * band is often taller than the viewport: on the homepage the offerings band is
+ * 906px, and its animation finished with 406px of itself still below the fold.
+ * Everything in that lower half — the "you leave with" blocks, every button —
+ * finished animating before it was ever on screen, and what did show moved as
+ * one rigid block. Animating contents instead means each piece moves relative
+ * to its neighbours, which is what reads as alive.
  *
- * The @supports gate gives three behaviours from one declaration: motion where
- * scroll-driven animation is available, plain visible content where it is not,
- * and — via the reduced-motion rule in the base layer below — no motion for
- * readers who ask for less.
+ * Two mechanisms, one set of keyframes:
  *
- * The range completes early rather than scrubbing the whole scroll. Tracking
- * the full range is what reads as lag rather than life.
+ *   Scroll-scrubbed, where animation-timeline: view() exists. Progress follows
+ *   the scroll position, so the motion is tied to the reader's own movement.
+ *
+ *   Time-played, where it does not — Firefox today. An IntersectionObserver in
+ *   reveal.js marks elements as they arrive and the same keyframes play out.
+ *
+ * The fallback can only hide content once the observer is confirmed running,
+ * because it is the observer that un-hides it. That is why the hidden start
+ * state hangs off [data-reveal="js"], which reveal.js sets on <html> only after
+ * it has an observer in hand. If the script never loads, never parses, or
+ * throws on the way up, the attribute is absent and every element renders
+ * plainly visible. The failure mode is "no animation", never "no content".
  */
-@keyframes m42-reveal {
-  from { opacity: 0; transform: translateY(var(--distance-reveal)); }
+
+/* The start opacity is a variable so an element can travel without fading. That
+   matters for one case: #12 made the home hero illustration eager and high
+   fetch priority to fix LCP, and an element at opacity 0 is not yet contentful,
+   so fading the largest above-the-fold image in would hand that work straight
+   back. Moving it costs nothing — it paints immediately and slides. */
+@keyframes m42-in-up {
+  from { opacity: var(--reveal-from, 0); transform: translateY(var(--distance-reveal-y)); }
   to   { opacity: 1; transform: none; }
 }
 
-@supports (animation-timeline: view()) {
-  .m42-reveal {
-    animation: m42-reveal var(--duration-reveal) var(--ease-m42) both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 28%;
+@keyframes m42-in-left {
+  from {
+    opacity: var(--reveal-from, 0);
+    transform: translateX(calc(-1 * var(--distance-reveal-x)));
   }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes m42-in-right {
+  from { opacity: var(--reveal-from, 0); transform: translateX(var(--distance-reveal-x)); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Two ways to opt in. `.m42-in` marks one element. `.m42-in-group` marks a
+   container and every direct child animates in sequence — which is how most of
+   the site opts in, because Wrap carries it, so a page gets the behaviour
+   without every element in it naming the behaviour. */
+.m42-in,
+.m42-in-group > * {
+  --reveal-name: m42-in-up;
+  --reveal-i: 0;
+}
+
+/* Direction is a separate axis from opting in, so these set only the keyframes.
+   Group direction has to name the children rather than the container: the base
+   group rule sets --reveal-name on each child directly, and a direct
+   declaration beats an inherited one, so setting it on the container alone
+   would never reach them.
+
+   Order matters as much as the selectors. All three have the same specificity,
+   so the cascade falls to source order — which is why the per-element rules sit
+   last and can override the group they are in. */
+.m42-in-group-left > * { --reveal-name: m42-in-left; }
+.m42-in-group-right > * { --reveal-name: m42-in-right; }
+
+.m42-in-left { --reveal-name: m42-in-left; }
+.m42-in-right { --reveal-name: m42-in-right; }
+
+/* Travels without fading. See the keyframes above. */
+.m42-in-solid { --reveal-from: 1; }
+
+/* Sequence position. Set here rather than passed as a prop because most of the
+   primitives take a className and not a style, and because a group's running
+   order is exactly its DOM order — there is nothing for a call site to decide.
+   Past the eighth child the stagger stops growing: by then the later items are
+   far enough down that scroll position separates them anyway. */
+.m42-in-group > *:nth-child(2) { --reveal-i: 1; }
+.m42-in-group > *:nth-child(3) { --reveal-i: 2; }
+.m42-in-group > *:nth-child(4) { --reveal-i: 3; }
+.m42-in-group > *:nth-child(5) { --reveal-i: 4; }
+.m42-in-group > *:nth-child(6) { --reveal-i: 5; }
+.m42-in-group > *:nth-child(n+7) { --reveal-i: 6; }
+
+@supports (animation-timeline: view()) {
+  .m42-in,
+  .m42-in-group > * {
+    animation-name: var(--reveal-name);
+    animation-fill-mode: both;
+    animation-timing-function: var(--ease-m42);
+    animation-timeline: view();
+    /* Offsets in length units, not percentages. A percentage of the entry range
+       is a share of the element's own height, so a tall card would finish much
+       later than a short heading and the page would animate unevenly. A length
+       is the same scroll distance for every element, so everything settles at
+       the same height in the viewport. */
+    animation-range-start: entry calc(var(--reveal-i) * var(--stagger-reveal-scroll));
+    animation-range-end: entry
+      calc(var(--reveal-i) * var(--stagger-reveal-scroll) + var(--scroll-reveal));
+  }
+}
+
+/* The first band of a page is above the fold, and a view() timeline reports an
+   element that is already on screen as finished — so the opening screen would
+   animate only in the sense that it arrives complete. It gets the time-played
+   entrance instead, which is what makes a page open with movement rather than
+   waiting for the reader to scroll before anything happens.
+
+   Written as a rule against page structure rather than a class each page
+   remembers to apply, so every route behaves the same way without sixteen
+   separate edits and without a new page being able to forget. */
+@supports (animation-timeline: view()) {
+  main > section:first-child :is(.m42-in, .m42-in-group > *) {
+    animation-timeline: auto;
+    animation-duration: var(--duration-reveal);
+    animation-delay: calc(var(--reveal-i) * var(--stagger-reveal));
+  }
+}
+
+@supports not (animation-timeline: view()) {
+  [data-reveal="js"] .m42-in,
+  [data-reveal="js"] .m42-in-group > * {
+    opacity: 0;
+  }
+
+  [data-reveal="js"] .m42-in.is-in,
+  [data-reveal="js"] .m42-in-group > .is-in {
+    animation: var(--reveal-name) var(--duration-reveal) var(--ease-m42) both;
+    animation-delay: calc(var(--reveal-i) * var(--stagger-reveal));
+  }
+}
+
+/* An escape hatch for a group child that must not move: a decorative overlay, a
+   sticky rail, anything whose position is the point. */
+.m42-in-still,
+.m42-in-group > .m42-in-still {
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+/* Horizontal entrances start off to one side, which would otherwise widen the
+   document and produce a horizontal scrollbar. `clip` rather than `hidden`
+   because hidden on one axis forces the other to scroll, which would break the
+   spot illustrations that deliberately break out of their cards vertically. */
+.m42-band {
+  overflow-x: clip;
 }
 
 /* A rule drawing itself in from the left. */
@@ -137,9 +264,18 @@
        `animation: none` is safe here precisely where it was unsafe above: the
        reveal's resting state is the finished state, so removing the animation
        leaves content visible. StageJourney's is the opposite — its resting
-       state is closed — which is why the two need different treatment. */
-    .m42-reveal {
+       state is closed — which is why the two need different treatment.
+
+       The opacity reset covers the fallback path, where the hidden start state
+       is a plain declaration rather than a keyframe and so survives having the
+       animation removed. reveal.js also declines to mark the document at all
+       under this preference; this is the belt to that pair of braces, and it
+       is what holds if the preference changes after the script has run. */
+    .m42-in,
+    .m42-in-group > * {
       animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
 }
