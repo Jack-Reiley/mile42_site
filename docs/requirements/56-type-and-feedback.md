@@ -40,13 +40,32 @@ the pointer, and one detail worth noticing.
 
 ## Withdrawn during review
 
-- **The hero pointer parallax was built, then removed at Kevin's request.** It
-  worked — measured at 9.4px / -8.1px at the band's corner, capped at its token,
-  and correctly declining to run on a coarse pointer, under reduced motion, and
-  off screen. It came out because a separate rendering artifact on the green
-  bands was under investigation and the drift was one more composited layer in
-  the middle of it. The mechanism is in the git history if it is ever wanted
-  back; it is not deferred work, it is a decision.
+- **The hero pointer parallax was built, then removed, and removing it fixed a
+  rendering bug.** Kevin reported uneven shades of green across the brand bands
+  — both the hero and the page-foot call to action — which varied with window
+  size and which the CSS could not explain: `bg-brand` is a flat `#00b785` with
+  no gradient and no texture. Removing the parallax resolved it, confirmed on
+  his display.
+
+  The cause was the one `translate3d` in the codebase. A 3D transform forces the
+  element onto the GPU raster path, and that decision is not local to the
+  element: it can change how the page as a whole is rasterized. On a wide-gamut
+  display the GPU path colour-manages a flat fill differently enough to see, and
+  saturated green was the only colour on the site where the difference showed.
+  That is why a hero effect produced banding in a band a full page below it.
+
+  The control is strong. Dozens of elements animate `translateX`, `translateY`
+  and `scale` at once — all 2D — and none of them produce it. One `translate3d`
+  did.
+
+  Not reproducible in this environment at any zoom: the capture pipeline
+  flattens everything into a single pass and returns the green as
+  `rgb(82,180,139)` where the CSS says `rgb(0,183,133)`, which erases exactly
+  this class of artifact. Kevin's eyes on a real display were the only
+  instrument that could see it.
+
+  If the drift is ever wanted back, the constraint is a 2D `translate()` and a
+  re-test on a wide-gamut display. The mechanism is in the git history.
 
 ## Deliberate deviations
 
