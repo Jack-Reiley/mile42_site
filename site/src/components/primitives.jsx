@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { Link } from 'react-router'
 import { illustrations } from '../assets/illustrations/manifest.js'
+import { REVEAL, REVEAL_GROUP } from './reveal.js'
 
 /**
  * The mapping from the copy prototype's ~15 recurring patterns onto the design
@@ -100,6 +101,21 @@ const SECTION_INSET = {
   flush: '',
 }
 
+/**
+ * Every route composes its content from these, so the static-content reveal
+ * attaches here and all sixteen pages inherit it rather than opting in.
+ *
+ * The home hero illustration enters without fading: #12 made it eager and high
+ * fetch priority to fix LCP, and an element at opacity 0 is not yet contentful.
+ * See the no-fade note on the keyframes in site/src/styles/index.css.
+ *
+ * Bands no longer animate as a whole. A band is often taller than the viewport,
+ * so animating it moved everything inside it as one rigid object and finished
+ * while much of that content was still below the fold. The motion lives on the
+ * contents now; Wrap is what opts them in. What a band contributes is the
+ * horizontal clip, because content entering from the side starts outside the
+ * band and would otherwise widen the document.
+ */
 export function Section({
   band = 'page',
   pad = 'default',
@@ -110,7 +126,7 @@ export function Section({
 }) {
   return (
     <section
-      className={`${BAND[band]} ${SECTION_INSET[inset]} ${SECTION_PAD[pad]} ${className}`}
+      className={`m42-band ${BAND[band]} ${SECTION_INSET[inset]} ${SECTION_PAD[pad]} ${className}`}
       {...rest}
     >
       {children}
@@ -127,8 +143,12 @@ export function Section({
  * padding does, so this — not the padding — is what sets the inset.
  * See EXTRAPOLATIONS.md.
  */
-export function Wrap({ className = '', children }) {
-  return <div className={`mx-auto w-full max-w-site ${className}`}>{children}</div>
+export function Wrap({ reveal = true, className = '', children }) {
+  return (
+    <div className={`mx-auto w-full max-w-site ${reveal ? `${REVEAL_GROUP.up} ` : ''}${className}`}>
+      {children}
+    </div>
+  )
 }
 
 /**
@@ -180,10 +200,15 @@ export function Eyebrow({ as: Tag = 'p', tone = 'accent', className = '', childr
 
 /** `as` carries the top of the type scale onto a lower heading level, for a
  *  statement that has to dominate a band it does not own the h1 of. */
+/* Headings balance and body copy is set pretty, in the components rather than at
+   call sites. One of nine H1s balanced before this, so where a heading broke was
+   whatever the box happened to allow. Balance evens the lines of a short block;
+   pretty only prevents a last-line orphan, which is what long copy needs — using
+   balance on a paragraph would even out lines nobody reads as a shape. */
 export function H1({ as: Tag = 'h1', tone = 'ink', className = '', children }) {
   const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
   return (
-    <Tag className={`font-heading text-heading-2 lg:text-heading-1 ${color} ${className}`}>
+    <Tag className={`font-heading text-balance text-heading-2 lg:text-heading-1 ${color} ${className}`}>
       {children}
     </Tag>
   )
@@ -192,7 +217,7 @@ export function H1({ as: Tag = 'h1', tone = 'ink', className = '', children }) {
 export function H2({ as: Tag = 'h2', tone = 'ink', className = '', children }) {
   const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
   return (
-    <Tag className={`font-heading text-heading-3 lg:text-heading-2 ${color} ${className}`}>
+    <Tag className={`font-heading text-balance text-heading-3 lg:text-heading-2 ${color} ${className}`}>
       {children}
     </Tag>
   )
@@ -200,35 +225,46 @@ export function H2({ as: Tag = 'h2', tone = 'ink', className = '', children }) {
 
 export function H3({ as: Tag = 'h3', tone = 'ink', className = '', children }) {
   const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
-  return <Tag className={`font-heading text-heading-3 ${color} ${className}`}>{children}</Tag>
+  return (
+    <Tag className={`font-heading text-balance text-heading-3 ${color} ${className}`}>{children}</Tag>
+  )
 }
 
 export function Lead({ tone = 'ink', className = '', children }) {
   const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
-  return <p className={`text-body-lg ${color} max-w-[46rem] ${className}`}>{children}</p>
+  return <p className={`text-body-lg text-pretty ${color} max-w-[46rem] ${className}`}>{children}</p>
 }
 
 export function Body({ as: Tag = 'p', tone = 'ink', className = '', children }) {
   const color = tone === 'hero' ? 'text-hero-heading' : 'text-ink'
-  return <Tag className={`text-body ${color} max-w-[46rem] ${className}`}>{children}</Tag>
+  return <Tag className={`text-body text-pretty ${color} max-w-[46rem] ${className}`}>{children}</Tag>
 }
 
 export function Quote({ className = '', children }) {
   return (
-    <p className={`font-heading text-heading-3 text-ink max-w-[46rem] ${className}`}>{children}</p>
+    <p className={`font-heading text-balance text-heading-3 text-ink max-w-[46rem] ${className}`}>
+      {children}
+    </p>
   )
 }
 
 /** The design has no muted text colour. EXTRAPOLATED: ink at reduced opacity. */
 export function Note({ className = '', children }) {
-  return <p className={`text-body text-ink/70 ${className}`}>{children}</p>
+  return <p className={`text-body text-pretty text-ink/70 ${className}`}>{children}</p>
 }
 
 const BTN_BASE =
   'inline-flex items-center justify-center rounded-pill border border-ink shadow-hard ' +
-  'px-btn-x py-3 font-body font-semibold text-body no-underline transition-transform ' +
+  'px-btn-x py-3 font-body font-semibold text-body no-underline ' +
   // EXTRAPOLATED: no interaction states are specified. The 4px hard shadow
   // implies a press-down, so active translates into the shadow and drops it.
+  // Hover is the other half of that: the button lifts before it is pushed, so
+  // the whole gesture reads as one physical thing rather than a click target
+  // that only reacts once it is too late to matter.
+  // duration-[var(...)] rather than duration-btn: Tailwind has no --duration-*
+  // theme namespace, so the bare name silently produces no utility at all.
+  'transition-[transform,box-shadow] duration-[var(--duration-btn)] ease-m42 ' +
+  'hover:-translate-y-0.5 hover:shadow-hard-lift ' +
   'active:translate-y-1 active:shadow-none motion-reduce:transition-none'
 
 const BTN_TONE = {
@@ -388,13 +424,16 @@ export function FeaturePanel({ spot, eyebrow, title, note, className = '', child
     <div
       className={`grid items-center gap-5 rounded-card border border-ink bg-surface p-7 shadow-hard lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.5fr)] lg:gap-12 lg:p-[46px] ${className}`}
     >
-      <div>
+      {/* The two halves converge: the labelled side enters from the left and
+          its explanation from the right, so the panel assembles from its edges
+          rather than sliding in as one slab. */}
+      <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
         <Spot name={spot} decorative sizes="52px" className="mb-[14px] h-[52px] w-[52px] object-contain" />
         <Eyebrow as="span" tone="ink" className="mb-2 block">{eyebrow}</Eyebrow>
         <H2>{title}</H2>
         {note ? <Note className="mt-3 text-[15px]">{note}</Note> : null}
       </div>
-      <div>{children}</div>
+      <div className={`${REVEAL_GROUP.right} ${REVEAL.still}`}>{children}</div>
     </div>
   )
 }

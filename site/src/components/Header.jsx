@@ -148,6 +148,7 @@ export default function Header() {
   const [openHref, setOpenHref] = useState(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [drilledHref, setDrilledHref] = useState(null)
+  const [condensed, setCondensed] = useState(false)
 
   const headerRef = useRef(null)
   const triggerRefs = useRef({})
@@ -167,6 +168,17 @@ export default function Header() {
     setDrawerOpen(false)
     setDrilledHref(null)
   }, [closePanel])
+
+  /* Condensed past a threshold rather than tracking the scroll continuously.
+     The bar's height is what changes, and height is layout — recomputing it on
+     every scroll frame would cost far more than the effect is worth. One class
+     flip at 24px, with the transition doing the smoothing. */
+  useEffect(() => {
+    const onScroll = () => setCondensed(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(closeEverything, [pathname, closeEverything])
 
@@ -209,7 +221,12 @@ export default function Header() {
        cleared a nav item, closing the panel on the way to it. */
     <header
       ref={headerRef}
-      className="relative border-b border-ink bg-page"
+      /* Sticky so navigation stays reachable: the longest page is 3044px, and
+         the header used to simply leave. z-40 clears the spot illustrations that
+         break out of their cards, which sit at z-10. */
+      className={`sticky top-0 z-40 border-b border-ink bg-page transition-shadow duration-[var(--duration-btn)] ease-m42 motion-reduce:transition-none ${
+        condensed ? 'shadow-hard' : ''
+      }`}
       onMouseLeave={() => hoverOpens() && closePanel()}
     >
       {/* Horizontal padding sits outside `max-w-site`, matching Section and
@@ -218,7 +235,11 @@ export default function Header() {
           panel and drawer are siblings of the bar, and padding there would
           inset their top borders. The panel and drawer repeat this wrapper so
           all three track one edge. */}
-      <div className="px-6 py-5 md:px-12">
+      <div
+        className={`px-6 transition-[padding] duration-[var(--duration-btn)] ease-m42 motion-reduce:transition-none md:px-12 ${
+          condensed ? 'py-3' : 'py-5'
+        }`}
+      >
         <div className="mx-auto flex w-full max-w-site items-center justify-between gap-6">
           <Link to="/" className="font-heading text-heading-3 text-ink no-underline">
             Mile42
