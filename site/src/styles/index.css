@@ -170,19 +170,6 @@
   opacity: 1 !important;
 }
 
-/* Pointer drift for the hero illustration. The transition is what turns a
-   per-frame position update into drift: the artwork trails the pointer rather
-   than being pinned to it. See site/src/components/PointerParallax.jsx, which
-   declines to run at all on a coarse pointer or under reduced motion. */
-.m42-parallax {
-  transform: translate3d(
-    calc(var(--parallax-x, 0) * var(--distance-parallax)),
-    calc(var(--parallax-y, 0) * var(--distance-parallax)),
-    0
-  );
-  transition: transform var(--duration-parallax) var(--ease-m42);
-}
-
 /* Horizontal entrances start off to one side, which would otherwise widen the
    document and produce a horizontal scrollbar. `clip` rather than `hidden`
    because hidden on one axis forces the other to scroll, which would break the

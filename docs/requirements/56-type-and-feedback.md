@@ -17,7 +17,6 @@ the pointer, and one detail worth noticing.
 - Hover states for buttons, completing the press-down already there
 - A sticky header that condenses past a scroll threshold
 - Branded `::selection`
-- A restrained pointer parallax on the home hero illustration
 
 ## Out of scope
 
@@ -37,8 +36,17 @@ the pointer, and one detail worth noticing.
 | No other heading's wrap changed | All 14 routes probed with tracking toggled; one heading shifted, the hero h1, in the intended direction |
 | Buttons answer the pointer | Hover measured at shadow 4px to 6px and a 2px lift; `:active` press-down unchanged |
 | The header stays available | `position: sticky`, `z-40`, condensing 20px to 12px past a 24px threshold |
-| The hero drifts | Pointer at the band's corner gives 9.4px, -8.1px, capped at the 10px token |
 | Nothing new animates unprompted | Every addition here is either static or driven by the reader's own pointer |
+
+## Withdrawn during review
+
+- **The hero pointer parallax was built, then removed at Kevin's request.** It
+  worked — measured at 9.4px / -8.1px at the band's corner, capped at its token,
+  and correctly declining to run on a coarse pointer, under reduced motion, and
+  off screen. It came out because a separate rendering artifact on the green
+  bands was under investigation and the drift was one more composited layer in
+  the middle of it. The mechanism is in the git history if it is ever wanted
+  back; it is not deferred work, it is a decision.
 
 ## Deliberate deviations
 

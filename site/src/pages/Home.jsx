@@ -4,7 +4,6 @@ import {
 } from '../components/primitives.jsx'
 import { NumList } from '../components/Lists.jsx'
 import { REVEAL, REVEAL_GROUP } from '../components/reveal.js'
-import PointerParallax from '../components/PointerParallax.jsx'
 
 const OFFERINGS = [
   {
@@ -98,22 +97,13 @@ export default function Home() {
           {/* Enters without fading. #12 made this eager and high fetch priority
               to fix LCP, and an element at opacity 0 is not yet contentful, so
               fading the largest above-the-fold image in would give that back.
-              Moving it costs nothing.
-
-              The reveal sits on the wrapper and the drift on the inner element:
-              both are transforms, and one element cannot own two. */}
-          <div
-            className={`w-full max-w-[34rem] justify-self-center lg:justify-self-end ${REVEAL.right} m42-in-solid`}
-          >
-            <PointerParallax>
-              <Spot
-                name="hero-desk"
-                priority
-                sizes="(min-width: 1024px) 34rem, 90vw"
-                className="h-auto w-full"
-              />
-            </PointerParallax>
-          </div>
+              Moving it costs nothing. */}
+          <Spot
+            name="hero-desk"
+            priority
+            sizes="(min-width: 1024px) 34rem, 90vw"
+            className={`h-auto w-full max-w-[34rem] justify-self-center lg:justify-self-end ${REVEAL.right} m42-in-solid`}
+          />
         </Wrap>
       </Section>
 

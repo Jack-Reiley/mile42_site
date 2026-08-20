@@ -201,13 +201,6 @@
    * because nobody is waiting on it; a button answering a pointer cannot. */
   --duration-btn: 160ms; /* INFERRED */
 
-  /* The hero's pointer drift. The distance is small on purpose: this is a
-   * hand-drawn illustration, and moving it far enough to notice consciously
-   * would turn a detail into a trick. The duration is what makes it read as
-   * drift rather than tracking — the artwork trails the pointer instead of
-   * being pinned to it. */
-  --distance-parallax: 10px; /* INFERRED */
-  --duration-parallax: 400ms; /* INFERRED */
   --distance-reveal-y: 32px; /* INFERRED — how far rising content travels */
   --distance-reveal-x: 48px; /* INFERRED — how far side-entering content travels */
   --scale-reveal: 0.985; /* INFERRED — how much content grows into place */
