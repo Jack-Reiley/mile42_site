@@ -99,7 +99,7 @@ export function TermList({ items, variant = 'stacked', columns = 1, className = 
 export function PlainList({ items, variant = 'body', className = '' }) {
   if (variant === 'ruled') {
     return (
-      <ul className={`text-[15px] leading-6 text-ink ${className}`}>
+      <ul className={`${REVEAL_GROUP.relay} text-[15px] leading-6 text-ink ${className}`}>
         {items.map((text) => (
           <li key={text} className="border-t border-ink/25 py-1.5 first:border-t-0 first:pt-0">
             {text}
@@ -272,7 +272,7 @@ export function Spine({ items }) {
 export function StepStrip({ items, className = '' }) {
   return (
     <ol
-      className={`flex flex-wrap overflow-hidden rounded-card border border-ink bg-page ${className}`}
+      className={`${REVEAL_GROUP.relay} flex flex-wrap overflow-hidden rounded-card border border-ink bg-page ${className}`}
     >
       {items.map(({ label, line }, i) => (
         <li

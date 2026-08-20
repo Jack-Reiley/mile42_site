@@ -1,5 +1,6 @@
 import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button, Card } from '../components/primitives.jsx'
 import { PlainList, StepStrip, CompareTable, GroupColumns, RuledGroup } from '../components/Lists.jsx'
+import { REVEAL_GROUP } from '../components/reveal.js'
 import DeweyPillars from '../components/DeweyPillars.jsx'
 import LibrarianFlow from '../components/LibrarianFlow.jsx'
 
@@ -200,7 +201,9 @@ export default function MeetDewey() {
           </Body>
           <Lead className="mb-8">Agents propose. Humans approve. Code executes.</Lead>
 
-          <div className="grid gap-4 min-[900px]:grid-cols-2 min-[900px]:gap-6">
+          <div
+            className={`${REVEAL_GROUP.relay} grid gap-4 min-[900px]:grid-cols-2 min-[900px]:gap-6`}
+          >
             <Card>
               <Eyebrow tone="ink">Inbound · SOR to Dewey</Eyebrow>
               <Body className="max-w-none">

@@ -38,6 +38,31 @@ the pointer, and one detail worth noticing.
 | The header stays available | `position: sticky`, `z-40`, condensing 20px to 12px past a 24px threshold |
 | Nothing new animates unprompted | Every addition here is either static or driven by the reader's own pointer |
 
+## Extended to cover Meet Dewey
+
+#59 merged while this was in review, adding `/meet-dewey`. The page inherits
+most of this for free — `Wrap` carries the group, so its content reveals; the
+tracking applies to its headings; its call to action gets the button hover — but
+the three shapes that page introduced needed the same treatment the older list
+shapes already had:
+
+- `StepStrip` and the `ruled` variant of `PlainList` became relays, so their
+  items arrive one at a time instead of the container moving as a slab
+- `LibrarianFlow` became a relay, so the diagram assembles in the direction the
+  data travels rather than appearing whole. Its parts are already hidden from
+  assistive tech behind the `img` role, so this is purely visual
+- The connector pair became a relay, so the two cards arrive in sequence
+
+`CompareTable` deliberately did not. A table is one object and its rows are one
+dataset; staggering them would read as the table building itself, which is a
+different and worse claim than the table simply being there. It reveals as a
+unit, like any other single element.
+
+Verified on the page: 67 animated elements across 10 relays, no heading wrap
+changed by the tracking, no horizontal overflow at any scroll position on a
+5817px page, nothing stranded, and under reduced motion nothing hidden, nothing
+moved, and the pillar selector still switches.
+
 ## Withdrawn during review
 
 - **The hero pointer parallax was built, then removed, and removing it fixed a
