@@ -15,6 +15,7 @@ import WhyMile42 from './pages/WhyMile42.jsx'
 import Insights from './pages/Insights.jsx'
 import Contact from './pages/Contact.jsx'
 import Privacy from './pages/Privacy.jsx'
+import MeetDewey from './pages/MeetDewey.jsx'
 
 const SUFFIX = ' · Mile42'
 
@@ -29,6 +30,7 @@ export const PAGES = [
   { path: '/how-we-work/client-journey', title: 'Client journey' + SUFFIX, Component: ClientJourney },
   { path: '/how-we-work/delivery-model', title: 'Delivery model' + SUFFIX, Component: DeliveryModel },
   { path: '/how-we-work/engagement-model', title: 'Engagement model' + SUFFIX, Component: EngagementModel },
+  { path: '/meet-dewey', title: 'Meet Dewey' + SUFFIX, Component: MeetDewey },
   { path: '/why-mile42', title: 'Why Mile42' + SUFFIX, Component: WhyMile42 },
   { path: '/insights', title: 'Insights' + SUFFIX, Component: Insights },
   { path: '/contact', title: 'Contact' + SUFFIX, Component: Contact },

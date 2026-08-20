@@ -23,6 +23,7 @@ const COLUMNS = [
   {
     heading: 'Company',
     links: [
+      { href: '/meet-dewey', label: 'Meet Dewey' },
       { href: '/why-mile42', label: 'Why Mile42' },
     ],
   },

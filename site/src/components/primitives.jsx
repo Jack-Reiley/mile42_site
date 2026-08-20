@@ -309,28 +309,28 @@ export function TextLink({ to, tone = 'ink', className = '', children }) {
   )
 }
 
-export function Card({ as: Tag = 'div', className = '', children }) {
+/**
+ * Fills a `Card` can take. A prop rather than a className, because appending
+ * `bg-mint` to the class list does not win: two background utilities have the
+ * same specificity, so the cascade falls to their order in the generated
+ * stylesheet rather than the order they are written here.
+ */
+const CARD_FILL = {
+  page: 'bg-page',
+  surface: 'bg-surface',
+  mint: 'bg-mint',
+}
+
+export function Card({ as: Tag = 'div', fill = 'page', className = '', children }) {
   return (
     <Tag
-      className={`flex flex-col gap-3 rounded-card border border-ink bg-page shadow-hard p-8 ${className}`}
+      className={`flex flex-col gap-3 rounded-card border border-ink ${CARD_FILL[fill]} shadow-hard p-8 ${className}`}
     >
       {children}
     </Tag>
   )
 }
 
-/**
- * A whole-card link on a dark band: icon, eyebrow, heading, one line of body,
- * and a trailing chevron.
- *
- * Deliberately not `Card`. It has no ink border and no hard shadow, because it
- * reads as a target rather than as a raised object, so its fill is transparent
- * and its edge is a white hairline that brightens on hover.
- *
- * `heading` is the element to render the title as. It has to sit one level
- * below whatever heading the band already carries, and the band decides that,
- * not the card.
- */
 export function PathCard({ to, spot, eyebrow, title, heading = 'h2', className = '', children }) {
   return (
     <Link
