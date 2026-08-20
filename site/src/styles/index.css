@@ -76,6 +76,21 @@
 .m42-in-group > * {
   --reveal-name: m42-in-up;
   --reveal-i: 0;
+  /* Zero for a stack, because a stack is already staggered: an element 200px
+     further down enters 200px later, and that separation is larger and more
+     natural than anything an index could add. Adding one anyway double-counts,
+     and each successive child finishes further up the screen than the one
+     before it — four children in and the reveal is completing above the middle
+     of the viewport, which reads as content arriving cut off.
+
+     Only siblings at the same height need help, so only a row switches it on. */
+  --reveal-step: 0px;
+}
+
+/* A group whose children sit side by side. They cross the viewport edge at the
+   same moment, so without an offset they arrive as one block. */
+.m42-in-group-row > * {
+  --reveal-step: var(--stagger-reveal-scroll);
 }
 
 /* Direction is a separate axis from opting in, so these set only the keyframes.
@@ -108,6 +123,17 @@
 .m42-in-group > *:nth-child(6) { --reveal-i: 5; }
 .m42-in-group > *:nth-child(n+7) { --reveal-i: 6; }
 
+/* A row stops counting after the third. A grid wraps, and once it has wrapped
+   the fourth item is not beside the third — it is below the first, and being
+   below already delays it. Letting the index keep climbing across the wrap
+   stacks a second delay on top of the first and walks the later rows up the
+   screen, which is the same double-count a stack suffers.
+
+   Three is what a row of three cards needs and it bounds everything else:
+   nothing is offset more than twice the interval, whatever the column count
+   happens to be at this width. Declared after the block above so it wins. */
+.m42-in-group-row > *:nth-child(n+4) { --reveal-i: 2; }
+
 @supports (animation-timeline: view()) {
   .m42-in,
   .m42-in-group > * {
@@ -120,9 +146,8 @@
        later than a short heading and the page would animate unevenly. A length
        is the same scroll distance for every element, so everything settles at
        the same height in the viewport. */
-    animation-range-start: entry calc(var(--reveal-i) * var(--stagger-reveal-scroll));
-    animation-range-end: entry
-      calc(var(--reveal-i) * var(--stagger-reveal-scroll) + var(--scroll-reveal));
+    animation-range-start: entry calc(var(--reveal-i) * var(--reveal-step));
+    animation-range-end: entry calc(var(--reveal-i) * var(--reveal-step) + var(--scroll-reveal));
   }
 }
 

@@ -2,7 +2,7 @@ import {
   Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote,
   Button, ButtonRow, TextLink, Card, PathCard,
 } from '../components/primitives.jsx'
-import { REVEAL, REVEAL_GROUP } from '../components/reveal.js'
+import { REVEAL, REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
 
 /* The title names the practice the card leads to, so the three headings are the
    three service names rather than three sentences beginning "You need". The
@@ -113,7 +113,7 @@ export default function WhatWeDo() {
       <Section band="surface">
         <Wrap>
           <H2>Speed, consistency, and a commercial model that matches.</H2>
-          <div className={`${REVEAL_GROUP.relay} mt-11 mb-7 grid gap-6 md:grid-cols-2`}>
+          <div className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mt-11 mb-7 grid gap-6 md:grid-cols-2`}>
             {BENEFITS.map((b) => (
               <Card key={b.title}>
                 <H3>{b.title}</H3>

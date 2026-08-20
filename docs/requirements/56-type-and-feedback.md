@@ -63,6 +63,42 @@ changed by the tracking, no horizontal overflow at any scroll position on a
 5817px page, nothing stranded, and under reduced motion nothing hidden, nothing
 moved, and the pillar selector still switches.
 
+## Defect found in review: the stagger double-counted on stacks
+
+Kevin reported the first content section of `/what-we-do/advisory` arriving
+"cut off", finishing nearer the middle of the screen than the bottom, while
+everything below it behaved.
+
+Measured on that section, each child of the stack completed higher than the one
+above it:
+
+| Child | index | Completed |
+| --- | --- | --- |
+| H2 | 0 | 64% down the screen |
+| Lead | 1 | 57% |
+| Eyebrow | 2 | 51% |
+| H3 | 3 | 44% — above the middle |
+
+The scroll-path stagger was offsetting every child by its index. That is right
+for siblings sitting side by side, which cross the viewport edge together and
+would otherwise arrive as one block. It is wrong for a stack, which is already
+staggered: an element 200px further down enters 200px later, and adding an index
+offset on top double-counts, walking each successive child up the screen.
+
+The fix separates the two cases. `--reveal-step` is `0px` by default, so a stack
+relies on position alone, and `.m42-in-group-row` switches it on for groups
+whose children are genuinely side by side. A row also stops counting after the
+third child, because a grid wraps: once it has, the fourth item is not beside
+the third, it is below the first, and being below already delays it.
+
+Result: a stack now completes uniformly at 64% down, a row of three still
+staggers 64 / 57 / 51 exactly as it did, and across all fifteen routes nothing
+completes higher than 51%.
+
+The time-played paths — a page's first band, and the observer fallback — keep
+the stagger for every group, stack or row. There, nothing else separates the
+children, so an index offset is the only thing that can.
+
 ## Withdrawn during review
 
 - **The hero pointer parallax was built, then removed, and removing it fixed a

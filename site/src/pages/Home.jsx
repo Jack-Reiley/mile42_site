@@ -3,7 +3,7 @@ import {
   Button, ButtonRow, TextLink, Card, Spot,
 } from '../components/primitives.jsx'
 import { NumList } from '../components/Lists.jsx'
-import { REVEAL, REVEAL_GROUP } from '../components/reveal.js'
+import { REVEAL, REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
 
 const OFFERINGS = [
   {
@@ -124,7 +124,7 @@ export default function Home() {
                 than the whole frame appearing at once. Transform on a grid item
                 does not disturb the subgrid row alignment from #15. */}
             <div
-              className={`${REVEAL_GROUP.up} grid lg:grid-cols-3 lg:grid-rows-[auto_auto_auto_auto_auto]`}
+              className={`${REVEAL_GROUP.up} ${REVEAL_ROW} grid lg:grid-cols-3 lg:grid-rows-[auto_auto_auto_auto_auto]`}
             >
               {OFFERINGS.map((o, i) => (
                 <article
@@ -188,7 +188,7 @@ export default function Home() {
           <Lead className="mb-10">
             AI is not valuable because it is impressive. It is valuable when it changes work.
           </Lead>
-          <div className={`${REVEAL_GROUP.relay} mb-10 grid gap-4 md:grid-cols-2`}>
+          <div className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mb-10 grid gap-4 md:grid-cols-2`}>
             {PRACTICE.map((p) => (
               <Card key={p.title}>
                 <H3>{p.title}</H3>

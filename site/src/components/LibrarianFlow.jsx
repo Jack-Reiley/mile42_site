@@ -1,6 +1,6 @@
 import { Eyebrow } from './primitives.jsx'
 import { PlainList } from './Lists.jsx'
-import { REVEAL_GROUP } from './reveal.js'
+import { REVEAL_GROUP, REVEAL_ROW } from './reveal.js'
 
 /**
  * The buffer, drawn: systems of record on the left, Dewey in the middle, agents
@@ -66,7 +66,7 @@ export default function LibrarianFlow({ sources, dewey, agents }) {
       /* A relay, so the diagram assembles in the direction the data travels
          rather than appearing all at once. Its parts are already hidden from
          assistive tech behind the `img` role, so this is purely visual. */
-      className={`${REVEAL_GROUP.relay} grid items-stretch gap-3 min-[900px]:grid-cols-[1fr_auto_1.1fr_auto_1fr] min-[900px]:gap-0`}
+      className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} grid items-stretch gap-3 min-[900px]:grid-cols-[1fr_auto_1.1fr_auto_1fr] min-[900px]:gap-0`}
     >
       <Column eyebrow="Systems of record" items={sources} className="bg-surface" />
       <Link label="Inbound connectors" />

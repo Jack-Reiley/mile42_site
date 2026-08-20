@@ -1,5 +1,5 @@
 import { Body, H3 } from './primitives.jsx'
-import { REVEAL_GROUP } from './reveal.js'
+import { REVEAL_GROUP, REVEAL_ROW } from './reveal.js'
 
 /** The prototype's recurring list shapes, restyled onto the theme.
  *
@@ -64,7 +64,9 @@ export function TermList({ items, variant = 'stacked', columns = 1, className = 
 
   if (variant === 'ruled') {
     return (
-      <dl className={`${REVEAL_GROUP.relay} grid gap-x-10 ${RULED_COLUMNS[columns]} ${className}`}>
+      <dl
+        className={`${REVEAL_GROUP.relay} ${columns > 1 ? `${REVEAL_ROW} ` : ''}grid gap-x-10 ${RULED_COLUMNS[columns]} ${className}`}
+      >
         {items.map(([term, definition]) => (
           <div key={term} className="border-t border-ink/14 py-4">
             <dt className="text-body font-semibold text-ink">{term}</dt>
@@ -166,7 +168,9 @@ export function NumberedSteps({ items, className = '' }) {
  */
 export function CheckList({ items, columns = 1, badgeClass = 'bg-orange', className = '' }) {
   const titled = items.some((i) => i.title)
-  const grid = `${REVEAL_GROUP.relay} grid gap-4 ${columns === 2 ? 'md:grid-cols-2 md:gap-x-9' : ''} ${className}`
+  const grid = `${REVEAL_GROUP.relay} grid gap-4 ${
+    columns === 2 ? `${REVEAL_ROW} md:grid-cols-2 md:gap-x-9` : ''
+  } ${className}`
   // The tick is drawn as generated content rather than as a text node: it is a
   // glyph, not copy, and copy parity compares the two projects' text.
   const Badge = () => (
@@ -216,7 +220,9 @@ export function CheckList({ items, columns = 1, badgeClass = 'bg-orange', classN
  */
 export function GroupColumns({ className = '', children }) {
   return (
-    <div className={`${REVEAL_GROUP.relay} grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 ${className}`}>
+    <div
+      className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 ${className}`}
+    >
       {children}
     </div>
   )
@@ -272,7 +278,7 @@ export function Spine({ items }) {
 export function StepStrip({ items, className = '' }) {
   return (
     <ol
-      className={`${REVEAL_GROUP.relay} flex flex-wrap overflow-hidden rounded-card border border-ink bg-page ${className}`}
+      className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} flex flex-wrap overflow-hidden rounded-card border border-ink bg-page ${className}`}
     >
       {items.map(({ label, line }, i) => (
         <li

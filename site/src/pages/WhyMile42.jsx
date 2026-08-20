@@ -1,7 +1,7 @@
 import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Quote, Button } from '../components/primitives.jsx'
 import { PlainList } from '../components/Lists.jsx'
 import ExecutionContrast from '../components/ExecutionContrast.jsx'
-import { REVEAL_GROUP } from '../components/reveal.js'
+import { REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
 
 /* The four stages of execution the same platform passes through, and the two
    readings of each. The result the two arrive at is held apart from them: it is
@@ -55,7 +55,7 @@ export default function WhyMile42() {
         <Wrap>
           <H2 className="mb-4">Our doctrine.</H2>
           <Lead className="mb-10">{DOCTRINE_INTRO}</Lead>
-          <ul className={`${REVEAL_GROUP.relay} grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4`}>
+          <ul className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4`}>
             {DOCTRINE.map(({ head, keyword, rule }) => (
               <li key={keyword} className={`border-l-[6px] pl-5 ${rule}`}>
                 <p className="font-heading text-heading-3 text-ink">
@@ -76,7 +76,7 @@ export default function WhyMile42() {
               down. Each column is a flex column and its closing line is pushed
               to the bottom, which keeps the two lines on one baseline even
               though the bold list runs slightly taller than the plain one. */}
-          <div className={`${REVEAL_GROUP.relay} grid gap-x-12 gap-y-8 md:grid-cols-2`}>
+          <div className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} grid gap-x-12 gap-y-8 md:grid-cols-2`}>
             <div className="flex flex-col">
               <Eyebrow className="mb-4">What most firms sell</Eyebrow>
               <PlainList items={SELL} className="mb-6" />

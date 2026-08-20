@@ -42,6 +42,14 @@ export const REVEAL_GROUP = {
   relay: 'm42-in-still m42-in-group',
 }
 
+/**
+ * Marks a group whose children sit side by side, so they are offset from each
+ * other as they enter. A stack does not need it and is harmed by it — being
+ * lower already delays an element, and offsetting it again walks it up the
+ * screen. Compose with any group: `${REVEAL_GROUP.relay} ${REVEAL_ROW}`.
+ */
+export const REVEAL_ROW = 'm42-in-group-row'
+
 /* Asked at call time, not at module load. A value captured on import would be
    fixed before anything could observe it, which makes the branch untestable and
    pins the answer to whenever the module happened to be evaluated. */

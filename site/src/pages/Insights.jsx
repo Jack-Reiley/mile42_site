@@ -1,5 +1,5 @@
 import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Quote, Button, Placeholder, Card } from '../components/primitives.jsx'
-import { REVEAL_GROUP } from '../components/reveal.js'
+import { REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
 
 const ARTICLES = [
   { tag: 'Article 1', body: 'Title, one-line standfirst, named founder, date. A specific call made under uncertainty, and what happened.' },
@@ -33,7 +33,7 @@ export default function Insights() {
       <Section band="surface">
         <Wrap>
           <H2 className="mb-10">What belongs here, and what does not.</H2>
-          <div className={`${REVEAL_GROUP.relay} grid gap-4 md:grid-cols-2`}>
+          <div className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} grid gap-4 md:grid-cols-2`}>
             <Card>
               <Eyebrow>Do not publish</Eyebrow>
               <Body className="max-w-none">Explainers a reader can get from any vendor blog. Framework content. Anything that reads as a lead magnet with a gate in front of it.</Body>

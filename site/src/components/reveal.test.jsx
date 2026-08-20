@@ -139,7 +139,9 @@ describe('SCN-006 — the reveal declares no literal duration, easing or distanc
     expect(rules).toMatch(/var\(--ease-reveal\)/)
     expect(rules).toMatch(/var\(--scroll-reveal\)/)
     expect(rules).toMatch(/var\(--stagger-reveal\)/)
-    expect(rules).not.toMatch(/:\s*\d+px/)
+    // Zero is exempt: it is the absence of a value, not a design decision, and
+    // tokenising it would only hide that a stack is deliberately not staggered.
+    expect(rules.replace(/:\s*0px/g, '')).not.toMatch(/:\s*\d+px/)
   })
 
   it('declares those tokens once, in the token file', () => {
