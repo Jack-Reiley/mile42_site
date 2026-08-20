@@ -80,8 +80,28 @@ export function TermList({ items, variant = 'stacked', columns = 1, className = 
   )
 }
 
-/** Single-column list of short statements. */
+/**
+ * Single-column list of short statements.
+ *
+ * `ruled` divides the items with hairlines instead of spacing them, for a list
+ * sitting inside a card where the gap alone does not read as separation. It is
+ * the treatment the Dewey comp uses in both its connector cards and its
+ * librarian diagram, which is why it is a variant here rather than markup
+ * written twice.
+ */
 export function PlainList({ items, variant = 'body', className = '' }) {
+  if (variant === 'ruled') {
+    return (
+      <ul className={`text-[15px] leading-6 text-ink ${className}`}>
+        {items.map((text) => (
+          <li key={text} className="border-t border-ink/25 py-1.5 first:border-t-0 first:pt-0">
+            {text}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
   return (
     <ul className={`flex flex-col gap-2 ${className}`}>
       {items.map((text) => (
@@ -229,5 +249,97 @@ export function Spine({ items }) {
         </li>
       ))}
     </ol>
+  )
+}
+
+/**
+ * A row of numbered steps sharing one bordered card, divided rather than boxed.
+ * Stacks below 900px, where five columns would each be too narrow to read.
+ *
+ * The same divider system the home page's offerings band uses: one container
+ * with a border, and rules between the cells. Separate cards would read as five
+ * things rather than one sequence.
+ */
+export function StepStrip({ items, className = '' }) {
+  return (
+    <ol
+      className={`flex flex-wrap overflow-hidden rounded-card border border-ink bg-page ${className}`}
+    >
+      {items.map(({ label, line }, i) => (
+        <li
+          key={label}
+          className="shrink grow basis-[150px] border-t border-ink px-5 py-[18px] first:border-t-0 min-[900px]:border-t-0 min-[900px]:border-l min-[900px]:first:border-l-0"
+        >
+          {/* Announced, not hidden. The numeral carries sequence, and an `ol`
+              alone does not survive `list-style: none` in every screen reader. */}
+          <span className="mb-1.5 block text-eyebrow font-eyebrow uppercase text-accent">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <span className="mb-1 block font-heading text-[16px] font-bold leading-[22px] text-ink">
+            {label}
+          </span>
+          <span className="block text-[14px] leading-[22px] text-ink">{line}</span>
+        </li>
+      ))}
+    </ol>
+  )
+}
+
+/**
+ * A real `table`, because this is tabular data: every row compares the same
+ * three things. `columns` are the headers and `rows` are arrays in that order.
+ *
+ * The first cell of each row is a `th` with `scope="row"` — the row is *about*
+ * that alternative, and a screen reader reading a cell out of context needs to
+ * know which one. It does not wrap, because an alternative's name breaking
+ * across lines is what makes a comparison hard to scan.
+ *
+ * Scrolls inside its own container below the point where three columns fit.
+ * Shrinking the type instead would make the longest cell unreadable on a phone,
+ * and a page that scrolls sideways is worse than a table that does.
+ */
+export function CompareTable({ columns, rows, className = '' }) {
+  return (
+    <div className={`overflow-x-auto ${className}`}>
+      <table className="w-full min-w-[720px] border-separate border-spacing-0 overflow-hidden rounded-card border border-ink bg-page">
+        <thead>
+          <tr>
+            {columns.map((c) => (
+              <th
+                key={c}
+                scope="col"
+                className="border-ink bg-navy px-[18px] py-[14px] text-left align-top text-eyebrow font-eyebrow uppercase text-hero-heading"
+              >
+                {c}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(([term, ...cells]) => (
+            <tr key={term}>
+              <th
+                scope="row"
+                className="border-t border-ink px-[18px] py-[14px] text-left align-top font-heading text-[15px] font-bold leading-6 whitespace-nowrap text-ink"
+              >
+                {term}
+              </th>
+              {cells.map((cell, i) => (
+                <td
+                  key={cell}
+                  className={`border-t border-l border-t-ink border-l-ink/25 px-[18px] py-[14px] align-top text-[15px] leading-6 text-ink ${
+                    i === cells.length - 1
+                      ? 'bg-[color-mix(in_srgb,var(--color-mint)_45%,var(--color-page))]'
+                      : ''
+                  }`}
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   )
 }

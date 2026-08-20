@@ -67,6 +67,7 @@ const NAV = [
       },
     ],
   },
+  { href: '/meet-dewey', label: 'Meet Dewey' },
   { href: '/why-mile42', label: 'Why Mile42' },
 ]
 
