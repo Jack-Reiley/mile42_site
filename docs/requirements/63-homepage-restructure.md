@@ -1,7 +1,7 @@
 # #63 — Restructure the homepage: lead with core practice and merge the two engagement bands
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/63
-- Pull request: <pending>
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/65
 - Parent epic: none
 - Delivery unit: `unit-63-homepage-restructure`
 - Requirement version: 1
