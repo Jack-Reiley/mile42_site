@@ -34,7 +34,7 @@ export default function Contact() {
 
   return (
     <>
-      <Section band="brand">
+      <Section band="brand" grain>
         <Wrap>
           <Eyebrow tone="ink" className="mb-4">Contact</Eyebrow>
           <H1 tone="hero" className="mb-6">Tell us what needs to work.</H1>

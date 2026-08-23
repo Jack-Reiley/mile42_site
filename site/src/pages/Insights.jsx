@@ -11,7 +11,7 @@ const ARTICLES = [
 export default function Insights() {
   return (
     <>
-      <Section band="brand">
+      <Section band="brand" grain>
         <Wrap>
           <Eyebrow tone="ink" className="mb-4">Insights</Eyebrow>
           <H1 tone="hero" className="mb-6">Arguments, not explainers.</H1>

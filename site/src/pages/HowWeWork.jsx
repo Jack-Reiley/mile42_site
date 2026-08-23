@@ -44,7 +44,7 @@ export default function HowWeWork() {
       {/* Gold rather than the site's usual brand green, so the section reads as
           its own place rather than as the homepage. It is a light band, so the
           heading is ink — see the `gold` note in primitives.jsx. */}
-      <Section band="gold">
+      <Section band="gold" grain>
         {/* The text keeps the wider column. The gears are a mid-size spot, not a
             hero scene, so an even split would oversize them. */}
         <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.6fr)]">

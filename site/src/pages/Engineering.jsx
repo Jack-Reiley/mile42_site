@@ -65,7 +65,7 @@ const OUTCOMES = [
 export default function Engineering() {
   return (
     <>
-      <Section band="navy" pad="header">
+      <Section band="navy" grain pad="header">
         <Wrap>
           <Breadcrumb
             to="/what-we-do"

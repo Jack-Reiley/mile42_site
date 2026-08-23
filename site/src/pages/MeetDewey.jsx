@@ -114,7 +114,7 @@ const COMPARE = [
 export default function MeetDewey() {
   return (
     <>
-      <Section band="blue">
+      <Section band="blue" grain>
         <Wrap>
           <Eyebrow tone="sky" className="mb-4">Dewey™ · The librarian for AI agents</Eyebrow>
           <H1 tone="hero" className="mb-6">Every agent needs a library.</H1>

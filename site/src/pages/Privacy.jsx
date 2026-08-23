@@ -19,7 +19,7 @@ const SECTIONS = [
 export default function Privacy() {
   return (
     <>
-      <Section band="brand">
+      <Section band="brand" grain>
         <Wrap>
           <Eyebrow tone="ink" className="mb-4">Legal</Eyebrow>
           <H1 tone="hero" className="mb-6">Privacy policy.</H1>

@@ -90,7 +90,7 @@ export default function Home() {
   return (
     <>
       {/* Follows design/Homepage.pdf */}
-      <Section band="brand" className="overflow-hidden">
+      <Section band="brand" grain className="overflow-hidden">
         <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           {/* A relay: the column holds still and its eyebrow, heading, lead and
               buttons each enter from the left in turn. As one block it read as
