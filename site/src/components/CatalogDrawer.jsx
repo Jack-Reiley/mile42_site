@@ -148,7 +148,7 @@ function Drawer() {
           <span
             className={`self-start rounded-[4px] bg-hero-heading px-[10px] pb-[2px] pt-px font-eyebrow text-[12px] uppercase leading-[18px] tracking-[0.08em] text-ink ${RING}`}
           >
-            Dewey
+            Dewey&#8482;
           </span>
           <div className="flex flex-col">
             {SHELF.map((line, i) => (

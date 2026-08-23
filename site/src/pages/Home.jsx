@@ -240,16 +240,35 @@ export default function Home() {
                 It needs 1039px to set on one line, so anything under 65rem is a
                 cap that does nothing. Below roughly a 1215px viewport the panel
                 is narrower than that and it balances onto two lines again, which
-                is the intended behaviour rather than a fallback. */}
-            <H3 as="h3" className="max-w-[66rem]">
-              Meet Dewey, the knowledge layer that keeps agents out of your systems of record.
+                is the intended behaviour rather than a fallback.
+
+                68rem, not 66: the trademark symbol added 29px and pushed the
+                single line from 1039 to 1068, straight past a 1056px cap and
+                back onto two lines. 67rem is the first that clears it; 68 is
+                taken so the next word added to this heading does not silently
+                re-wrap it. */}
+            <H3 as="h3" className="max-w-[68rem]">
+              Meet Dewey™, the knowledge layer that keeps agents out of your systems of record.
             </H3>
-            <Body>
+            {/* Two paragraphs: the problem, then the answer. The break falls where
+                the subject changes from the reader's stalled project to the
+                product, so the second opens on the name.
+
+                56rem rather than `Body`'s default 46rem. Measured, the widest
+                line goes from 79 characters to 94 — wider, and still inside what
+                a reader can track back. The heading above sits at 66rem, but
+                matching it would set these at 114 characters a line, which is
+                past where the eye reliably finds the next line. A heading and a
+                paragraph do not want the same measure. */}
+            <Body className="max-w-[56rem]">
               Most AI projects stall in the same place. The prototype worked, then it met the real
               business: the documents holding the answers were scattered, the systems holding the
               rest could not be opened to autonomous software, and security review ended the
-              conversation. Dewey holds a governed copy of what your agents are allowed to know,
-              indexes it automatically, and answers their questions with sources attached.
+              conversation.
+            </Body>
+            <Body className="max-w-[56rem]">
+              Dewey holds a governed copy of what your agents are allowed to know, indexes it
+              automatically, and answers their questions with sources attached.
             </Body>
             <CatalogDrawer className="mt-4" />
             {/* h4, not h3: these sit under the panel's own h3, where the practice

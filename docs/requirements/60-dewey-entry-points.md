@@ -5,7 +5,7 @@
   approved design makes a precondition. See Deliberate deviations.
 - Parent epic: none
 - Delivery unit: independent, single ticket
-- Requirement version: 7
+- Requirement version: 8
 
 ## Objective
 
@@ -320,6 +320,44 @@ should become its own ticket.
 - **Dewey's description on AI-driven Products is a new paragraph rather than an
   edit to the Blink Social sentence.** No existing copy was rewritten, and Dewey
   is described at the same weight instead of being appended to another claim.
+
+## The trademark symbol
+
+Dewey carries `™`, not `®`. `™` asserts a claim to the mark and can be used on a
+registered or unregistered mark with no legal exposure. `®` is lawful only on a
+mark with an issued registration, and using it otherwise is a false claim under
+15 U.S.C. §1111 and its equivalents. Brett chose `™` on that basis. If Dewey is
+ever registered, `®` becomes available and this is the list of places to change.
+
+It is applied to headings and brand marks only, not to every mention. "Dewey"
+appears about fifty times across the site, twenty-eight of them on
+`/meet-dewey`, and marking all of them would be both visually heavy and against
+the convention every major style guide follows.
+
+| Where | File |
+| --- | --- |
+| The homepage panel heading | `Home.jsx` |
+| The Dewey page's brand eyebrow | `MeetDewey.jsx` |
+| "Why teams put Dewey between their data and their agents." | `MeetDewey.jsx` |
+| The librarian diagram's Dewey column | `LibrarianFlow.jsx` |
+| The catalog drawer's label plate | `CatalogDrawer.jsx` |
+
+Deliberately unmarked: running prose, the possessive "Dewey's answer" in the
+comparison table's column header, the header and footer navigation entries, and
+the "Meet Dewey" buttons. Marking navigation chrome is unusual, and it would
+change accessible names that `Footer.test.jsx` and the entry-point tests assert
+on. The `role="img"` diagram labels are also unmarked, because a screen reader
+announces the symbol and it is noise inside a spoken description.
+
+The symbol is the literal character rather than an HTML entity in the two places
+where the string is a JavaScript prop rather than JSX children, since an entity
+does not decode there.
+
+**One knock-on:** the symbol added 29px to the homepage heading, taking its
+single line from 1039px to 1068px and pushing it back onto two lines under the
+66rem cap set at version 7. The cap is now 68rem. 67rem is the first that
+clears it; 68 leaves room so the next word added to that heading does not
+silently re-wrap it.
 
 ## Deliberate deviations from the catalog drawer handoff
 

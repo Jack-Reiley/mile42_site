@@ -79,7 +79,7 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
   it('keeps the practice argument in the same band as the product', () => {
     const { container } = draw(Home)
     const band = [...container.querySelectorAll('section')].find((b) =>
-      b.textContent.includes('Meet Dewey, the knowledge layer'),
+      b.textContent.includes('the knowledge layer that keeps agents'),
     )
     expect(band.textContent).toContain('Our core practice is agentic AI implementation')
     expect(band.textContent).toContain('Context and workflow design')
@@ -96,7 +96,7 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
   it('sits in the band immediately before the closing call to action', () => {
     const { container } = draw(Home)
     const bands = [...container.querySelectorAll('section')]
-    const dewey = bands.findIndex((b) => b.textContent.includes('Meet Dewey, the knowledge layer'))
+    const dewey = bands.findIndex((b) => b.textContent.includes('the knowledge layer that keeps agents'))
     const closing = bands.findIndex((b) => b.textContent.includes('Tell us what needs to work.'))
 
     expect(dewey).toBeGreaterThan(-1)
@@ -110,7 +110,7 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
   it('keeps the heading outline unbroken inside the block', () => {
     const { container } = draw(Home)
     const band = [...container.querySelectorAll('section')].find((b) =>
-      b.textContent.includes('Meet Dewey, the knowledge layer'),
+      b.textContent.includes('the knowledge layer that keeps agents'),
     )
     const levels = [...band.querySelectorAll('h1,h2,h3,h4,h5,h6')].map((h) =>
       Number(h.tagName[1]),
