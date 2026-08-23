@@ -90,17 +90,22 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
     expect(band.textContent).not.toContain('The opportunity is AI')
   })
 
-  /* Position is behavior here, not styling: the block has to land after the
-     practice argument that motivates it and before the page stops asking for
-     anything. */
-  it('sits in the band immediately before the closing call to action', () => {
+  /* Position is behavior here, not styling: the block has to land inside the
+     practice argument that motivates it, and that argument is now the first
+     thing a reader meets after the hero.
+
+     #60 pinned this to the band immediately before the closing call to action,
+     which was where the practice band sat at the time. The homepage restructure
+     moved that band to the front, so what this scenario pins is the band's
+     place in the page order rather than its distance from the end. */
+  it('sits in the band directly under the hero', () => {
     const { container } = draw(Home)
     const bands = [...container.querySelectorAll('section')]
     const dewey = bands.findIndex((b) => b.textContent.includes('the knowledge layer that keeps agents'))
-    const closing = bands.findIndex((b) => b.textContent.includes('Tell us what needs to work.'))
 
-    expect(dewey).toBeGreaterThan(-1)
-    expect(closing).toBe(dewey + 1)
+    expect(dewey).toBe(1)
+    expect(bands[0].textContent).toContain('We help organizations deliver their most important work')
+    expect(bands.at(-1).textContent).toContain('Tell us what needs to work.')
   })
 
   /* Caught in the browser, not by a unit test: RuledGroup defaults its title to

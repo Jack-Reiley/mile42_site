@@ -151,9 +151,15 @@ than before it. The copy on the two practice pages is unchanged from version 1.
 ### SCN-001 — The homepage carries a Dewey block in position
 
 Given a reader is on the homepage
-When they scroll past the core practice band
-Then a Dewey block is presented before the closing call to action
+When they read the core practice band, which is the first band under the hero
+Then a Dewey block is presented within that same band
 And it names Dewey, states what Dewey does, and shows three supporting points
+
+Amended by the homepage restructure. This scenario originally read "a Dewey
+block is presented before the closing call to action", which described where the
+core practice band sat when #60 was written. That band now leads the page, so
+the scenario pins the block to the band rather than to the end of the page. The
+block's relationship to the practice argument is unchanged.
 
 ### SCN-002 — The homepage block leads to the Dewey page
 
