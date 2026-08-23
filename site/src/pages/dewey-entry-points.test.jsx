@@ -32,27 +32,33 @@ const draw = (Page) =>
 const href = (name) => screen.getByRole('link', { name }).getAttribute('href')
 
 describe('SCN-001 — the homepage carries a Dewey block in position', () => {
-  /* The block has to say what Dewey is, not allude to it. An earlier pass led
-     with the library framing and told a first-time reader nothing. */
-  it('states plainly what Dewey is and what problem it solves', () => {
+  /* Two failure modes this guards against, both of which the block has already
+     had. Leading with the library metaphor told a first-time reader nothing.
+     Leading with "Dewey is the knowledge layer" explained the product but spoke
+     to an engineer rather than the person who signs. The block has to open on
+     the reader's problem and still say plainly what Dewey is. */
+  it('opens on the buyer problem rather than on the product category', () => {
     draw(Home)
-    expect(
-      screen.getByText(/Dewey is the knowledge layer between your data and your AI agents/i),
-    ).toBeInTheDocument()
-    expect(screen.getByText(/fail for lack of context/i)).toBeInTheDocument()
-    expect(screen.getByText(/organizes and indexes your documents/i)).toBeInTheDocument()
+    expect(screen.getByText(/Most AI pilots stall in the same place/i)).toBeInTheDocument()
+    expect(screen.getByText(/security review ended the conversation/i)).toBeInTheDocument()
+  })
+
+  it('still says plainly what Dewey is', () => {
+    draw(Home)
+    expect(screen.getByText(/Dewey is the knowledge layer/i)).toBeInTheDocument()
+    expect(screen.getByText(/indexes it automatically/i)).toBeInTheDocument()
   })
 
   it('shows the four supporting points', () => {
     draw(Home)
-    expect(screen.getByText('Add a file. It is ready to search.')).toBeInTheDocument()
-    expect(screen.getByText('Ask a question, get a sourced answer.')).toBeInTheDocument()
+    expect(screen.getByText('Your systems of record stay sealed.')).toBeInTheDocument()
     expect(
-      screen.getByText('Agents never touch your systems of record.'),
+      screen.getByText('Security review has something it can approve.'),
     ).toBeInTheDocument()
     expect(
-      screen.getByText('Every agent reads from the same catalog.'),
+      screen.getByText('Every project after the first starts ahead.'),
     ).toBeInTheDocument()
+    expect(screen.getByText('One answer, not one per agent.')).toBeInTheDocument()
   })
 
   /* Position is behavior here, not styling: the block has to land after the
@@ -62,7 +68,7 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
     const { container } = draw(Home)
     const bands = [...container.querySelectorAll('section')]
     const practice = bands.findIndex((b) => b.textContent.includes('Our core practice'))
-    const dewey = bands.findIndex((b) => b.textContent.includes('Dewey is the knowledge layer'))
+    const dewey = bands.findIndex((b) => b.textContent.includes('Most AI pilots stall'))
     const closing = bands.findIndex((b) => b.textContent.includes('Tell us what needs to work.'))
 
     expect(practice).toBeGreaterThan(-1)
@@ -77,7 +83,7 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
   it('keeps the heading outline unbroken inside the block', () => {
     const { container } = draw(Home)
     const band = [...container.querySelectorAll('section')].find((b) =>
-      b.textContent.includes('Dewey is the knowledge layer'),
+      b.textContent.includes('Most AI pilots stall'),
     )
     const levels = [...band.querySelectorAll('h1,h2,h3,h4,h5,h6')].map((h) =>
       Number(h.tagName[1]),

@@ -5,7 +5,7 @@
   approved design makes a precondition. See Deliberate deviations.
 - Parent epic: none
 - Delivery unit: independent, single ticket
-- Requirement version: 2
+- Requirement version: 3
 
 ## Objective
 
@@ -35,10 +35,23 @@ framing leads with a metaphor instead of a product. The homepage is the surface
 where a first-time reader learns what Dewey is, so abstraction there tells them
 nothing.
 
-Version 2 replaces that copy with plain language written for a layperson. Brett
-directed the change and approved the replacement copy. The four points now each
-carry an explanation rather than a slogan, which is why they moved from three
-columns to four in two.
+Version 2 replaced that copy with plain language written for a layperson. The
+four points each gained an explanation rather than a slogan, which is why they
+moved from three columns to four in two.
+
+Version 3 changes who the block is addressed to. Version 2 was clear but opened
+on "Dewey is the knowledge layer between your data and your AI agents", which
+is a product category and speaks to an engineering lead. The buyer for this
+site is mid-market and enterprise, and that reader arrives with a stalled
+pilot, a security review that killed it, and a budget that has already paid for
+retrieval plumbing more than once. The block now opens on that problem and
+explains what Dewey is immediately after, so it is no less concrete than
+version 2 while reaching the person who signs. The four points were rewritten
+to match: sealed systems of record, something security review can approve, cost
+amortized across projects, and one answer instead of one per agent.
+
+Brett directed both changes and approved the replacement copy each time. The
+version 2 copy is preserved in commit b29e872 if it is ever wanted back.
 
 Two things did not change. The library framing stays intact on `/meet-dewey`,
 where the reader has already been told what the product is, and "Agents never
@@ -136,7 +149,7 @@ And the call to action remains reachable
 
 | Scenario | Expected level | Automated coverage | E2E behavior | Manual evidence |
 | --- | --- | --- | --- | --- |
-| SCN-001 | Unit | `site/src/pages/dewey-entry-points.test.jsx` | N/A | Reviewed on localhost; copy rewritten at version 2 as a result |
+| SCN-001 | Unit | `site/src/pages/dewey-entry-points.test.jsx` | N/A | Reviewed on localhost; copy rewritten at versions 2 and 3 as a result |
 | SCN-002 | Unit | `site/src/pages/dewey-entry-points.test.jsx` | N/A | — |
 | SCN-003 | Unit | `site/src/pages/dewey-entry-points.test.jsx` | N/A | — |
 | SCN-004 | Unit | `site/src/pages/dewey-entry-points.test.jsx` | N/A | — |

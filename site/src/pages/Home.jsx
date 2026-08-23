@@ -71,31 +71,31 @@ const PRACTICE = [
 
 /* Dewey's four supporting points on the homepage.
 
-   Plain language, deliberately. An earlier pass used the messaging package's
-   own headlines, "Upload is the whole pipeline" and "The right search for the
-   moment", and they read as abstractions to anyone who does not already know
-   what Dewey is. The homepage is where a reader learns that, so each point now
-   says the concrete thing instead of naming it. The library framing stays on
-   Dewey's own page, where the reader has already been told what the product is.
+   Written for the person who signs, not the person who integrates. An earlier
+   pass quoted the messaging package and read as abstraction; the pass after it
+   explained the product clearly but led with what Dewey is, which is an
+   engineering framing. A mid-market or enterprise buyer arrives with a stalled
+   pilot, a security review that killed it, and a budget that has already paid
+   for retrieval plumbing more than once. These four answer that reader.
 
-   Four rather than three, in two columns rather than three: each point carries
-   a real explanation now, and that needs the width. */
+   Plain language throughout, and no metaphor. The library framing belongs on
+   /meet-dewey, where the reader has already been told what the product is. */
 const DEWEY = [
   {
-    title: 'Add a file. It is ready to search.',
-    body: 'Dewey reads the document, breaks it into pieces, and indexes it automatically. There is no pipeline for your team to build or maintain.',
+    title: 'Your systems of record stay sealed.',
+    body: 'Payroll, orders, and finance are never opened to an agent. Agents read a governed copy inside Dewey, so no autonomous system ever holds credentials to the real one.',
   },
   {
-    title: 'Ask a question, get a sourced answer.',
-    body: 'Agents can search by meaning, match an exact part number or error code, or ask a plain question and get an answer with the documents it came from.',
+    title: 'Security review has something it can approve.',
+    body: 'What agents are allowed to reach is an explicit decision your team makes and can audit, scoped by business unit and domain. Anything written back to a source system waits for a human signature.',
   },
   {
-    title: 'Agents never touch your systems of record.',
-    body: 'Payroll, orders, and finance stay sealed. Agents read a governed copy inside Dewey, so they never hold credentials to the real system.',
+    title: 'Every project after the first starts ahead.',
+    body: 'The ingestion, indexing, and retrieval work that consumes the opening weeks of every AI initiative is already done. You pay for it once instead of once per project.',
   },
   {
-    title: 'Every agent reads from the same catalog.',
-    body: 'Without a shared source, each agent keeps its own copy and they drift apart. Update a document in Dewey once and every agent, and every person, sees the change.',
+    title: 'One answer, not one per agent.',
+    body: 'As agent count grows, each with its own copy of the data, they stop agreeing with each other. Dewey gives every agent and every person the same current source, and one place to check what was known.',
   },
 ]
 
@@ -245,16 +245,20 @@ export default function Home() {
               3.86:1 on the tint fill, under the 4.5:1 floor for text that size.
               FeaturePanel already takes ink for exactly this reason. */}
           <Eyebrow tone="ink" className="mb-4">Dewey · A Mile42 product</Eyebrow>
-          <H2 className="mb-4">Dewey is the knowledge layer between your data and your AI agents.</H2>
+          <H2 className="mb-4">Most AI pilots stall in the same place, and it is not the model.</H2>
           <Lead className="mb-4">
-            AI agents fail for lack of context, not lack of intelligence. Most teams already have
-            the data. What they do not have is a way for an agent to find the right piece of it at
-            the right moment.
+            The prototype worked. Then it met the real business: the documents holding the answers
+            were scattered, the systems holding the rest could not be opened to autonomous
+            software, and security review ended the conversation.
           </Lead>
+          <Body className="mb-3">
+            Dewey is the knowledge layer that gets past that. It holds a governed copy of what your
+            agents are allowed to know, indexes it automatically, and answers questions against it
+            with sources attached. Your systems of record are never touched.
+          </Body>
           <Body className="mb-10">
-            Dewey organizes and indexes your documents so agents can search them, ask questions of
-            them, and get answers with sources attached. Storage, indexing, and search in one
-            system instead of three stitched together.
+            It is also built once. Every AI project after the first starts with retrieval already
+            solved, rather than rebuilding the same pipeline on a new budget.
           </Body>
           {/* Not GroupColumns: that grid is three across and four points need
               two. RuledGroup rather than the Card the practice band above uses,
