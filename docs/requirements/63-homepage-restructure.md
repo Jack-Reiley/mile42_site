@@ -135,7 +135,7 @@ rather than naming a spec that does not exist.
 | SCN-004 | Unit | `site/src/pages/homepage-restructure.test.jsx` | N/A | — |
 | SCN-005 | Manual | — | N/A | Measured at 1280 and 1440; see the table below |
 | SCN-006 | Manual | — | N/A | `scrollWidth === clientWidth` at 1120, 768, 375; spots inside the card at 375 |
-| SCN-007 | Manual | — | N/A | Description bottom and button top identical across all three columns: 302/442 at 1440, 328/468 at 1280 |
+| SCN-007 | Manual | — | N/A | Description bottom and button top identical across all three columns: 270/410 at 1440, 345/485 at 1280, 371/407 at 1120 |
 | SCN-008 | Unit | `site/src/pages/dewey-entry-points.test.jsx`, `site/src/pages/homepage-restructure.test.jsx` | N/A | — |
 | SCN-009 | Manual | — | N/A | The reduced-motion block in `site/src/styles/index.css` targets `.m42-in` and `.m42-in-group > *`; both moved blocks are direct children of a `Wrap`, which carries `m42-in-group`. Rendered under exactly that rule, both sit at resting position |
 | SCN-010 | Unit | `site/src/pages/homepage-restructure.test.jsx` | N/A | — |
@@ -148,10 +148,16 @@ rather than naming a spec that does not exist.
 | Lightbulb inside its column's right edge | 35px | 35 | 35 |
 | Laptop past its column divider | 25px | 25 | 25 |
 | Handshake past the card's right edge | 24px | 23 | 23 |
-| Laptop clearance below the body copy | > 0 | 10 | 10 |
+| Laptop clearance below the body copy | > 0 | 9 | 9 |
 | Laptop clearance above the button | > 0 | 13 | 13 |
 
-Card measures 1184 x 561 at 1280 and 1240 x 535 at 1440, against the comp's 555.
+Card measures 1184 x 578 at 1280 and 1240 x 503 at 1440, against the comp's 555.
+
+Measured on a settled render. Before Figtree loads, the fallback font's wider
+metrics wrap each column heading onto two lines and add 32px above the body row,
+which inflates every vertical number on this page. An earlier pass recorded
+535px at 1440 and 561px at 1280 from exactly that transient. Anyone re-measuring
+this card must wait for the webfont, or they will reproduce the wrong numbers.
 
 ## Deliberate deviations
 
@@ -163,11 +169,19 @@ Card measures 1184 x 561 at 1280 and 1240 x 535 at 1440, against the comp's 555.
 
 - **The body-to-button gap widened from 96px to 128px at `xl`, and the laptop's
   bottom anchor moved from 184px to 105px.** Removing the "You leave with" row
-  shortened the card from 560px to 503px, which put the laptop 101px on top of
-  the body copy — the same collision #15's second deviation fixed. Widening the
-  gap and re-centring the spot in it restores the clearance and brings the card
-  to 535px, closer to the comp's 555 than the 560px it had before. Below `xl`
-  nothing changes; the spots already sit clear above the card there.
+  shortened the card, which put the laptop on top of the body copy: the same
+  collision #15's second deviation fixed. Widening the gap and re-centring the
+  spot in it restores the clearance, measured at 9px below the body and 13px
+  above the button at both 1280 and 1440. Below `xl` nothing changes; the spots
+  already sit clear above the card there.
+
+  This makes the card shorter overall, not closer to the comp. Measured settled
+  at 1440, the card goes from 528px on the parent branch to 503px here, against
+  the comp's 555px, so the change moves it 25px further away. That is accepted:
+  the row it lost carried real content, and the gap is sized by what the laptop
+  spot needs rather than by a target height. An earlier version of this document
+  claimed the card reached 535px and was therefore closer to the comp. Both
+  halves of that were wrong, and verification caught it.
 
 - **#60's SCN-001 was amended.** It pinned the Dewey block to "the band
   immediately before the closing call to action", which described where the
@@ -181,6 +195,10 @@ Card measures 1184 x 561 at 1280 and 1240 x 535 at 1440, against the comp's 555.
 - **`docs/requirements/15-spot-placement.md` was left as written.** Its vertical
   numbers are now stale, but it is the historical record of what #15 shipped
   rather than a live contract. The new anchors are recorded above instead.
+
+  For anyone reading the two side by side: #15's recorded 560px card is the same
+  pre-webfont transient described above. The card it shipped measured 528px
+  settled. That is #15's record to correct, not this ticket's.
 
 ## Open questions
 
