@@ -233,13 +233,15 @@ export default function Home() {
               that produced it. */}
           <Card fill="tint" className="p-6 md:p-card">
             <Eyebrow tone="ink">A Mile42 product</Eyebrow>
-            {/* 46rem, the measure `Lead`, `Body` and `Quote` all default to, so
-                the heading and the paragraph under it share one column edge. It
-                was 34ch, carried over from a two-column preview where the
-                heading had half the panel: here that wrapped it at 615px with
-                545px of empty panel beside it, while the paragraph below ran
-                1056px. `H3` already balances, so no `text-balance` is needed. */}
-            <H3 as="h3" className="max-w-[46rem]">
+            {/* 66rem, and the number is load-bearing. `H3` balances — #56 put
+                `text-balance` on every heading — and balance targets equal lines
+                rather than full ones, so between 46rem and 62rem this heading
+                breaks at exactly the same place and the extra width goes unused.
+                It needs 1039px to set on one line, so anything under 65rem is a
+                cap that does nothing. Below roughly a 1215px viewport the panel
+                is narrower than that and it balances onto two lines again, which
+                is the intended behaviour rather than a fallback. */}
+            <H3 as="h3" className="max-w-[66rem]">
               Meet Dewey, the knowledge layer that keeps agents out of your systems of record.
             </H3>
             <Body>

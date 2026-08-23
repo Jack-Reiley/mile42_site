@@ -5,7 +5,7 @@
   approved design makes a precondition. See Deliberate deviations.
 - Parent epic: none
 - Delivery unit: independent, single ticket
-- Requirement version: 6
+- Requirement version: 7
 
 ## Objective
 
@@ -101,9 +101,20 @@ The panel's heading was capped at `34ch`, a measure carried over from a
 two-column preview where the heading had half the panel. In the full-width panel
 that wrapped it at 615px with 545px of empty panel beside it, while the
 paragraph below ran 1056px: the heading was narrower than its own body copy.
-Both now take the site's 46rem, so they share one column edge. The remaining
-two-line break is `H3`'s built-in `text-balance`, which every heading at that
-level on this site uses.
+
+It now takes `66rem`, and that number is load-bearing rather than round. `H3`
+carries `text-balance` from #56, and balance targets equal lines rather than
+full ones, so the heading breaks at exactly the same place at 46rem, 52rem,
+58rem and 62rem — measured at all four, identical 487/547 line widths every
+time. It needs 1039px to set on one line, so any cap below 65rem changes
+nothing at all. At 66rem it sets on one line down to roughly a 1215px viewport,
+measured as one line at 1220 and two balanced lines at 1150. Two lines below
+that is the intended behaviour, not a fallback.
+
+This is the only heading on the site with a width cap other than the two in
+`HardParts`, which sit at `30ch` inside a deliberately narrow panel and opt out
+of balance with `text-pretty`. `H3` itself sets no width, so there is no
+site-wide heading measure to change and none was changed.
 
 **The three-box flow is now the card catalog drawer.** Brett supplied a design
 handoff at `design/illustrations/design_handoff_catalog_drawer` and selected
