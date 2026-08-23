@@ -2,7 +2,7 @@ import {
   Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote,
   Button, ButtonRow, TextLink, Card, Spot,
 } from '../components/primitives.jsx'
-import { NumList } from '../components/Lists.jsx'
+import { GroupColumns, NumList, RuledGroup } from '../components/Lists.jsx'
 import { REVEAL, REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
 
 const OFFERINGS = [
@@ -67,6 +67,23 @@ const PRACTICE = [
   { title: 'Architecture and integration', body: 'Connecting agents to real data, real systems, and the platforms you already run.' },
   { title: 'Governance and risk', body: 'Controls, evaluation, and oversight that let the business trust what it deploys.' },
   { title: 'Adoption and accountability', body: 'Getting the system used, measured, and improved after go-live.' },
+]
+
+/* Dewey's three supporting points on the homepage. Copy is the messaging
+   package's, unchanged; the page it leads to carries the full argument. */
+const DEWEY = [
+  {
+    title: 'Upload is the whole pipeline.',
+    body: 'One call. Extraction, chunking, and embedding are automatic.',
+  },
+  {
+    title: 'The right search for the moment.',
+    body: 'Search by meaning, match exact terms, or ask a question and get a cited answer.',
+  },
+  {
+    title: 'Answers, not credentials.',
+    body: 'Agents work against a governed copy. Your systems of record stay sealed.',
+  },
 ]
 
 export default function Home() {
@@ -202,6 +219,31 @@ export default function Home() {
           </Body>
           <Quote className="mb-6">The opportunity is AI. The constraint is implementation.</Quote>
           <TextLink to="/what-we-do/engineering/agentic-ai">Inside our agentic AI practice</TextLink>
+        </Wrap>
+      </Section>
+
+      {/* EXTRAPOLATED. Dewey's own identity band is `blue`; this takes `tint`,
+          the same accent at 10%, because `blue` is dark and would stack two
+          saturated bands against the green ask below it. The reader gets a
+          deepening instead: cream here, tint, then `blue` on arrival. */}
+      <Section band="tint">
+        <Wrap>
+          <Eyebrow className="mb-4">Dewey · The librarian for AI agents</Eyebrow>
+          <H2 className="mb-4">Every agent needs a library.</H2>
+          <Lead className="mb-4">
+            Agents don&#8217;t fail for lack of intelligence. They fail for lack of context.
+          </Lead>
+          <Body className="mb-10">
+            Dewey organizes, indexes, and surfaces your data so AI agents can actually find it.
+          </Body>
+          <GroupColumns className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mb-10`}>
+            {DEWEY.map((d) => (
+              <RuledGroup key={d.title} title={d.title} ruleClass="border-t-accent">
+                <Body className="max-w-none text-ink/72">{d.body}</Body>
+              </RuledGroup>
+            ))}
+          </GroupColumns>
+          <Button to="/meet-dewey">Meet Dewey</Button>
         </Wrap>
       </Section>
 
