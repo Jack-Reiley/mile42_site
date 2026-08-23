@@ -1,7 +1,7 @@
 # #62 — Make accent-coloured text meet AA on every band it sits on
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/62
-- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/PENDING
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/66
 - Parent epic: none
 - Delivery unit: single ticket
 - Requirement version: 1
