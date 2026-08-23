@@ -224,7 +224,6 @@ export default function Home() {
             We will also tell you when the answer is not an agent. Some problems are better solved
             by fixing a process or writing conventional software, and we say so.
           </Body>
-          <Quote className="mb-6">The opportunity is AI. The constraint is implementation.</Quote>
           <p className="mb-12">
             <TextLink to="/what-we-do/engineering/agentic-ai">Inside our agentic AI practice</TextLink>
           </p>
@@ -234,10 +233,16 @@ export default function Home() {
               that produced it. */}
           <Card fill="tint" className="p-6 md:p-card">
             <Eyebrow tone="ink">A Mile42 product</Eyebrow>
-            <H3 as="h3" className="max-w-[34ch] text-balance">
+            {/* 46rem, the measure `Lead`, `Body` and `Quote` all default to, so
+                the heading and the paragraph under it share one column edge. It
+                was 34ch, carried over from a two-column preview where the
+                heading had half the panel: here that wrapped it at 615px with
+                545px of empty panel beside it, while the paragraph below ran
+                1056px. `H3` already balances, so no `text-balance` is needed. */}
+            <H3 as="h3" className="max-w-[46rem]">
               Meet Dewey, the knowledge layer that keeps agents out of your systems of record.
             </H3>
-            <Body className="max-w-[66rem]">
+            <Body>
               Most AI projects stall in the same place. The prototype worked, then it met the real
               business: the documents holding the answers were scattered, the systems holding the
               rest could not be opened to autonomous software, and security review ended the

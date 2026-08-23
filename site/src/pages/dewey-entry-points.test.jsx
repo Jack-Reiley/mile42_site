@@ -83,9 +83,11 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
     )
     expect(band.textContent).toContain('Our core practice is agentic AI implementation')
     expect(band.textContent).toContain('Context and workflow design')
-    // The honesty note and the landing line survived the merge.
+    // The honesty note survived the merge. The "opportunity is AI" landing line
+    // did not: it was cut deliberately, so this asserts it stays gone rather
+    // than drifting back in.
     expect(band.textContent).toContain('when the answer is not an agent')
-    expect(band.textContent).toContain('The opportunity is AI. The constraint is implementation.')
+    expect(band.textContent).not.toContain('The opportunity is AI')
   })
 
   /* Position is behavior here, not styling: the block has to land after the

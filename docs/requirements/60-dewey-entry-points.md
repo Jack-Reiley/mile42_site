@@ -5,7 +5,7 @@
   approved design makes a precondition. See Deliberate deviations.
 - Parent epic: none
 - Delivery unit: independent, single ticket
-- Requirement version: 5
+- Requirement version: 6
 
 ## Objective
 
@@ -90,6 +90,20 @@ which the version 1 contract excluded. Nothing was dropped in the merge: the
 "we will tell you when the answer is not an agent" note and the "the opportunity
 is AI, the constraint is implementation" line both survive, and the practice
 descriptions were shortened for a four-column row with Brett's approval.
+
+**The landing line is cut and the panel heading takes the site measure.** "The
+opportunity is AI. The constraint is implementation." was restored during the
+merge, because option B's preview had dropped it silently and a deliberate cut
+is not the same as an accident. Brett then cut it deliberately, so it is gone,
+and a test asserts it stays gone rather than drifting back.
+
+The panel's heading was capped at `34ch`, a measure carried over from a
+two-column preview where the heading had half the panel. In the full-width panel
+that wrapped it at 615px with 545px of empty panel beside it, while the
+paragraph below ran 1056px: the heading was narrower than its own body copy.
+Both now take the site's 46rem, so they share one column edge. The remaining
+two-line break is `H3`'s built-in `text-balance`, which every heading at that
+level on this site uses.
 
 **The three-box flow is now the card catalog drawer.** Brett supplied a design
 handoff at `design/illustrations/design_handoff_catalog_drawer` and selected
