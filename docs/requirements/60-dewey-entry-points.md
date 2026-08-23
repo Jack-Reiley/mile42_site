@@ -1,11 +1,10 @@
 # #60 — Surface Dewey on the homepage and from the practice pages
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/60
-- Pull request: not yet opened. Held pending Brett's localhost review, which the
-  approved design makes a precondition. See Deliberate deviations.
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/61
 - Parent epic: none
 - Delivery unit: independent, single ticket
-- Requirement version: 8
+- Requirement version: 10
 
 ## Objective
 
@@ -134,9 +133,55 @@ where the reader has already been told what the product is, and "Agents never
 touch your systems of record" survives from the package unaltered, because it
 was already the clearest line in it.
 
-No scenario changed. SCN-001 requires the block to name Dewey, say what Dewey
-does, and show supporting points, which is a stronger claim after this change
-than before it. The copy on the two practice pages is unchanged from version 1.
+The copy on the two practice pages is unchanged from version 1.
+
+Version 5 claimed no scenario changed, on the reading that SCN-001 asks the
+block to name Dewey, say what Dewey does, and show supporting points. That
+paraphrase dropped the word "three", which SCN-001 carried and this change
+broke. Verification run 1 caught it. See the contract change at version 9.
+
+### Contract change at version 9: the count in SCN-001 and SCN-008
+
+Version 5 cut the block's supporting points from four to two and left both
+scenarios saying three. Verification run 1 on PR #61 recorded that as F-001.
+Brett directed the fix: amend the scenarios rather than restore a third point.
+
+The reason is the one version 5 already gave. The catalog drawer now shows the
+sealed systems of record and the one shared source, so writing them underneath
+as well would be the same sentence twice. What remains is the approval argument
+and the cost argument, which the picture cannot make. Adding a third point back
+would mean either repeating the diagram in words or inventing a claim the
+product does not need to make on the homepage.
+
+SCN-001 now reads "two supporting points" and SCN-008 "the two supporting
+columns". Nothing about the page changes; this is the contract catching up with
+a decision taken at version 5 and recorded everywhere except the scenarios.
+
+Two other corrections ride along, both from the same verification run:
+
+- The non-functional requirement forbade any new component file. Version 5
+  introduced `CatalogDrawer.jsx`, so the requirement was already false when it
+  was written. It now names the component and drops `GroupColumns`, which the
+  block no longer uses. The no-new-dependency half is unchanged and still holds.
+- This document did not link to its pull request, which the contract rules
+  require. It does now.
+
+The ticket body carries the same amendment.
+
+### Contract change at version 10: both amendments in one file
+
+This branch is where the two amendments to SCN-001 meet.
+
+The homepage restructure repointed the scenario at the band rather than at the
+end of the page, because the core practice band now leads the homepage. #60's
+verification repointed the same scenario at two supporting points rather than
+three. Each was made on its own branch against version 8, so neither saw the
+other.
+
+Merging #60 conflicted on exactly those three lines. The resolution keeps both:
+the position clause from the restructure, the count from version 9. Nothing
+else in the file differs between the branches.
+
 
 ## Out of scope
 
@@ -153,7 +198,7 @@ than before it. The copy on the two practice pages is unchanged from version 1.
 Given a reader is on the homepage
 When they read the core practice band, which is the first band under the hero
 Then a Dewey block is presented within that same band
-And it names Dewey, states what Dewey does, and shows three supporting points
+And it names Dewey, states what Dewey does, and shows two supporting points
 
 Amended by the homepage restructure. This scenario originally read "a Dewey
 block is presented before the closing call to action", which described where the
@@ -212,7 +257,7 @@ Then its contents are presented in their resting position without animating
 
 Given a reader on a narrow viewport
 When they reach the Dewey block
-Then the three supporting columns restack into a single readable column
+Then the two supporting columns restack into a single readable column
 And no content overflows the viewport horizontally
 And the call to action remains reachable
 
@@ -220,9 +265,12 @@ And the call to action remains reachable
 
 - Text and non-text contrast meet AA on the `tint` band, including the accent
   rules and the link colour.
-- No new npm dependency, and no new component file. The block composes
-  `Section`, `Wrap`, `Eyebrow`, `H2`, `Lead`, `Body`, `GroupColumns`,
-  `RuledGroup`, and `Button`, all of which already existed.
+- No new npm dependency. The block composes `Section`, `Wrap`, `Eyebrow`, `H2`,
+  `Lead`, `Body`, `RuledGroup`, `Card`, and `Button`, all of which already
+  existed, plus one new component: `site/src/components/CatalogDrawer.jsx`,
+  which draws the catalog drawer diagram version 5 introduced. Version 1
+  required no new component file at all, which was true of the three-box flow
+  the drawer replaced. `GroupColumns` is no longer used by the block.
 - `npm run test:unit`, `npm run tokens:check`, `npm run build`, and
   `npm run copy:build` all pass.
 - Node matches `.nvmrc` (24.16.0).
@@ -309,13 +357,12 @@ should become its own ticket.
 
 ## Deliberate deviations
 
-- **The pull request is not opened at the end of implementation.** The
+- **The pull request was not opened at the end of implementation.** The
   `implement-ticket` contract creates the PR and moves the ticket to In QA.
-  This ticket's approved design overrides that with a three-phase rollout:
+  This ticket's approved design overrode that with a three-phase rollout:
   build, then Brett's localhost review, then handoff on his explicit go-ahead.
-  The branch is pushed so the work is backed up. The ticket stays In Progress
-  rather than moving to In QA, because it is not ready for verification until
-  the review is done and the PR exists.
+  Recorded here as history. The review happened, PR #61 is open, and the ticket
+  is in QA.
 - **Links take the default ink tone, not the page accent.** `TextLink` defaults
   to ink. Accent on the cream `surface` fill sits on the AA boundary for
   body-sized text, and the existing accent link on AI-driven Products sits on a
