@@ -1,6 +1,6 @@
 import {
-  Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote,
-  Button, ButtonRow, TextLink, Card, Spot,
+  Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body,
+  Button, ButtonRow, TextLink, Card, Spot, LabelBody,
 } from '../components/primitives.jsx'
 import { NumList, RuledGroup } from '../components/Lists.jsx'
 import CatalogDrawer from '../components/CatalogDrawer.jsx'
@@ -10,8 +10,7 @@ const OFFERINGS = [
   {
     kicker: 'Before a major investment',
     title: 'You need clarity',
-    body: 'AI strategy, integration and ingestion strategy, discovery, modernization planning, platform selection, and architecture review. We help you decide before you commit.',
-    leave: 'Direction, context, and decision confidence',
+    body: 'AI strategy, integration and ingestion strategy, discovery, modernization planning, platform selection, and architecture review. We help you decide before you commit. You move forward with direction, context, and decision confidence.',
     href: '/what-we-do/advisory',
     linkLabel: 'Explore advisory',
     spot: 'lightbulb',
@@ -23,8 +22,7 @@ const OFFERINGS = [
   {
     kicker: 'When something must be built',
     title: 'You need to execute',
-    body: 'Agentic AI implementation, AI applications and integration, custom software, workflow automation, data platforms, and modernization. Built to work in production.',
-    leave: 'Working technology, better execution, and stronger capability',
+    body: 'Agentic AI implementation, AI applications and integration, custom software, workflow automation, data platforms, and modernization. Built to work in production. You gain working technology, better execution, and stronger capability.',
     href: '/what-we-do/engineering',
     linkLabel: 'Explore engineering',
     spot: 'laptop',
@@ -33,18 +31,18 @@ const OFFERINGS = [
     // card narrows and as copy length changes. Fixed left offsets drifted the
     // spot out of its column between lg and the card's 1240px max width.
     // Bottom-anchored: stable as copy length changes, where a top offset would
-    // drift. The comp puts it 169px above the card's bottom; 184px sits better
-    // against our slightly shorter card and is a deliberate departure. z-10
-    // lifts it over the divider, which is the next column's left border and
-    // paints later.
-    spotClass: 'lg:-top-[35px] lg:w-24 xl:-right-[25px] xl:top-auto xl:bottom-[184px] xl:w-32 xl:z-10',
+    // drift. The comp puts it 169px above the card's bottom. 184px sat better
+    // against the taller card that carried a "You leave with" row; with that row
+    // gone the card is shorter, and 105px is what centres the spot in the gap
+    // between the body and the button. z-10 lifts it over the divider, which is
+    // the next column's left border and paints later.
+    spotClass: 'lg:-top-[35px] lg:w-24 xl:-right-[25px] xl:top-auto xl:bottom-[105px] xl:w-32 xl:z-10',
     spotSizes: '(min-width: 1280px) 128px, (min-width: 1024px) 96px, 112px',
   },
   {
     kicker: 'When starting from zero is unnecessary',
     title: 'You need proven solutions',
-    body: 'Accelerators and products built from patterns that already work, so you are not rebuilding what has been solved.',
-    leave: 'Faster time to value and lower delivery risk',
+    body: 'Accelerators and products built from patterns that already work, so you are not rebuilding what has been solved. You get faster time to value and lower delivery risk.',
     href: '/what-we-do/ai-products',
     linkLabel: 'Explore AI-driven products',
     spot: 'handshake',
@@ -126,84 +124,16 @@ export default function Home() {
         </Wrap>
       </Section>
 
-      {/* Follows design/Homepage.pdf: one card, vertical dividers, spots breaking the edge */}
-      <Section band="surface">
-        <Wrap>
-          <H2 className="mb-4 text-center">Three ways organizations work with us.</H2>
-          <Lead className="mx-auto mb-16 text-center">
-            Start with what you need right now. The right engagement follows from that.
-          </Lead>
-
-          <div className="relative rounded-card border border-ink bg-page shadow-hard">
-            {/* Five explicit rows, with each column a subgrid, so every row —
-                eyebrow, heading, body, "you leave with", button — lines up across
-                all three cards no matter how each one wraps. Without this, a
-                two-line value in one column lifts its label above the others. */}
-            {/* A group, so the three offerings arrive one after another rather
-                than the whole frame appearing at once. Transform on a grid item
-                does not disturb the subgrid row alignment from #15. */}
-            <div
-              className={`${REVEAL_GROUP.up} ${REVEAL_ROW} grid lg:grid-cols-3 lg:grid-rows-[auto_auto_auto_auto_auto]`}
-            >
-              {OFFERINGS.map((o, i) => (
-                <article
-                  key={o.title}
-                  className={`relative flex flex-col gap-3 p-card lg:row-span-5 lg:grid lg:grid-rows-subgrid ${
-                    i > 0 ? 'border-t border-ink lg:border-t-0 lg:border-l' : ''
-                  }`}
-                >
-                  <Spot
-                    name={o.spot}
-                    sizes={o.spotSizes}
-                    className={`absolute -top-12 right-4 h-auto w-28 ${o.spotClass}`}
-                  />
-                  <Eyebrow>{o.kicker}</Eyebrow>
-                  <H3>{o.title}</H3>
-                  <Body className="max-w-none">{o.body}</Body>
-                  {/* The comp leaves ~107px between the body copy and this label —
-                      120px baseline to baseline against a 26px line-height — and the
-                      laptop spot sits in that gap. From lg up only: below that the
-                      spots sit inside the column, so the space would be dead. */}
-                  {/* mt-auto bottoms this block in the stacked flex layout. From lg
-                      up the subgrid already places the row, and leaving mt-auto on
-                      would bottom-align each block inside its own row — which is what
-                      pushed the shorter columns' labels below the taller one's. */}
-                  <div className="mt-auto pt-6 lg:mt-0 xl:pt-24">
-                    <Eyebrow tone="ink" className="mb-1">You leave with:</Eyebrow>
-                    <p className="text-body text-ink">{o.leave}</p>
-                  </div>
-                  <div className="pt-6">
-                    <Button to={o.href} variant="secondary">{o.linkLabel}</Button>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </Wrap>
-      </Section>
-
-      {/* EXTRAPOLATED — no comp below this point */}
-      <Section>
-        <Wrap>
-          <H2 className="mb-6">Our engagements are built around your outcomes.</H2>
-          <Body className="mb-8">
-            Most firms are structured to protect their margin when work goes wrong. We are
-            structured to protect your result. That principle shapes how we scope, price, and staff
-            every engagement.
-          </Body>
-          <NumList items={PRINCIPLES} as="ol" className="mb-8" />
-          <Quote>
-            &#8220;Larger firms can say this. Their economics make it hard to mean it. Ours are
-            built to mean it.&#8221;
-          </Quote>
-        </Wrap>
-      </Section>
-
       {/* EXTRAPOLATED. The practice and the product it produced were two bands
           and are now one: the argument for agentic AI implementation, then the
           thing that argument built. Splitting them made the reader meet Dewey
-          with no idea why this firm would have one. */}
-      <Section band="surface">
+          with no idea why this firm would have one.
+
+          First band under the hero: what we actually do, before the three ways
+          in. On the page band rather than surface, because the offerings card
+          below is white and the comp draws it on surface; two cream bands in a
+          row would also read as one. */}
+      <Section>
         <Wrap>
           <Eyebrow className="mb-4">Core practice</Eyebrow>
           <H2 className="mb-4">Our core practice is agentic AI implementation and integration.</H2>
@@ -228,9 +158,10 @@ export default function Home() {
             <TextLink to="/what-we-do/engineering/agentic-ai">Inside our agentic AI practice</TextLink>
           </p>
 
-          {/* Dewey, inside the practice band rather than beside it. `tint` on
-              cream, so the product reads as an object sitting on the argument
-              that produced it. */}
+          {/* Dewey, inside the practice band rather than beside it. `tint`, so
+              the product reads as an object sitting on the argument that
+              produced it. It sat on cream when this band did; the band is white
+              now and the panel separates from it either way. */}
           <Card fill="tint" className="p-6 md:p-card">
             <Eyebrow tone="ink">A Mile42 product</Eyebrow>
             {/* 66rem, and the number is load-bearing. `H3` balances — #56 put
@@ -284,6 +215,85 @@ export default function Home() {
               <Button to="/meet-dewey">Meet Dewey</Button>
             </div>
           </Card>
+        </Wrap>
+      </Section>
+
+      {/* Follows design/Homepage.pdf: one card, vertical dividers, spots breaking
+          the edge. The engagement principles that used to be their own band now
+          close this one: the three ways in are the offer, and the principles are
+          how any of the three is scoped, priced, and staffed. One band, one
+          heading. */}
+      <Section band="surface">
+        <Wrap>
+          <H2 className="mb-4 text-center">Three ways organizations work with us.</H2>
+          <Lead className="mx-auto mb-16 text-center">
+            Start with what you need right now. The right engagement follows from that.
+          </Lead>
+
+          <div className="relative rounded-card border border-ink bg-page shadow-hard">
+            {/* Four explicit rows, with each column a subgrid, so every row —
+                eyebrow, heading, body, button — lines up across all three cards
+                no matter how each one wraps. Without this, a body that wraps one
+                line further in one column lifts its button above the others. */}
+            {/* A group, so the three offerings arrive one after another rather
+                than the whole frame appearing at once. Transform on a grid item
+                does not disturb the subgrid row alignment from #15. */}
+            <div
+              className={`${REVEAL_GROUP.up} ${REVEAL_ROW} grid lg:grid-cols-3 lg:grid-rows-[auto_auto_auto_auto]`}
+            >
+              {OFFERINGS.map((o, i) => (
+                <article
+                  key={o.title}
+                  className={`relative flex flex-col gap-3 p-card lg:row-span-4 lg:grid lg:grid-rows-subgrid ${
+                    i > 0 ? 'border-t border-ink lg:border-t-0 lg:border-l' : ''
+                  }`}
+                >
+                  <Spot
+                    name={o.spot}
+                    sizes={o.spotSizes}
+                    className={`absolute -top-12 right-4 h-auto w-28 ${o.spotClass}`}
+                  />
+                  <Eyebrow>{o.kicker}</Eyebrow>
+                  <H3>{o.title}</H3>
+                  <Body className="max-w-none">{o.body}</Body>
+                  {/* The gap #15 opened between the body copy and the row beneath
+                      it is where the laptop spot sits, so it outlives the "You leave
+                      with" block that used to fill it: the button row inherits it,
+                      widened to hold the spot against a shorter card. From lg up
+                      only: below that the spots sit inside the column, so the space
+                      would be dead. */}
+                  {/* mt-auto bottoms this block in the stacked flex layout. From lg
+                      up the subgrid already places the row, and leaving mt-auto on
+                      would bottom-align it inside its own row — which is what
+                      pushed the shorter columns' buttons below the taller one's. */}
+                  <div className="mt-auto pt-6 lg:mt-0 xl:pt-32">
+                    <Button to={o.href} variant="secondary">{o.linkLabel}</Button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          {/* Merged in from the former "Our engagements are built around your
+              outcomes" band. A rule and the two-column label/body shape rather
+              than a second centred heading, so it reads as the back half of this
+              section instead of a band that lost its own. */}
+          <LabelBody
+            className="mt-16 border-t border-ink/16 pt-12 lg:mt-20 lg:pt-14"
+            label={
+              <>
+                <Eyebrow className="mb-3">How we engage</Eyebrow>
+                <H3>Our engagements are built around your outcomes.</H3>
+              </>
+            }
+          >
+            <Body className="mb-8 max-w-none">
+              Most firms are structured to protect their margin when work goes wrong. We are
+              structured to protect your result. That principle shapes how we scope, price, and
+              staff every engagement.
+            </Body>
+            <NumList items={PRINCIPLES} as="ol" />
+          </LabelBody>
         </Wrap>
       </Section>
 
