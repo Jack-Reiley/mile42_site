@@ -32,19 +32,27 @@ const draw = (Page) =>
 const href = (name) => screen.getByRole('link', { name }).getAttribute('href')
 
 describe('SCN-001 — the homepage carries a Dewey block in position', () => {
-  it('names Dewey and states what Dewey does', () => {
+  /* The block has to say what Dewey is, not allude to it. An earlier pass led
+     with the library framing and told a first-time reader nothing. */
+  it('states plainly what Dewey is and what problem it solves', () => {
     draw(Home)
-    expect(screen.getByText('Every agent needs a library.')).toBeInTheDocument()
     expect(
-      screen.getByText(/organizes, indexes, and surfaces your data/i),
+      screen.getByText(/Dewey is the knowledge layer between your data and your AI agents/i),
     ).toBeInTheDocument()
+    expect(screen.getByText(/fail for lack of context/i)).toBeInTheDocument()
+    expect(screen.getByText(/organizes and indexes your documents/i)).toBeInTheDocument()
   })
 
-  it('shows the three supporting points', () => {
+  it('shows the four supporting points', () => {
     draw(Home)
-    expect(screen.getByText('Upload is the whole pipeline.')).toBeInTheDocument()
-    expect(screen.getByText('The right search for the moment.')).toBeInTheDocument()
-    expect(screen.getByText('Answers, not credentials.')).toBeInTheDocument()
+    expect(screen.getByText('Add a file. It is ready to search.')).toBeInTheDocument()
+    expect(screen.getByText('Ask a question, get a sourced answer.')).toBeInTheDocument()
+    expect(
+      screen.getByText('Agents never touch your systems of record.'),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText('Every agent reads from the same catalog.'),
+    ).toBeInTheDocument()
   })
 
   /* Position is behavior here, not styling: the block has to land after the
@@ -54,7 +62,7 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
     const { container } = draw(Home)
     const bands = [...container.querySelectorAll('section')]
     const practice = bands.findIndex((b) => b.textContent.includes('Our core practice'))
-    const dewey = bands.findIndex((b) => b.textContent.includes('Every agent needs a library.'))
+    const dewey = bands.findIndex((b) => b.textContent.includes('Dewey is the knowledge layer'))
     const closing = bands.findIndex((b) => b.textContent.includes('Tell us what needs to work.'))
 
     expect(practice).toBeGreaterThan(-1)
@@ -69,7 +77,7 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
   it('keeps the heading outline unbroken inside the block', () => {
     const { container } = draw(Home)
     const band = [...container.querySelectorAll('section')].find((b) =>
-      b.textContent.includes('Every agent needs a library.'),
+      b.textContent.includes('Dewey is the knowledge layer'),
     )
     const levels = [...band.querySelectorAll('h1,h2,h3,h4,h5,h6')].map((h) =>
       Number(h.tagName[1]),

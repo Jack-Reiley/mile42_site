@@ -5,7 +5,7 @@
   approved design makes a precondition. See Deliberate deviations.
 - Parent epic: none
 - Delivery unit: independent, single ticket
-- Requirement version: 1
+- Requirement version: 2
 
 ## Objective
 
@@ -17,15 +17,37 @@ argument Dewey belongs to.
 ## Scope
 
 - A Dewey block on the homepage, between the core practice band and the closing
-  call to action, carrying the identity eyebrow, the library heading, the
-  context line, the one-line pitch, three supporting points, and a button to
-  `/meet-dewey`.
+  call to action, stating what Dewey is, the problem it solves, and what it
+  does, then four supporting points and a button to `/meet-dewey`.
 - A link to `/meet-dewey` on the Agentic AI page, inside the capability band
   that already claims knowledge and retrieval work.
 - A description of Dewey and a link to `/meet-dewey` on the AI-driven Products
   page, inside the proof panel that already names Blink Social.
 
-Copy is taken from the supplied messaging package. Nothing was invented.
+### Contract change at version 2: the homepage copy is written, not quoted
+
+Version 1 required the homepage block's copy to come verbatim from
+`dewey-messaging-package.md`. Reviewed on localhost, that copy did not do the
+job the block exists for. The package's headlines are written for a reader who
+already knows what Dewey is: "Upload is the whole pipeline" and "The right
+search for the moment" name a benefit without explaining it, and the library
+framing leads with a metaphor instead of a product. The homepage is the surface
+where a first-time reader learns what Dewey is, so abstraction there tells them
+nothing.
+
+Version 2 replaces that copy with plain language written for a layperson. Brett
+directed the change and approved the replacement copy. The four points now each
+carry an explanation rather than a slogan, which is why they moved from three
+columns to four in two.
+
+Two things did not change. The library framing stays intact on `/meet-dewey`,
+where the reader has already been told what the product is, and "Agents never
+touch your systems of record" survives from the package unaltered, because it
+was already the clearest line in it.
+
+No scenario changed. SCN-001 requires the block to name Dewey, say what Dewey
+does, and show supporting points, which is a stronger claim after this change
+than before it. The copy on the two practice pages is unchanged from version 1.
 
 ## Out of scope
 
@@ -114,7 +136,7 @@ And the call to action remains reachable
 
 | Scenario | Expected level | Automated coverage | E2E behavior | Manual evidence |
 | --- | --- | --- | --- | --- |
-| SCN-001 | Unit | `site/src/pages/dewey-entry-points.test.jsx` | N/A | — |
+| SCN-001 | Unit | `site/src/pages/dewey-entry-points.test.jsx` | N/A | Reviewed on localhost; copy rewritten at version 2 as a result |
 | SCN-002 | Unit | `site/src/pages/dewey-entry-points.test.jsx` | N/A | — |
 | SCN-003 | Unit | `site/src/pages/dewey-entry-points.test.jsx` | N/A | — |
 | SCN-004 | Unit | `site/src/pages/dewey-entry-points.test.jsx` | N/A | — |

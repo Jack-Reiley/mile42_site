@@ -2,7 +2,7 @@ import {
   Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote,
   Button, ButtonRow, TextLink, Card, Spot,
 } from '../components/primitives.jsx'
-import { GroupColumns, NumList, RuledGroup } from '../components/Lists.jsx'
+import { NumList, RuledGroup } from '../components/Lists.jsx'
 import { REVEAL, REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
 
 const OFFERINGS = [
@@ -69,20 +69,33 @@ const PRACTICE = [
   { title: 'Adoption and accountability', body: 'Getting the system used, measured, and improved after go-live.' },
 ]
 
-/* Dewey's three supporting points on the homepage. Copy is the messaging
-   package's, unchanged; the page it leads to carries the full argument. */
+/* Dewey's four supporting points on the homepage.
+
+   Plain language, deliberately. An earlier pass used the messaging package's
+   own headlines, "Upload is the whole pipeline" and "The right search for the
+   moment", and they read as abstractions to anyone who does not already know
+   what Dewey is. The homepage is where a reader learns that, so each point now
+   says the concrete thing instead of naming it. The library framing stays on
+   Dewey's own page, where the reader has already been told what the product is.
+
+   Four rather than three, in two columns rather than three: each point carries
+   a real explanation now, and that needs the width. */
 const DEWEY = [
   {
-    title: 'Upload is the whole pipeline.',
-    body: 'One call. Extraction, chunking, and embedding are automatic.',
+    title: 'Add a file. It is ready to search.',
+    body: 'Dewey reads the document, breaks it into pieces, and indexes it automatically. There is no pipeline for your team to build or maintain.',
   },
   {
-    title: 'The right search for the moment.',
-    body: 'Search by meaning, match exact terms, or ask a question and get a cited answer.',
+    title: 'Ask a question, get a sourced answer.',
+    body: 'Agents can search by meaning, match an exact part number or error code, or ask a plain question and get an answer with the documents it came from.',
   },
   {
-    title: 'Answers, not credentials.',
-    body: 'Agents work against a governed copy. Your systems of record stay sealed.',
+    title: 'Agents never touch your systems of record.',
+    body: 'Payroll, orders, and finance stay sealed. Agents read a governed copy inside Dewey, so they never hold credentials to the real system.',
+  },
+  {
+    title: 'Every agent reads from the same catalog.',
+    body: 'Without a shared source, each agent keeps its own copy and they drift apart. Update a document in Dewey once and every agent, and every person, sees the change.',
   },
 ]
 
@@ -231,24 +244,30 @@ export default function Home() {
           {/* Ink, not the default accent. Accent is 12px here and measures
               3.86:1 on the tint fill, under the 4.5:1 floor for text that size.
               FeaturePanel already takes ink for exactly this reason. */}
-          <Eyebrow tone="ink" className="mb-4">Dewey · The librarian for AI agents</Eyebrow>
-          <H2 className="mb-4">Every agent needs a library.</H2>
+          <Eyebrow tone="ink" className="mb-4">Dewey · A Mile42 product</Eyebrow>
+          <H2 className="mb-4">Dewey is the knowledge layer between your data and your AI agents.</H2>
           <Lead className="mb-4">
-            Agents don&#8217;t fail for lack of intelligence. They fail for lack of context.
+            AI agents fail for lack of context, not lack of intelligence. Most teams already have
+            the data. What they do not have is a way for an agent to find the right piece of it at
+            the right moment.
           </Lead>
           <Body className="mb-10">
-            Dewey organizes, indexes, and surfaces your data so AI agents can actually find it.
+            Dewey organizes and indexes your documents so agents can search them, ask questions of
+            them, and get answers with sources attached. Storage, indexing, and search in one
+            system instead of three stitched together.
           </Body>
-          {/* h3, not RuledGroup's default h4. The pages that leave the default
-              alone put an h3 list heading above their columns; this block has
-              none, so the default would skip a level under the band's h2. */}
-          <GroupColumns className="mb-10">
+          {/* Not GroupColumns: that grid is three across and four points need
+              two. RuledGroup rather than the Card the practice band above uses,
+              so two stacked two-column grids do not read as one repeated block.
+              h3, not RuledGroup's default h4, which would skip a level under
+              the band's h2. */}
+          <div className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mb-10 grid gap-x-10 gap-y-8 md:grid-cols-2`}>
             {DEWEY.map((d) => (
               <RuledGroup key={d.title} as="h3" title={d.title} ruleClass="border-t-accent">
                 <Body className="max-w-none text-ink/72">{d.body}</Body>
               </RuledGroup>
             ))}
-          </GroupColumns>
+          </div>
           <Button to="/meet-dewey">Meet Dewey</Button>
         </Wrap>
       </Section>
