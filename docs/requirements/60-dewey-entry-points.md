@@ -129,6 +129,67 @@ they are manual by necessity rather than by preference.
 
 Automated tests do not parse this document, and none was generated from it.
 
+### State of the manual evidence
+
+Verified in a real browser on localhost at 1440x900 and at 375x812:
+
+- SCN-002, SCN-003, SCN-004: every link resolves to `/working/meet-dewey`,
+  carrying the router basename, and activating one navigates to the Dewey page.
+- SCN-005: the Dewey page still renders eight sections with its own `h1`.
+- SCN-006: all three are real anchors. The accessible name is "Meet Dewey" with
+  the decorative chevron correctly excluded.
+- SCN-007: the band's contents animate `m42-in-up` on a `view()` timeline, and
+  all three columns animate independently rather than as one slab. Reduced
+  motion is handled by the existing site-wide rule in `index.css`, which this
+  block inherits rather than reimplements.
+- SCN-008: at 375px the three columns stack at distinct offsets, document
+  scroll width equals the viewport width, so nothing overflows.
+
+Not established: **no visual screenshot was captured.** The browser tooling in
+this environment returned blank frames at every viewport, the same class of
+limitation #58 recorded against the resize tooling. Everything above was
+verified through the DOM and computed style rather than by eye. Whether the
+`tint` band actually sits well against the green closing band below it is a
+judgement that has not been made and is the reason for the localhost review
+phase.
+
+## Findings
+
+Three defects were found in the browser that the unit tests did not catch, and
+all three are fixed on this branch.
+
+- **The block skipped a heading level.** `RuledGroup` defaults its title to
+  `h4`. That is right on the pages that put an `h3` list heading above their
+  columns, and wrong here, where the band's `h2` is the only heading above it.
+  The rendered outline went `h2` straight to `h4`. Now `as="h3"`, and
+  `dewey-entry-points.test.jsx` asserts the outline has no gap so it cannot
+  regress.
+- **The eyebrow failed AA.** `Eyebrow` defaults to the accent tone, which at
+  12px measures 3.86:1 on the `tint` fill against a 4.5:1 floor. Now `ink`, at
+  13.96:1. `FeaturePanel` already takes ink for exactly this reason.
+- **The column grid applied the reveal relay twice.** `GroupColumns` has carried
+  `REVEAL_GROUP.relay` and `REVEAL_ROW` internally since #54 and #56, so passing
+  them again at the call site duplicated every class. Removed.
+
+Measured contrast on the `tint` band after the fixes, resolved through a canvas
+composite so alpha and `oklab()` colours are handled correctly:
+
+| Element | Ratio | Floor | Result |
+| --- | --- | --- | --- |
+| Eyebrow, heading, lead, pitch, column titles | 13.96 | 4.5 | pass |
+| Column body, ink at 72% | 5.97 | 4.5 | pass |
+| Column rule, accent, non-text | 3.86 | 3.0 | pass |
+| Link on both practice pages | 14.57 | 4.5 | pass |
+
+## Out of this ticket's scope, worth a follow-up
+
+The site's existing accent eyebrows are already below AA. The homepage's own
+"Core practice" eyebrow measures 4.03:1 at 12px on the `surface` fill, and
+`primitives.jsx` notes the same problem on the detail pages. That is a
+pre-existing, site-wide issue, not one this ticket introduced, and fixing it
+here would have meant editing bands this ticket has no business touching. It
+should become its own ticket.
+
 ## Deliberate deviations
 
 - **The pull request is not opened at the end of implementation.** The

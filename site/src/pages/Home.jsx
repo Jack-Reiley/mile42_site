@@ -228,7 +228,10 @@ export default function Home() {
           deepening instead: cream here, tint, then `blue` on arrival. */}
       <Section band="tint">
         <Wrap>
-          <Eyebrow className="mb-4">Dewey · The librarian for AI agents</Eyebrow>
+          {/* Ink, not the default accent. Accent is 12px here and measures
+              3.86:1 on the tint fill, under the 4.5:1 floor for text that size.
+              FeaturePanel already takes ink for exactly this reason. */}
+          <Eyebrow tone="ink" className="mb-4">Dewey · The librarian for AI agents</Eyebrow>
           <H2 className="mb-4">Every agent needs a library.</H2>
           <Lead className="mb-4">
             Agents don&#8217;t fail for lack of intelligence. They fail for lack of context.
@@ -236,9 +239,12 @@ export default function Home() {
           <Body className="mb-10">
             Dewey organizes, indexes, and surfaces your data so AI agents can actually find it.
           </Body>
-          <GroupColumns className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mb-10`}>
+          {/* h3, not RuledGroup's default h4. The pages that leave the default
+              alone put an h3 list heading above their columns; this block has
+              none, so the default would skip a level under the band's h2. */}
+          <GroupColumns className="mb-10">
             {DEWEY.map((d) => (
-              <RuledGroup key={d.title} title={d.title} ruleClass="border-t-accent">
+              <RuledGroup key={d.title} as="h3" title={d.title} ruleClass="border-t-accent">
                 <Body className="max-w-none text-ink/72">{d.body}</Body>
               </RuledGroup>
             ))}

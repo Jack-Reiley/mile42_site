@@ -61,6 +61,25 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
     expect(dewey).toBe(practice + 1)
     expect(closing).toBe(dewey + 1)
   })
+
+  /* Caught in the browser, not by a unit test: RuledGroup defaults its title to
+     h4, which is right on the pages that put an h3 list heading above their
+     columns and wrong here, where the band's h2 is the only heading above. The
+     rendered outline went h2 straight to h4. */
+  it('keeps the heading outline unbroken inside the block', () => {
+    const { container } = draw(Home)
+    const band = [...container.querySelectorAll('section')].find((b) =>
+      b.textContent.includes('Every agent needs a library.'),
+    )
+    const levels = [...band.querySelectorAll('h1,h2,h3,h4,h5,h6')].map((h) =>
+      Number(h.tagName[1]),
+    )
+
+    expect(levels[0]).toBe(2)
+    for (let i = 1; i < levels.length; i += 1) {
+      expect(levels[i] - levels[i - 1]).toBeLessThanOrEqual(1)
+    }
+  })
 })
 
 describe('SCN-002 — the homepage block leads to the Dewey page', () => {
