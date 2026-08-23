@@ -49,7 +49,7 @@ export default function Contact() {
             <ul className="mb-8 flex flex-col gap-4">
               {EXPECTATIONS.map(({ lead, rest }, i) => (
                 <li key={lead} className="grid grid-cols-[2.5rem_1fr] gap-3">
-                  <span className="text-eyebrow font-eyebrow text-accent pt-1">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="text-eyebrow font-eyebrow text-accent-deep pt-1">{String(i + 1).padStart(2, '0')}</span>
                   <span className="text-body text-ink"><strong className="font-semibold">{lead}</strong>{rest}</span>
                 </li>
               ))}
@@ -67,17 +67,17 @@ export default function Contact() {
               <H3 as="h2">Start a conversation</H3>
               {FIELDS.map(({ label, name, type }) => (
                 <label key={name} className="block">
-                  <span className="text-eyebrow font-eyebrow uppercase text-accent mb-2 block">{label}</span>
+                  <span className="text-eyebrow font-eyebrow uppercase text-accent-deep mb-2 block">{label}</span>
                   <input type={type} name={name} required className={FIELD_CLS} />
                 </label>
               ))}
               <label className="block">
-                <span className="text-eyebrow font-eyebrow uppercase text-accent mb-2 block">What needs to work?</span>
+                <span className="text-eyebrow font-eyebrow uppercase text-accent-deep mb-2 block">What needs to work?</span>
                 <textarea name="need" rows="4" required className={FIELD_CLS} />
                 <Note className="mt-2">A few sentences is plenty. What is the outcome, and what is getting in the way?</Note>
               </label>
               <label className="block">
-                <span className="text-eyebrow font-eyebrow uppercase text-accent mb-2 block">Anything else we should know?</span>
+                <span className="text-eyebrow font-eyebrow uppercase text-accent-deep mb-2 block">Anything else we should know?</span>
                 <textarea name="more" rows="3" className={FIELD_CLS} />
               </label>
               <button type="submit"

@@ -44,7 +44,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           {COLUMNS.map(({ heading, links }) => (
             <div key={heading}>
-              <h2 className="text-eyebrow font-eyebrow uppercase text-accent mb-4">{heading}</h2>
+              <h2 className="text-eyebrow font-eyebrow uppercase text-accent-deep mb-4">{heading}</h2>
               <ul className="flex flex-col gap-2">
                 {links.map(({ href, label, nested }) => (
                   <li key={label} className={nested ? 'ml-3 border-l border-ink/25 pl-3' : undefined}>

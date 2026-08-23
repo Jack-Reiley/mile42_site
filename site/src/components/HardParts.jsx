@@ -113,7 +113,7 @@ function DrillPanel({ blocks }) {
                 <ul className="flex flex-col gap-4">
                   {b.items.map((it) => (
                     <li key={it.n} className="grid grid-cols-[2.25rem_1fr] gap-3">
-                      <span className="pt-1.5 font-eyebrow text-eyebrow text-accent">{it.n}</span>
+                      <span className="pt-1.5 font-eyebrow text-eyebrow text-accent-deep">{it.n}</span>
                       <span>
                         <span className="block font-heading text-body font-bold leading-6 text-ink text-pretty">
                           {it.title}
@@ -341,7 +341,7 @@ function Disclosures({ parts }) {
                    rather than the type. */
                 className="grid w-full grid-cols-[2rem_1fr_auto] items-start gap-3 px-5 py-6 text-left sm:grid-cols-[2.75rem_1fr_auto] sm:gap-[18px] sm:px-[30px] sm:py-[26px]"
               >
-                <span className="pt-2 font-eyebrow text-eyebrow text-accent">{p.n}</span>
+                <span className="pt-2 font-eyebrow text-eyebrow text-accent-deep">{p.n}</span>
                 <span>
                   <span className="block font-heading text-[22px] font-bold leading-7 text-ink text-pretty">
                     {p.title}
