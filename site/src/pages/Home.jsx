@@ -3,6 +3,7 @@ import {
   Button, ButtonRow, TextLink, Card, Spot,
 } from '../components/primitives.jsx'
 import { NumList, RuledGroup } from '../components/Lists.jsx'
+import CatalogDrawer from '../components/CatalogDrawer.jsx'
 import { REVEAL, REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
 
 const OFFERINGS = [
@@ -63,39 +64,27 @@ const PRINCIPLES = [
 ]
 
 const PRACTICE = [
-  { title: 'Context and workflow design', body: 'Understanding the work well enough to know where an agent belongs and where it does not.' },
-  { title: 'Architecture and integration', body: 'Connecting agents to real data, real systems, and the platforms you already run.' },
-  { title: 'Governance and risk', body: 'Controls, evaluation, and oversight that let the business trust what it deploys.' },
-  { title: 'Adoption and accountability', body: 'Getting the system used, measured, and improved after go-live.' },
+  { title: 'Context and workflow design', body: 'Knowing where an agent belongs, and where it does not.' },
+  { title: 'Architecture and integration', body: 'Connecting agents to real data and the platforms you run.' },
+  { title: 'Governance and risk', body: 'Controls and oversight the business can trust.' },
+  { title: 'Adoption and accountability', body: 'Used, measured, and improved after go-live.' },
 ]
 
-/* Dewey's four supporting points on the homepage.
+/* Dewey's supporting points on the homepage.
 
-   Written for the person who signs, not the person who integrates. An earlier
-   pass quoted the messaging package and read as abstraction; the pass after it
-   explained the product clearly but led with what Dewey is, which is an
-   engineering framing. A mid-market or enterprise buyer arrives with a stalled
-   pilot, a security review that killed it, and a budget that has already paid
-   for retrieval plumbing more than once. These four answer that reader.
-
-   Plain language throughout, and no metaphor. The library framing belongs on
-   /meet-dewey, where the reader has already been told what the product is. */
+   Two, not four. The sealed systems of record and the one shared source both
+   moved into the catalog drawer diagram, which shows them rather than claiming
+   them; repeating them underneath would be the same sentence twice. What is
+   left is the pair the picture cannot make: the approval argument and the cost
+   argument. */
 const DEWEY = [
   {
-    title: 'Your systems of record stay sealed.',
-    body: 'Payroll, orders, and finance are never opened to an agent. Agents read a governed copy inside Dewey, so no autonomous system ever holds credentials to the real one.',
-  },
-  {
     title: 'Security review has something it can approve.',
-    body: 'What agents are allowed to reach is an explicit decision your team makes and can audit, scoped by business unit and domain. Anything written back to a source system waits for a human signature.',
+    body: 'What agents are allowed to reach is an explicit decision your team makes and can audit, scoped by business unit and domain.',
   },
   {
     title: 'Every project after the first starts ahead.',
-    body: 'The ingestion, indexing, and retrieval work that consumes the opening weeks of every AI initiative is already done. You pay for it once instead of once per project.',
-  },
-  {
-    title: 'One answer, not one per agent.',
-    body: 'As agent count grows, each with its own copy of the data, they stop agreeing with each other. Dewey gives every agent and every person the same current source, and one place to check what was known.',
+    body: 'The ingestion, indexing, and retrieval work that consumes the opening weeks of every AI initiative is already done.',
   },
 ]
 
@@ -210,7 +199,10 @@ export default function Home() {
         </Wrap>
       </Section>
 
-      {/* EXTRAPOLATED */}
+      {/* EXTRAPOLATED. The practice and the product it produced were two bands
+          and are now one: the argument for agentic AI implementation, then the
+          thing that argument built. Splitting them made the reader meet Dewey
+          with no idea why this firm would have one. */}
       <Section band="surface">
         <Wrap>
           <Eyebrow className="mb-4">Core practice</Eyebrow>
@@ -218,12 +210,14 @@ export default function Home() {
           <Lead className="mb-10">
             AI is not valuable because it is impressive. It is valuable when it changes work.
           </Lead>
-          <div className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mb-10 grid gap-4 md:grid-cols-2`}>
+          {/* Ruled columns rather than the cards this band used to draw. Four
+              bordered cards above a bordered panel read as five objects of equal
+              weight, and the panel has to be the one that carries. */}
+          <div className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mb-10 grid gap-x-8 gap-y-7 md:grid-cols-2 lg:grid-cols-4`}>
             {PRACTICE.map((p) => (
-              <Card key={p.title}>
-                <H3>{p.title}</H3>
-                <Body className="max-w-none">{p.body}</Body>
-              </Card>
+              <RuledGroup key={p.title} as="h3" title={p.title} ruleClass="border-t-brand-deep">
+                <Body className="max-w-none text-ink/72">{p.body}</Body>
+              </RuledGroup>
             ))}
           </div>
           <Body className="mb-6">
@@ -231,56 +225,39 @@ export default function Home() {
             by fixing a process or writing conventional software, and we say so.
           </Body>
           <Quote className="mb-6">The opportunity is AI. The constraint is implementation.</Quote>
-          <TextLink to="/what-we-do/engineering/agentic-ai">Inside our agentic AI practice</TextLink>
-        </Wrap>
-      </Section>
+          <p className="mb-12">
+            <TextLink to="/what-we-do/engineering/agentic-ai">Inside our agentic AI practice</TextLink>
+          </p>
 
-      {/* EXTRAPOLATED. Dewey's own identity band is `blue`; this takes `tint`,
-          the same accent at 10%, because `blue` is dark and would stack two
-          saturated bands against the green ask below it. The reader gets a
-          deepening instead: cream here, tint, then `blue` on arrival. */}
-      <Section band="tint">
-        <Wrap>
-          {/* Ink, not the default accent. Accent is 12px here and measures
-              3.86:1 on the tint fill, under the 4.5:1 floor for text that size.
-              FeaturePanel already takes ink for exactly this reason. */}
-          <Eyebrow tone="ink" className="mb-4">A Mile42 product</Eyebrow>
-          {/* The name carries the heading now, so the eyebrow drops it rather
-              than saying "Dewey" twice in two lines. */}
-          {/* Balanced: this is the only H2 on the page that wraps, and left to
-              the default it breaks with a short second line across the full
-              1240px column. RuledGroup titles already use this for the same
-              reason, and it is a no-op wherever the heading fits on one line. */}
-          <H2 className="mb-4 text-balance">
-            Meet Dewey, the knowledge layer that keeps agents out of your systems of record.
-          </H2>
-          <Lead className="mb-4">
-            Most AI projects stall in the same place. The prototype worked, then it met the real
-            business: the documents holding the answers were scattered, the systems holding the
-            rest could not be opened to autonomous software, and security review ended the
-            conversation.
-          </Lead>
-          <Body className="mb-3">
-            Dewey holds a governed copy of what your agents are allowed to know, indexes it
-            automatically, and answers their questions against it with sources attached.
-          </Body>
-          <Body className="mb-10">
-            It is also built once. Every AI project after the first starts with retrieval already
-            solved, rather than rebuilding the same pipeline on a new budget.
-          </Body>
-          {/* Not GroupColumns: that grid is three across and four points need
-              two. RuledGroup rather than the Card the practice band above uses,
-              so two stacked two-column grids do not read as one repeated block.
-              h3, not RuledGroup's default h4, which would skip a level under
-              the band's h2. */}
-          <div className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mb-10 grid gap-x-10 gap-y-8 md:grid-cols-2`}>
-            {DEWEY.map((d) => (
-              <RuledGroup key={d.title} as="h3" title={d.title} ruleClass="border-t-accent">
-                <Body className="max-w-none text-ink/72">{d.body}</Body>
-              </RuledGroup>
-            ))}
-          </div>
-          <Button to="/meet-dewey">Meet Dewey</Button>
+          {/* Dewey, inside the practice band rather than beside it. `tint` on
+              cream, so the product reads as an object sitting on the argument
+              that produced it. */}
+          <Card fill="tint" className="p-6 md:p-card">
+            <Eyebrow tone="ink">A Mile42 product</Eyebrow>
+            <H3 as="h3" className="max-w-[34ch] text-balance">
+              Meet Dewey, the knowledge layer that keeps agents out of your systems of record.
+            </H3>
+            <Body className="max-w-[66rem]">
+              Most AI projects stall in the same place. The prototype worked, then it met the real
+              business: the documents holding the answers were scattered, the systems holding the
+              rest could not be opened to autonomous software, and security review ended the
+              conversation. Dewey holds a governed copy of what your agents are allowed to know,
+              indexes it automatically, and answers their questions with sources attached.
+            </Body>
+            <CatalogDrawer className="mt-4" />
+            {/* h4, not h3: these sit under the panel's own h3, where the practice
+                columns above sit under the band's h2. */}
+            <div className="mt-4 grid gap-x-10 gap-y-6 md:grid-cols-2">
+              {DEWEY.map((d) => (
+                <RuledGroup key={d.title} as="h4" title={d.title} ruleClass="border-t-accent">
+                  <Body className="max-w-none text-ink/72">{d.body}</Body>
+                </RuledGroup>
+              ))}
+            </div>
+            <div className="mt-4">
+              <Button to="/meet-dewey">Meet Dewey</Button>
+            </div>
+          </Card>
         </Wrap>
       </Section>
 

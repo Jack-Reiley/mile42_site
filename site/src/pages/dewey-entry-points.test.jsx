@@ -39,7 +39,8 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
      the reader's problem and still say plainly what Dewey is. */
   it('leads on the name and says what Dewey is in the same breath', () => {
     draw(Home)
-    const heading = screen.getByRole('heading', { level: 2, name: /Meet Dewey/i })
+    // h3, not h2: the band's h2 is the practice argument this panel sits inside.
+    const heading = screen.getByRole('heading', { level: 3, name: /Meet Dewey/i })
     expect(heading).toHaveTextContent(/knowledge layer/i)
     expect(heading).toHaveTextContent(/systems of record/i)
   })
@@ -51,30 +52,52 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
     expect(screen.getByText(/indexes it automatically/i)).toBeInTheDocument()
   })
 
-  it('shows the four supporting points', () => {
+  it('shows the two supporting points the diagram cannot make', () => {
     draw(Home)
-    expect(screen.getByText('Your systems of record stay sealed.')).toBeInTheDocument()
     expect(
       screen.getByText('Security review has something it can approve.'),
     ).toBeInTheDocument()
     expect(
       screen.getByText('Every project after the first starts ahead.'),
     ).toBeInTheDocument()
-    expect(screen.getByText('One answer, not one per agent.')).toBeInTheDocument()
+  })
+
+  /* The catalog drawer carries the sealed-sources and shared-source arguments
+     now. It is one `role="img"`, so its parts are deliberately not separate
+     nodes in the accessibility tree; the label is the contract. */
+  it('presents the catalog drawer as one labelled image', () => {
+    draw(Home)
+    const diagram = screen.getByRole('img', { name: /card catalog drawer/i })
+    expect(diagram).toHaveTextContent('Marketing & CRM')
+    expect(diagram).toHaveTextContent('Never any credentials')
+    expect(diagram).toHaveTextContent('Agents never reach the sources')
+  })
+
+  /* The practice argument and the product it produced are one band now. A
+     reader who meets Dewey without it has no idea why this firm would have
+     built one. */
+  it('keeps the practice argument in the same band as the product', () => {
+    const { container } = draw(Home)
+    const band = [...container.querySelectorAll('section')].find((b) =>
+      b.textContent.includes('Meet Dewey, the knowledge layer'),
+    )
+    expect(band.textContent).toContain('Our core practice is agentic AI implementation')
+    expect(band.textContent).toContain('Context and workflow design')
+    // The honesty note and the landing line survived the merge.
+    expect(band.textContent).toContain('when the answer is not an agent')
+    expect(band.textContent).toContain('The opportunity is AI. The constraint is implementation.')
   })
 
   /* Position is behavior here, not styling: the block has to land after the
      practice argument that motivates it and before the page stops asking for
      anything. */
-  it('sits after the core practice band and before the closing call to action', () => {
+  it('sits in the band immediately before the closing call to action', () => {
     const { container } = draw(Home)
     const bands = [...container.querySelectorAll('section')]
-    const practice = bands.findIndex((b) => b.textContent.includes('Our core practice'))
     const dewey = bands.findIndex((b) => b.textContent.includes('Meet Dewey, the knowledge layer'))
     const closing = bands.findIndex((b) => b.textContent.includes('Tell us what needs to work.'))
 
-    expect(practice).toBeGreaterThan(-1)
-    expect(dewey).toBe(practice + 1)
+    expect(dewey).toBeGreaterThan(-1)
     expect(closing).toBe(dewey + 1)
   })
 

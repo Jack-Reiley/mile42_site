@@ -5,7 +5,7 @@
   approved design makes a precondition. See Deliberate deviations.
 - Parent epic: none
 - Delivery unit: independent, single ticket
-- Requirement version: 4
+- Requirement version: 5
 
 ## Objective
 
@@ -69,6 +69,40 @@ heading fits on one line.
 Brett directed every one of these changes and approved the replacement copy
 each time. The version 2 copy is preserved in commit b29e872 and the version 3
 copy in ddd9749, if either is ever wanted back.
+
+### Contract change at version 5: one band, and a drawn diagram
+
+Two further changes, both directed and chosen by Brett from previews built on
+localhost.
+
+**The core practice band and the Dewey band are now one band.** They were
+adjacent and made the same argument from two directions: the practice explains
+why this firm implements agentic AI, and Dewey is what that practice produced.
+Split, a reader met the product with no idea why this firm would have one. Five
+layouts were previewed and Brett chose the one that keeps the practice above and
+sets Dewey inside it as a tinted panel. The practice capabilities moved from
+`Card` to `RuledGroup`, because four bordered cards stacked above a bordered
+panel read as five objects of equal weight and the panel has to be the one that
+carries. The two homepage bands were 893px and 995px; the merged band is one.
+
+This puts `Home.jsx`'s existing core practice band inside this ticket's scope,
+which the version 1 contract excluded. Nothing was dropped in the merge: the
+"we will tell you when the answer is not an agent" note and the "the opportunity
+is AI, the constraint is implementation" line both survive, and the practice
+descriptions were shortened for a four-column row with Brett's approval.
+
+**The three-box flow is now the card catalog drawer.** Brett supplied a design
+handoff at `design/illustrations/design_handoff_catalog_drawer` and selected
+option `2a` from it. It is implemented as `site/src/components/CatalogDrawer.jsx`
+at the handoff's stated fidelity: a 1080px five-column grid of
+190/190/320/190/190, curved connectors, and every endpoint, both label pills and
+the drawer face's centre landing on y=207. Those figures were measured in the
+browser rather than eyeballed, as the handoff explicitly asks.
+
+Dewey's supporting points dropped from four to two. The sealed systems of record
+and the one shared source are both shown by the diagram now, and repeating them
+underneath would be the same sentence twice. The approval argument and the cost
+argument remain, because the picture cannot make either.
 
 Two things did not change. The library framing stays intact on `/meet-dewey`,
 where the reader has already been told what the product is, and "Agents never
@@ -261,6 +295,28 @@ should become its own ticket.
 - **Dewey's description on AI-driven Products is a new paragraph rather than an
   edit to the Blink Social sentence.** No existing copy was rewritten, and Dewey
   is described at the same weight instead of being appended to another claim.
+
+## Deliberate deviations from the catalog drawer handoff
+
+- **The grain raster is the site's, not the bundle's.** The handoff calls for
+  `grain-texture.jpg` at 30% multiply. That file is not a seamless tile and shows
+  patch seams when repeated, which is why this site draws `/grain-fine.png`
+  through the `Grain` primitive instead. Same intent, same opacity, the site's
+  own asset.
+- **Orange is `--color-orange`, not `#FF5000`.** The handoff names `#FF5000` for
+  the back card's mark. The site's token is `#ff5e00` and `tokens:check` pins it.
+  The difference is invisible on a 10px dot and the token wins.
+- **The breakpoint is 1280px, not the handoff's 1160px.** 1160 is the card's
+  width, not the viewport's. At a 1280px viewport the band's padding and the
+  1240px container leave the panel 1104px inside its own padding, which is the
+  first standard breakpoint that clears the 1080px grid.
+- **The drawer face is elastic below 416px.** The handoff fixes it at 182px. At a
+  320px viewport the shelf lines wrap and met the drawer pull with zero
+  clearance, so the face is anchored `bottom-0` and the container grows. At the
+  design width this resolves to exactly 182px and nothing moves.
+- **The step badge and the "The card catalog drawer" title are not used.** They
+  frame the handoff's own demo page. On the homepage the panel already carries
+  its eyebrow and heading.
 
 ## Open questions
 
