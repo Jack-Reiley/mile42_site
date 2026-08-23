@@ -52,6 +52,9 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
     expect(screen.getByText(/indexes it automatically/i)).toBeInTheDocument()
   })
 
+  /* The count is asserted, not just the two titles. SCN-001 names a number, and
+     an existence check passes just as happily with a third point added, which is
+     how the block came to carry two against a contract asking for three. */
   it('shows the two supporting points the diagram cannot make', () => {
     draw(Home)
     expect(
@@ -60,6 +63,9 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
     expect(
       screen.getByText('Every project after the first starts ahead.'),
     ).toBeInTheDocument()
+
+    const panel = screen.getByRole('heading', { level: 3, name: /Meet Dewey/i }).closest('div')
+    expect(within(panel).getAllByRole('heading', { level: 4 })).toHaveLength(2)
   })
 
   /* The catalog drawer carries the sealed-sources and shared-source arguments
