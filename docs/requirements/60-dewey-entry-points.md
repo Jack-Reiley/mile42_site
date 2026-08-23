@@ -5,7 +5,7 @@
   approved design makes a precondition. See Deliberate deviations.
 - Parent epic: none
 - Delivery unit: independent, single ticket
-- Requirement version: 3
+- Requirement version: 4
 
 ## Objective
 
@@ -50,8 +50,25 @@ version 2 while reaching the person who signs. The four points were rewritten
 to match: sealed systems of record, something security review can approve, cost
 amortized across projects, and one answer instead of one per agent.
 
-Brett directed both changes and approved the replacement copy each time. The
-version 2 copy is preserved in commit b29e872 if it is ever wanted back.
+Version 4 rewrites the heading to lead with the product name. Version 3 opened
+on "Most AI pilots stall in the same place, and it is not the model", which
+made the problem the headline and left the name to the eyebrow and the button.
+The heading now reads "Meet Dewey, the knowledge layer that keeps agents out of
+your systems of record", which carries the name the nav and footer already use,
+says what Dewey is, and states the enterprise stake in one line. The stalled
+pilot moved down into the lead rather than being dropped, so nothing version 3
+established was lost. The eyebrow shortened to "A Mile42 product" so the band
+does not say "Dewey" twice in two lines.
+
+The heading is the only H2 on the homepage that wraps, so it takes
+`text-balance`. Left to the default it broke across the full 1240px column with
+a short second line; balanced it splits 651px and 730px. `RuledGroup` titles
+already use this for the same reason and it is a no-op at widths where a
+heading fits on one line.
+
+Brett directed every one of these changes and approved the replacement copy
+each time. The version 2 copy is preserved in commit b29e872 and the version 3
+copy in ddd9749, if either is ever wanted back.
 
 Two things did not change. The library framing stays intact on `/meet-dewey`,
 where the reader has already been told what the product is, and "Agents never

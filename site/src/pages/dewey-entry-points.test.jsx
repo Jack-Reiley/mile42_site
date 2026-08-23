@@ -37,15 +37,17 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
      Leading with "Dewey is the knowledge layer" explained the product but spoke
      to an engineer rather than the person who signs. The block has to open on
      the reader's problem and still say plainly what Dewey is. */
-  it('opens on the buyer problem rather than on the product category', () => {
+  it('leads on the name and says what Dewey is in the same breath', () => {
     draw(Home)
-    expect(screen.getByText(/Most AI pilots stall in the same place/i)).toBeInTheDocument()
-    expect(screen.getByText(/security review ended the conversation/i)).toBeInTheDocument()
+    const heading = screen.getByRole('heading', { level: 2, name: /Meet Dewey/i })
+    expect(heading).toHaveTextContent(/knowledge layer/i)
+    expect(heading).toHaveTextContent(/systems of record/i)
   })
 
-  it('still says plainly what Dewey is', () => {
+  it('still carries the buyer problem that motivates it', () => {
     draw(Home)
-    expect(screen.getByText(/Dewey is the knowledge layer/i)).toBeInTheDocument()
+    expect(screen.getByText(/Most AI projects stall in the same place/i)).toBeInTheDocument()
+    expect(screen.getByText(/security review ended the conversation/i)).toBeInTheDocument()
     expect(screen.getByText(/indexes it automatically/i)).toBeInTheDocument()
   })
 
@@ -68,7 +70,7 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
     const { container } = draw(Home)
     const bands = [...container.querySelectorAll('section')]
     const practice = bands.findIndex((b) => b.textContent.includes('Our core practice'))
-    const dewey = bands.findIndex((b) => b.textContent.includes('Most AI pilots stall'))
+    const dewey = bands.findIndex((b) => b.textContent.includes('Meet Dewey, the knowledge layer'))
     const closing = bands.findIndex((b) => b.textContent.includes('Tell us what needs to work.'))
 
     expect(practice).toBeGreaterThan(-1)
@@ -83,7 +85,7 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
   it('keeps the heading outline unbroken inside the block', () => {
     const { container } = draw(Home)
     const band = [...container.querySelectorAll('section')].find((b) =>
-      b.textContent.includes('Most AI pilots stall'),
+      b.textContent.includes('Meet Dewey, the knowledge layer'),
     )
     const levels = [...band.querySelectorAll('h1,h2,h3,h4,h5,h6')].map((h) =>
       Number(h.tagName[1]),

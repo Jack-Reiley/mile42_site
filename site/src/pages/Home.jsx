@@ -244,17 +244,25 @@ export default function Home() {
           {/* Ink, not the default accent. Accent is 12px here and measures
               3.86:1 on the tint fill, under the 4.5:1 floor for text that size.
               FeaturePanel already takes ink for exactly this reason. */}
-          <Eyebrow tone="ink" className="mb-4">Dewey · A Mile42 product</Eyebrow>
-          <H2 className="mb-4">Most AI pilots stall in the same place, and it is not the model.</H2>
+          <Eyebrow tone="ink" className="mb-4">A Mile42 product</Eyebrow>
+          {/* The name carries the heading now, so the eyebrow drops it rather
+              than saying "Dewey" twice in two lines. */}
+          {/* Balanced: this is the only H2 on the page that wraps, and left to
+              the default it breaks with a short second line across the full
+              1240px column. RuledGroup titles already use this for the same
+              reason, and it is a no-op wherever the heading fits on one line. */}
+          <H2 className="mb-4 text-balance">
+            Meet Dewey, the knowledge layer that keeps agents out of your systems of record.
+          </H2>
           <Lead className="mb-4">
-            The prototype worked. Then it met the real business: the documents holding the answers
-            were scattered, the systems holding the rest could not be opened to autonomous
-            software, and security review ended the conversation.
+            Most AI projects stall in the same place. The prototype worked, then it met the real
+            business: the documents holding the answers were scattered, the systems holding the
+            rest could not be opened to autonomous software, and security review ended the
+            conversation.
           </Lead>
           <Body className="mb-3">
-            Dewey is the knowledge layer that gets past that. It holds a governed copy of what your
-            agents are allowed to know, indexes it automatically, and answers questions against it
-            with sources attached. Your systems of record are never touched.
+            Dewey holds a governed copy of what your agents are allowed to know, indexes it
+            automatically, and answers their questions against it with sources attached.
           </Body>
           <Body className="mb-10">
             It is also built once. Every AI project after the first starts with retrieval already
