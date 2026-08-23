@@ -4,7 +4,7 @@
 - Pull request: https://github.com/Jack-Reiley/mile42_site/pull/61
 - Parent epic: none
 - Delivery unit: independent, single ticket
-- Requirement version: 9
+- Requirement version: 11
 
 ## Objective
 
@@ -168,11 +168,33 @@ Two other corrections ride along, both from the same verification run:
 
 The ticket body carries the same amendment.
 
+### Contract change at version 11: the trademark exception is written down
+
+Reconciliation of #60 recorded F-004: the out-of-scope list forbade any change
+to the Dewey page while the trademark section directed two edits to it, and both
+were in the PR. The work was verified and deliberate; only the wording
+disagreed. The out-of-scope bullet now carries the exception, so a reader can
+tell which clause governs without reading the diff.
+
+Editorial only. No behaviour and no page output changes.
+
+This is version 11 and not 10 because 10 is already taken. It belongs to the
+homepage-restructure branch, where version 9's count correction met that
+ticket's own amendment to SCN-001's position clause. Numbering them apart keeps
+one version meaning one thing, rather than two branches each holding a
+different ten.
+
+
 ## Out of scope
 
 - Moving or renaming `/meet-dewey`. The top-level placement was decided in #58.
 - Any change to the header navigation or the footer.
-- Any change to the Dewey page, its components, or its tests.
+- Any change to the Dewey page, its components, or its tests, with one
+  exception: the trademark pass below marks the brand eyebrow and one heading
+  on `MeetDewey.jsx` and the Dewey column label in `LibrarianFlow.jsx`. Those
+  are the places the mark belongs, so excluding them would have meant marking
+  Dewey everywhere except its own page. Nothing else on the Dewey page is
+  touched, and its behaviour is unchanged, which is what SCN-005 holds.
 - The narrow-viewport verification #58 recorded as not done for the Dewey page
   itself. This ticket verifies only its own new content.
 
