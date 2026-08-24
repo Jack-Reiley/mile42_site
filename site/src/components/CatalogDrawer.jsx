@@ -28,8 +28,12 @@ import { Eyebrow, Grain } from './primitives.jsx'
  * first standard breakpoint that clears the 1080px grid.
  */
 
-const SOURCES = ['Marketing & CRM', 'Commerce', 'ERP & finance', 'Analytics']
-const AGENTS = ['Answers with sources', 'Never any credentials', 'One shared source']
+/* Exported from here rather than duplicated, because /meet-dewey draws this same
+   picture with an interactive layer over it. See `LibrarianDiagram`. The parts
+   below are shared with it; what stays private is how this file arranges them,
+   which is the homepage's own composition. */
+export const SOURCES = ['Marketing & CRM', 'Commerce', 'ERP & finance', 'Analytics']
+export const AGENTS = ['Answers with sources', 'Never any credentials', 'One shared source']
 const SHELF = ['Governed, read-only copy', 'Indexed automatically', 'Scoped and auditable']
 
 const LABEL =
@@ -58,7 +62,7 @@ function Filed({ box, spin, mark, rule }) {
   )
 }
 
-function Rows({ items, className = '' }) {
+export function Rows({ items, className = '' }) {
   return (
     <div className={`flex flex-col ${className}`}>
       {items.map((text) => (
@@ -74,7 +78,7 @@ function Rows({ items, className = '' }) {
 
 /* The label that sits on a connector bundle. Wider than its own column on
    purpose, and painted above the curves it crosses. */
-function Pill({ children, className = '' }) {
+export function Pill({ children, className = '' }) {
   return (
     <span
       className={`whitespace-nowrap rounded-pill bg-surface px-[18px] pb-[6px] pt-[5px] ${RING} ${className}`}
@@ -84,21 +88,14 @@ function Pill({ children, className = '' }) {
   )
 }
 
-/* The artwork itself, identical in both layouts. 320 by 256, and the only part
-   of the diagram whose geometry is fixed at every width. */
-function Drawer() {
+/* The filed cards and the sticker: everything above the drawer face. Split from
+   the face because /meet-dewey lights the catalog and the drawer separately,
+   and a hover that dimmed both would say the two are one thing. Both halves are
+   positioned against the same container, so `Drawer` composing them renders
+   exactly what one function did before. */
+export function CatalogStack() {
   return (
-    /* Fluid up to its design width. Everything inside is placed with left/right
-       offsets rather than fixed widths, so the drawer narrows gracefully; only
-       this container pinned it, which pushed it into the panel's padding at
-       375px. In the wide layout the column is exactly 320, so the cap binds and
-       the handoff geometry is unchanged. */
-    /* Taller below 416px, which is the width at which the panel stops being able
-       to give the drawer its full 320 and the shelf lines start wrapping. At 320
-       the wrapped text met the pull with zero clearance; the face grows instead
-       of clipping. Above it, the container is 256 and the face resolves to
-       exactly the handoff's 182. */
-    <div className="relative h-[310px] w-full max-w-[320px] min-[416px]:h-[256px]">
+    <>
       <Filed
         box="left-[46px] right-[24px] top-[10px] h-[76px]"
         spin="rotate-[-2.6deg]"
@@ -123,57 +120,86 @@ function Drawer() {
       >
         Catalog
       </span>
+    </>
+  )
+}
 
-      {/* The drawer face. The gradient is the handoff's, and its far stop has no
-          token: the palette carries `accent` at the top but nothing at #0032ca,
-          which is a deeper blue than `navy`. Written out rather than
-          approximated, because the depth of the face is what makes it read as a
-          drawer rather than a rectangle. */}
-      <div
-        /* `bottom-0` rather than a fixed 182: at the design height that is the
-           same 182px, and where the container grows the face grows with it
-           instead of clipping its own contents. */
-        className={`absolute inset-x-0 bottom-0 top-[74px] overflow-hidden rounded-card bg-[linear-gradient(180deg,var(--color-accent)_25%,#0032ca_100%)] ${EDGE}`}
-      >
-        {/* The handoff calls for grain-texture.jpg at 30%. The site does not use
-            that raster — it is not a seamless tile and shows patch seams when
-            repeated — so this is the site's own `Grain`, which is what every
-            other grained surface here draws. Same intent, same opacity. */}
-        <Grain opacity={0.3} />
+/* The drawer face. The gradient is the handoff's, and its far stop has no
+   token: the palette carries `accent` at the top but nothing at #0032ca, which
+   is a deeper blue than `navy`. Written out rather than approximated, because
+   the depth of the face is what makes it read as a drawer rather than a
+   rectangle. */
+export function DrawerFace() {
+  return (
+    <div
+      /* `bottom-0` rather than a fixed 182: at the design height that is the
+         same 182px, and where the container grows the face grows with it
+         instead of clipping its own contents. */
+      className={`absolute inset-x-0 bottom-0 top-[74px] overflow-hidden rounded-card bg-[linear-gradient(180deg,var(--color-accent)_25%,#0032ca_100%)] ${EDGE}`}
+    >
+      {/* The handoff calls for grain-texture.jpg at 30%. The site does not use
+          that raster — it is not a seamless tile and shows patch seams when
+          repeated — so this is the site's own `Grain`, which is what every
+          other grained surface here draws. Same intent, same opacity. */}
+      <Grain opacity={0.3} />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-[7px] rounded-[8px] shadow-[inset_0_0_0_1px_rgba(255,251,243,0.4)]"
+      />
+      <div className="relative flex flex-col gap-[10px] px-[22px] pt-4">
         <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-[7px] rounded-[8px] shadow-[inset_0_0_0_1px_rgba(255,251,243,0.4)]"
-        />
-        <div className="relative flex flex-col gap-[10px] px-[22px] pt-4">
-          <span
-            className={`self-start rounded-[4px] bg-hero-heading px-[10px] pb-[2px] pt-px font-eyebrow text-[12px] uppercase leading-[18px] tracking-[0.08em] text-ink ${RING}`}
-          >
-            Dewey&#8482;
-          </span>
-          <div className="flex flex-col">
-            {SHELF.map((line, i) => (
-              <span
-                key={line}
-                className={`text-[14px] leading-5 text-hero-heading ${
-                  i < SHELF.length - 1
-                    ? 'mb-[6px] border-b border-hero-heading/45 pb-[6px]'
-                    : ''
-                }`}
-              >
-                {line}
-              </span>
-            ))}
-          </div>
-        </div>
-        <span
-          aria-hidden="true"
-          className="absolute inset-x-0 bottom-[14px] flex items-center justify-center gap-[10px]"
+          className={`self-start rounded-[4px] bg-hero-heading px-[10px] pb-[2px] pt-px font-eyebrow text-[12px] uppercase leading-[18px] tracking-[0.08em] text-ink ${RING}`}
         >
-          <span className="h-[6px] w-[6px] rounded-pill bg-ink" />
-          <span className={`h-[15px] w-[96px] rounded-pill bg-cta ${EDGE_SM}`} />
-          <span className="h-[6px] w-[6px] rounded-pill bg-ink" />
+          Dewey&#8482;
         </span>
+        <div className="flex flex-col">
+          {SHELF.map((line, i) => (
+            <span
+              key={line}
+              className={`text-[14px] leading-5 text-hero-heading ${
+                i < SHELF.length - 1
+                  ? 'mb-[6px] border-b border-hero-heading/45 pb-[6px]'
+                  : ''
+              }`}
+            >
+              {line}
+            </span>
+          ))}
+        </div>
       </div>
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-[14px] flex items-center justify-center gap-[10px]"
+      >
+        <span className="h-[6px] w-[6px] rounded-pill bg-ink" />
+        <span className={`h-[15px] w-[96px] rounded-pill bg-cta ${EDGE_SM}`} />
+        <span className="h-[6px] w-[6px] rounded-pill bg-ink" />
+      </span>
+    </div>
+  )
+}
+
+/* The box both halves are positioned against. 320 by 256, and the only part of
+   the diagram whose geometry is fixed at every width.
+
+   Fluid up to its design width. Everything inside is placed with left/right
+   offsets rather than fixed widths, so the drawer narrows gracefully; only this
+   container pinned it, which pushed it into the panel's padding at 375px. In
+   the wide layout the column is exactly 320, so the cap binds and the handoff
+   geometry is unchanged.
+
+   Taller below 416px, which is the width at which the panel stops being able to
+   give the drawer its full 320 and the shelf lines start wrapping. At 320 the
+   wrapped text met the pull with zero clearance; the face grows instead of
+   clipping. Above it, the container is 256 and the face resolves to exactly the
+   handoff's 182. */
+export const DRAWER_BOX = 'relative h-[310px] w-full max-w-[320px] min-[416px]:h-[256px]'
+
+function Drawer() {
+  return (
+    <div className={DRAWER_BOX}>
+      <CatalogStack />
+      <DrawerFace />
     </div>
   )
 }
@@ -182,66 +208,81 @@ function Drawer() {
    a 340px row. The source and agent groups are offset so their row centres land
    on the curve ends at a 43px pitch. Changing the number of rows means
    re-deriving both, which is why the copy lives in this file beside them. */
+export const COLUMN = 'relative h-[340px]'
+
+/* The four source feeds converging on the drawer. */
+export function PublishCurves() {
+  return (
+    <svg
+      viewBox="0 0 190 340"
+      width="190"
+      height="340"
+      fill="none"
+      aria-hidden="true"
+      className="absolute inset-0 overflow-visible"
+    >
+      {[142.5, 185.5, 228.5, 271.5].map((y) => (
+        <path
+          key={y}
+          d={`M6 ${y} C 116 ${y} 134 207 190 207`}
+          stroke="var(--color-ink)"
+          strokeWidth="1.25"
+        />
+      ))}
+      {[142.5, 185.5, 228.5, 271.5].map((y) => (
+        <circle key={y} cx="6" cy={y} r="3.5" fill="var(--color-ink)" />
+      ))}
+    </svg>
+  )
+}
+
+/* The three answer legs fanning back out to the agents. */
+export function AnswerCurves() {
+  return (
+    <svg
+      viewBox="0 0 190 340"
+      width="190"
+      height="340"
+      fill="none"
+      aria-hidden="true"
+      className="absolute inset-0 overflow-visible"
+    >
+      <path d="M0 207 C 66 207 78 164 184 164" stroke="var(--color-ink)" strokeWidth="1.25" />
+      <path d="M0 207 L 184 207" stroke="var(--color-ink)" strokeWidth="1.25" />
+      <path d="M0 207 C 66 207 78 250 184 250" stroke="var(--color-ink)" strokeWidth="1.25" />
+      {[164, 207, 250].map((y) => (
+        <circle key={y} cx="184" cy={y} r="3.5" fill="var(--color-ink)" />
+      ))}
+    </svg>
+  )
+}
+
+/* The pill both connector bundles carry, centred on the same y=207 line. */
+export const PILL_ON_LINE = 'absolute left-1/2 top-[207px] -translate-x-1/2 -translate-y-1/2'
+
 function Wide() {
   return (
     <div className="mx-auto hidden w-[1080px] grid-cols-[1fr_190px_320px_190px_1fr] items-center xl:grid">
-      <div className="relative h-[340px]">
+      <div className={COLUMN}>
         <Eyebrow as="span" tone="ink" className="absolute left-0 top-[44px] whitespace-nowrap">
           Your systems of record
         </Eyebrow>
         <Rows items={SOURCES} className="absolute inset-x-0 top-[121px]" />
       </div>
 
-      <div className="relative h-[340px]">
-        <svg
-          viewBox="0 0 190 340"
-          width="190"
-          height="340"
-          fill="none"
-          aria-hidden="true"
-          className="absolute inset-0 overflow-visible"
-        >
-          {[142.5, 185.5, 228.5, 271.5].map((y) => (
-            <path
-              key={y}
-              d={`M6 ${y} C 116 ${y} 134 207 190 207`}
-              stroke="var(--color-ink)"
-              strokeWidth="1.25"
-            />
-          ))}
-          {[142.5, 185.5, 228.5, 271.5].map((y) => (
-            <circle key={y} cx="6" cy={y} r="3.5" fill="var(--color-ink)" />
-          ))}
-        </svg>
-        <Pill className="absolute left-1/2 top-[207px] -translate-x-1/2 -translate-y-1/2">
-          Curated publish
-        </Pill>
+      <div className={COLUMN}>
+        <PublishCurves />
+        <Pill className={PILL_ON_LINE}>Curated publish</Pill>
       </div>
 
       <Drawer />
 
-      <div className="relative h-[340px]">
-        <svg
-          viewBox="0 0 190 340"
-          width="190"
-          height="340"
-          fill="none"
-          aria-hidden="true"
-          className="absolute inset-0 overflow-visible"
-        >
-          <path d="M0 207 C 66 207 78 164 184 164" stroke="var(--color-ink)" strokeWidth="1.25" />
-          <path d="M0 207 L 184 207" stroke="var(--color-ink)" strokeWidth="1.25" />
-          <path d="M0 207 C 66 207 78 250 184 250" stroke="var(--color-ink)" strokeWidth="1.25" />
-          {[164, 207, 250].map((y) => (
-            <circle key={y} cx="184" cy={y} r="3.5" fill="var(--color-ink)" />
-          ))}
-        </svg>
-        <Pill className="absolute left-1/2 top-[207px] -translate-x-1/2 -translate-y-1/2">
-          Scoped answers
-        </Pill>
+      <div className={COLUMN}>
+        <AnswerCurves />
+        <Pill className={PILL_ON_LINE}>Scoped answers</Pill>
       </div>
 
-      <div className="relative h-[340px]">
+      <div className={COLUMN}>
         <Eyebrow as="span" tone="ink" className="absolute left-0 top-[44px] whitespace-nowrap">
           Your agents
         </Eyebrow>

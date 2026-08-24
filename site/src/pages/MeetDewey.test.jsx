@@ -23,14 +23,18 @@ const page = () =>
 describe('Meet Dewey', () => {
   it('renders every section', () => {
     const { container } = page()
-    expect(container.querySelectorAll('section')).toHaveLength(8)
+    // Six, not the eight this page opened with: #70 folded the librarian,
+    // connectors, and source-of-truth bands into one interactive diagram.
+    expect(container.querySelectorAll('section')).toHaveLength(6)
   })
 
   it('opens the way a top-level page opens, not the way a detail page does', () => {
     const { container } = page()
     // An h1 and no breadcrumb: the comp drew this as a child of What we do, and
     // it is a top-level page instead.
-    expect(container.querySelector('h1')).toHaveTextContent('Every agent needs a library.')
+    expect(container.querySelector('h1')).toHaveTextContent(
+      'Meet Dewey\u2122. The librarian for AI agents (and humans).',
+    )
     expect(container.querySelector('nav[aria-label="Breadcrumb"]')).toBeNull()
   })
 
@@ -43,9 +47,26 @@ describe('Meet Dewey', () => {
     expect(screen.getAllByRole('rowheader')).toHaveLength(7)
   })
 
-  it('describes the librarian diagram as one image rather than loose list items', () => {
+  /* The librarian diagram used to be a `role="img"` with a written-out label,
+     because nothing in it could be operated. Its parts are buttons now, so the
+     picture is reachable rather than described, and the assertion follows the
+     behaviour instead of the old markup. */
+  it('carries the librarian diagram, and every part of it is reachable', () => {
     page()
-    expect(screen.getByRole('img', { name: /never touch the systems of record/ })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Dewey, the librarian' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Your systems of record' })).toBeInTheDocument()
+  })
+
+  it('still makes the three folded-in arguments on the page', () => {
+    page()
+    // One band each before #70; all three are now titles in the diagram.
+    expect(screen.getAllByText('Every library needs a librarian.').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Connectors are code, not prompts.').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('One source of truth, every agent.').length).toBeGreaterThan(0)
+    // The outbound half of the connectors band, which the handoff dropped.
+    expect(
+      screen.getAllByText('Agents propose. Humans approve. Code executes.').length,
+    ).toBeGreaterThan(0)
   })
 
   it('is registered as a route', () => {
