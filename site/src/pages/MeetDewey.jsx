@@ -128,13 +128,18 @@ export default function MeetDewey() {
       <Section>
         <Wrap>
           <H2 className="mb-4">Data in. Answers out.</H2>
-          <Body className="mb-3">
+          {/* Both paragraphs run the band rather than the site's 46rem measure,
+              which is how the handoff sets them: the copy and the illustration
+              under it share one left and right edge, and at the site measure the
+              copy stopped two thirds of the way across a strip that runs the
+              full width. */}
+          <Body className="mb-3 max-w-none">
             Upload a file and Dewey takes it from there: storing, indexing, analyzing, and more.
             Agents then search by meaning, match exact terms when precision matters, or ask a
             question and get a cited answer. Storage, indexing, and retrieval in one API, built for
             agents from the first line.
           </Body>
-          <Body className="mb-10">
+          <Body className="mb-10 max-w-none">
             Every agent and every human works from the same live, rolled-up view of what your
             organization knows.
           </Body>
