@@ -245,7 +245,7 @@ export function Grain({ opacity = 0.5, blend = 'multiply', centred = false, clas
 
 /** `sky` and `ice` are the on-dark tones: sky on navy, ice on the blue band. */
 const EYEBROW_TONE = {
-  accent: 'text-accent',
+  accent: 'text-accent-deep',
   ink: 'text-ink',
   sky: 'text-sky',
   ice: 'text-ice',
@@ -352,7 +352,7 @@ export function ButtonRow({ className = '', children }) {
 /** The style guide's "Tertiary Link": label plus a trailing arrow, no underline. */
 const TEXT_LINK_TONE = {
   ink: 'text-ink',
-  accent: 'text-accent',
+  accent: 'text-accent-deep',
   'on-dark': 'text-hero-heading',
 }
 

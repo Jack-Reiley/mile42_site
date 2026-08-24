@@ -172,19 +172,28 @@ contrast ratios for the pairings the comp actually uses:
 | `ink` on `surface` | 14.57 | pass | pass |
 | `ink` on `cta` | 12.15 | pass | pass |
 | `ink` on `brand` | 6.16 | pass | pass |
-| **`accent` on `page`** | **4.41** | **fail** | pass |
-| **`accent` on `surface`** | **4.03** | **fail** | pass |
+| `accent-deep` on `page` | 6.11 | pass | pass |
+| `accent-deep` on `surface` | 5.58 | pass | pass |
+| `accent-deep` on `tint` | 5.35 | pass | pass |
+| `accent-deep` on `cta` | 4.66 | pass | pass |
+| `ice` on `blue` | 4.55 | pass | pass |
 | **`hero-heading` on `brand`** | **2.51** | **fail** | **fail** |
 
-Two real problems, both carried into `OPEN-QUESTIONS.md` rather than quietly
+The accent rows were the second of two real problems here. As drawn, the accent
+measured 4.41 on `page`, 4.03 on `surface`, 3.86 on `tint`, and 3.36 on the `cta`
+fill a selected selector row uses. At 12px an eyebrow is normal text and needs
+4.5, so every instance failed. #62 answered it with `--color-accent-deep` rather
+than by moving the measured accent, and the rows above are the shipped values.
+See OPEN-QUESTIONS.md question 2.
+
+One real problem remains, carried in `OPEN-QUESTIONS.md` rather than quietly
 corrected here:
 
 1. **The hero H1 fails at 2.51.** `#fffbf3` on `#00b785` misses even the 3.0
    large-text threshold. This is the single most prominent element on the site.
-2. **The blue eyebrow fails at 4.41 on white and 4.03 on cream.** At 12px it is
-   normal text, so it needs 4.5.
 
-These are measurements of the design as drawn, not opinions about it.
+These are measurements of the design as drawn, not opinions about it. The gate
+now reports the hero pairing on every run so it stays visible while it is open.
 
 ## The gate
 
@@ -192,11 +201,15 @@ These are measurements of the design as drawn, not opinions about it.
 npm run tokens:check
 ```
 
-Two independent checks:
+Three independent checks:
 
 1. **Contract** — every pinned value in `verify/expected.json` matches
    `theme.css`. This catches a renamed, mistyped, or silently re-valued token.
-2. **Compilation** — the theme compiles under Tailwind and every declared token
+2. **Contrast** — every text-colour/fill pairing the design draws clears its
+   WCAG AA threshold. This catches a legible theme that produces an illegible
+   pairing. Pairings that are known debt are reported rather than enforced, so
+   they stay visible without blocking the build.
+3. **Compilation** — the theme compiles under Tailwind and every declared token
    produces a utility. This catches a malformed value or a namespace typo.
 
 Both are needed. The compilation check alone is a tautology: it generates its

@@ -15,7 +15,7 @@ export function NumList({ items, as: Tag = 'ul', className = '' }) {
     <Tag className={`${REVEAL_GROUP.relay} flex flex-col gap-4 ${className}`}>
       {items.map((text, i) => (
         <li key={typeof text === 'string' ? text : i} className="grid grid-cols-[2.5rem_1fr] gap-3">
-          <span className="text-eyebrow font-eyebrow text-accent pt-1">
+          <span className="text-eyebrow font-eyebrow text-accent-deep pt-1">
             {String(i + 1).padStart(2, '0')}
           </span>
           <span className="text-body text-ink">{text}</span>
@@ -287,7 +287,7 @@ export function StepStrip({ items, className = '' }) {
         >
           {/* Announced, not hidden. The numeral carries sequence, and an `ol`
               alone does not survive `list-style: none` in every screen reader. */}
-          <span className="mb-1.5 block text-eyebrow font-eyebrow uppercase text-accent">
+          <span className="mb-1.5 block text-eyebrow font-eyebrow uppercase text-accent-deep">
             {String(i + 1).padStart(2, '0')}
           </span>
           <span className="mb-1 block font-heading text-[16px] font-bold leading-[22px] text-ink">

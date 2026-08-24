@@ -53,7 +53,7 @@ export default function SelectorPanel({
               open === i ? 'bg-cta' : 'bg-transparent'
             }`}
           >
-            <span className="font-eyebrow text-eyebrow text-accent">
+            <span className="font-eyebrow text-eyebrow text-accent-deep">
               {String(i + 1).padStart(2, '0')}
             </span>
             <span className="font-heading text-[16px] font-bold leading-[22px] text-ink">

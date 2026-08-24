@@ -271,7 +271,7 @@ export default function StageJourney({ Spot }) {
                             className="grid grid-cols-[34px_minmax(0,1fr)] gap-[10px] animate-[m42-item_420ms_var(--ease-m42)_both] motion-reduce:animate-none"
                             style={{ animationDelay: `${260 + i * 60}ms` }}
                           >
-                            <span className="pt-[5px] font-eyebrow text-eyebrow text-accent">
+                            <span className="pt-[5px] font-eyebrow text-eyebrow text-accent-deep">
                               {String(i + 1).padStart(2, '0')}
                             </span>
                             <span className="text-body text-ink">{text}</span>

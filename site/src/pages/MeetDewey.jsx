@@ -103,13 +103,11 @@ export default function MeetDewey() {
     <>
       <Section band="blue" grain>
         <Wrap>
-          <Eyebrow tone="sky" className="mb-4">Dewey™</Eyebrow>
-          {/* Two sentences in one heading, the way "Data in. Answers out." is
-              set further down the page. The eyebrow keeps the name alone and
-              the heading carries what it is. */}
-          <H1 tone="hero" className="mb-6">
-            Meet Dewey™. The librarian for AI agents (and humans).
-          </H1>
+          {/* Ice, not sky. On the blue band sky measures 3.37 and only ice clears
+              AA, which is the pairing the BAND comment in primitives.jsx reasons
+              about and the one WhatWeDo already uses. */}
+          <Eyebrow tone="ice" className="mb-4">Dewey · The librarian for AI agents</Eyebrow>
+          <H1 tone="hero" className="mb-6">Every agent needs a library.</H1>
           <Lead tone="hero">
             Every agent needs a library. Agents don&#8217;t fail for lack of intelligence. They
             fail for lack of context.

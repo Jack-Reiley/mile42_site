@@ -19,12 +19,25 @@ This is the most prominent element on the site.
 **Question:** darken the green, darken the heading, or accept the ratio as a
 deliberate brand decision? We have not changed either value.
 
-## 2. The blue eyebrow fails contrast — 4.41
+## 2. The blue eyebrow fails contrast — 4.41 (answered)
 
 `--color-accent` `#0073f4` on white measures **4.41**, and **4.03** on
-`--color-surface` cream. At 12px this is normal text and needs 4.5.
+`--color-surface` cream. At 12px this is normal text and needs 4.5. A later
+audit found it worse than that: **3.86** on the tint band and **3.36** on the
+`cta` fill a selected selector row draws, across 42 call sites.
 
 **Question:** darken the blue, enlarge the eyebrow, or accept?
+
+**Answered by #62: none of those.** The accent is `measured` and pinned in
+`verify/expected.json`, so moving it would need a designer revision of the PDF,
+and it would drag the tint band, the blue band, the topic panel fills, and the
+focus ring with it. Enlarging every eyebrow changes the design. Instead the
+accent gained a text-only variant, `--color-accent-deep`, following the
+convention question 15 describes. 82% is the lightest mix clearing 4.5 on all
+four fills; the `cta` case sets it.
+
+The standing ask in question 15 covers what is still open here: whether a
+designer-supplied set should replace these derived variants.
 
 ## 3. No interaction states exist
 
@@ -166,6 +179,11 @@ reproduced by a uniform darken at all — the handoff's `#c93f00` scales red to
 5.01) rather than its exact channels.
 
 `--color-navy` needs no variant; it is already 15.7:1 on white.
+
+#62 added a fourth, `--color-accent-deep`, for the opposite reason: the accent
+is already a text colour, it just misses AA at 12px. Its 82% is the least
+darkening of the four, and like orange it was chosen to hit a contrast target
+rather than to match a handoff tone. See question 2.
 
 **Question:** is `-deep` the right suffix, and should the whole palette get
 darkened variants systematically rather than three of them arriving as one

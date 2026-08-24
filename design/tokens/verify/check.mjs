@@ -36,6 +36,126 @@ const NAMESPACES = [
   ['--breakpoint-', (n) => `${n}:flex`],
 ]
 
+/* ------------------------------------------------------------------ contrast
+ * The gate cannot tell you a value is wrong, but it can tell you a pairing is
+ * illegible. Every text-colour/fill pairing the design actually draws is listed
+ * below with the WCAG 2.1 AA threshold for the size it is set at.
+ *
+ * Two fills are not tokens. `tint` and `blue` are written as mixes in the
+ * `BAND` map in site/src/components/primitives.jsx, which says to promote them
+ * when a second page needs them. They are spelled the same way here and must be
+ * changed with it. Everything else resolves through the theme, so a change to a
+ * parent token carries into the check automatically.
+ */
+const AA_NORMAL = 4.5
+const AA_LARGE = 3
+
+const TINT = 'color-mix(in srgb, var(--color-accent) 10%, white)'
+const BLUE = 'color-mix(in srgb, var(--color-accent) 92%, black)'
+
+const PAIRS = [
+  // Body and heading ink, on every fill it is set on.
+  ['var(--color-ink)', 'var(--color-page)', AA_NORMAL, 'body on the page fill'],
+  ['var(--color-ink)', 'var(--color-surface)', AA_NORMAL, 'body on the surface band'],
+  ['var(--color-ink)', TINT, AA_NORMAL, 'body on the tint band'],
+  ['var(--color-ink)', 'var(--color-cta)', AA_NORMAL, 'body on the gold band'],
+  ['var(--color-ink)', 'var(--color-brand)', AA_NORMAL, 'body on the hero band'],
+  ['var(--color-on-cta)', 'var(--color-cta)', AA_NORMAL, 'button label on its fill'],
+
+  // The accent as text. 12px eyebrows and 16px tertiary links, so normal text
+  // throughout. The gold row is a selected SelectorPanel row; it sets the value.
+  ['var(--color-accent-deep)', 'var(--color-page)', AA_NORMAL, 'accent text on the page fill'],
+  ['var(--color-accent-deep)', 'var(--color-surface)', AA_NORMAL, 'accent text on the surface band'],
+  ['var(--color-accent-deep)', TINT, AA_NORMAL, 'accent text on the tint band'],
+  ['var(--color-accent-deep)', 'var(--color-cta)', AA_NORMAL, 'accent text on a selected gold row'],
+
+  // Eyebrows on the dark bands. `sky` and `ice` are not interchangeable: on the
+  // blue band sky measures 3.37 and only ice clears AA.
+  ['var(--color-sky)', 'var(--color-navy)', AA_NORMAL, 'sky eyebrow on the navy band'],
+  ['var(--color-ice)', BLUE, AA_NORMAL, 'ice eyebrow on the blue band'],
+
+  // Off-white headings on the dark bands.
+  ['var(--color-hero-heading)', 'var(--color-navy)', AA_NORMAL, 'off-white copy on the navy band'],
+  ['var(--color-hero-heading)', 'var(--color-forest)', AA_NORMAL, 'off-white copy on the forest band'],
+  ['var(--color-hero-heading)', BLUE, AA_NORMAL, 'off-white copy on the blue band'],
+
+  // Reported, not enforced. The hero H1 misses even the large-text threshold
+  // and is the most prominent element on the site. Changing either value is a
+  // brand decision nobody has taken. OPEN-QUESTIONS.md question 1.
+  ['var(--color-hero-heading)', 'var(--color-brand)', AA_LARGE, 'the hero H1 on the brand band', 'question 1'],
+]
+
+const NAMED = { white: '#ffffff', black: '#000000' }
+
+/** Split on commas that are not inside parentheses. */
+function splitArgs(s) {
+  const out = []
+  let depth = 0
+  let start = 0
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === '(') depth++
+    else if (s[i] === ')') depth--
+    else if (s[i] === ',' && depth === 0) {
+      out.push(s.slice(start, i).trim())
+      start = i + 1
+    }
+  }
+  out.push(s.slice(start).trim())
+  return out
+}
+
+/** A CSS colour expression to [r,g,b]. Handles hex, the two named colours the
+ *  theme uses, var() indirection, and srgb color-mix, which is all the theme
+ *  and the band maps contain. Anything else is a deliberate error rather than a
+ *  silent zero. */
+function resolveColor(css, expr) {
+  const e = expr.trim()
+
+  if (e in NAMED) return resolveColor(css, NAMED[e])
+
+  if (e.startsWith('#')) {
+    const h = e.slice(1)
+    const full = h.length === 3 ? [...h].map((c) => c + c).join('') : h
+    if (full.length !== 6) throw new Error(`unsupported hex: ${e}`)
+    return [0, 2, 4].map((i) => parseInt(full.slice(i, i + 2), 16))
+  }
+
+  const v = e.match(/^var\(\s*(--[a-z0-9-]+)\s*\)$/i)
+  if (v) {
+    const declared = declaredValue(css, v[1])
+    if (declared === null) throw new Error(`${v[1]} is not declared in theme.css`)
+    return resolveColor(css, declared)
+  }
+
+  const mix = e.match(/^color-mix\(\s*in\s+srgb\s*,([\s\S]*)\)$/i)
+  if (mix) {
+    const [first, second] = splitArgs(mix[1])
+    const pct = first.match(/\s(\d+(?:\.\d+)?)%$/)
+    if (!pct) throw new Error(`color-mix needs an explicit percentage: ${e}`)
+    const p = Number(pct[1]) / 100
+    const a = resolveColor(css, first.slice(0, pct.index))
+    const b = resolveColor(css, second)
+    return [0, 1, 2].map((i) => a[i] * p + b[i] * (1 - p))
+  }
+
+  throw new Error(`cannot resolve colour: ${e}`)
+}
+
+/** WCAG 2.1 relative luminance. */
+function luminance([r, g, b]) {
+  const lin = (v) => {
+    const c = v / 255
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4
+  }
+  return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b)
+}
+
+function contrast(fg, bg) {
+  const a = luminance(fg)
+  const b = luminance(bg)
+  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
+}
+
 function parseTokens(css) {
   const body = css.slice(css.indexOf('@theme'))
   const tokens = []
@@ -86,6 +206,22 @@ const contractCount = Object.entries(expected)
   .filter(([g]) => !g.startsWith('_'))
   .reduce((n, [, e]) => n + Object.keys(e).length, 0)
 
+// 2. Contrast check. The two checks above prove the theme is structurally sound;
+//    neither notices that a pairing it produces is unreadable. This one does.
+const contrastFailures = []
+const knownDebt = []
+for (const [fgExpr, bgExpr, threshold, label, known] of PAIRS) {
+  const ratio = contrast(resolveColor(css, fgExpr), resolveColor(css, bgExpr))
+  const line = `${label} — ${ratio.toFixed(2)}:1, needs ${threshold}`
+  if (known) knownDebt.push(`${line} (${known})`)
+  else if (ratio < threshold) contrastFailures.push(line)
+}
+if (contrastFailures.length) {
+  console.error(`FAIL: ${contrastFailures.length} pairing(s) below WCAG AA:`)
+  for (const f of contrastFailures) console.error(`  ${f}`)
+  process.exit(1)
+}
+
 mkdirSync(SCRATCH, { recursive: true })
 const work = mkdtempSync(join(SCRATCH, 'mile42-tokens-'))
 try {
@@ -120,6 +256,8 @@ try {
   }
 
   console.log(`contract: ${contractCount} pinned value(s) match expected.json`)
+  console.log(`contrast: ${PAIRS.length - knownDebt.length} pairing(s) meet WCAG AA`)
+  for (const d of knownDebt) console.log(`  known:  ${d}`)
   console.log(`tokens:   ${tokens.length} declared, ${tokens.length} produced a utility`)
   console.log('theme.css compiles under Tailwind and is structurally complete')
 } catch (err) {

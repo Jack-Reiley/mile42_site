@@ -60,6 +60,16 @@
   --color-gold-deep: color-mix(in srgb, var(--color-gold) 55%, black); /* #8a6400, 5.39:1 on white */
   --color-orange-deep: color-mix(in srgb, var(--color-orange) 76%, black); /* #c24700, 5.00:1 on white */
 
+  /* The accent needs the same treatment for a different reason. It is already a
+   * text colour rather than a field colour, but at 12px it is normal text and
+   * misses AA everywhere it is drawn: 4.41:1 on page, 4.03 on surface, 3.86 on
+   * tint, and 3.36 on the cta fill a selected selector row draws. 82% is the
+   * lightest mix that clears 4.5:1 on all four, so the cta case sets the value.
+   * It is also the least darkened variant here, which is what keeps it reading
+   * as the accent. Chosen for contrast rather than to match a handoff tone, the
+   * same way orange was. Answers OPEN-QUESTIONS.md question 2. */
+  --color-accent-deep: color-mix(in srgb, var(--color-accent) 82%, black); /* #005ec8, 6.11:1 on white */
+
   /* ------------------------------------------------------------ typeface */
   --font-heading: "Merriweather Sans", ui-sans-serif, system-ui, sans-serif; /* measured */
   --font-body: "Figtree", ui-sans-serif, system-ui, sans-serif; /* measured */
