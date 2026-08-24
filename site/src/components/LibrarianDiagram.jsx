@@ -50,11 +50,14 @@ const DIM = 0.16
 
 const PANE_ID = 'librarian-part'
 
-/* The parts, in the order a keyboard tabs through them: left to right along the
-   inbound path, out to the agents, then the return leg. `outbound` is not in
-   the handoff. It was added because the "Connectors are code, not prompts"
-   band carried a second direction — agent-proposed writes, gated by a human —
-   that none of the handoff's six hotspots said anywhere. */
+/* The parts, in reading order along the path: in from the sources, through the
+   drawer, out to the agents, and finally the return leg.
+ *
+ * This is not tab order, and the difference is worth stating because it looks
+ * like it should be. Tab order is DOM order, and the hotspots are placed in the
+ * grid column each one sits over, so `outbound` — drawn beneath `publish` in
+ * the same corridor — is tabbed third rather than last. That still reads left to
+ * right across the diagram, which is what matters; it just is not this array. */
 const PARTS = [
   {
     key: 'sources',
@@ -135,6 +138,10 @@ const PARTS = [
       ['No drift', 'One platform serving orchestrators, sub-agents, and humans from the same store, so no agent carries a private fork of reality.'],
     ],
   },
+  /* The seventh, and the only one the handoff does not have. The "Connectors are
+     code, not prompts" band argued in two directions, and the outbound half —
+     agent-proposed writes, gated by a human — appears in none of the handoff's
+     six parts. Without this the claim leaves the site. */
   {
     key: 'outbound',
     label: 'Outbound, Dewey to your systems of record',
