@@ -1,7 +1,8 @@
 import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button, Card } from '../components/primitives.jsx'
-import { PlainList, StepStrip, CompareTable, GroupColumns, RuledGroup } from '../components/Lists.jsx'
+import { PlainList, CompareTable, GroupColumns, RuledGroup } from '../components/Lists.jsx'
 import { REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
 import DeweyPillars from '../components/DeweyPillars.jsx'
+import IntegrationSteps from '../components/IntegrationSteps.jsx'
 import LibrarianFlow from '../components/LibrarianFlow.jsx'
 
 /* Ported from the Dewey comp. Copy is verbatim; the structure is the site's
@@ -128,19 +129,18 @@ export default function MeetDewey() {
         <Wrap>
           <H2 className="mb-4">Data in. Answers out.</H2>
           <Body className="mb-3">
-            Dewey is the knowledge layer that fixes it. Upload a file and Dewey takes it from there:
-            storing, indexing, analyzing, and more. Agents then search by meaning, match exact terms
-            when precision matters, or ask a question and get a cited answer. Storage, indexing, and
-            retrieval in one API, built for agents from the first line.
+            Upload a file and Dewey takes it from there: storing, indexing, analyzing, and more.
+            Agents then search by meaning, match exact terms when precision matters, or ask a
+            question and get a cited answer. Storage, indexing, and retrieval in one API, built for
+            agents from the first line.
           </Body>
           <Body className="mb-10">
-            The name is the promise. The Dewey Decimal System made any library navigable by anyone.
-            Dewey does the same for your organization&#8217;s knowledge, and it keeps a literal card
-            catalog: a live, rolled-up view of everything known, for every agent and every human.
+            Every agent and every human works from the same live, rolled-up view of what your
+            organization knows.
           </Body>
 
           <Eyebrow tone="ink" className="mb-3">The whole integration, in five steps</Eyebrow>
-          <StepStrip items={STEPS} />
+          <IntegrationSteps steps={STEPS} />
         </Wrap>
       </Section>
 
