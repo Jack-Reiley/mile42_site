@@ -56,7 +56,7 @@ export default function WhatWeDo() {
     <>
       {/* The hero carries the three paths rather than introducing a band that
           lists them, which is what makes the choice the first thing on the page. */}
-      <Section band="navy">
+      <Section band="navy" grain>
         <Wrap className="grid items-center gap-11 lg:grid-cols-[0.92fr_1.08fr]">
           {/* A relay: the column holds still and its eyebrow, heading, lead and
               buttons each enter from the left in turn. As one block it read as

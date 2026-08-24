@@ -168,6 +168,20 @@ Two other corrections ride along, both from the same verification run:
 
 The ticket body carries the same amendment.
 
+### Contract change at version 10: both amendments in one file
+
+This branch is where the two amendments to SCN-001 meet.
+
+The homepage restructure repointed the scenario at the band rather than at the
+end of the page, because the core practice band now leads the homepage. #60's
+verification repointed the same scenario at two supporting points rather than
+three. Each was made on its own branch against version 8, so neither saw the
+other.
+
+Merging #60 conflicted on exactly those three lines. The resolution keeps both:
+the position clause from the restructure, the count from version 9. Nothing
+else in the file differs between the branches.
+
 ### Contract change at version 11: the trademark exception is written down
 
 Reconciliation of #60 recorded F-004: the out-of-scope list forbade any change
@@ -203,9 +217,15 @@ different ten.
 ### SCN-001 — The homepage carries a Dewey block in position
 
 Given a reader is on the homepage
-When they scroll past the core practice band
-Then a Dewey block is presented before the closing call to action
+When they read the core practice band, which is the first band under the hero
+Then a Dewey block is presented within that same band
 And it names Dewey, states what Dewey does, and shows two supporting points
+
+Amended by the homepage restructure. This scenario originally read "a Dewey
+block is presented before the closing call to action", which described where the
+core practice band sat when #60 was written. That band now leads the page, so
+the scenario pins the block to the band rather than to the end of the page. The
+block's relationship to the practice argument is unchanged.
 
 ### SCN-002 — The homepage block leads to the Dewey page
 

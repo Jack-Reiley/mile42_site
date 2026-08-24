@@ -33,7 +33,7 @@ const OUTCOMES = [
 export default function Advisory() {
   return (
     <>
-      <Section band="navy" pad="header">
+      <Section band="navy" grain pad="header">
         <Wrap>
           <Breadcrumb to="/what-we-do" parent="What we do" current="Advisory" markClass="bg-orange" />
           {/* The comp sets the page header at 38px, which snaps to the H2 token

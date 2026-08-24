@@ -1,8 +1,8 @@
-import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button, Card } from '../components/primitives.jsx'
-import { PlainList, StepStrip, CompareTable, GroupColumns, RuledGroup } from '../components/Lists.jsx'
-import { REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
+import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button } from '../components/primitives.jsx'
+import { CompareTable } from '../components/Lists.jsx'
 import DeweyPillars from '../components/DeweyPillars.jsx'
-import LibrarianFlow from '../components/LibrarianFlow.jsx'
+import IntegrationSteps from '../components/IntegrationSteps.jsx'
+import LibrarianDiagram from '../components/LibrarianDiagram.jsx'
 
 /* Ported from the Dewey comp. Copy is verbatim; the structure is the site's
    own components. The comp draws this as a child of "What we do" with a
@@ -86,20 +86,7 @@ const PILLARS = [
   },
 ]
 
-const AXES = [
-  ['Security', 'No source-system credentials in agent context windows, prompts, or logs. The SOR attack surface never grows with agent count.'],
-  ['Least privilege', 'Agents see only what was deliberately published into their tenant and namespace, scoped and tagged.'],
-  ['Scalability', 'Retrieval load hits Dewey, not production. Your ERP never fields a thousand exploratory queries at 2 a.m.'],
-  ['Stability', 'SOR schemas change on their own release cycles. Dewey decouples agents from those changes, so an upstream migration doesn’t break every agent overnight.'],
-  ['Auditability', 'What agents can reach is an explicit, reviewable publication decision, not a side effect of a service account’s permissions.'],
-  ['Freshness, on your terms', 'Connector schedules are configurable, so the copy updates on your publication cadence. Replace a file in place and the index follows: always exactly one current version.'],
-]
 
-const TRUTH = [
-  ['Update once', 'Change a document and every consumer sees it. No per-agent copies, no reconciliation, no version archaeology.'],
-  ['Shared map', 'The card catalog shows every agent what is known, not just what it happened to ingest.'],
-  ['Humans included', 'The wiki-style admin console reads the same shelf, with browse, search, and cited answers built in.'],
-]
 
 const COMPARE = [
   ['Object storage', 'Stores bytes, answers nothing.', 'Storage plus automatic indexing plus retrieval, one API.'],
@@ -114,12 +101,18 @@ const COMPARE = [
 export default function MeetDewey() {
   return (
     <>
-      <Section band="blue">
+      <Section band="blue" grain>
         <Wrap>
-          <Eyebrow tone="sky" className="mb-4">Dewey™ · The librarian for AI agents</Eyebrow>
-          <H1 tone="hero" className="mb-6">Every agent needs a library.</H1>
+          <Eyebrow tone="sky" className="mb-4">Dewey™</Eyebrow>
+          {/* Two sentences in one heading, the way "Data in. Answers out." is
+              set further down the page. The eyebrow keeps the name alone and
+              the heading carries what it is. */}
+          <H1 tone="hero" className="mb-6">
+            Meet Dewey™. The librarian for AI agents (and humans).
+          </H1>
           <Lead tone="hero">
-            Agents don&#8217;t fail for lack of intelligence. They fail for lack of context.
+            Every agent needs a library. Agents don&#8217;t fail for lack of intelligence. They
+            fail for lack of context.
           </Lead>
         </Wrap>
       </Section>
@@ -127,20 +120,24 @@ export default function MeetDewey() {
       <Section>
         <Wrap>
           <H2 className="mb-4">Data in. Answers out.</H2>
-          <Body className="mb-3">
-            Dewey is the knowledge layer that fixes it. Upload a file and Dewey takes it from there:
-            storing, indexing, analyzing, and more. Agents then search by meaning, match exact terms
-            when precision matters, or ask a question and get a cited answer. Storage, indexing, and
-            retrieval in one API, built for agents from the first line.
+          {/* Both paragraphs run the band rather than the site's 46rem measure,
+              which is how the handoff sets them: the copy and the illustration
+              under it share one left and right edge, and at the site measure the
+              copy stopped two thirds of the way across a strip that runs the
+              full width. */}
+          <Body className="mb-3 max-w-none">
+            Upload a file and Dewey takes it from there: storing, indexing, analyzing, and more.
+            Agents then search by meaning, match exact terms when precision matters, or ask a
+            question and get a cited answer. Storage, indexing, and retrieval in one API, built for
+            agents from the first line.
           </Body>
-          <Body className="mb-10">
-            The name is the promise. The Dewey Decimal System made any library navigable by anyone.
-            Dewey does the same for your organization&#8217;s knowledge, and it keeps a literal card
-            catalog: a live, rolled-up view of everything known, for every agent and every human.
+          <Body className="mb-10 max-w-none">
+            Every agent and every human works from the same live, rolled-up view of what your
+            organization knows.
           </Body>
 
           <Eyebrow tone="ink" className="mb-3">The whole integration, in five steps</Eyebrow>
-          <StepStrip items={STEPS} />
+          <IntegrationSteps steps={STEPS} />
         </Wrap>
       </Section>
 
@@ -160,102 +157,17 @@ export default function MeetDewey() {
         <Wrap>
           <H2 className="mb-4">Every library needs a librarian.</H2>
           <Body className="mb-3">
-            Payroll, orders, HR, finance: systems of record were built for controlled transactions,
-            not for autonomous software running open-ended queries. You don&#8217;t hand a patron
-            the keys to the archive. The librarian retrieves what&#8217;s appropriate and keeps the
-            stacks intact.
+            Marketing and CRM, commerce, ERP and finance, analytics: systems of record were built
+            for controlled transactions, not for autonomous software running open-ended queries.
+            You don&#8217;t hand a patron the keys to the archive. The librarian retrieves
+            what&#8217;s appropriate and keeps the stacks intact.
           </Body>
           <Body className="mb-8">
             That is Dewey&#8217;s job between agents and sensitive systems. Publish curated extracts
             into Dewey and agents work against the copy, never the source.
           </Body>
 
-          <LibrarianFlow
-            sources={['Payroll', 'Orders', 'HR and finance', 'ERP']}
-            dewey={[
-              'Governed, read-optimized copy',
-              'Scoped by tenant and namespace',
-              'Indexed and answerable',
-            ]}
-            agents={['Get answers, never keys', 'No SOR credentials in context', 'Load lands on Dewey']}
-          />
-
-          <GroupColumns className="mt-10">
-            {AXES.map(([title, body]) => (
-              <RuledGroup key={title} title={title} ruleClass="border-navy">
-                <Body className="max-w-none">{body}</Body>
-              </RuledGroup>
-            ))}
-          </GroupColumns>
-        </Wrap>
-      </Section>
-
-      <Section band="surface">
-        <Wrap>
-          <H2 className="mb-4">Connectors are code, not prompts.</H2>
-          <Body className="mb-3">
-            Data flows between Dewey and your systems of record through deterministic connectors:
-            plain code with transformation and validation built in, running on schedules you
-            configure. No LLM in the sync path means no inference cost per run and no behavior that
-            drifts with a model.
-          </Body>
-          <Lead className="mb-8">Agents propose. Humans approve. Code executes.</Lead>
-
-          <div
-            className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} grid gap-4 min-[900px]:grid-cols-2 min-[900px]:gap-6`}
-          >
-            <Card>
-              <Eyebrow tone="ink">Inbound · SOR to Dewey</Eyebrow>
-              <Body className="max-w-none">
-                The acquisitions desk. Connectors pull from source systems on your schedule and
-                shape data on the way in, so everything arrives cataloged and shelved.
-              </Body>
-              <PlainList
-                variant="ruled"
-                items={[
-                  'Deterministic code logic, testable and versioned',
-                  'Transformation and validation shape and organize data into the library',
-                  'Configurable synchronization schedules',
-                ]}
-              />
-            </Card>
-            {/* Mint and shadowed, unlike its pair: the outbound path is the one
-                that writes, so it is the one that carries weight. */}
-            <Card fill="mint">
-              <Eyebrow tone="ink">Outbound · Dewey to SOR</Eyebrow>
-              <Body className="max-w-none">
-                Circulation with a signature. When agent work should flow back to a source system,
-                updates travel as deterministic code, and nothing ships without the
-                librarian&#8217;s stamp.
-              </Body>
-              <PlainList
-                variant="ruled"
-                items={[
-                  'Agents propose changes in Dewey, never in the SOR',
-                  'Gated by human review and signoff',
-                  'Approved updates execute as plain, repeatable code',
-                ]}
-              />
-            </Card>
-          </div>
-        </Wrap>
-      </Section>
-
-      <Section>
-        <Wrap>
-          <H2 className="mb-4">One source of truth, every agent.</H2>
-          <Body>
-            Multi-agent systems drift when each agent carries its own context: every private copy is
-            a fork of reality. Dewey centralizes knowledge and memory so orchestrators, sub-agents,
-            and humans all read from the same catalog.
-          </Body>
-          <GroupColumns className="mt-9">
-            {TRUTH.map(([title, body]) => (
-              <RuledGroup key={title} title={title} ruleClass="border-brand">
-                <Body className="max-w-none">{body}</Body>
-              </RuledGroup>
-            ))}
-          </GroupColumns>
+          <LibrarianDiagram />
         </Wrap>
       </Section>
 

@@ -147,7 +147,7 @@ export default function AgenticAi() {
     <>
       {/* This page sits under Engineering, so it takes the same header the
           What we do detail pages draw: navy band, breadcrumb, hero heading. */}
-      <Section band="navy" pad="header">
+      <Section band="navy" grain pad="header">
         <Wrap>
           <Breadcrumb
             ancestors={[['/what-we-do', 'What we do']]}

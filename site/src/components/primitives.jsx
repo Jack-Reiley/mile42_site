@@ -43,7 +43,7 @@ export const PANEL_FILL_HOVER = {
  * derived from the token rather than added as a hex; if a second page needs it,
  * promote it to a token then.
  */
-const BAND = {
+export const BAND = {
   page: 'bg-page',
   surface: 'bg-surface',
   brand: 'bg-brand',
@@ -91,6 +91,45 @@ const SECTION_PAD = {
 }
 
 /**
+ * What a band needs from grain is texture without a colour change, and no
+ * single blend delivers that across this palette. The blend and the opacity
+ * were solved per band against the real tile: pick the pair that lands a
+ * per-pixel spread near 6/255, visible as grain at arm's length, while
+ * holding the band's mean colour within a level of where it started.
+ *
+ * `soft-light` wins on the deep fields, `overlay` on the mid and pale ones.
+ * All of them run the re-centred tile; see `Grain`.
+ *
+ * The three near-white bands cannot reach that spread at all. There is no
+ * headroom above `surface` for a symmetric blend to work in, so they take the
+ * most the colour will hold and read as a faint tooth rather than grain. None
+ * of them is a hero band today.
+ *
+ * Every band resolves here rather than falling back to a default, so a band
+ * added later has to state its own treatment instead of silently inheriting a
+ * blend its colour may not survive.
+ */
+export const BAND_GRAIN = {
+  navy: { opacity: 0.7, blend: 'soft-light' },
+  forest: { opacity: 0.65, blend: 'soft-light' },
+  /* 0.35 rather than the 0.55 the spread target asks for. Off-white on this
+     band is one of the tightest pairings the site draws, 4.92:1 against a 4.5
+     floor, and the film's texture eats into that: at 0.55 the worst
+     glyph-sized area measures 4.36, below AA. 0.40 lands on exactly 4.50 and
+     0.35 leaves 4.55, which is the margin a threshold this close should have.
+     The band's film is fainter than its neighbours as a result. */
+  blue: { opacity: 0.35, blend: 'overlay' },
+  brand: { opacity: 0.75, blend: 'soft-light' },
+  gold: { opacity: 0.95, blend: 'overlay' },
+  'panel-accent': { opacity: 0.8, blend: 'overlay' },
+  'panel-forest': { opacity: 0.8, blend: 'soft-light' },
+  'panel-orange': { opacity: 0.75, blend: 'overlay' },
+  tint: { opacity: 1, blend: 'overlay' },
+  surface: { opacity: 1, blend: 'overlay' },
+  page: { opacity: 1, blend: 'overlay' },
+}
+
+/**
  * `flush` drops the horizontal inset so a band can carry full-bleed panels that
  * run to the viewport edge. It is a prop for the same reason `pad` is: a padding
  * utility passed through `className` would resolve by stylesheet order rather
@@ -120,16 +159,28 @@ export function Section({
   band = 'page',
   pad = 'default',
   inset = 'default',
+  grain = false,
   className = '',
   children,
   ...rest
 }) {
+  const film = BAND_GRAIN[band]
   return (
     <section
-      className={`m42-band ${BAND[band]} ${SECTION_INSET[inset]} ${SECTION_PAD[pad]} ${className}`}
+      className={`m42-band ${BAND[band]} ${SECTION_INSET[inset]} ${SECTION_PAD[pad]} ${grain ? 'relative isolate' : ''} ${className}`}
       {...rest}
     >
-      {children}
+      {grain ? (
+        <>
+          <Grain opacity={film.opacity} blend={film.blend} centred />
+          {/* Positioned, so the band's content paints above the overlay rather
+              than through it. The film is meant to sit on the colour field, not
+              over the heading it carries. */}
+          <div className="relative">{children}</div>
+        </>
+      ) : (
+        children
+      )}
     </section>
   )
 }
@@ -162,14 +213,30 @@ export function Wrap({ reveal = true, className = '', children }) {
  * The band must be `relative`. Content above it needs no z-index as long as it
  * follows this element in the markup, so the overlay is written first.
  */
-export function Grain({ opacity = 0.5, className = '' }) {
+/*
+ * The tile's own pixels average 203/255 with a spread of 17. That is a light
+ * grey, not a mid grey, which is what `multiply` wants: over a pale field it
+ * darkens a little and the noise shows. Every other blend is written around a
+ * mid-grey source, so handed this tile they spend their range shifting the
+ * colour instead of texturing it. Soft-light on navy lifts the band 11 levels
+ * and returns a spread of 2.7, which is a wash rather than grain.
+ *
+ * `centred` is the affine fix: brightness pulls the mean onto 128, contrast
+ * opens the spread back up. Same raster, re-aimed. It is opt-in because the
+ * catalog drawer's multiply was tuned against the tile as authored.
+ */
+const GRAIN_CENTRED = 'brightness(0.629) contrast(2.78)'
+
+export function Grain({ opacity = 0.5, blend = 'multiply', centred = false, className = '' }) {
   return (
     <span
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-0 mix-blend-multiply ${className}`}
+      className={`pointer-events-none absolute inset-0 ${className}`}
       style={{
         background: "url('/grain-fine.png') repeat",
         backgroundSize: '256px 256px',
+        mixBlendMode: blend,
+        filter: centred ? GRAIN_CENTRED : undefined,
         opacity,
       }}
     />
