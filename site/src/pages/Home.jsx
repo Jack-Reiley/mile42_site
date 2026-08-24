@@ -2,7 +2,8 @@ import {
   Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote,
   Button, ButtonRow, TextLink, Card, Spot,
 } from '../components/primitives.jsx'
-import { NumList } from '../components/Lists.jsx'
+import { NumList, RuledGroup } from '../components/Lists.jsx'
+import CatalogDrawer from '../components/CatalogDrawer.jsx'
 import { REVEAL, REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
 
 const OFFERINGS = [
@@ -63,10 +64,28 @@ const PRINCIPLES = [
 ]
 
 const PRACTICE = [
-  { title: 'Context and workflow design', body: 'Understanding the work well enough to know where an agent belongs and where it does not.' },
-  { title: 'Architecture and integration', body: 'Connecting agents to real data, real systems, and the platforms you already run.' },
-  { title: 'Governance and risk', body: 'Controls, evaluation, and oversight that let the business trust what it deploys.' },
-  { title: 'Adoption and accountability', body: 'Getting the system used, measured, and improved after go-live.' },
+  { title: 'Context and workflow design', body: 'Knowing where an agent belongs, and where it does not.' },
+  { title: 'Architecture and integration', body: 'Connecting agents to real data and the platforms you run.' },
+  { title: 'Governance and risk', body: 'Controls and oversight the business can trust.' },
+  { title: 'Adoption and accountability', body: 'Used, measured, and improved after go-live.' },
+]
+
+/* Dewey's supporting points on the homepage.
+
+   Two, not four. The sealed systems of record and the one shared source both
+   moved into the catalog drawer diagram, which shows them rather than claiming
+   them; repeating them underneath would be the same sentence twice. What is
+   left is the pair the picture cannot make: the approval argument and the cost
+   argument. */
+const DEWEY = [
+  {
+    title: 'Security review has something it can approve.',
+    body: 'What agents are allowed to reach is an explicit decision your team makes and can audit, scoped by business unit and domain.',
+  },
+  {
+    title: 'Every project after the first starts ahead.',
+    body: 'The ingestion, indexing, and retrieval work that consumes the opening weeks of every AI initiative is already done.',
+  },
 ]
 
 export default function Home() {
@@ -180,7 +199,10 @@ export default function Home() {
         </Wrap>
       </Section>
 
-      {/* EXTRAPOLATED */}
+      {/* EXTRAPOLATED. The practice and the product it produced were two bands
+          and are now one: the argument for agentic AI implementation, then the
+          thing that argument built. Splitting them made the reader meet Dewey
+          with no idea why this firm would have one. */}
       <Section band="surface">
         <Wrap>
           <Eyebrow className="mb-4">Core practice</Eyebrow>
@@ -188,20 +210,80 @@ export default function Home() {
           <Lead className="mb-10">
             AI is not valuable because it is impressive. It is valuable when it changes work.
           </Lead>
-          <div className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mb-10 grid gap-4 md:grid-cols-2`}>
+          {/* Ruled columns rather than the cards this band used to draw. Four
+              bordered cards above a bordered panel read as five objects of equal
+              weight, and the panel has to be the one that carries. */}
+          <div className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mb-10 grid gap-x-8 gap-y-7 md:grid-cols-2 lg:grid-cols-4`}>
             {PRACTICE.map((p) => (
-              <Card key={p.title}>
-                <H3>{p.title}</H3>
-                <Body className="max-w-none">{p.body}</Body>
-              </Card>
+              <RuledGroup key={p.title} as="h3" title={p.title} ruleClass="border-t-brand-deep">
+                <Body className="max-w-none text-ink/72">{p.body}</Body>
+              </RuledGroup>
             ))}
           </div>
           <Body className="mb-6">
             We will also tell you when the answer is not an agent. Some problems are better solved
             by fixing a process or writing conventional software, and we say so.
           </Body>
-          <Quote className="mb-6">The opportunity is AI. The constraint is implementation.</Quote>
-          <TextLink to="/what-we-do/engineering/agentic-ai">Inside our agentic AI practice</TextLink>
+          <p className="mb-12">
+            <TextLink to="/what-we-do/engineering/agentic-ai">Inside our agentic AI practice</TextLink>
+          </p>
+
+          {/* Dewey, inside the practice band rather than beside it. `tint` on
+              cream, so the product reads as an object sitting on the argument
+              that produced it. */}
+          <Card fill="tint" className="p-6 md:p-card">
+            <Eyebrow tone="ink">A Mile42 product</Eyebrow>
+            {/* 66rem, and the number is load-bearing. `H3` balances — #56 put
+                `text-balance` on every heading — and balance targets equal lines
+                rather than full ones, so between 46rem and 62rem this heading
+                breaks at exactly the same place and the extra width goes unused.
+                It needs 1039px to set on one line, so anything under 65rem is a
+                cap that does nothing. Below roughly a 1215px viewport the panel
+                is narrower than that and it balances onto two lines again, which
+                is the intended behaviour rather than a fallback.
+
+                68rem, not 66: the trademark symbol added 29px and pushed the
+                single line from 1039 to 1068, straight past a 1056px cap and
+                back onto two lines. 67rem is the first that clears it; 68 is
+                taken so the next word added to this heading does not silently
+                re-wrap it. */}
+            <H3 as="h3" className="max-w-[68rem]">
+              Meet Dewey™, the knowledge layer that keeps agents out of your systems of record.
+            </H3>
+            {/* Two paragraphs: the problem, then the answer. The break falls where
+                the subject changes from the reader's stalled project to the
+                product, so the second opens on the name.
+
+                56rem rather than `Body`'s default 46rem. Measured, the widest
+                line goes from 79 characters to 94 — wider, and still inside what
+                a reader can track back. The heading above sits at 66rem, but
+                matching it would set these at 114 characters a line, which is
+                past where the eye reliably finds the next line. A heading and a
+                paragraph do not want the same measure. */}
+            <Body className="max-w-[56rem]">
+              Most AI projects stall in the same place. The prototype worked, then it met the real
+              business: the documents holding the answers were scattered, the systems holding the
+              rest could not be opened to autonomous software, and security review ended the
+              conversation.
+            </Body>
+            <Body className="max-w-[56rem]">
+              Dewey holds a governed copy of what your agents are allowed to know, indexes it
+              automatically, and answers their questions with sources attached.
+            </Body>
+            <CatalogDrawer className="mt-4" />
+            {/* h4, not h3: these sit under the panel's own h3, where the practice
+                columns above sit under the band's h2. */}
+            <div className="mt-4 grid gap-x-10 gap-y-6 md:grid-cols-2">
+              {DEWEY.map((d) => (
+                <RuledGroup key={d.title} as="h4" title={d.title} ruleClass="border-t-accent">
+                  <Body className="max-w-none text-ink/72">{d.body}</Body>
+                </RuledGroup>
+              ))}
+            </div>
+            <div className="mt-4">
+              <Button to="/meet-dewey">Meet Dewey</Button>
+            </div>
+          </Card>
         </Wrap>
       </Section>
 

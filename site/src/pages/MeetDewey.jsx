@@ -116,7 +116,7 @@ export default function MeetDewey() {
     <>
       <Section band="blue">
         <Wrap>
-          <Eyebrow tone="sky" className="mb-4">Dewey · The librarian for AI agents</Eyebrow>
+          <Eyebrow tone="sky" className="mb-4">Dewey™ · The librarian for AI agents</Eyebrow>
           <H1 tone="hero" className="mb-6">Every agent needs a library.</H1>
           <Lead tone="hero">
             Agents don&#8217;t fail for lack of intelligence. They fail for lack of context.
@@ -146,7 +146,7 @@ export default function MeetDewey() {
 
       <Section band="surface">
         <Wrap>
-          <H2 className="mb-4">Why teams put Dewey between their data and their agents.</H2>
+          <H2 className="mb-4">Why teams put Dewey™ between their data and their agents.</H2>
           <Lead className="mb-3">Seven reasons, one system.</Lead>
           <Body className="mb-10">
             Each pillar pairs the benefit you get with where it lives in the product. Pick one to

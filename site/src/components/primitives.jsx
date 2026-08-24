@@ -319,6 +319,10 @@ const CARD_FILL = {
   page: 'bg-page',
   surface: 'bg-surface',
   mint: 'bg-mint',
+  /* The detail comps' #e6f1fe, the accent at 10% over white. The same value
+     `Section band="tint"` draws, written out rather than shared, because the two
+     maps are keyed differently and one should not constrain the other. */
+  tint: 'bg-[color-mix(in_srgb,var(--color-accent)_10%,white)]',
 }
 
 export function Card({ as: Tag = 'div', fill = 'page', className = '', children }) {
