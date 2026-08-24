@@ -111,7 +111,8 @@ export default function MeetDewey() {
             Meet Dewey™. The librarian for AI agents (and humans).
           </H1>
           <Lead tone="hero">
-            Agents don&#8217;t fail for lack of intelligence. They fail for lack of context.
+            Every agent needs a library. Agents don&#8217;t fail for lack of intelligence. They
+            fail for lack of context.
           </Lead>
         </Wrap>
       </Section>
