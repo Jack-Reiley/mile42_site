@@ -133,26 +133,53 @@ export default function Home() {
           from here down alternate (surface, page, surface) instead of the hero
           handing off to a single undivided field.
 
-          Prose, not columns. It is one argument that builds across three
-          paragraphs, and splitting it into ruled groups would turn a line of
-          reasoning into three unrelated claims. */}
+          A bordered panel rather than copy laid straight on the band. Three
+          paragraphs at the reading measure left the right two-fifths of the
+          column empty, so the band read as a gap between the hero and the
+          practice band rather than as a thing. The panel is the site's own
+          raised-object shape, and the gears fill the column the prose does not
+          want.
+
+          Not the three-column divided card the offerings band draws below. Same
+          border and shadow, different arrangement, because this is one argument
+          that builds across three paragraphs rather than three parallel offers. */}
       <Section band="surface">
         <Wrap>
-          <H2 className="mb-4">Consulting should create momentum, not overhead.</H2>
-          <Body>
-            Traditional firms make more money when projects require more people, more meetings, and
-            more time. That is not a delivery model. It is a conflict of interest.
-          </Body>
-          <Body className="mt-[14px]">
-            Mile42 was built differently. Our senior teams use AI throughout the work to move
-            faster, preserve context, and eliminate unnecessary overhead. We price around the
-            outcome, take responsibility for our estimates, and stay accountable for making the
-            work succeed.
-          </Body>
-          <Body className="mt-[14px]">
-            You get experienced people doing the work, fewer layers between decisions and
-            execution, and more of your investment directed toward the result.
-          </Body>
+          <Card fill="page" className="p-8 md:p-card">
+            {/* The two halves converge, the way FeaturePanel's do: the argument
+                enters from the left and the artwork from the right. */}
+            <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:gap-14">
+              <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
+                <H2 className="mb-4">Consulting should create momentum, not overhead.</H2>
+                {/* The opening paragraph takes the lead size. It is the charge
+                    the other two answer, and at body size the panel opened on
+                    four paragraphs of identical weight with no way in. */}
+                <Lead className="mb-[14px] max-w-none">
+                  Traditional firms make more money when projects require more people, more
+                  meetings, and more time. That is not a delivery model. It is a conflict of
+                  interest.
+                </Lead>
+                <Body className="max-w-none">
+                  Mile42 was built differently. Our senior teams use AI throughout the work to move
+                  faster, preserve context, and eliminate unnecessary overhead. We price around the
+                  outcome, take responsibility for our estimates, and stay accountable for making
+                  the work succeed.
+                </Body>
+                <Body className="mt-[14px] max-w-none">
+                  You get experienced people doing the work, fewer layers between decisions and
+                  execution, and more of your investment directed toward the result.
+                </Body>
+              </div>
+              {/* Stacked under the copy below `lg` and capped far smaller there,
+                  for the reason the How We Work hero caps its gears: at the
+                  desktop size it would fill a phone's width. */}
+              <Spot
+                name="gears"
+                sizes="(min-width: 1024px) 18rem, 11rem"
+                className={`h-auto w-full max-w-[11rem] justify-self-center lg:max-w-[18rem] lg:justify-self-end ${REVEAL.right}`}
+              />
+            </div>
+          </Card>
         </Wrap>
       </Section>
 
