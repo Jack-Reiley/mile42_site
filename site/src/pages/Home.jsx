@@ -96,13 +96,13 @@ export default function Home() {
               buttons each enter from the left in turn. As one block it read as
               a slab sliding; in sequence it reads as a page composing itself. */}
           <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
-            <p className="text-body-lg text-ink mb-6">Execution without the overhead.</p>
+            <p className="text-body-lg text-ink mb-6">The anti-consulting company</p>
             <H1 tone="hero" className="mb-6">
-              We help organizations deliver their most important work.
+              The consulting model is broken. We didn’t bring it with us.
             </H1>
             <Lead className="mb-8">
-              Advisory, engineering, and AI systems that change how work actually gets done. We own
-              the work, you own the results.
+              Mile42 combines senior judgment with AI-native delivery, without bloated teams,
+              endless billing, or recommendations that never become results.
             </Lead>
             <ButtonRow>
               <Button to="/contact">Start a conversation</Button>
@@ -121,6 +121,38 @@ export default function Home() {
             sizes="(min-width: 1024px) 34rem, 90vw"
             className={`h-auto w-full max-w-[34rem] justify-self-center lg:justify-self-end ${REVEAL.right} m42-in-solid`}
           />
+        </Wrap>
+      </Section>
+
+      {/* The economic argument, between the position the hero states and the
+          work the next band describes. Without it "the anti-consulting company"
+          is a claim the reader has to take on faith.
+
+          On surface rather than page: the core practice band below is page, and
+          two bands of the same fill in a row read as one. That makes the run
+          from here down alternate (surface, page, surface) instead of the hero
+          handing off to a single undivided field.
+
+          Prose, not columns. It is one argument that builds across three
+          paragraphs, and splitting it into ruled groups would turn a line of
+          reasoning into three unrelated claims. */}
+      <Section band="surface">
+        <Wrap>
+          <H2 className="mb-4">Consulting should create momentum, not overhead.</H2>
+          <Body>
+            Traditional firms make more money when projects require more people, more meetings, and
+            more time. That is not a delivery model. It is a conflict of interest.
+          </Body>
+          <Body className="mt-[14px]">
+            Mile42 was built differently. Our senior teams use AI throughout the work to move
+            faster, preserve context, and eliminate unnecessary overhead. We price around the
+            outcome, take responsibility for our estimates, and stay accountable for making the
+            work succeed.
+          </Body>
+          <Body className="mt-[14px]">
+            You get experienced people doing the work, fewer layers between decisions and
+            execution, and more of your investment directed toward the result.
+          </Body>
         </Wrap>
       </Section>
 
