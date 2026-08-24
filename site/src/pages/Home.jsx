@@ -137,8 +137,8 @@ export default function Home() {
           paragraphs at the reading measure left the right two-fifths of the
           column empty, so the band read as a gap between the hero and the
           practice band rather than as a thing. The panel is the site's own
-          raised-object shape, and the gears fill the column the prose does not
-          want.
+          raised-object shape, and the brain-and-gear fills the column the prose
+          does not want.
 
           Not the three-column divided card the offerings band draws below. Same
           border and shadow, different arrangement, because this is one argument
@@ -174,7 +174,7 @@ export default function Home() {
                   for the reason the How We Work hero caps its gears: at the
                   desktop size it would fill a phone's width. */}
               <Spot
-                name="gears"
+                name="brain-gear"
                 sizes="(min-width: 1024px) 18rem, 11rem"
                 className={`h-auto w-full max-w-[11rem] justify-self-center lg:max-w-[18rem] lg:justify-self-end ${REVEAL.right}`}
               />
