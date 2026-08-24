@@ -4,7 +4,7 @@
 - Pull request: https://github.com/Jack-Reiley/mile42_site/pull/67
 - Parent epic: none
 - Delivery unit: single ticket, stacked on #63
-- Requirement version: 1
+- Requirement version: 2
 
 ## Objective
 
@@ -61,6 +61,14 @@ Each band then states the blend and opacity that land a spread near 6/255 while
 holding the band's mean colour within one level of where it started. `soft-light`
 wins on the deep fields, `overlay` on the mid and pale ones.
 
+The `blue` band is the one exception, and it is deliberate. Spread is not the
+only constraint: a film also has to leave the text on the band legible, and
+off-white on `blue` is one of the tightest pairings the site draws at 4.92:1
+against a 4.5 floor. At the spread target's 0.55 the worst glyph-sized area
+measures 4.36, below AA. That band runs at 0.35, which leaves 4.55, and its film
+is visibly fainter than its neighbours as a result. Where the two constraints
+disagree, legibility wins.
+
 `Section` gains a `grain` prop, sets `relative isolate`, writes the film first,
 and wraps its contents in a positioned element so type and artwork paint over the
 texture rather than through it. The isolation confines the blend to the band it
@@ -79,7 +87,15 @@ Then a grain film covers that band's colour field
 Given a hero band carrying a heading, buttons, cards, or artwork
 When the band is displayed
 Then that content paints over the film rather than through it
-And its contrast is unchanged from before the film was added
+And no text on the band falls below its WCAG AA threshold at any point under the film
+
+Version 1 of this scenario said the contrast was "unchanged", which does not
+survive contact with a textured background: the mean is unchanged but the
+backdrop is a distribution rather than a colour, and the two readings disagree.
+Verification measured all three models and the wording now names the one that
+governs. Contrast is evaluated over a glyph-sized area, 2 by 9 pixels, not per
+pixel and not on the mean. A single pixel is not what a reader resolves, and the
+mean hides the tail.
 
 ### SCN-003 — Grain stops at the hero
 
@@ -153,7 +169,7 @@ Then its film is identical to before
 | Scenario | Expected level | Automated coverage | E2E behavior | Manual evidence |
 | --- | --- | --- | --- | --- |
 | SCN-001 | Unit + manual | `site/src/pages/hero-grain.test.jsx` | N/A | All 15 routes checked in a browser |
-| SCN-002 | Unit + manual | `site/src/pages/hero-grain.test.jsx` | N/A | Film confirmed first in the band, content in a positioned wrapper |
+| SCN-002 | Unit + manual | `site/src/pages/hero-grain.test.jsx` | N/A | Film first in the band, content in a positioned wrapper. All 13 observed text-and-band pairs measured over 7055 glyph-sized windows; worst case 4.55 on `blue`, every other pair 5.34 or better |
 | SCN-003 | Unit + manual | `site/src/pages/hero-grain.test.jsx` | N/A | No band-wide film below the hero on any route |
 | SCN-004 | Unit | `site/src/pages/hero-grain.test.jsx` | N/A | — |
 | SCN-005 | Manual | — | N/A | Mobile, desktop and 1600px; film measured equal to its band, no seam or pooling |
@@ -168,6 +184,25 @@ render cannot observe, so they are manual by necessity rather than by preference
 
 The tests are written against structure rather than a list of pages, so a route
 added later that forgets its hero grain fails rather than shipping flat.
+
+## Contract change at version 2: SCN-002 names its measurement model
+
+Verification found that SCN-002 as written could not be decided. "Contrast is
+unchanged" is well defined against a flat fill and not against a textured one,
+where the backdrop is a distribution. The three plausible readings disagreed on
+the same pairing: on the `blue` band the mean said 4.98 and improving, the
+per-pixel extreme said 3.48, and a glyph-sized area said 4.36 against a 4.5
+floor.
+
+Brett chose to fix rather than document. The scenario now names the glyph-area
+model, and `blue` runs at 0.35 opacity instead of 0.55 so it clears the floor at
+4.55. Neither change alters any other band.
+
+The per-pixel reading was rejected rather than adopted for safety. A glyph two
+pixels wide does not sample one pixel of noise, and treating it that way would
+have condemned bands that are demonstrably fine: forest with the sky eyebrow
+reads 4.43 per pixel and 5.34 over a glyph.
+
 
 ## Cross-browser evidence
 

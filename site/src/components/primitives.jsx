@@ -112,7 +112,13 @@ const SECTION_PAD = {
 export const BAND_GRAIN = {
   navy: { opacity: 0.7, blend: 'soft-light' },
   forest: { opacity: 0.65, blend: 'soft-light' },
-  blue: { opacity: 0.55, blend: 'overlay' },
+  /* 0.35 rather than the 0.55 the spread target asks for. Off-white on this
+     band is one of the tightest pairings the site draws, 4.92:1 against a 4.5
+     floor, and the film's texture eats into that: at 0.55 the worst
+     glyph-sized area measures 4.36, below AA. 0.40 lands on exactly 4.50 and
+     0.35 leaves 4.55, which is the margin a threshold this close should have.
+     The band's film is fainter than its neighbours as a result. */
+  blue: { opacity: 0.35, blend: 'overlay' },
   brand: { opacity: 0.75, blend: 'soft-light' },
   gold: { opacity: 0.95, blend: 'overlay' },
   'panel-accent': { opacity: 0.8, blend: 'overlay' },
