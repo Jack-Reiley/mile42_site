@@ -72,7 +72,7 @@ export default function LibrarianFlow({ sources, dewey, agents }) {
       <Link label="Inbound connectors" />
       {/* Ink on the green rather than the off-white hero tone, the same rule the
           rest of the site follows on `brand`: cream-50 measures 2.51:1 here. */}
-      <Column eyebrow="Dewey · The librarian" items={dewey} className="bg-brand shadow-hard" />
+      <Column eyebrow="Dewey™ · The librarian" items={dewey} className="bg-brand shadow-hard" />
       <Link label="Scoped retrieval" />
       <Column eyebrow="Agents" items={agents} className="bg-ice" />
     </div>

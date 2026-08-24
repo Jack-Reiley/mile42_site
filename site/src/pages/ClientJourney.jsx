@@ -20,7 +20,7 @@ export default function ClientJourney() {
       {/* The compact page header the detail pages draw, in the fill this page's
           topic panel carries on How We Work. The band rhythm is the detail
           comps' shorter one; the column is the site's single 1240px measure. */}
-      <Section band="panel-accent" pad="header">
+      <Section band="panel-accent" grain pad="header">
         <Wrap>
           <Breadcrumb
             to="/how-we-work"

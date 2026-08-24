@@ -43,7 +43,7 @@ const PRINCIPLES = [
 export default function WhyMile42() {
   return (
     <>
-      <Section band="forest">
+      <Section band="forest" grain>
         <Wrap>
           <Eyebrow tone="sky" className="mb-4">Why we exist</Eyebrow>
           <H1 tone="hero" className="mb-6">We were built around the part that is actually hard.</H1>

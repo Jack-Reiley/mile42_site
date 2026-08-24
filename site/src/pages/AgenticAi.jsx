@@ -1,4 +1,4 @@
-import { Section, Wrap, Eyebrow, H2, H3, Lead, Body, Quote, Button, Breadcrumb } from '../components/primitives.jsx'
+import { Section, Wrap, Eyebrow, H2, H3, Lead, Body, Quote, Button, TextLink, Breadcrumb } from '../components/primitives.jsx'
 import { NumList, TermList, GroupColumns, RuledGroup } from '../components/Lists.jsx'
 import HardParts from '../components/HardParts.jsx'
 
@@ -147,7 +147,7 @@ export default function AgenticAi() {
     <>
       {/* This page sits under Engineering, so it takes the same header the
           What we do detail pages draw: navy band, breadcrumb, hero heading. */}
-      <Section band="navy" pad="header">
+      <Section band="navy" grain pad="header">
         <Wrap>
           <Breadcrumb
             ancestors={[['/what-we-do', 'What we do']]}
@@ -178,6 +178,13 @@ export default function AgenticAi() {
               </RuledGroup>
             ))}
           </GroupColumns>
+          {/* Directly under the listing rather than in a band of its own: the
+              group above claims knowledge and retrieval work, and this is the
+              thing that does it. Default ink, not the page accent — accent on
+              the cream band lands on the AA boundary for body-sized text. */}
+          <p className="mt-8">
+            <TextLink to="/meet-dewey">Meet Dewey, our knowledge layer for agents</TextLink>
+          </p>
         </Wrap>
       </Section>
 
