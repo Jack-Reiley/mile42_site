@@ -96,7 +96,7 @@ export default function Home() {
               buttons each enter from the left in turn. As one block it read as
               a slab sliding; in sequence it reads as a page composing itself. */}
           <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
-            <p className="text-body-lg text-ink mb-6">The anti-consulting company</p>
+            <p className="text-body-lg text-ink mb-6">Execution without the overhead.</p>
             <H1 tone="hero" className="mb-6">
               The consulting model is broken. We didn’t bring it with us.
             </H1>
@@ -125,8 +125,8 @@ export default function Home() {
       </Section>
 
       {/* The economic argument, between the position the hero states and the
-          work the next band describes. Without it "the anti-consulting company"
-          is a claim the reader has to take on faith.
+          work the next band describes. Without it "the consulting model is
+          broken" is a claim the reader has to take on faith.
 
           On surface rather than page: the core practice band below is page, and
           two bands of the same fill in a row read as one. That makes the run
@@ -137,8 +137,7 @@ export default function Home() {
           paragraphs at the reading measure left the right two-fifths of the
           column empty, so the band read as a gap between the hero and the
           practice band rather than as a thing. The panel is the site's own
-          raised-object shape, and the brain-and-gear fills the column the prose
-          does not want.
+          raised-object shape.
 
           Not the three-column divided card the offerings band draws below. Same
           border and shadow, different arrangement, because this is one argument
@@ -146,37 +145,59 @@ export default function Home() {
       <Section band="surface">
         <Wrap>
           <Card fill="page" className="p-8 md:p-card">
-            {/* The two halves converge, the way FeaturePanel's do: the argument
-                enters from the left and the artwork from the right. */}
-            <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:gap-14">
-              <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
+            {/* The artwork takes the LEFT column, against the site's usual
+                copy-left arrangement, because the hero's illustration sits at
+                the top right of the band immediately above. Two spots of this
+                size on the same edge, one under the other, read as a column of
+                artwork running down the page rather than as two bands that each
+                happen to carry one.
+
+                Placed by grid column rather than by source order, so the copy
+                still comes first in the document and the stacked layout below
+                `lg` still opens on the heading rather than on a picture.
+
+                The artwork column starts at the card's own 40px padding and is
+                not centred in the card. Centring the pair to even out the slack
+                either side pushed the spot inward until it floated in the
+                card's corner instead of anchoring it.
+
+                The two halves still converge the way FeaturePanel's do, with
+                the directions swapped to match the sides they now sit on. */}
+            <div className="grid items-center gap-8 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-12">
+              <div className={`lg:col-start-2 lg:row-start-1 ${REVEAL_GROUP.right} ${REVEAL.still}`}>
                 <H2 className="mb-4">Consulting should create momentum, not overhead.</H2>
                 {/* The opening paragraph takes the lead size. It is the charge
                     the other two answer, and at body size the panel opened on
                     four paragraphs of identical weight with no way in. */}
-                <Lead className="mb-[14px] max-w-none">
+                <Lead className="mb-[14px]">
                   Traditional firms make more money when projects require more people, more
                   meetings, and more time. That is not a delivery model. It is a conflict of
                   interest.
                 </Lead>
-                <Body className="max-w-none">
+                <Body>
                   Mile42 was built differently. Our senior teams use AI throughout the work to move
                   faster, preserve context, and eliminate unnecessary overhead. We price around the
                   outcome, take responsibility for our estimates, and stay accountable for making
                   the work succeed.
                 </Body>
-                <Body className="mt-[14px] max-w-none">
+                <Body className="mt-[14px]">
                   You get experienced people doing the work, fewer layers between decisions and
                   execution, and more of your investment directed toward the result.
                 </Body>
               </div>
-              {/* Stacked under the copy below `lg` and capped far smaller there,
+              {/* 13rem, between the 18 this started at and the 9 that followed.
+                  It is a supporting mark beside an argument rather than the
+                  subject of the panel, so it should not carry the weight the
+                  hero illustration does; at 9 it read as an icon that had lost
+                  its way into a large card.
+
+                  Stacked under the copy below `lg` and capped smaller there,
                   for the reason the How We Work hero caps its gears: at the
                   desktop size it would fill a phone's width. */}
               <Spot
                 name="brain-gear"
-                sizes="(min-width: 1024px) 18rem, 11rem"
-                className={`h-auto w-full max-w-[11rem] justify-self-center lg:max-w-[18rem] lg:justify-self-end ${REVEAL.right}`}
+                sizes="(min-width: 1024px) 13rem, 8rem"
+                className={`h-auto w-full max-w-[8rem] justify-self-center lg:col-start-1 lg:row-start-1 lg:max-w-[13rem] lg:justify-self-start ${REVEAL.left}`}
               />
             </div>
           </Card>

@@ -89,19 +89,19 @@
     "height": 1553,
     "variants": [
       {
-        "width": 192,
-        "height": 208,
-        "bytes": 8744
+        "width": 128,
+        "height": 139,
+        "bytes": 5318
       },
       {
-        "width": 384,
-        "height": 416,
-        "bytes": 20750
+        "width": 256,
+        "height": 278,
+        "bytes": 12662
       },
       {
-        "width": 576,
-        "height": 625,
-        "bytes": 34262
+        "width": 416,
+        "height": 451,
+        "bytes": 22922
       }
     ]
   },

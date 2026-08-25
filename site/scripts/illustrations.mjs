@@ -66,10 +66,10 @@ const MAP = {
   'lightbulb_with_color.png': { key: 'lightbulb', widths: [256, 512] },
   // The How we work hero renders it near 352px, so 384/768 covers 1x and 2x.
   'gears_with_color.png': { key: 'gears', widths: [384, 768] },
-  // The home page's anti-consulting panel renders it at 176px stacked and 288px
-  // beside the copy, so 192/384 covers the phone at 1x and 2x and 384/576 the
-  // desktop column at both.
-  'Brain_gear.png': { key: 'brain-gear', widths: [192, 384, 576] },
+  // The home page's anti-consulting panel renders it at 128px stacked and 208px
+  // beside the copy, so 128/256 covers the phone at 1x and 2x and 256/416 the
+  // card's own column at both.
+  'Brain_gear.png': { key: 'brain-gear', widths: [128, 256, 416] },
   'lightbulb_mono.png': { key: 'path-lightbulb', widths: [64, 128, 256], tint: '--color-orange' },
   'gears_mono.png': { key: 'path-gears', widths: [64, 104, 128, 208, 256], tint: '--color-brand' },
   // 64/128/256 for the 64px path card, 104/208 for the 52px feature panel. The
