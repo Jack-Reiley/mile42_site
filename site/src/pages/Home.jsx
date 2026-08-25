@@ -96,7 +96,7 @@ export default function Home() {
               buttons each enter from the left in turn. As one block it read as
               a slab sliding; in sequence it reads as a page composing itself. */}
           <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
-            <p className="text-body-lg text-ink mb-6">Execution without the overhead.</p>
+            <p className="text-body-lg text-ink mb-6">Execution, Rebuilt.</p>
             <H1 tone="hero" className="mb-6">
               The consulting model is broken. We didn’t bring it with us.
             </H1>
