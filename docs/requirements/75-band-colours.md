@@ -1,7 +1,7 @@
 # #75 — Move the homepage bands to blue and Meet Dewey's to a new orange-deep
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/75
-- Pull request: TBD
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/76
 - Parent epic: none
 - Delivery unit: unit-74-75-hero-copy-and-band-colours
 - Requirement version: 1

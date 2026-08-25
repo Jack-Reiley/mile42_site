@@ -1,7 +1,7 @@
 # #74 — Rewrite the homepage hero and add the anti-consulting band
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/74
-- Pull request: TBD
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/76
 - Parent epic: none
 - Delivery unit: unit-74-75-hero-copy-and-band-colours
 - Requirement version: 1
