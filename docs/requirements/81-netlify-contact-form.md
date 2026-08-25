@@ -1,7 +1,7 @@
 # #81 — Deliver contact form submissions through Netlify Forms
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/81
-- Pull request: PR_URL_PLACEHOLDER
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/82
 - Parent epic: none
 - Delivery unit: independent
 - Requirement version: 1
