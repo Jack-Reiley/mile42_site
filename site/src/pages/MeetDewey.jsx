@@ -101,15 +101,17 @@ const COMPARE = [
 export default function MeetDewey() {
   return (
     <>
-      {/* Orange is an ink band, so every line here takes the default tone. The
-          eyebrow was ice and the heading and lead were off-white, which is what
-          the blue band this used to be wanted; on orange off-white reaches
-          2.97:1 and ice 2.75, both under AA, while ink reaches 5.20. */}
-      <Section band="orange" grain>
+      {/* The off-white tone throughout, which is what this band was chosen to
+          carry: it reaches 4.85:1 here where ink reaches 3.19.
+
+          The eyebrow takes `hero` rather than the `ice` it had on the blue band
+          this replaces. Ice measures 4.49 on this fill, a hundredth under AA
+          before the grain film touches it, and sky 3.32. See EYEBROW_TONE. */}
+      <Section band="orange-deep" grain>
         <Wrap>
-          <Eyebrow tone="ink" className="mb-4">Dewey · The librarian for AI agents</Eyebrow>
-          <H1 className="mb-6">Every agent needs a library.</H1>
-          <Lead>
+          <Eyebrow tone="hero" className="mb-4">Dewey · The librarian for AI agents</Eyebrow>
+          <H1 tone="hero" className="mb-6">Every agent needs a library.</H1>
+          <Lead tone="hero">
             Every agent needs a library. Agents don&#8217;t fail for lack of intelligence. They
             fail for lack of context.
           </Lead>
@@ -181,13 +183,16 @@ export default function MeetDewey() {
         </Wrap>
       </Section>
 
-      {/* Orange, so the page opens and closes on the same field. Both lines
-          already took the default ink tone the gold band wanted, and orange
-          wants the same one. */}
-      <Section band="orange">
+      {/* The same field the page opens on. Both lines were ink, which is what
+          the gold band this replaces wanted; this one wants the off-white.
+
+          No grain: only a page's opening band carries the film. So the
+          off-white here measures the full 4.85:1 rather than the 4.54 the
+          filmed hero holds. */}
+      <Section band="orange-deep">
         <Wrap className="text-center">
-          <H2 className="mb-4">Give your agents a library.</H2>
-          <Lead className="mx-auto mb-8">
+          <H2 tone="hero" className="mb-4">Give your agents a library.</H2>
+          <Lead tone="hero" className="mx-auto mb-8">
             The fastest way to judge a knowledge layer is to put your knowledge in it. Bring a
             corpus.
           </Lead>

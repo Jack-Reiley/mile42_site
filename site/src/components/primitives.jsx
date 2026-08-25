@@ -63,11 +63,16 @@ export const BAND = {
   // is used rather than `--color-cta` so the yellow CTA button still separates
   // from the band it sits on.
   gold: 'bg-gold',
-  // Ink-typed, like `gold`, and for the same reason: off-white reaches 2.97:1
-  // here and ink 5.20. It is the tightest ink pairing the site draws — every
-  // other ink band clears 8:1 — which is what constrains its grain. See
-  // BAND_GRAIN.
-  orange: 'bg-orange',
+  // The orange darkened until off-white survives on it: 4.85:1, where the
+  // orange it derives from reaches 2.97 and carries ink instead. There is no
+  // orange that carries both — the two tones cross around #e05300, where
+  // neither clears AA — so this band is the light-typed half of that choice.
+  //
+  // The same 76% mix `--color-orange-deep` draws, written out rather than
+  // referencing it, for the reason CARD_FILL writes out the tint: that token's
+  // job is a small glyph staying legible on white, this one is a field, and a
+  // change made for one should not silently move the other.
+  'orange-deep': 'bg-[color-mix(in_srgb,var(--color-orange)_76%,black)]',
   // The three How We Work topic panels, each carried onto that topic's own page
   // as its header so the child page reads as the same block of colour. Light,
   // like `gold`, so nothing on them takes the off-white hero tone.
@@ -126,18 +131,18 @@ export const BAND_GRAIN = {
   blue: { opacity: 0.35, blend: 'overlay' },
   brand: { opacity: 0.75, blend: 'soft-light' },
   gold: { opacity: 0.95, blend: 'overlay' },
-  /* 0.60 rather than the 0.80 the spread target asks for, and the reason is
-     the same one that holds `blue` down: the band is a tight pairing and the
-     film's texture eats into it. Ink on bare orange is 5.20:1 against a 4.5
-     floor, and overlay at 0.80 lands the target 6/255 spread but drops the
-     darkest one percent of the field to 4.39, under AA. 0.65 sits on 4.51 and
-     0.60 leaves 4.55, which is the margin a threshold this close should have.
+  /* 0.40, held down by contrast rather than by the spread target, exactly as
+     `blue` is. Off-white on this band is 4.85:1 against a 4.5 floor, and the
+     film eats into that: overlay at 0.45 lands the worst glyph-sized area on
+     4.50 and 0.40 leaves 4.54, which is the margin a threshold this close
+     should have. The 6/255 spread wants 0.60, and there the same measure reads
+     4.39.
 
-     Overlay rather than soft-light, which the palette note would also allow for
-     a mid colour. Soft-light cannot reach the spread target on this band at any
-     opacity — it tops out at 4.82/255 fully opaque — and at the opacity where
-     it matches this contrast it returns less texture than overlay does here. */
-  orange: { opacity: 0.6, blend: 'overlay' },
+     Overlay rather than soft-light. Soft-light returns a comparable spread at
+     the same contrast but drags the band's mean 1.1 levels off where it
+     started, past the one level this file holds every band to; overlay moves it
+     by nothing measurable. */
+  'orange-deep': { opacity: 0.4, blend: 'overlay' },
   'panel-accent': { opacity: 0.8, blend: 'overlay' },
   'panel-forest': { opacity: 0.8, blend: 'soft-light' },
   'panel-orange': { opacity: 0.75, blend: 'overlay' },
@@ -260,12 +265,18 @@ export function Grain({ opacity = 0.5, blend = 'multiply', centred = false, clas
   )
 }
 
-/** `sky` and `ice` are the on-dark tones: sky on navy, ice on the blue band. */
+/** `sky` and `ice` are the on-dark tones: sky on navy, ice on the blue band.
+ *
+ * `hero` is the off-white the headings take, for a dark band where neither
+ * coloured tone survives. On `orange-deep` sky measures 3.32 and ice 4.49, a
+ * hundredth under AA before the grain film touches it, where the off-white
+ * reaches 4.85. */
 const EYEBROW_TONE = {
   accent: 'text-accent-deep',
   ink: 'text-ink',
   sky: 'text-sky',
   ice: 'text-ice',
+  hero: 'text-hero-heading',
 }
 
 /* `rest` is spread so a call site can hide an eyebrow that duplicates a name
