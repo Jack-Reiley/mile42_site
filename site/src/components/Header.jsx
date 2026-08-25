@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router'
 import { Button, Eyebrow } from './primitives.jsx'
+import logo from '../assets/mile42-logo.svg'
 
-/* EXTRAPOLATED — no comp exists for the header, and no logo exists in either
-   PDF, so the wordmark stands in for a lockup. See EXTRAPOLATIONS.md.
+/* EXTRAPOLATED — no comp exists for the header. The lockup is the supplied
+   brand SVG; the rest of the bar is extrapolated. See EXTRAPOLATIONS.md.
 
    The panel carries each section page's own copy rather than a nav-only
    summary, so the menu and the page it leads to make the same promise. Update
@@ -241,8 +242,18 @@ export default function Header() {
         }`}
       >
         <div className="mx-auto flex w-full max-w-site items-center justify-between gap-6">
-          <Link to="/" className="font-heading text-heading-3 text-ink no-underline">
-            Mile42
+          {/* The asset's viewBox is cropped to the drawn mark, so the img box
+              and the artwork share an edge and the lockup keeps the page grid's
+              inset the way the wordmark did (#23). The intrinsic size keeps the
+              bar from reflowing before the file decodes. */}
+          <Link to="/" className="no-underline">
+            <img
+              src={logo}
+              alt="Mile42"
+              width="242"
+              height="120"
+              className="block h-10 w-auto"
+            />
           </Link>
 
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
