@@ -41,17 +41,18 @@ const NAMESPACES = [
  * illegible. Every text-colour/fill pairing the design actually draws is listed
  * below with the WCAG 2.1 AA threshold for the size it is set at.
  *
- * Two fills are not tokens. `tint` and `blue` are written as mixes in the
- * `BAND` map in site/src/components/primitives.jsx, which says to promote them
- * when a second page needs them. They are spelled the same way here and must be
- * changed with it. Everything else resolves through the theme, so a change to a
- * parent token carries into the check automatically.
+ * Three fills are not tokens. `tint`, `blue` and `orange-deep` are written as
+ * mixes in the `BAND` map in site/src/components/primitives.jsx, which says to
+ * promote them when a second page needs them. They are spelled the same way
+ * here and must be changed with it. Everything else resolves through the theme,
+ * so a change to a parent token carries into the check automatically.
  */
 const AA_NORMAL = 4.5
 const AA_LARGE = 3
 
 const TINT = 'color-mix(in srgb, var(--color-accent) 10%, white)'
 const BLUE = 'color-mix(in srgb, var(--color-accent) 92%, black)'
+const ORANGE_DEEP = 'color-mix(in srgb, var(--color-orange) 76%, black)'
 
 const PAIRS = [
   // Body and heading ink, on every fill it is set on.
@@ -73,11 +74,15 @@ const PAIRS = [
   // blue band sky measures 3.37 and only ice clears AA.
   ['var(--color-sky)', 'var(--color-navy)', AA_NORMAL, 'sky eyebrow on the navy band'],
   ['var(--color-ice)', BLUE, AA_NORMAL, 'ice eyebrow on the blue band'],
+  // Meet Dewey's eyebrow. Neither coloured on-dark tone survives on this fill —
+  // ice measures 4.49 and sky 3.32 — so it takes the off-white the headings
+  // take, and that pairing is the row below rather than a fourth entry here.
 
   // Off-white headings on the dark bands.
   ['var(--color-hero-heading)', 'var(--color-navy)', AA_NORMAL, 'off-white copy on the navy band'],
   ['var(--color-hero-heading)', 'var(--color-forest)', AA_NORMAL, 'off-white copy on the forest band'],
   ['var(--color-hero-heading)', BLUE, AA_NORMAL, 'off-white copy on the blue band'],
+  ['var(--color-hero-heading)', ORANGE_DEEP, AA_NORMAL, 'off-white copy on the orange-deep band'],
 
   // Reported, not enforced. The hero H1 misses even the large-text threshold
   // and is the most prominent element on the site. Changing either value is a
