@@ -89,18 +89,29 @@ const DEWEY = [
 export default function Home() {
   return (
     <>
-      {/* Follows design/Homepage.pdf */}
-      <Section band="brand" grain className="overflow-hidden">
+      {/* Follows design/Homepage.pdf, except for the band colour. The comp
+          draws this green; it is blue here because the green was replaced.
+
+          `blue` is the accent taken up to field strength, and its grain recipe
+          was already solved for exactly this pairing: the film runs at 0.35
+          rather than the spread target's 0.55 because off-white on this band is
+          4.92:1 against a 4.5 floor and the texture eats into that. See the
+          BAND_GRAIN note in primitives.jsx.
+
+          Every line in this column takes the off-white tone. Ink reaches 3.14:1
+          here, under AA, so the eyebrow and the lead move with the heading
+          rather than staying the default. */}
+      <Section band="blue" grain className="overflow-hidden">
         <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           {/* A relay: the column holds still and its eyebrow, heading, lead and
               buttons each enter from the left in turn. As one block it read as
               a slab sliding; in sequence it reads as a page composing itself. */}
           <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
-            <p className="text-body-lg text-ink mb-6">Execution, Rebuilt.</p>
+            <p className="text-body-lg text-hero-heading mb-6">Execution, Rebuilt.</p>
             <H1 tone="hero" className="mb-6">
               The consulting model is broken. We didn’t bring it with us.
             </H1>
-            <Lead className="mb-8">
+            <Lead tone="hero" className="mb-8">
               Mile42 combines senior judgment with AI-native delivery, without bloated teams,
               endless billing, or recommendations that never become results.
             </Lead>
