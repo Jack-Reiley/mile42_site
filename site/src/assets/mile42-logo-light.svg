@@ -2,9 +2,11 @@
 <!-- Generator: Adobe Illustrator 28.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!-- Framing only: the viewBox is the artwork's own bounding box rather than
      the export's padded 0 0 288 144, so both lockups size from the drawn mark
-     and not from an empty margin. No path, colour, or proportion is altered. -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="23.9 11.9 242.1 120" style="enable-background:new 0 0 288 144;" xml:space="preserve">
+     and not from an empty margin. The box is padded back to an exact 2:1
+     vertically so a whole-pixel height always yields a whole-pixel width. No
+     path, colour, or proportion is altered. -->
+<svg version="1.1" id="Layer_1" width="242.1" height="121.05" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="23.9 11.365 242.1 121.05" style="enable-background:new 0 0 288 144;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:#F9F4EC;}
 </style>

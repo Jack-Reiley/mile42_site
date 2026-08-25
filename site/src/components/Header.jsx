@@ -244,15 +244,23 @@ export default function Header() {
         <div className="mx-auto flex w-full max-w-site items-center justify-between gap-6">
           {/* The asset's viewBox is cropped to the drawn mark, so the img box
               and the artwork share an edge and the lockup keeps the page grid's
-              inset the way the wordmark did (#23). The intrinsic size keeps the
-              bar from reflowing before the file decodes. */}
+              inset the way the wordmark did (#23).
+
+              Both axes are sized explicitly rather than one being `auto`. The
+              mark's ring tapers to a hairline, and an `auto` width resolved to
+              80.695px, which put every stroke off the device pixel grid: 38% of
+              the ring's ink rasterized as partial alpha and its thin arc topped
+              out at alpha 191, which is what read as a soft, grey line. The
+              asset is an exact 2:1, so 96x48 is whole pixels on both axes at
+              any device ratio. 48px is also the most the bar can give: the CTA
+              is 52px and sets the header's height. */}
           <Link to="/" className="no-underline">
             <img
               src={logo}
               alt="Mile42"
-              width="242"
-              height="120"
-              className="block h-10 w-auto"
+              width="96"
+              height="48"
+              className="block h-12 w-24"
             />
           </Link>
 
