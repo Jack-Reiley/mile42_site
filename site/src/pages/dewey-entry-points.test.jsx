@@ -104,13 +104,17 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
      which was where the practice band sat at the time. The homepage restructure
      moved that band to the front, so what this scenario pins is the band's
      place in the page order rather than its distance from the end. */
-  it('sits in the band directly under the hero', () => {
+  it('sits in the band the hero opening hands off to', () => {
     const { container } = draw(Home)
     const bands = [...container.querySelectorAll('section')]
     const dewey = bands.findIndex((b) => b.textContent.includes('the knowledge layer that keeps agents'))
 
-    expect(dewey).toBe(1)
-    expect(bands[0].textContent).toContain('We help organizations deliver their most important work')
+    /* Two, not one. The anti-consulting argument band now sits between the hero
+       and the practice band that carries Dewey. Dewey is still in the opening
+       run of the page rather than filed near the end, which is what #60 was
+       protecting. */
+    expect(dewey).toBe(2)
+    expect(bands[0].textContent).toContain('The consulting model is broken')
     expect(bands.at(-1).textContent).toContain('Tell us what needs to work.')
   })
 

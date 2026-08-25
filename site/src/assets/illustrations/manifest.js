@@ -58,6 +58,14 @@ const META = {
     alt: 'Two interlocking gears',
     placeholder: false,
   },
+  /* Level Two by size. The treatment is a third one: ink linework with no flat
+     fill and no tint, so it ships in the artwork's own black rather than being
+     recoloured from a token the way the `path-*` masks are. */
+  'brain-gear': {
+    level: 2,
+    alt: 'A brain and a gear drawn as one shape, divided down the middle',
+    placeholder: false,
+  },
   'path-lightbulb': {
     level: 3,
     alt: 'A lit lightbulb',

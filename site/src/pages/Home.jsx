@@ -89,20 +89,31 @@ const DEWEY = [
 export default function Home() {
   return (
     <>
-      {/* Follows design/Homepage.pdf */}
-      <Section band="brand" grain className="overflow-hidden">
+      {/* Follows design/Homepage.pdf, except for the band colour. The comp
+          draws this green; it is blue here because the green was replaced.
+
+          `blue` is the accent taken up to field strength, and its grain recipe
+          was already solved for exactly this pairing: the film runs at 0.35
+          rather than the spread target's 0.55 because off-white on this band is
+          4.92:1 against a 4.5 floor and the texture eats into that. See the
+          BAND_GRAIN note in primitives.jsx.
+
+          Every line in this column takes the off-white tone. Ink reaches 3.14:1
+          here, under AA, so the eyebrow and the lead move with the heading
+          rather than staying the default. */}
+      <Section band="blue" grain className="overflow-hidden">
         <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           {/* A relay: the column holds still and its eyebrow, heading, lead and
               buttons each enter from the left in turn. As one block it read as
               a slab sliding; in sequence it reads as a page composing itself. */}
           <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
-            <p className="text-body-lg text-ink mb-6">Execution without the overhead.</p>
+            <p className="text-body-lg text-hero-heading mb-6">Execution, Rebuilt.</p>
             <H1 tone="hero" className="mb-6">
-              We help organizations deliver their most important work.
+              The consulting model is broken. We didn’t bring it with us.
             </H1>
-            <Lead className="mb-8">
-              Advisory, engineering, and AI systems that change how work actually gets done. We own
-              the work, you own the results.
+            <Lead tone="hero" className="mb-8">
+              Mile42 combines senior judgment with AI-native delivery, without bloated teams,
+              endless billing, or recommendations that never become results.
             </Lead>
             <ButtonRow>
               <Button to="/contact">Start a conversation</Button>
@@ -121,6 +132,86 @@ export default function Home() {
             sizes="(min-width: 1024px) 34rem, 90vw"
             className={`h-auto w-full max-w-[34rem] justify-self-center lg:justify-self-end ${REVEAL.right} m42-in-solid`}
           />
+        </Wrap>
+      </Section>
+
+      {/* The economic argument, between the position the hero states and the
+          work the next band describes. Without it "the consulting model is
+          broken" is a claim the reader has to take on faith.
+
+          On surface rather than page: the core practice band below is page, and
+          two bands of the same fill in a row read as one. That makes the run
+          from here down alternate (surface, page, surface) instead of the hero
+          handing off to a single undivided field.
+
+          A bordered panel rather than copy laid straight on the band. Three
+          paragraphs at the reading measure left the right two-fifths of the
+          column empty, so the band read as a gap between the hero and the
+          practice band rather than as a thing. The panel is the site's own
+          raised-object shape.
+
+          Not the three-column divided card the offerings band draws below. Same
+          border and shadow, different arrangement, because this is one argument
+          that builds across three paragraphs rather than three parallel offers. */}
+      <Section band="surface">
+        <Wrap>
+          <Card fill="page" className="p-8 md:p-card">
+            {/* The artwork takes the LEFT column, against the site's usual
+                copy-left arrangement, because the hero's illustration sits at
+                the top right of the band immediately above. Two spots of this
+                size on the same edge, one under the other, read as a column of
+                artwork running down the page rather than as two bands that each
+                happen to carry one.
+
+                Placed by grid column rather than by source order, so the copy
+                still comes first in the document and the stacked layout below
+                `lg` still opens on the heading rather than on a picture.
+
+                The artwork column starts at the card's own 40px padding and is
+                not centred in the card. Centring the pair to even out the slack
+                either side pushed the spot inward until it floated in the
+                card's corner instead of anchoring it.
+
+                The two halves still converge the way FeaturePanel's do, with
+                the directions swapped to match the sides they now sit on. */}
+            <div className="grid items-center gap-8 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-12">
+              <div className={`lg:col-start-2 lg:row-start-1 ${REVEAL_GROUP.right} ${REVEAL.still}`}>
+                <H2 className="mb-4">Consulting should create momentum, not overhead.</H2>
+                {/* The opening paragraph takes the lead size. It is the charge
+                    the other two answer, and at body size the panel opened on
+                    four paragraphs of identical weight with no way in. */}
+                <Lead className="mb-[14px]">
+                  Traditional firms make more money when projects require more people, more
+                  meetings, and more time. That is not a delivery model. It is a conflict of
+                  interest.
+                </Lead>
+                <Body>
+                  Mile42 was built differently. Our senior teams use AI throughout the work to move
+                  faster, preserve context, and eliminate unnecessary overhead. We price around the
+                  outcome, take responsibility for our estimates, and stay accountable for making
+                  the work succeed.
+                </Body>
+                <Body className="mt-[14px]">
+                  You get experienced people doing the work, fewer layers between decisions and
+                  execution, and more of your investment directed toward the result.
+                </Body>
+              </div>
+              {/* 13rem, between the 18 this started at and the 9 that followed.
+                  It is a supporting mark beside an argument rather than the
+                  subject of the panel, so it should not carry the weight the
+                  hero illustration does; at 9 it read as an icon that had lost
+                  its way into a large card.
+
+                  Stacked under the copy below `lg` and capped smaller there,
+                  for the reason the How We Work hero caps its gears: at the
+                  desktop size it would fill a phone's width. */}
+              <Spot
+                name="brain-gear"
+                sizes="(min-width: 1024px) 13rem, 8rem"
+                className={`h-auto w-full max-w-[8rem] justify-self-center lg:col-start-1 lg:row-start-1 lg:max-w-[13rem] lg:justify-self-start ${REVEAL.left}`}
+              />
+            </div>
+          </Card>
         </Wrap>
       </Section>
 
@@ -297,11 +388,19 @@ export default function Home() {
         </Wrap>
       </Section>
 
-      {/* EXTRAPOLATED */}
-      <Section band="brand">
+      {/* EXTRAPOLATED. Blue, so the page opens and closes on the same field
+          rather than handing off to the band colour the hero used to be.
+
+          No grain: only a page's opening band carries the film. Which means
+          this band is the flat colour, where the hero's is textured, and the
+          off-white on it measures the full 4.92:1 with nothing eating into it.
+
+          Both lines take the off-white tone for the reason the hero's do. Ink
+          is 3.14:1 here, under AA, and it was the default on the green. */}
+      <Section band="blue">
         <Wrap className="text-center">
-          <H2 className="mb-4">Tell us what needs to work.</H2>
-          <Lead className="mx-auto mb-8">
+          <H2 tone="hero" className="mb-4">Tell us what needs to work.</H2>
+          <Lead tone="hero" className="mx-auto mb-8">
             Bring the problem. We will tell you honestly whether we are the right firm to solve it.
           </Lead>
           <Button to="/contact">Start a conversation</Button>

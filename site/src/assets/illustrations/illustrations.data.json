@@ -84,6 +84,27 @@
       }
     ]
   },
+  "brain-gear": {
+    "width": 1432,
+    "height": 1553,
+    "variants": [
+      {
+        "width": 128,
+        "height": 139,
+        "bytes": 5318
+      },
+      {
+        "width": 256,
+        "height": 278,
+        "bytes": 12662
+      },
+      {
+        "width": 416,
+        "height": 451,
+        "bytes": 22922
+      }
+    ]
+  },
   "path-lightbulb": {
     "width": 1019,
     "height": 1222,

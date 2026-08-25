@@ -35,13 +35,18 @@ const bandWith = (container, text) =>
   bandsOf(container).find((b) => b.textContent.includes(text))
 
 describe('SCN-001 — the core practice band leads the page', () => {
-  it('puts core practice directly under the hero, ahead of the three ways', () => {
+  /* The band the hero hands off to is now the anti-consulting argument, so core
+     practice sits second rather than first. What this scenario protects is
+     unchanged: core practice still comes before the three ways in, and the page
+     still closes on the call to action. */
+  it('puts core practice ahead of the three ways', () => {
     const { container } = draw()
     const bands = bandsOf(container)
 
-    expect(bands[0].textContent).toContain('We help organizations deliver their most important work')
-    expect(bands[1].textContent).toContain('Our core practice is agentic AI implementation')
-    expect(bands[2].textContent).toContain('Three ways organizations work with us')
+    expect(bands[0].textContent).toContain('The consulting model is broken')
+    expect(bands[1].textContent).toContain('Consulting should create momentum, not overhead')
+    expect(bands[2].textContent).toContain('Our core practice is agentic AI implementation')
+    expect(bands[3].textContent).toContain('Three ways organizations work with us')
     expect(bands.at(-1).textContent).toContain('Tell us what needs to work.')
   })
 
@@ -50,7 +55,7 @@ describe('SCN-001 — the core practice band leads the page', () => {
      undo that silently. */
   it('carries the Dewey block with it', () => {
     const { container } = draw()
-    expect(bandsOf(container)[1].textContent).toContain('the knowledge layer that keeps agents')
+    expect(bandsOf(container)[2].textContent).toContain('the knowledge layer that keeps agents')
   })
 })
 
