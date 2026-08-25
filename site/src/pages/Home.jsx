@@ -388,11 +388,19 @@ export default function Home() {
         </Wrap>
       </Section>
 
-      {/* EXTRAPOLATED */}
-      <Section band="brand">
+      {/* EXTRAPOLATED. Blue, so the page opens and closes on the same field
+          rather than handing off to the band colour the hero used to be.
+
+          No grain: only a page's opening band carries the film. Which means
+          this band is the flat colour, where the hero's is textured, and the
+          off-white on it measures the full 4.92:1 with nothing eating into it.
+
+          Both lines take the off-white tone for the reason the hero's do. Ink
+          is 3.14:1 here, under AA, and it was the default on the green. */}
+      <Section band="blue">
         <Wrap className="text-center">
-          <H2 className="mb-4">Tell us what needs to work.</H2>
-          <Lead className="mx-auto mb-8">
+          <H2 tone="hero" className="mb-4">Tell us what needs to work.</H2>
+          <Lead tone="hero" className="mx-auto mb-8">
             Bring the problem. We will tell you honestly whether we are the right firm to solve it.
           </Lead>
           <Button to="/contact">Start a conversation</Button>
