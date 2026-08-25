@@ -62,8 +62,8 @@ export default function Contact() {
           </div>
 
           <div>
-            <form ref={formRef} noValidate hidden={sent} onSubmit={handleSubmit}
-              className="flex flex-col gap-4 rounded-card border border-ink bg-page shadow-hard p-8">
+            <form name="Contact" ref={formRef} noValidate hidden={sent} onSubmit={handleSubmit}
+              className="flex flex-col gap-4 rounded-card border border-ink bg-page shadow-hard p-8" data-netlify="true">
               <H3 as="h2">Start a conversation</H3>
               {FIELDS.map(({ label, name, type }) => (
                 <label key={name} className="block">
