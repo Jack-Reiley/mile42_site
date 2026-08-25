@@ -63,6 +63,11 @@ export const BAND = {
   // is used rather than `--color-cta` so the yellow CTA button still separates
   // from the band it sits on.
   gold: 'bg-gold',
+  // Ink-typed, like `gold`, and for the same reason: off-white reaches 2.97:1
+  // here and ink 5.20. It is the tightest ink pairing the site draws — every
+  // other ink band clears 8:1 — which is what constrains its grain. See
+  // BAND_GRAIN.
+  orange: 'bg-orange',
   // The three How We Work topic panels, each carried onto that topic's own page
   // as its header so the child page reads as the same block of colour. Light,
   // like `gold`, so nothing on them takes the off-white hero tone.
@@ -121,6 +126,18 @@ export const BAND_GRAIN = {
   blue: { opacity: 0.35, blend: 'overlay' },
   brand: { opacity: 0.75, blend: 'soft-light' },
   gold: { opacity: 0.95, blend: 'overlay' },
+  /* 0.60 rather than the 0.80 the spread target asks for, and the reason is
+     the same one that holds `blue` down: the band is a tight pairing and the
+     film's texture eats into it. Ink on bare orange is 5.20:1 against a 4.5
+     floor, and overlay at 0.80 lands the target 6/255 spread but drops the
+     darkest one percent of the field to 4.39, under AA. 0.65 sits on 4.51 and
+     0.60 leaves 4.55, which is the margin a threshold this close should have.
+
+     Overlay rather than soft-light, which the palette note would also allow for
+     a mid colour. Soft-light cannot reach the spread target on this band at any
+     opacity — it tops out at 4.82/255 fully opaque — and at the opacity where
+     it matches this contrast it returns less texture than overlay does here. */
+  orange: { opacity: 0.6, blend: 'overlay' },
   'panel-accent': { opacity: 0.8, blend: 'overlay' },
   'panel-forest': { opacity: 0.8, blend: 'soft-light' },
   'panel-orange': { opacity: 0.75, blend: 'overlay' },

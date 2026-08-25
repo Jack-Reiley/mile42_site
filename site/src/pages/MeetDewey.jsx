@@ -101,14 +101,15 @@ const COMPARE = [
 export default function MeetDewey() {
   return (
     <>
-      <Section band="blue" grain>
+      {/* Orange is an ink band, so every line here takes the default tone. The
+          eyebrow was ice and the heading and lead were off-white, which is what
+          the blue band this used to be wanted; on orange off-white reaches
+          2.97:1 and ice 2.75, both under AA, while ink reaches 5.20. */}
+      <Section band="orange" grain>
         <Wrap>
-          {/* Ice, not sky. On the blue band sky measures 3.37 and only ice clears
-              AA, which is the pairing the BAND comment in primitives.jsx reasons
-              about and the one WhatWeDo already uses. */}
-          <Eyebrow tone="ice" className="mb-4">Dewey · The librarian for AI agents</Eyebrow>
-          <H1 tone="hero" className="mb-6">Every agent needs a library.</H1>
-          <Lead tone="hero">
+          <Eyebrow tone="ink" className="mb-4">Dewey · The librarian for AI agents</Eyebrow>
+          <H1 className="mb-6">Every agent needs a library.</H1>
+          <Lead>
             Every agent needs a library. Agents don&#8217;t fail for lack of intelligence. They
             fail for lack of context.
           </Lead>
@@ -180,7 +181,10 @@ export default function MeetDewey() {
         </Wrap>
       </Section>
 
-      <Section band="gold">
+      {/* Orange, so the page opens and closes on the same field. Both lines
+          already took the default ink tone the gold band wanted, and orange
+          wants the same one. */}
+      <Section band="orange">
         <Wrap className="text-center">
           <H2 className="mb-4">Give your agents a library.</H2>
           <Lead className="mx-auto mb-8">
