@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Form declarations</title>
+  </head>
+  <body>
+    <!--
+      Netlify finds forms by parsing the static HTML in the publish directory at
+      deploy time. It does not read the JavaScript bundle, and this site renders
+      entirely in the browser, so its own contact form is invisible to that
+      parse. This file is the declaration the parser can see.
+
+      Nothing links here and no visitor is meant to arrive. It exists to be
+      read at deploy time.
+
+      Every field the rendered form submits must appear below under the same
+      name: Netlify accepts a submission carrying an undeclared field and
+      silently discards that field. site/src/pages/Contact.test.jsx holds the
+      two lists together.
+
+      form-name is deliberately absent. Netlify injects it into this form during
+      post-processing; the rendered form supplies its own.
+    -->
+    <form name="Contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="org" />
+      <textarea name="need"></textarea>
+      <textarea name="more"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
+  </body>
+</html>
