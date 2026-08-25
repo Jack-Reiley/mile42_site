@@ -251,16 +251,23 @@ export default function Header() {
               80.695px, which put every stroke off the device pixel grid: 38% of
               the ring's ink rasterized as partial alpha and its thin arc topped
               out at alpha 191, which is what read as a soft, grey line. The
-              asset is an exact 2:1, so 96x48 is whole pixels on both axes at
-              any device ratio. 48px is also the most the bar can give: the CTA
-              is 52px and sets the header's height. */}
+              asset is an exact 2:1, so 120x60 is whole pixels on both axes at
+              any device ratio.
+
+              60px rather than the 52px the CTA sets, so the lockup is now what
+              sizes the bar. The mark has no hinting, so identical strokes land
+              on different pixel phases and render at visibly different weights:
+              at 48px the stems were 2.2px and the unevenness read as a fault in
+              the artwork. 60px takes them to 2.8px, which narrows the gap
+              between a stem that snaps to a pixel and one that straddles two.
+              It does not close it. Only a pixel-fitted master does that. */}
           <Link to="/" className="no-underline">
             <img
               src={logo}
               alt="Mile42"
-              width="96"
-              height="48"
-              className="block h-12 w-24"
+              width="120"
+              height="60"
+              className="block h-15 w-30"
             />
           </Link>
 
