@@ -88,13 +88,14 @@ const PILLARS = [
 
 
 
-/* The four claims the intro band closes on. Bare statements, so `CheckList`
+/* The five claims the intro band closes on. Bare statements, so `CheckList`
    renders them as a plain list rather than a description list. */
 const INTRO_PROOF = [
-  { body: 'One governed context layer' },
-  { body: 'Always current across enterprise sources' },
-  { body: 'Scoped by user, role, and business domain' },
-  { body: 'Auditable from retrieval through action' },
+  { body: 'Up to date across approved enterprise sources' },
+  { body: 'Federated across systems, teams, and business domains' },
+  { body: 'Scoped by user, role, and agent' },
+  { body: 'Grounded in identifiable sources' },
+  { body: 'Auditable across retrievals and approved actions' },
 ]
 
 const COMPARE = [
@@ -135,8 +136,8 @@ export default function MeetDewey() {
               line with the dash; the word joiner leaves only the break after
               it, which is the one that reads. */}
           <Lead tone="hero">
-            Dewey gives every agent a current, governed view of your enterprise&#8288;&#8212;without giving
-            autonomous software direct access to your systems of record.
+            Dewey gives authorized agents governed, up-to-date enterprise
+            context&#8288;&#8212;without giving autonomous software direct access to your systems of record.
           </Lead>
         </Wrap>
       </Section>
@@ -161,13 +162,24 @@ export default function MeetDewey() {
           size of each piece and where it sits on the band. */}
       <Section band="tint">
         <Wrap>
-          <H2 className="mb-6">Intelligence isn&#8217;t the hard part. Context is.</H2>
+          <Eyebrow className="mb-3">Governed enterprise context</Eyebrow>
+          {/* Three sentences, so it is held to a measure rather than run to the
+              band edge. At full width the first two land on one line and
+              "Dewey gives them shared context." is stranded alone on a second;
+              at 26ch the three clauses break one to a line, which is the shape
+              the sentence is already written in. */}
+          <H2 className="mb-6 max-w-[26ch]">
+            Your people know the business. Your agents scale the work. Dewey gives them shared
+            context.
+          </H2>
 
           {/* The charge, at lead size, the way the homepage's economic argument
               opens. It is the premise the two columns below answer. */}
           <Lead className="mb-10 lg:mb-12">
-            AI models are increasingly capable. But inside an enterprise, capability without context
-            is guesswork&#8288;&#8212;and guesswork at machine speed creates real risk.
+            Your people understand the customers, policies, history, and nuance behind the work.
+            Agents can extend their capacity with unprecedented speed and reach. But people and
+            agents cannot work together effectively when they operate from
+            different&#8288;&#8212;or incomplete&#8288;&#8212;versions of what the enterprise knows.
           </Lead>
 
           {/* The problem and the answer, read across rather than down. Stacked
@@ -181,16 +193,16 @@ export default function MeetDewey() {
               own divider. */}
           <div className="grid gap-8 border-t border-ink/20 pt-8 lg:grid-cols-2 lg:gap-14 lg:pt-10">
             <Body className="max-w-none">
-              The context agents need is scattered across systems, documents, teams, and users.
-              Connecting agents directly to every source exposes credentials, production systems,
-              and sensitive data. Building context separately for every agent creates duplicated
-              work and competing versions of the truth.
+              That context is usually scattered across systems, documents, teams, and users.
+              Connecting agents directly to every source creates unacceptable risk. Building a
+              separate context pipeline for every agent creates duplicated work, inconsistent
+              answers, and competing versions of the truth.
             </Body>
             <Body className="max-w-none lg:border-l lg:border-ink/20 lg:pl-14">
-              Dewey creates a governed context layer between your enterprise and its agents. It
-              brings approved knowledge together in an always-current, federated model, applies the
-              right access rules for each user and agent, and provides a record of what agents
-              knew, where they acted, and when.
+              Dewey sits between your agents and your systems of record. It brings approved
+              knowledge together in a shared, governed context layer, then gives each person and
+              agent exactly what they are authorized to know&#8288;&#8212;with the sources behind every
+              answer.
             </Body>
           </div>
 
@@ -199,7 +211,8 @@ export default function MeetDewey() {
               body around it and read as a fourth paragraph; this is the line
               the whole band exists to land, so it is sized like one. */}
           <Quote className="mt-10 border-l-[6px] border-ink pl-6 lg:mt-12">
-            The right agent gets the right context&#8288;&#8212;without getting the keys to the enterprise.
+            Your systems stay protected. Your people remain accountable. And your agents act from
+            context the enterprise can inspect, govern, and trust.
           </Quote>
 
           {/* Full band width on the same two-column grid the argument above

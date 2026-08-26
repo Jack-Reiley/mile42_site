@@ -64,17 +64,18 @@ describe('Meet Dewey', () => {
     // The tell for the #77 regression was an h1 and a lead saying the same
     // thing. The lead says what Dewey does; only the heading frames the keys.
     expect(hero).not.toHaveTextContent('Every agent needs a library.')
-    expect(hero).toHaveTextContent(/Dewey gives every agent a current, governed view/)
+    expect(hero).toHaveTextContent(/Dewey gives authorized agents governed, up-to-date/)
   })
 
   it('makes the context argument before the product does anything', () => {
     const { container } = page()
     const intro = container.querySelectorAll('section')[1]
 
-    expect(intro).toHaveTextContent(/Intelligence isn.t the hard part\. Context is\./)
-    // The band closes on its conclusion and its four proof points.
-    expect(intro).toHaveTextContent(/without getting the keys to the enterprise/)
-    expect(intro.querySelectorAll('li')).toHaveLength(4)
+    expect(intro).toHaveTextContent('Governed enterprise context')
+    expect(intro).toHaveTextContent(/Your people know the business\./)
+    // The band closes on its conclusion and its five proof points.
+    expect(intro).toHaveTextContent(/your agents act from context the enterprise can inspect/)
+    expect(intro.querySelectorAll('li')).toHaveLength(5)
   })
 
   it('carries the whole integration strip and the comparison', () => {
