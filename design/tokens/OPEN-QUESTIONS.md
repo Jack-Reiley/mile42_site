@@ -166,10 +166,23 @@ It is a bitmap with an alpha mask, not something a token can express.
 **Question:** is the grain a reusable overlay asset we can export once and apply
 to any band, or is it baked per-illustration?
 
-## 12. No logo, no icon system
+## 12. No logo, no icon system (lockup answered)
 
-There is **no logo anywhere** in either PDF — no lockup, no clearspace, no
-minimum size, no misuse rules. The header currently has nowhere to go.
+There was **no logo anywhere** in either PDF — no lockup, no clearspace, no
+minimum size, no misuse rules. The header had nowhere to go.
+
+**The lockup landed in #85.** Ten source variants were supplied; two are wired
+up. The header draws the standard mark at 120x60 and the Coming Soon splash
+draws the light variant, both sized to whole pixels on both axes because the
+asset is an exact 2:1 and a fractional box puts the mark's hairline ring off the
+device pixel grid, where it rasterizes as a soft grey line rather than a solid
+one. The mark has no hinting, so identical strokes still land on different pixel
+phases and render at slightly different weights; only a pixel-fitted master
+closes that.
+
+**Still open:** clearspace, minimum size, and misuse rules, none of which the
+supplied files answer. Which of the ten variants is intended for which context
+is also unrecorded. The icon system below is untouched.
 
 There is also no icon set, no grid, no stroke-width rule, and no sizes. The
 three "Level One/Two/Three" illustrations are bespoke artwork, not a system.

@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router'
 import { Button, Eyebrow } from './primitives.jsx'
+import logo from '../assets/mile42-logo.svg'
 
-/* EXTRAPOLATED — no comp exists for the header, and no logo exists in either
-   PDF, so the wordmark stands in for a lockup. See EXTRAPOLATIONS.md.
+/* EXTRAPOLATED — no comp exists for the header. The lockup is the supplied
+   brand SVG; the rest of the bar is extrapolated. See EXTRAPOLATIONS.md.
 
    The panel carries each section page's own copy rather than a nav-only
    summary, so the menu and the page it leads to make the same promise. Update
@@ -241,8 +242,33 @@ export default function Header() {
         }`}
       >
         <div className="mx-auto flex w-full max-w-site items-center justify-between gap-6">
-          <Link to="/" className="font-heading text-heading-3 text-ink no-underline">
-            Mile42
+          {/* The asset's viewBox is cropped to the drawn mark, so the img box
+              and the artwork share an edge and the lockup keeps the page grid's
+              inset the way the wordmark did (#23).
+
+              Both axes are sized explicitly rather than one being `auto`. The
+              mark's ring tapers to a hairline, and an `auto` width resolved to
+              80.695px, which put every stroke off the device pixel grid: 38% of
+              the ring's ink rasterized as partial alpha and its thin arc topped
+              out at alpha 191, which is what read as a soft, grey line. The
+              asset is an exact 2:1, so 120x60 is whole pixels on both axes at
+              any device ratio.
+
+              60px rather than the 52px the CTA sets, so the lockup is now what
+              sizes the bar. The mark has no hinting, so identical strokes land
+              on different pixel phases and render at visibly different weights:
+              at 48px the stems were 2.2px and the unevenness read as a fault in
+              the artwork. 60px takes them to 2.8px, which narrows the gap
+              between a stem that snaps to a pixel and one that straddles two.
+              It does not close it. Only a pixel-fitted master does that. */}
+          <Link to="/" className="no-underline">
+            <img
+              src={logo}
+              alt="Mile42"
+              width="120"
+              height="60"
+              className="block h-15 w-30"
+            />
           </Link>
 
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
