@@ -23,9 +23,10 @@ const page = () =>
 describe('Meet Dewey', () => {
   it('renders every section', () => {
     const { container } = page()
-    // Six, not the eight this page opened with: #70 folded the librarian,
-    // connectors, and source-of-truth bands into one interactive diagram.
-    expect(container.querySelectorAll('section')).toHaveLength(6)
+    // Seven, not the eight this page opened with: #70 folded the librarian,
+    // connectors, and source-of-truth bands into one interactive diagram, and
+    // the context-layer intro band was added back after the hero.
+    expect(container.querySelectorAll('section')).toHaveLength(7)
   })
 
   it('opens the way a top-level page opens, not the way a detail page does', () => {
@@ -33,29 +34,26 @@ describe('Meet Dewey', () => {
     // An h1 and no breadcrumb: the comp drew this as a child of What we do, and
     // it is a top-level page instead.
     expect(container.querySelector('h1')).toHaveTextContent(
-      'Meet Dewey\u2122. The librarian for AI agents (and humans).',
+      'Your agents don\u2019t need the keys. They need the context.',
     )
     expect(container.querySelector('nav[aria-label="Breadcrumb"]')).toBeNull()
   })
 
-  /* #77. The hero was reverted by a merge resolution in PR #66, which dropped
-     #60's trademark from the eyebrow and #70's heading, and left the lead
-     repeating the line the h1 had become. The assertion above is what caught
-     it; these two cover the parts it could not see.
-
-     Added beside the existing assertions rather than replacing any of them.
-     Nothing above this comment was modified. */
-  it('carries the trademark on the brand eyebrow', () => {
+  /* #77 asserted the trademarked product name on the hero eyebrow, because the
+     heading it sat above opened with "Meet Dewey\u2122" and a merge had dropped the
+     mark. The hero copy has since been rewritten to lead with the problem
+     rather than the product, so the eyebrow names the category instead and
+     there is no longer a name up there to carry a mark. What #77 was actually
+     protecting \u2014 a hero that says one thing once \u2014 is what the two assertions
+     below check. */
+  it('names the category on the eyebrow, and the problem in the heading', () => {
     const { container } = page()
-    // Scoped to the hero: the mark appears elsewhere on the page too, and what
-    // the merge dropped was this one.
+    // Scoped to the hero: the page has other eyebrows below it.
     const eyebrow = container.querySelector('section p')
 
-    // The literal U+2122, not an entity: `&#8482;` renders identically in a
-    // browser and would fail this comparison, which is exactly the kind of
-    // near-miss that would read as the restoration not having taken.
-    expect(eyebrow).toHaveTextContent('Dewey\u2122')
-    // The eyebrow names the product and stops; the heading says what it is.
+    expect(eyebrow).toHaveTextContent('The context layer for enterprise AI')
+    // The eyebrow places the product in a category and stops; the heading makes
+    // the argument.
     expect(eyebrow).not.toHaveTextContent('librarian')
   })
 
@@ -63,10 +61,20 @@ describe('Meet Dewey', () => {
     const { container } = page()
     const hero = container.querySelector('section')
 
-    // The tell for the regression: the h1 and the first sentence of the lead
-    // said the same thing. The line is retired from the hero entirely.
+    // The tell for the #77 regression was an h1 and a lead saying the same
+    // thing. The lead says what Dewey does; only the heading frames the keys.
     expect(hero).not.toHaveTextContent('Every agent needs a library.')
-    expect(hero).toHaveTextContent(/Agents don.t fail for lack of intelligence/)
+    expect(hero).toHaveTextContent(/Dewey gives every agent a current, governed view/)
+  })
+
+  it('makes the context argument before the product does anything', () => {
+    const { container } = page()
+    const intro = container.querySelectorAll('section')[1]
+
+    expect(intro).toHaveTextContent(/Intelligence isn.t the hard part\. Context is\./)
+    // The band closes on its conclusion and its four proof points.
+    expect(intro).toHaveTextContent(/without getting the keys to the enterprise/)
+    expect(intro.querySelectorAll('li')).toHaveLength(4)
   })
 
   it('carries the whole integration strip and the comparison', () => {

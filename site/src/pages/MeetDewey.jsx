@@ -1,5 +1,5 @@
 import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button } from '../components/primitives.jsx'
-import { CompareTable } from '../components/Lists.jsx'
+import { CompareTable, CheckList } from '../components/Lists.jsx'
 import DeweyPillars from '../components/DeweyPillars.jsx'
 import IntegrationSteps from '../components/IntegrationSteps.jsx'
 import LibrarianDiagram from '../components/LibrarianDiagram.jsx'
@@ -88,6 +88,15 @@ const PILLARS = [
 
 
 
+/* The four claims the intro band closes on. Bare statements, so `CheckList`
+   renders them as a plain list rather than a description list. */
+const INTRO_PROOF = [
+  { body: 'One governed context layer' },
+  { body: 'Always current across enterprise sources' },
+  { body: 'Scoped by user, role, and business domain' },
+  { body: 'Auditable from retrieval through action' },
+]
+
 const COMPARE = [
   ['Object storage', 'Stores bytes, answers nothing.', 'Storage plus automatic indexing plus retrieval, one API.'],
   ['Standalone vector DB', 'You still build ingestion, chunking, storage, and ops around it.', 'The pipeline is built in. Upload is the integration.'],
@@ -109,16 +118,61 @@ export default function MeetDewey() {
           before the grain film touches it, and sky 3.32. See EYEBROW_TONE. */}
       <Section band="orange-deep" grain>
         <Wrap>
-          <Eyebrow tone="hero" className="mb-4">Dewey™</Eyebrow>
+          {/* The eyebrow names the category rather than the product. #77 put
+              the trademarked name here, back when the heading was "Meet Dewey™.
+              The librarian for AI agents (and humans)." and the eyebrow was the
+              only thing above it; the heading below now leads with the problem
+              instead of the name, so the eyebrow has to say what this is. The
+              name still carries its mark everywhere else on the page. */}
+          <Eyebrow tone="hero" className="mb-4">The context layer for enterprise AI</Eyebrow>
           {/* Two sentences in one heading, the way "Data in. Answers out." is
-              set further down the page. The eyebrow keeps the name alone and
-              the heading carries what it is. */}
+              set further down the page. */}
           <H1 tone="hero" className="mb-6">
-            Meet Dewey™. The librarian for AI agents (and humans).
+            Your agents don&#8217;t need the keys. They need the context.
           </H1>
+          {/* U+2060 before every unspaced em dash on this page. A browser will
+              break either side of one, and breaking before it starts the next
+              line with the dash; the word joiner leaves only the break after
+              it, which is the one that reads. */}
           <Lead tone="hero">
-            Agents don&#8217;t fail for lack of intelligence. They fail for lack of context.
+            Dewey gives every agent a current, governed view of your enterprise&#8288;&#8212;without giving
+            autonomous software direct access to your systems of record.
           </Lead>
+        </Wrap>
+      </Section>
+
+      {/* The argument the hero asserts, laid out before the product does
+          anything. `surface` keeps the band alternation the page already runs:
+          the hero's deep field, then this, then "Data in. Answers out." on the
+          page fill. */}
+      <Section band="surface">
+        <Wrap>
+          <H2 className="mb-6">Intelligence isn&#8217;t the hard part. Context is.</H2>
+          <Body className="mb-4">
+            AI models are increasingly capable. But inside an enterprise, capability without context
+            is guesswork&#8288;&#8212;and guesswork at machine speed creates real risk.
+          </Body>
+          <Body className="mb-4">
+            The context agents need is scattered across systems, documents, teams, and users.
+            Connecting agents directly to every source exposes credentials, production systems, and
+            sensitive data. Building context separately for every agent creates duplicated work and
+            competing versions of the truth.
+          </Body>
+          <Body className="mb-8">
+            Dewey creates a governed context layer between your enterprise and its agents. It brings
+            approved knowledge together in an always-current, federated model, applies the right
+            access rules for each user and agent, and provides a record of what agents knew, where
+            they acted, and when.
+          </Body>
+          {/* The conclusion, set at lead size so it reads as the band's point
+              rather than a fourth paragraph of setup. */}
+          <Lead className="mb-8">
+            The right agent gets the right context&#8288;&#8212;without getting the keys to the enterprise.
+          </Lead>
+          {/* Held to the same 46rem measure the copy above it runs. At the
+              band's full width the two columns sit a third of the page apart
+              and the list stops reading as a group. */}
+          <CheckList items={INTRO_PROOF} columns={2} className="max-w-[46rem]" />
         </Wrap>
       </Section>
 
