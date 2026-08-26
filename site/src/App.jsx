@@ -20,7 +20,7 @@ import MeetDewey from './pages/MeetDewey.jsx'
 const SUFFIX = ' · Mile42'
 
 export const PAGES = [
-  { path: '/', title: 'We help organizations deliver their most important work' + SUFFIX, Component: Home },
+  { path: '/', title: 'Execution, Rebuilt.' + SUFFIX, Component: Home },
   { path: '/what-we-do', title: 'What we do' + SUFFIX, Component: WhatWeDo },
   { path: '/what-we-do/advisory', title: 'Advisory' + SUFFIX, Component: Advisory },
   { path: '/what-we-do/engineering', title: 'Engineering' + SUFFIX, Component: Engineering },
