@@ -1,4 +1,4 @@
-import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button, Spot } from '../components/primitives.jsx'
+import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button, Spot, Placeholder } from '../components/primitives.jsx'
 import { CompareTable } from '../components/Lists.jsx'
 import DeweyPillars from '../components/DeweyPillars.jsx'
 import IntegrationSteps from '../components/IntegrationSteps.jsx'
@@ -112,14 +112,20 @@ const CONTRAST = [
   ],
 ]
 
-/* The three outcomes the band lands on, one sentence each, as written. They
-   were a single block at heading scale, which read as a second headline
-   competing with the H2; split across three marked columns they keep the
-   prominence without taking the heading's job. */
+/* The three outcomes the band lands on, one sentence each, as written.
+
+   Treatment 3c from the handoff: a divided run, each statement preceded by a
+   10px colour square. The handoff names blue, teal and orange for this, but its
+   tokens.css predates #69: its `--teal-700` is the brand green that ticket
+   retired site-wide, and its `--orange-500` sits a shade off `--color-orange`.
+   These are the live tokens instead. Putting a retired brand colour back on the
+   site to match a stale copy of it would be the wrong way round, and the guard
+   in brand-band-tones.test.jsx would reject the literal anyway. Blue is the
+   same value in both. */
 const OUTCOMES = [
-  { text: 'Your systems stay protected.', rule: 'border-navy' },
-  { text: 'Your people remain accountable.', rule: 'border-brand' },
-  { text: 'Your agents act from context the enterprise can inspect, govern, and trust.', rule: 'border-orange' },
+  { text: 'Your systems stay protected.', square: 'bg-accent' },
+  { text: 'Your people remain accountable.', square: 'bg-brand' },
+  { text: 'Your agents act from context the enterprise can inspect, govern, and trust.', square: 'bg-orange' },
 ]
 
 const COMPARE = [
@@ -175,8 +181,11 @@ export default function MeetDewey() {
           The eyebrow takes `hero` rather than the `ice` it had on the blue band
           this replaces. Ice measures 4.49 on this fill, a hundredth under AA
           before the grain film touches it, and sky 3.32. See EYEBROW_TONE. */}
-      <Section band="orange-deep" grain>
-        <Wrap>
+      <Section band="orange-deep" grain className="overflow-hidden">
+        {/* Two columns, the way the home hero is set: copy left, artwork right.
+            The handshake moved up here from the context band below. */}
+        <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+          <div>
           {/* The eyebrow names the category rather than the product. #77 put
               the trademarked name here, back when the heading was "Meet Dewey™.
               The librarian for AI agents (and humans)." and the eyebrow was the
@@ -193,6 +202,16 @@ export default function MeetDewey() {
             Dewey gives authorized agents governed, up-to-date enterprise context, without giving
             autonomous software direct access to your systems of record.
           </Lead>
+          </div>
+          {/* Eager and high priority: this is the page's largest above-the-fold
+              image, so it is what LCP measures. The artwork carries its own
+              alpha, so it sits straight on the band with no plate behind it. */}
+          <Spot
+            name="handshake"
+            priority
+            sizes="(min-width: 1024px) 30rem, 90vw"
+            className="h-auto w-full max-w-[30rem] justify-self-center lg:justify-self-end"
+          />
         </Wrap>
       </Section>
 
@@ -245,19 +264,32 @@ export default function MeetDewey() {
               is `auto minmax(0,1fr)` here so the copy column can shrink rather
               than being forced to its longest word. */}
           <div className="mb-10 grid items-center gap-8 lg:mb-18 lg:grid-cols-[auto_minmax(0,1fr)] lg:gap-12">
-            <Spot
-              name="handshake"
-              decorative
-              sizes="(min-width: 1024px) 432px, 100vw"
-              className="h-auto w-full max-w-[432px] justify-self-center lg:w-[432px] lg:max-w-none lg:justify-self-start"
-            />
+            {/* The chessboard artwork goes here. It is not in the repo yet —
+                not in the illustration manifest, not in design/, and not in the
+                context-section handoff, whose only asset is the handshake that
+                has moved to the hero. Held as the site's own provisional block
+                rather than left as an empty column, so the slot and its 432px
+                width stay visible until the asset lands. */}
+            <Placeholder
+              tag="Illustration"
+              className="w-full lg:w-[432px]"
+            >
+              Chessboard graphic, 432px wide. Awaiting the asset.
+            </Placeholder>
             {/* 24px between heading and body, per the handoff. */}
             <div className="flex flex-col gap-6">
-              <H2>
+              {/* The handoff's 36/46 and 18/34. theme.css produces 42 and 32
+                  and marks both inferred, so the handoff is the better source,
+                  but the tokens are global and correcting them moves all
+                  sixteen pages. Overridden here only, on Brett's call, and the
+                  token question is raised separately. `lg:` on the heading
+                  because below it `H2` steps down to heading-3, which the
+                  handoff does not describe. */}
+              <H2 className="lg:leading-[46px]">
                 Your people know the business. Your agents scale the work. Dewey gives them shared
                 context.
               </H2>
-              <Lead className="max-w-none">
+              <Lead className="max-w-none leading-[34px]">
                 Your people understand the customers, policies, history, and nuance behind the
                 work. Agents can extend their capacity with unprecedented speed and reach. But
                 people and agents cannot work together effectively when they operate from
@@ -340,20 +372,38 @@ export default function MeetDewey() {
             })}
           </div>
 
-          {/* Not headings. Three statements at body-lg semibold behind the same
-              rule Why Mile42 marks its commitments with, so they read as the
-              band's payoff rather than as a second heading level. */}
-          <ul
-            className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mt-10 grid gap-6 sm:grid-cols-2 lg:mt-18 lg:grid-cols-3 lg:gap-8`}
-          >
-            {OUTCOMES.map(({ text, rule }) => (
-              <li key={text} className={`border-t-[3px] pt-4 ${rule}`}>
-                <span className="font-heading text-body-lg font-bold leading-7 text-ink text-pretty">
-                  {text}
-                </span>
-              </li>
-            ))}
-          </ul>
+          {/* Treatment 3c: one ink rule, then a divided run of three
+              statements. Body font at semibold rather than heading type, so
+              these stay statements and do not become a second heading level.
+
+              The 1px columns in the template are the dividers themselves; they
+              stretch to the row and carry the hairline. The handoff does not
+              state a gutter for 3c, so 30px either side of each divider is
+              EXTRAPOLATED from the 60px it sets between columns in 3a. */}
+          <div className="mt-10 border-t border-ink pt-9 lg:mt-18">
+            <div
+              className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} grid gap-y-7 lg:grid-cols-[1fr_1px_1fr_1px_1fr] lg:gap-x-[30px] lg:gap-y-0`}
+            >
+              {OUTCOMES.flatMap(({ text, square }, i) => {
+                const statement = (
+                  <p key={text} className="text-[18px] font-semibold leading-[28px] text-ink text-pretty">
+                    <span aria-hidden="true" className={`mb-3 block h-2.5 w-2.5 ${square}`} />
+                    {text}
+                  </p>
+                )
+                return i === 0
+                  ? [statement]
+                  : [
+                      <span
+                        key={`${text}-rule`}
+                        aria-hidden="true"
+                        className="hidden bg-ink/20 lg:block"
+                      />,
+                      statement,
+                    ]
+              })}
+            </div>
+          </div>
         </Wrap>
       </Section>
 
