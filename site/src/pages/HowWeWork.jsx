@@ -22,7 +22,7 @@ const TOPICS = [
     linkLabel: 'See the delivery model',
     panel: PANEL_FILL.forest,
     panelHover: PANEL_FILL_HOVER.forest,
-    mark: 'bg-forest',
+    mark: 'bg-brand',
   },
   {
     num: '03',

@@ -78,12 +78,12 @@ const LABEL = { sm: [58, 30], lg: [78, 36] }
  * is what forces the choice: at 12px it needs 4.5:1, which rules out most of the
  * palette. `orange` reaches 3.06 against white and `red` 3.8, so both are mixed
  * toward ink until they clear it, and `accent` is darkened the same way and for
- * the same reason the `blue` band in primitives.jsx is. `forest` and `navy` are
- * dark enough to be used as they are.
+ * the same reason the `blue` band in primitives.jsx is. `brand` and `navy` are
+ * dark enough to be used as they are, `brand` since #69 revised it.
  */
 const FILLS = [
   'color-mix(in srgb, var(--color-accent) 88%, black)',
-  'var(--color-forest)',
+  'var(--color-brand)',
   'color-mix(in srgb, var(--color-orange) 62%, var(--color-ink))',
   'var(--color-navy)',
   'color-mix(in srgb, var(--color-red) 58%, var(--color-ink))',

@@ -82,7 +82,6 @@ const PAIRS = [
 
   // Off-white headings on the dark bands.
   ['var(--color-hero-heading)', 'var(--color-navy)', AA_NORMAL, 'off-white copy on the navy band'],
-  ['var(--color-hero-heading)', 'var(--color-forest)', AA_NORMAL, 'off-white copy on the forest band'],
   ['var(--color-hero-heading)', BLUE, AA_NORMAL, 'off-white copy on the blue band'],
   ['var(--color-hero-heading)', ORANGE_DEEP, AA_NORMAL, 'off-white copy on the orange-deep band'],
 

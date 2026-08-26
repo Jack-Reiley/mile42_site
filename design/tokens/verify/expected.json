@@ -29,7 +29,6 @@
     "--color-orange": "#ff5e00",
     "--color-peach": "#ffaf94",
     "--color-gold": "#fab600",
-    "--color-forest": "#00543d",
     "--color-mint": "#c7ffb1"
   },
   "typeSizes": {

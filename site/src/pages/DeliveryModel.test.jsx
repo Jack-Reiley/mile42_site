@@ -63,7 +63,7 @@ describe('SCN-005 — heading order stays h2 then h3', () => {
 
 describe('SCN-007 — the existing ruled groups are unchanged', () => {
   it('defaults RuledGroup to a level 4 heading', () => {
-    render(<RuledGroup title="Untouched" ruleClass="border-t-forest" />)
+    render(<RuledGroup title="Untouched" ruleClass="border-t-brand" />)
     expect(screen.getByRole('heading', { level: 4, name: 'Untouched' })).toBeInTheDocument()
   })
 

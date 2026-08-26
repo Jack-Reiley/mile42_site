@@ -43,7 +43,7 @@ const PRINCIPLES = [
 export default function WhyMile42() {
   return (
     <>
-      <Section band="forest" grain>
+      <Section band="brand" grain>
         <Wrap>
           <Eyebrow tone="sky" className="mb-4">Why we exist</Eyebrow>
           <H1 tone="hero" className="mb-6">We were built around the part that is actually hard.</H1>
@@ -131,8 +131,8 @@ export default function WhyMile42() {
       </Section>
 
       {/* Closes on the band the page opened on. Both take the on-dark tones:
-          ink reaches 1.77:1 on forest, where the off-white reaches 8.7:1. */}
-      <Section band="forest">
+          ink reaches 3.22:1 on the revised brand green, the off-white 4.79. */}
+      <Section band="brand">
         <Wrap className="text-center">
           <H2 tone="hero" className="mb-4">That is the reasoning. Here is the test.</H2>
           <Lead tone="hero" className="mx-auto mb-8">Bring us something that has to work. The argument on this page is only worth as much as what happens next.</Lead>

@@ -19,9 +19,13 @@ import { REVEAL, REVEAL_GROUP } from './reveal.js'
  * fill as the page header, and the two blocks of colour have to be the same
  * one rather than two literals that drift apart.
  */
+/* The `forest` key is a slot name, not a colour name, and since #84 its fill is
+   a brand mix. Renaming it to match is a naming decision nobody has taken; it
+   would touch HowWeWork and DeliveryModel and changes no pixel. Recorded on #84
+   rather than done quietly here. */
 export const PANEL_FILL = {
   accent: 'bg-[color-mix(in_srgb,var(--color-accent)_16%,var(--color-surface))]',
-  forest: 'bg-[color-mix(in_srgb,var(--color-forest)_18%,var(--color-surface))]',
+  forest: 'bg-[color-mix(in_srgb,var(--color-brand)_18%,var(--color-surface))]',
   orange: 'bg-[color-mix(in_srgb,var(--color-orange)_16%,var(--color-surface))]',
 }
 
@@ -32,7 +36,7 @@ export const PANEL_FILL = {
  */
 export const PANEL_FILL_HOVER = {
   accent: 'hover:bg-[color-mix(in_srgb,var(--color-accent)_26%,var(--color-surface))]',
-  forest: 'hover:bg-[color-mix(in_srgb,var(--color-forest)_28%,var(--color-surface))]',
+  forest: 'hover:bg-[color-mix(in_srgb,var(--color-brand)_28%,var(--color-surface))]',
   orange: 'hover:bg-[color-mix(in_srgb,var(--color-orange)_26%,var(--color-surface))]',
 }
 
@@ -48,12 +52,11 @@ export const BAND = {
   surface: 'bg-surface',
   brand: 'bg-brand',
   navy: 'bg-navy',
-  // Why Mile42's page identity, the way `navy` is What We Do's and `gold` is
-  // How We Work's. Dark, so it takes the on-dark tones: the off-white heading
-  // reaches 8.7:1 and a sky eyebrow 6.0:1. `brand` was what this page used, but
-  // it is the hero on Home and six others, and its off-white heading measures
-  // 2.51:1 — under the 3:1 floor for text that size.
-  forest: 'bg-forest',
+  // `forest` is retired. It existed only because the old brand green was too
+  // light to carry on-dark type, and #69 removed that reason: the revised green
+  // takes the off-white at 4.79:1. The two sat 1.82:1 apart, which is not a
+  // difference a reader can see, so Why Mile42 draws on `brand` like the rest.
+  // The cost is deliberate: the site keeps five page identities, not six.
   blue: 'bg-[color-mix(in_srgb,var(--color-accent)_92%,black)]',
   // The detail comps' `#e6f1fe`, which is the accent at 10% over white.
   tint: 'bg-[color-mix(in_srgb,var(--color-accent)_10%,white)]',
@@ -121,7 +124,6 @@ const SECTION_PAD = {
  */
 export const BAND_GRAIN = {
   navy: { opacity: 0.7, blend: 'soft-light' },
-  forest: { opacity: 0.65, blend: 'soft-light' },
   /* 0.35 rather than the 0.55 the spread target asks for. Off-white on this
      band is one of the tightest pairings the site draws, 4.92:1 against a 4.5
      floor, and the film's texture eats into that: at 0.55 the worst

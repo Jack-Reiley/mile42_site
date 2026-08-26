@@ -77,9 +77,12 @@ const STRONG_CELL =
 
 /* The result chips carry the design's sticker treatment, so they read as the
    thing the diagram arrives at rather than as one more line of the list.
-   The strong chip is `forest` rather than the brand green it is drawn in: the
-   off-white label reaches 2.6:1 on `brand` and 9:1 on `forest`. Same move, and
-   for the same reason, as the node fills in ReuseLoop. */
+   The strong chip takes the brand green. It used to take `forest`, because the
+   off-white label reached 2.6:1 on the old brand and 9:1 on forest. #69 revised
+   the green and #84 retired forest, so the label now measures 4.79:1 here. That
+   clears AA at every size, and it is the one site where retiring forest spends
+   margin rather than being neutral: 9:1 to 4.79 is a deliberate, recorded
+   trade, not an oversight. */
 const CHIP = 'inline-block rounded-card border border-ink shadow-hard px-5 py-[6px] text-body lg:text-body-lg'
 
 export default function ExecutionContrast({ platform, weakTitle, strongTitle, stages, result }) {
@@ -122,7 +125,7 @@ export default function ExecutionContrast({ platform, weakTitle, strongTitle, st
           <span className={`${CHIP} bg-page text-ink`}>{result.weak}</span>
         </span>
         <span className="min-[700px]:col-start-3 min-[700px]:row-start-1 min-[700px]:justify-self-end">
-          <span className={`${CHIP} bg-forest font-semibold text-hero-heading`}>{result.strong}</span>
+          <span className={`${CHIP} bg-brand font-semibold text-hero-heading`}>{result.strong}</span>
         </span>
       </Row>
     </div>
