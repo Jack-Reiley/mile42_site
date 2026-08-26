@@ -1,4 +1,4 @@
-import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button } from '../components/primitives.jsx'
+import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button, Spot } from '../components/primitives.jsx'
 import { CompareTable } from '../components/Lists.jsx'
 import DeweyPillars from '../components/DeweyPillars.jsx'
 import IntegrationSteps from '../components/IntegrationSteps.jsx'
@@ -225,29 +225,38 @@ export default function MeetDewey() {
           rule under each block. */}
       <Section band="surface">
         <Wrap>
-          {/* Centred in one column, with the detail below it left aligned.
-              The band opens on a statement rather than on a column of text, and
-              the contrast rows underneath still read left to right.
+          {/* The lede from design_handoff_meet_dewey_context_section: artwork
+              left, copy right, centred on each other. Replaces the centred
+              single column, which the handoff describes as reading like loose
+              text with no surfaces.
 
-              Measures rather than the band width. Centred type needs a shorter
-              line than ranged-left type does, because a reader returning to the
-              start of each line has no fixed left edge to find; at the band's
-              full width both blocks read as bannered rather than composed.
+              The artwork is the site's own `handshake` entry rather than the
+              handoff's two SVG layers. They are the same drawing — the webp is
+              that blob and that line art composed, in the same final
+              orientation the handoff's `scaleX(-1)` produces — and the README
+              asks for the codebase's own patterns. Going through `Spot` keeps
+              the content hash, the responsive srcSet, and the intrinsic
+              dimensions that stop the illustration shifting the band as it
+              loads; two raw SVGs would have none of those. The handoff's
+              caution about never flattening the layers is recorded on the
+              ticket rather than silently overruled.
 
-              The cap bounds the heading, it does not set its breaks: `H2` is
-              balanced, so within that width the browser evens the lines rather
-              than filling them. Widen or narrow the cap to move the break; do
-              not expect a given sentence to land on a given line. */}
-          <div className="mb-10 text-center lg:mb-14">
-            <H2 className="mx-auto max-w-[34ch]">
-              Your people know the business. Your agents scale the work. Dewey gives them shared
-              context.
-            </H2>
-            {/* The measure is on the wrapper, not the Lead. `Lead` carries its
-                own `max-w-[46rem]`, and a second max-w utility on the same
-                element resolves by stylesheet order rather than by the order
-                the two are written. */}
-            <div className="mx-auto mt-5 max-w-[52rem]">
+              432px and the 48px column gap are the handoff's. Its `auto 1fr`
+              is `auto minmax(0,1fr)` here so the copy column can shrink rather
+              than being forced to its longest word. */}
+          <div className="mb-10 grid items-center gap-8 lg:mb-18 lg:grid-cols-[auto_minmax(0,1fr)] lg:gap-12">
+            <Spot
+              name="handshake"
+              decorative
+              sizes="(min-width: 1024px) 432px, 100vw"
+              className="h-auto w-full max-w-[432px] justify-self-center lg:w-[432px] lg:max-w-none lg:justify-self-start"
+            />
+            {/* 24px between heading and body, per the handoff. */}
+            <div className="flex flex-col gap-6">
+              <H2>
+                Your people know the business. Your agents scale the work. Dewey gives them shared
+                context.
+              </H2>
               <Lead className="max-w-none">
                 Your people understand the customers, policies, history, and nuance behind the
                 work. Agents can extend their capacity with unprecedented speed and reach. But
@@ -335,7 +344,7 @@ export default function MeetDewey() {
               rule Why Mile42 marks its commitments with, so they read as the
               band's payoff rather than as a second heading level. */}
           <ul
-            className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mt-10 grid gap-6 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-8`}
+            className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mt-10 grid gap-6 sm:grid-cols-2 lg:mt-18 lg:grid-cols-3 lg:gap-8`}
           >
             {OUTCOMES.map(({ text, rule }) => (
               <li key={text} className={`border-t-[3px] pt-4 ${rule}`}>
