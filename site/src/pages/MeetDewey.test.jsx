@@ -74,8 +74,9 @@ describe('Meet Dewey', () => {
     const { container } = page()
     const intro = container.querySelectorAll('section')[1]
 
-    expect(intro).toHaveTextContent('Governed enterprise context')
+    // The band opens on its heading; it carries no eyebrow of its own.
     expect(intro).toHaveTextContent(/Your people know the business\./)
+    expect(intro).not.toHaveTextContent('Governed enterprise context')
   })
 
   it('turns the argument on a labelled contrast rather than on prose', () => {

@@ -187,6 +187,10 @@ export default function MeetDewey() {
           as a second headline arguing with the H2 above it. Split across three
           marked columns they keep the weight without taking the heading's job.
 
+          No eyebrow over the heading. The band opens on the heading itself,
+          which is the only block on this page that does; the label it carried
+          named the same thing the heading says.
+
           `surface`, the warm off-white. Four other fills were tried on this
           band: `tint` and `panel-accent` read cold under the hero,
           `panel-orange` is the hero's own hue and the two ran together into one
@@ -207,13 +211,10 @@ export default function MeetDewey() {
               equal widths its second line ran short while the lead beside it
               ran to four. */}
           <div className="mb-10 grid gap-6 lg:mb-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-start lg:gap-14">
-            <div>
-              <Eyebrow className="mb-3">Governed enterprise context</Eyebrow>
-              <H2>
-                Your people know the business. Your agents scale the work. Dewey gives them shared
-                context.
-              </H2>
-            </div>
+            <H2>
+              Your people know the business. Your agents scale the work. Dewey gives them shared
+              context.
+            </H2>
             {/* `max-w-none`: this runs its column, not the site's 46rem measure,
                 which inside half a band would leave it short of its own edge.
                 The top padding sets it on the heading's first baseline rather
