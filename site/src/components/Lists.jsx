@@ -98,17 +98,7 @@ export function TermList({ items, variant = 'stacked', columns = 1, className = 
  * librarian diagram, which is why it is a variant here rather than markup
  * written twice.
  */
-/* The style guide's type scale stops at body (16px); the 14px and 15px steps
-   the list shapes below draw are EXTRAPOLATED, added for lists that sit inside
-   a card as supporting detail. `size="body"` opts a list back onto the scale,
-   for a list that is the point of its block rather than a note under it.
-   Default is unchanged, so no existing call site moves. */
-const LIST_SIZE = {
-  sm: 'text-[15px] leading-6',
-  body: 'text-body',
-}
-
-export function PlainList({ items, variant = 'body', tone = 'ink', size = 'sm', className = '' }) {
+export function PlainList({ items, variant = 'body', tone = 'ink', className = '' }) {
   /* `hero` is for a list drawn on a dark fill. The rule between items takes the
      same tone as the text, so it does not stay ink on a band the type has left. */
   const onDark = tone === 'hero'
@@ -116,7 +106,7 @@ export function PlainList({ items, variant = 'body', tone = 'ink', size = 'sm', 
   if (variant === 'ruled') {
     return (
       <ul
-        className={`${REVEAL_GROUP.relay} ${LIST_SIZE[size]} ${
+        className={`${REVEAL_GROUP.relay} text-[15px] leading-6 ${
           onDark ? 'text-hero-heading' : 'text-ink'
         } ${className}`}
       >
@@ -189,7 +179,7 @@ export function NumberedSteps({ items, className = '' }) {
  * plain list instead, because wrapping a sentence in a `dt` with no `dd` would
  * be a description list that describes nothing.
  */
-export function CheckList({ items, columns = 1, size = 'sm', badgeClass = 'bg-orange', className = '' }) {
+export function CheckList({ items, columns = 1, badgeClass = 'bg-orange', className = '' }) {
   const titled = items.some((i) => i.title)
   const grid = `${REVEAL_GROUP.relay} grid gap-4 ${
     columns === 2 ? `${REVEAL_ROW} md:grid-cols-2 md:gap-x-9` : ''
@@ -224,9 +214,7 @@ export function CheckList({ items, columns = 1, size = 'sm', badgeClass = 'bg-or
       {items.map(({ body }) => (
         <li key={body} className="grid grid-cols-[auto_1fr] items-start gap-3">
           <Badge />
-          <p className={`${size === 'body' ? 'text-body' : 'text-[14px] leading-[1.5]'} text-ink`}>
-            {body}
-          </p>
+          <p className="text-[14px] leading-[1.5] text-ink">{body}</p>
         </li>
       ))}
     </ul>

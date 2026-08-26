@@ -34,7 +34,7 @@ describe('Meet Dewey', () => {
     // An h1 and no breadcrumb: the comp drew this as a child of What we do, and
     // it is a top-level page instead.
     expect(container.querySelector('h1')).toHaveTextContent(
-      'Your agents don\u2019t need the keys. They need the context.',
+      'Agents don\u2019t need the keys. They need the context.',
     )
     expect(container.querySelector('nav[aria-label="Breadcrumb"]')).toBeNull()
   })
@@ -102,19 +102,21 @@ describe('Meet Dewey', () => {
     expect(intro.querySelectorAll('h1, h2, h3, h4, h5, h6')).toHaveLength(1)
   })
 
-  it('closes on all five proof points', () => {
+  /* The band used to close on five ticked proof points. Every one of them is
+     made further down the page, and more specifically: "up to date" by the
+     indexing pillar's status endpoint, "federated" by the per-tenant namespaces
+     and catalog rollups, "scoped" by the least-privilege pillar, "grounded" by
+     the cited-answer pillar, and "auditable" by the connectors pillar's review
+     and signoff. This band is the introduction; it should not pre-empt them. */
+  it('leaves the proof points to the pillars that make them', () => {
     const { container } = page()
     const intro = container.querySelectorAll('section')[1]
 
-    for (const claim of [
-      'Up to date across approved enterprise sources',
-      'Federated across systems, teams, and business domains',
-      'Scoped by user, role, and agent',
-      'Grounded in identifiable sources',
-      'Auditable across retrievals and approved actions',
-    ]) {
-      expect(intro).toHaveTextContent(claim)
-    }
+    expect(intro).not.toHaveTextContent('Up to date across approved enterprise sources')
+    expect(intro).not.toHaveTextContent('Auditable across retrievals and approved actions')
+    // Still made on the page, just not in the introduction to it. The pillars
+    // are a selector, so only the open one is in the DOM; this is its first.
+    expect(container).toHaveTextContent('Multi-tenant with per-tenant namespaces')
   })
 
   it('carries the whole integration strip and the comparison', () => {

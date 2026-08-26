@@ -1,5 +1,5 @@
 import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button } from '../components/primitives.jsx'
-import { CompareTable, CheckList, PlainList } from '../components/Lists.jsx'
+import { CompareTable } from '../components/Lists.jsx'
 import DeweyPillars from '../components/DeweyPillars.jsx'
 import IntegrationSteps from '../components/IntegrationSteps.jsx'
 import LibrarianDiagram from '../components/LibrarianDiagram.jsx'
@@ -89,47 +89,37 @@ const PILLARS = [
 
 
 
-/* The contrast the intro band turns on, tightened out of the two prose
-   paragraphs it replaces. Every line is drawn from that copy rather than
-   claiming anything the paragraphs did not.
+/* The contrast the intro band turns on, paired row by row and tightened out of
+   the two prose paragraphs it replaces. Every line is drawn from that copy
+   rather than claiming anything the paragraphs did not.
 
-   Three and three, not one paragraph each. The paragraphs made the same points
-   in the same order, but a reader had to extract them; as short lines the
-   comparison is the thing on the page. */
-const WITHOUT_DEWEY = [
-  'Context scattered across systems, documents, teams, and users',
-  'Direct access to every source creates unacceptable risk',
-  'A separate pipeline per agent creates competing versions of the truth',
-]
-
-const WITH_DEWEY = [
-  'Approved knowledge in one shared, governed layer',
-  'Each person and agent gets exactly what they are authorized to know',
-  'The sources behind every answer',
+   Pairs rather than two independent lists: each problem has one answer directly
+   across from it, and the arrow between them is the whole argument. Scattered
+   becomes one layer, unbounded access becomes authorized access, competing
+   answers become sourced ones. */
+const CONTRAST = [
+  [
+    'Context scattered across systems, documents, teams, and users',
+    'Approved knowledge in one shared, governed layer',
+  ],
+  [
+    'Direct access to every source creates unacceptable risk',
+    'Each person and agent gets exactly what they are authorized to know',
+  ],
+  [
+    'A separate pipeline per agent creates competing versions of the truth',
+    'The sources behind every answer',
+  ],
 ]
 
 /* The three outcomes the band lands on, one sentence each, as written. They
    were a single block at heading scale, which read as a second headline
    competing with the H2; split across three marked columns they keep the
    prominence without taking the heading's job. */
-/* `brand-deep`, not `brand`, for the middle rule. The band is brand at 18%
-   over surface, so the brand green at full strength is the same hue a shade up
-   from its own field and reads as the faintest of the three; the darkened
-   variant holds against it. */
 const OUTCOMES = [
   { text: 'Your systems stay protected.', rule: 'border-navy' },
   { text: 'Your people remain accountable.', rule: 'border-brand' },
   { text: 'Your agents act from context the enterprise can inspect, govern, and trust.', rule: 'border-orange' },
-]
-
-/* The five claims the intro band closes on. Bare statements, so `CheckList`
-   renders them as a plain list rather than a description list. */
-const INTRO_PROOF = [
-  { body: 'Up to date across approved enterprise sources' },
-  { body: 'Federated across systems, teams, and business domains' },
-  { body: 'Scoped by user, role, and agent' },
-  { body: 'Grounded in identifiable sources' },
-  { body: 'Auditable across retrievals and approved actions' },
 ]
 
 const COMPARE = [
@@ -163,7 +153,7 @@ export default function MeetDewey() {
           {/* Two sentences in one heading, the way "Data in. Answers out." is
               set further down the page. */}
           <H1 tone="hero" className="mb-6">
-            Your agents don&#8217;t need the keys. They need the context.
+            Agents don&#8217;t need the keys. They need the context.
           </H1>
           <Lead tone="hero">
             Dewey gives authorized agents governed, up-to-date enterprise context, without giving
@@ -201,46 +191,80 @@ export default function MeetDewey() {
           rule under each block. */}
       <Section band="surface">
         <Wrap>
-          {/* Heading and premise across the band rather than stacked down it.
-              Full width they were a heading of two long lines with a paragraph
-              of three underneath, which is the same vertical wall the prose
-              made, just in bigger type. Side by side the band opens on one
-              horizontal move and gives back about a screen-third of height.
+          {/* Centred in one column, with the detail below it left aligned.
+              The band opens on a statement rather than on a column of text, and
+              the contrast rows underneath still read left to right.
 
-              The heading takes the wider column: it is the larger type, and at
-              equal widths its second line ran short while the lead beside it
-              ran to four. */}
-          <div className="mb-10 grid gap-6 lg:mb-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-start lg:gap-14">
-            <H2>
+              Measures rather than the band width. Centred type needs a shorter
+              line than ranged-left type does, because a reader returning to the
+              start of each line has no fixed left edge to find; at the band's
+              full width both blocks read as bannered rather than composed.
+
+              The cap bounds the heading, it does not set its breaks: `H2` is
+              balanced, so within that width the browser evens the lines rather
+              than filling them. Widen or narrow the cap to move the break; do
+              not expect a given sentence to land on a given line. */}
+          <div className="mb-10 text-center lg:mb-14">
+            <H2 className="mx-auto max-w-[34ch]">
               Your people know the business. Your agents scale the work. Dewey gives them shared
               context.
             </H2>
-            {/* `max-w-none`: this runs its column, not the site's 46rem measure,
-                which inside half a band would leave it short of its own edge.
-                The top padding sets it on the heading's first baseline rather
-                than its cap line. */}
-            <Lead className="max-w-none lg:pt-2">
-              Your people understand the customers, policies, history, and nuance behind the work.
-              Agents can extend their capacity with unprecedented speed and reach. But people and
-              agents cannot work together effectively when they operate from different or
-              incomplete versions of what the enterprise knows.
-            </Lead>
+            {/* The measure is on the wrapper, not the Lead. `Lead` carries its
+                own `max-w-[46rem]`, and a second max-w utility on the same
+                element resolves by stylesheet order rather than by the order
+                the two are written. */}
+            <div className="mx-auto mt-5 max-w-[52rem]">
+              <Lead className="max-w-none">
+                Your people understand the customers, policies, history, and nuance behind the
+                work. Agents can extend their capacity with unprecedented speed and reach. But
+                people and agents cannot work together effectively when they operate from
+                different or incomplete versions of what the enterprise knows.
+              </Lead>
+            </div>
           </div>
 
-          {/* The two halves are deliberately unequal objects. The problem sits
-              flat on the band inside a hairline; the answer is the site's
-              raised card, bordered and shadowed on the page fill. Two matching
-              panels would have weighted them the same, and the eye should land
-              on the second one. */}
-          <div className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} grid gap-5 lg:grid-cols-2 lg:gap-7`}>
-            <div className="rounded-card border border-ink/30 p-7 lg:p-8">
-              <Eyebrow tone="ink" className="mb-4">Without a context layer</Eyebrow>
-              <PlainList items={WITHOUT_DEWEY} variant="ruled" size="body" />
+          {/* Two columns joined row by row rather than two boxed panels. The
+              panels stated the problem and the answer side by side and left the
+              reader to line them up; the rows say which answer belongs to which
+              problem, and the arrow is what makes that a transformation rather
+              than a pair of lists.
+
+              The left column is muted and the right is semibold ink. That, plus
+              where the arrow points, is what carries the emphasis now that
+              neither side is a raised object. */}
+          <div className={REVEAL_GROUP.relay}>
+            {/* Decorative. The pairing lives on each row, and these read aloud
+                once per row would be three repetitions of the same two labels;
+                the list carries a name instead. */}
+            <div
+              aria-hidden="true"
+              className="hidden md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:gap-x-10"
+            >
+              <Eyebrow as="span" tone="ink">Without a context layer</Eyebrow>
+              <span />
+              <Eyebrow as="span">With Dewey</Eyebrow>
             </div>
-            <div className="rounded-card border border-ink bg-page p-7 shadow-hard lg:p-8">
-              <Eyebrow className="mb-4">With Dewey</Eyebrow>
-              <PlainList items={WITH_DEWEY} variant="ruled" size="body" />
-            </div>
+
+            <ul aria-label="Working without a context layer, and with Dewey" className="md:mt-3">
+              {CONTRAST.map(([problem, answer]) => (
+                <li
+                  key={problem}
+                  className="grid items-center gap-x-10 gap-y-2 border-t border-ink/20 py-6 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]"
+                >
+                  <span className="text-body text-ink/70 text-pretty">{problem}</span>
+                  {/* Turns to point down when the row stacks, so it still reads
+                      as this problem becoming this answer rather than as a
+                      bullet sitting between two unrelated lines. */}
+                  <span
+                    aria-hidden="true"
+                    className="rotate-90 justify-self-start text-[20px] leading-none text-orange-deep md:rotate-0 md:justify-self-center"
+                  >
+                    &#8594;
+                  </span>
+                  <span className="text-body font-semibold text-ink text-pretty">{answer}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Not headings. Three statements at body-lg semibold behind the same
@@ -257,15 +281,6 @@ export default function MeetDewey() {
               </li>
             ))}
           </ul>
-
-          {/* On the scale at 16px rather than the extrapolated 14. These are
-              the band's closing claims, not a footnote under it. */}
-          <CheckList
-            items={INTRO_PROOF}
-            columns={2}
-            size="body"
-            className="mt-10 border-t border-ink/20 pt-8 lg:mt-14"
-          />
         </Wrap>
       </Section>
 
