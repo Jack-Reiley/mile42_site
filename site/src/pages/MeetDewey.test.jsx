@@ -67,15 +67,53 @@ describe('Meet Dewey', () => {
     expect(hero).toHaveTextContent(/Dewey gives authorized agents governed, up-to-date/)
   })
 
+  /* Counting the band's list items used to stand in for "the proof points are
+     there". The band carries four lists now, so that number says nothing about
+     any one of them; each block is named instead. */
   it('makes the context argument before the product does anything', () => {
     const { container } = page()
     const intro = container.querySelectorAll('section')[1]
 
     expect(intro).toHaveTextContent('Governed enterprise context')
     expect(intro).toHaveTextContent(/Your people know the business\./)
-    // The band closes on its conclusion and its five proof points.
-    expect(intro).toHaveTextContent(/your agents act from context the enterprise can inspect/)
-    expect(intro.querySelectorAll('li')).toHaveLength(5)
+  })
+
+  it('turns the argument on a labelled contrast rather than on prose', () => {
+    const { container } = page()
+    const intro = container.querySelectorAll('section')[1]
+
+    expect(intro).toHaveTextContent('Without a context layer')
+    expect(intro).toHaveTextContent('With Dewey')
+    expect(intro).toHaveTextContent('Direct access to every source creates unacceptable risk')
+    expect(intro).toHaveTextContent('Each person and agent gets exactly what they are authorized to know')
+  })
+
+  /* The outcomes are statements, not headings. #(this change) split them out of
+     a single heading-scale block that read as a second headline; if they ever
+     come back as headings the band has two competing heading levels again. */
+  it('lands three outcomes, and none of them is a heading', () => {
+    const { container } = page()
+    const intro = container.querySelectorAll('section')[1]
+
+    expect(intro).toHaveTextContent('Your systems stay protected.')
+    expect(intro).toHaveTextContent('Your people remain accountable.')
+    expect(intro).toHaveTextContent(/Your agents act from context the enterprise can inspect/)
+    expect(intro.querySelectorAll('h1, h2, h3, h4, h5, h6')).toHaveLength(1)
+  })
+
+  it('closes on all five proof points', () => {
+    const { container } = page()
+    const intro = container.querySelectorAll('section')[1]
+
+    for (const claim of [
+      'Up to date across approved enterprise sources',
+      'Federated across systems, teams, and business domains',
+      'Scoped by user, role, and agent',
+      'Grounded in identifiable sources',
+      'Auditable across retrievals and approved actions',
+    ]) {
+      expect(intro).toHaveTextContent(claim)
+    }
   })
 
   it('carries the whole integration strip and the comparison', () => {

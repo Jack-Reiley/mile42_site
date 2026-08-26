@@ -1,8 +1,9 @@
-import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Quote, Button } from '../components/primitives.jsx'
-import { CompareTable, CheckList } from '../components/Lists.jsx'
+import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button } from '../components/primitives.jsx'
+import { CompareTable, CheckList, PlainList } from '../components/Lists.jsx'
 import DeweyPillars from '../components/DeweyPillars.jsx'
 import IntegrationSteps from '../components/IntegrationSteps.jsx'
 import LibrarianDiagram from '../components/LibrarianDiagram.jsx'
+import { REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
 
 /* Ported from the Dewey comp. Copy is verbatim; the structure is the site's
    own components. The comp draws this as a child of "What we do" with a
@@ -88,6 +89,39 @@ const PILLARS = [
 
 
 
+/* The contrast the intro band turns on, tightened out of the two prose
+   paragraphs it replaces. Every line is drawn from that copy rather than
+   claiming anything the paragraphs did not.
+
+   Three and three, not one paragraph each. The paragraphs made the same points
+   in the same order, but a reader had to extract them; as short lines the
+   comparison is the thing on the page. */
+const WITHOUT_DEWEY = [
+  'Context scattered across systems, documents, teams, and users',
+  'Direct access to every source creates unacceptable risk',
+  'A separate pipeline per agent creates competing versions of the truth',
+]
+
+const WITH_DEWEY = [
+  'Approved knowledge in one shared, governed layer',
+  'Each person and agent gets exactly what they are authorized to know',
+  'The sources behind every answer',
+]
+
+/* The three outcomes the band lands on, one sentence each, as written. They
+   were a single block at heading scale, which read as a second headline
+   competing with the H2; split across three marked columns they keep the
+   prominence without taking the heading's job. */
+/* `brand-deep`, not `brand`, for the middle rule. The band is brand at 18%
+   over surface, so the brand green at full strength is the same hue a shade up
+   from its own field and reads as the faintest of the three; the darkened
+   variant holds against it. */
+const OUTCOMES = [
+  { text: 'Your systems stay protected.', rule: 'border-navy' },
+  { text: 'Your people remain accountable.', rule: 'border-brand' },
+  { text: 'Your agents act from context the enterprise can inspect, govern, and trust.', rule: 'border-orange' },
+]
+
 /* The five claims the intro band closes on. Bare statements, so `CheckList`
    renders them as a plain list rather than a description list. */
 const INTRO_PROOF = [
@@ -131,13 +165,9 @@ export default function MeetDewey() {
           <H1 tone="hero" className="mb-6">
             Your agents don&#8217;t need the keys. They need the context.
           </H1>
-          {/* U+2060 before every unspaced em dash on this page. A browser will
-              break either side of one, and breaking before it starts the next
-              line with the dash; the word joiner leaves only the break after
-              it, which is the one that reads. */}
           <Lead tone="hero">
-            Dewey gives authorized agents governed, up-to-date enterprise
-            context&#8288;&#8212;without giving autonomous software direct access to your systems of record.
+            Dewey gives authorized agents governed, up-to-date enterprise context, without giving
+            autonomous software direct access to your systems of record.
           </Lead>
         </Wrap>
       </Section>
@@ -145,83 +175,95 @@ export default function MeetDewey() {
       {/* The argument the hero asserts, laid out before the product does
           anything.
 
-          `tint` rather than the `surface` this started on. Surface is a
-          half-step off the page fill on either side of it, so the band read as
-          the hero's run-off rather than as the page's argument. Two warmer
-          fills were tried first and both lost: `panel-orange` is the hero's own
-          hue, and the two ran together into one orange region that cost the
-          hero its bottom edge while dulling the orange tick badges to nothing.
-          `tint` is the accent at 10% over white, already a band on three detail
-          pages, and being the cool opposite of the hero is what draws the line
-          between them.
+          Scannable rather than read. This band was four paragraphs of prose; a
+          reader had to work through all of it to find a comparison the copy was
+          already making in order. The contrast is the layout now: three lines
+          against three, the second half raised off the band, so the shape of
+          the argument is visible before a word of it is read. The prose is not
+          summarized somewhere else on the page — these lines are that copy,
+          tightened.
 
-          Four weights rather than four paragraphs. Set as a stack of equal
-          16px blocks this was a wall: no entry point, no visible turn from the
-          problem to the answer, and a conclusion a reader could not tell from
-          the setup. The copy is unchanged; what carries the structure is the
-          size of each piece and where it sits on the band. */}
-      <Section band="tint">
+          The three outcomes below them were one heading-scale block, which read
+          as a second headline arguing with the H2 above it. Split across three
+          marked columns they keep the weight without taking the heading's job.
+
+          `surface`, the warm off-white. Four other fills were tried on this
+          band: `tint` and `panel-accent` read cold under the hero,
+          `panel-orange` is the hero's own hue and the two ran together into one
+          orange region that cost the hero its bottom edge, and `gold` put a
+          yellow field directly beneath the sticky header's yellow CTA. What
+          separates this band from the white one below it is no longer its fill
+          but what sits on it: a raised white card, three marked columns, and a
+          rule under each block. */}
+      <Section band="surface">
         <Wrap>
-          <Eyebrow className="mb-3">Governed enterprise context</Eyebrow>
-          {/* Three sentences, so it is held to a measure rather than run to the
-              band edge. At full width the first two land on one line and
-              "Dewey gives them shared context." is stranded alone on a second;
-              at 26ch the three clauses break one to a line, which is the shape
-              the sentence is already written in. */}
-          <H2 className="mb-6 max-w-[26ch]">
-            Your people know the business. Your agents scale the work. Dewey gives them shared
-            context.
-          </H2>
+          {/* Heading and premise across the band rather than stacked down it.
+              Full width they were a heading of two long lines with a paragraph
+              of three underneath, which is the same vertical wall the prose
+              made, just in bigger type. Side by side the band opens on one
+              horizontal move and gives back about a screen-third of height.
 
-          {/* The charge, at lead size, the way the homepage's economic argument
-              opens. It is the premise the two columns below answer. */}
-          <Lead className="mb-10 lg:mb-12">
-            Your people understand the customers, policies, history, and nuance behind the work.
-            Agents can extend their capacity with unprecedented speed and reach. But people and
-            agents cannot work together effectively when they operate from
-            different&#8288;&#8212;or incomplete&#8288;&#8212;versions of what the enterprise knows.
-          </Lead>
-
-          {/* The problem and the answer, read across rather than down. Stacked
-              they were two indistinguishable paragraphs; side by side the turn
-              between them is the layout rather than something the reader has to
-              find in the prose. The rule above and the one between are the only
-              chrome — a bordered panel here would be the homepage's shape.
-
-              `max-w-none` on both: these run their column, not the site's 46rem
-              measure, which at half the band would leave each one short of its
-              own divider. */}
-          <div className="grid gap-8 border-t border-ink/20 pt-8 lg:grid-cols-2 lg:gap-14 lg:pt-10">
-            <Body className="max-w-none">
-              That context is usually scattered across systems, documents, teams, and users.
-              Connecting agents directly to every source creates unacceptable risk. Building a
-              separate context pipeline for every agent creates duplicated work, inconsistent
-              answers, and competing versions of the truth.
-            </Body>
-            <Body className="max-w-none lg:border-l lg:border-ink/20 lg:pl-14">
-              Dewey sits between your agents and your systems of record. It brings approved
-              knowledge together in a shared, governed context layer, then gives each person and
-              agent exactly what they are authorized to know&#8288;&#8212;with the sources behind every
-              answer.
-            </Body>
+              The heading takes the wider column: it is the larger type, and at
+              equal widths its second line ran short while the lead beside it
+              ran to four. */}
+          <div className="mb-10 grid gap-6 lg:mb-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-start lg:gap-14">
+            <div>
+              <Eyebrow className="mb-3">Governed enterprise context</Eyebrow>
+              <H2>
+                Your people know the business. Your agents scale the work. Dewey gives them shared
+                context.
+              </H2>
+            </div>
+            {/* `max-w-none`: this runs its column, not the site's 46rem measure,
+                which inside half a band would leave it short of its own edge.
+                The top padding sets it on the heading's first baseline rather
+                than its cap line. */}
+            <Lead className="max-w-none lg:pt-2">
+              Your people understand the customers, policies, history, and nuance behind the work.
+              Agents can extend their capacity with unprecedented speed and reach. But people and
+              agents cannot work together effectively when they operate from different or
+              incomplete versions of what the enterprise knows.
+            </Lead>
           </div>
 
-          {/* The conclusion, at heading scale behind the ink rule Why Mile42
-              draws its commitments with. At lead size it was two points off the
-              body around it and read as a fourth paragraph; this is the line
-              the whole band exists to land, so it is sized like one. */}
-          <Quote className="mt-10 border-l-[6px] border-ink pl-6 lg:mt-12">
-            Your systems stay protected. Your people remain accountable. And your agents act from
-            context the enterprise can inspect, govern, and trust.
-          </Quote>
+          {/* The two halves are deliberately unequal objects. The problem sits
+              flat on the band inside a hairline; the answer is the site's
+              raised card, bordered and shadowed on the page fill. Two matching
+              panels would have weighted them the same, and the eye should land
+              on the second one. */}
+          <div className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} grid gap-5 lg:grid-cols-2 lg:gap-7`}>
+            <div className="rounded-card border border-ink/30 p-7 lg:p-8">
+              <Eyebrow tone="ink" className="mb-4">Without a context layer</Eyebrow>
+              <PlainList items={WITHOUT_DEWEY} variant="ruled" size="body" />
+            </div>
+            <div className="rounded-card border border-ink bg-page p-7 shadow-hard lg:p-8">
+              <Eyebrow className="mb-4">With Dewey</Eyebrow>
+              <PlainList items={WITH_DEWEY} variant="ruled" size="body" />
+            </div>
+          </div>
 
-          {/* Full band width on the same two-column grid the argument above
-              runs, so the four claims close the band as a summary strip rather
-              than as a list tucked under the left margin. */}
+          {/* Not headings. Three statements at body-lg semibold behind the same
+              rule Why Mile42 marks its commitments with, so they read as the
+              band's payoff rather than as a second heading level. */}
+          <ul
+            className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mt-10 grid gap-6 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-8`}
+          >
+            {OUTCOMES.map(({ text, rule }) => (
+              <li key={text} className={`border-t-[3px] pt-4 ${rule}`}>
+                <span className="font-heading text-body-lg font-bold leading-7 text-ink text-pretty">
+                  {text}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          {/* On the scale at 16px rather than the extrapolated 14. These are
+              the band's closing claims, not a footnote under it. */}
           <CheckList
             items={INTRO_PROOF}
             columns={2}
-            className="mt-10 border-t border-ink/20 pt-8 lg:mt-12"
+            size="body"
+            className="mt-10 border-t border-ink/20 pt-8 lg:mt-14"
           />
         </Wrap>
       </Section>
