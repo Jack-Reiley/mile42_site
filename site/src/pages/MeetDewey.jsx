@@ -1,4 +1,4 @@
-import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button } from '../components/primitives.jsx'
+import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Quote, Button } from '../components/primitives.jsx'
 import { CompareTable, CheckList } from '../components/Lists.jsx'
 import DeweyPillars from '../components/DeweyPillars.jsx'
 import IntegrationSteps from '../components/IntegrationSteps.jsx'
@@ -142,37 +142,74 @@ export default function MeetDewey() {
       </Section>
 
       {/* The argument the hero asserts, laid out before the product does
-          anything. `surface` keeps the band alternation the page already runs:
-          the hero's deep field, then this, then "Data in. Answers out." on the
-          page fill. */}
-      <Section band="surface">
+          anything.
+
+          `tint` rather than the `surface` this started on. Surface is a
+          half-step off the page fill on either side of it, so the band read as
+          the hero's run-off rather than as the page's argument. Two warmer
+          fills were tried first and both lost: `panel-orange` is the hero's own
+          hue, and the two ran together into one orange region that cost the
+          hero its bottom edge while dulling the orange tick badges to nothing.
+          `tint` is the accent at 10% over white, already a band on three detail
+          pages, and being the cool opposite of the hero is what draws the line
+          between them.
+
+          Four weights rather than four paragraphs. Set as a stack of equal
+          16px blocks this was a wall: no entry point, no visible turn from the
+          problem to the answer, and a conclusion a reader could not tell from
+          the setup. The copy is unchanged; what carries the structure is the
+          size of each piece and where it sits on the band. */}
+      <Section band="tint">
         <Wrap>
           <H2 className="mb-6">Intelligence isn&#8217;t the hard part. Context is.</H2>
-          <Body className="mb-4">
+
+          {/* The charge, at lead size, the way the homepage's economic argument
+              opens. It is the premise the two columns below answer. */}
+          <Lead className="mb-10 lg:mb-12">
             AI models are increasingly capable. But inside an enterprise, capability without context
             is guesswork&#8288;&#8212;and guesswork at machine speed creates real risk.
-          </Body>
-          <Body className="mb-4">
-            The context agents need is scattered across systems, documents, teams, and users.
-            Connecting agents directly to every source exposes credentials, production systems, and
-            sensitive data. Building context separately for every agent creates duplicated work and
-            competing versions of the truth.
-          </Body>
-          <Body className="mb-8">
-            Dewey creates a governed context layer between your enterprise and its agents. It brings
-            approved knowledge together in an always-current, federated model, applies the right
-            access rules for each user and agent, and provides a record of what agents knew, where
-            they acted, and when.
-          </Body>
-          {/* The conclusion, set at lead size so it reads as the band's point
-              rather than a fourth paragraph of setup. */}
-          <Lead className="mb-8">
-            The right agent gets the right context&#8288;&#8212;without getting the keys to the enterprise.
           </Lead>
-          {/* Held to the same 46rem measure the copy above it runs. At the
-              band's full width the two columns sit a third of the page apart
-              and the list stops reading as a group. */}
-          <CheckList items={INTRO_PROOF} columns={2} className="max-w-[46rem]" />
+
+          {/* The problem and the answer, read across rather than down. Stacked
+              they were two indistinguishable paragraphs; side by side the turn
+              between them is the layout rather than something the reader has to
+              find in the prose. The rule above and the one between are the only
+              chrome — a bordered panel here would be the homepage's shape.
+
+              `max-w-none` on both: these run their column, not the site's 46rem
+              measure, which at half the band would leave each one short of its
+              own divider. */}
+          <div className="grid gap-8 border-t border-ink/20 pt-8 lg:grid-cols-2 lg:gap-14 lg:pt-10">
+            <Body className="max-w-none">
+              The context agents need is scattered across systems, documents, teams, and users.
+              Connecting agents directly to every source exposes credentials, production systems,
+              and sensitive data. Building context separately for every agent creates duplicated
+              work and competing versions of the truth.
+            </Body>
+            <Body className="max-w-none lg:border-l lg:border-ink/20 lg:pl-14">
+              Dewey creates a governed context layer between your enterprise and its agents. It
+              brings approved knowledge together in an always-current, federated model, applies the
+              right access rules for each user and agent, and provides a record of what agents
+              knew, where they acted, and when.
+            </Body>
+          </div>
+
+          {/* The conclusion, at heading scale behind the ink rule Why Mile42
+              draws its commitments with. At lead size it was two points off the
+              body around it and read as a fourth paragraph; this is the line
+              the whole band exists to land, so it is sized like one. */}
+          <Quote className="mt-10 border-l-[6px] border-ink pl-6 lg:mt-12">
+            The right agent gets the right context&#8288;&#8212;without getting the keys to the enterprise.
+          </Quote>
+
+          {/* Full band width on the same two-column grid the argument above
+              runs, so the four claims close the band as a summary strip rather
+              than as a list tucked under the left margin. */}
+          <CheckList
+            items={INTRO_PROOF}
+            columns={2}
+            className="mt-10 border-t border-ink/20 pt-8 lg:mt-12"
+          />
         </Wrap>
       </Section>
 
