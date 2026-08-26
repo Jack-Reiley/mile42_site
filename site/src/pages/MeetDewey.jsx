@@ -132,6 +132,40 @@ const COMPARE = [
   ['LLM-driven pipelines', 'Inference cost on every sync, behavior that drifts with the model.', 'Deterministic code connectors: testable, versioned, same result every run.'],
 ]
 
+/* The row a pair occupies in the side-by-side grid. Written out because
+   Tailwind reads class names as literals; a computed `row-start-${i}` produces
+   no utility at all. */
+const PAIR_ROW = ['row-start-2', 'row-start-3', 'row-start-4']
+
+/* The stacked form of one panel, for widths where the two cannot sit side by
+   side. It keeps the real list markup; the side-by-side form cannot, because
+   its rows have to be direct children of the shared grid. */
+function ContrastPanel({ label, items, raised }) {
+  return (
+    <div
+      className={`flex flex-col rounded-card p-7 ${
+        raised ? 'border border-ink bg-page shadow-hard' : 'border border-ink/30'
+      }`}
+    >
+      <Eyebrow as="span" tone={raised ? 'accent' : 'ink'} className="mb-4 block">
+        {label}
+      </Eyebrow>
+      <ul>
+        {items.map((text) => (
+          <li
+            key={text}
+            className={`border-t border-ink/25 py-3 text-body text-pretty first:border-t-0 first:pt-0 ${
+              raised ? 'font-semibold text-ink' : 'text-ink/70'
+            }`}
+          >
+            {text}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 export default function MeetDewey() {
   return (
     <>
@@ -223,48 +257,78 @@ export default function MeetDewey() {
             </div>
           </div>
 
-          {/* Two columns joined row by row rather than two boxed panels. The
-              panels stated the problem and the answer side by side and left the
-              reader to line them up; the rows say which answer belongs to which
-              problem, and the arrow is what makes that a transformation rather
-              than a pair of lists.
+          {/* Two panels with the arrows running between them.
 
-              The left column is muted and the right is semibold ink. That, plus
-              where the arrow points, is what carries the emphasis now that
-              neither side is a raised object. */}
-          <div className={REVEAL_GROUP.relay}>
-            {/* Decorative. The pairing lives on each row, and these read aloud
-                once per row would be three repetitions of the same two labels;
-                the list carries a name instead. */}
-            <div
+              The two halves are deliberately unequal objects: the problem sits
+              flat inside a hairline, the answer is the site's raised card on the
+              page fill, so the eye lands on the second one. The arrows are what
+              the panels alone could not say — which answer belongs to which
+              problem. Scattered becomes one layer, unbounded access becomes
+              authorized access, competing answers become sourced ones.
+
+              Two forms, because the alignment only has a solution in one of
+              them. As two panels each holding their own list, corresponding
+              rows cannot line up: at this measure the left rows measure
+              38/51/77px and the right 38/77/51px, mirrored, so an arrow placed
+              against one side is off by up to 20px against the other. No amount
+              of equal-share flex fixes that, because a row is as tall as its own
+              copy.
+
+              Side by side, the pairs therefore share ONE grid: each row is as
+              tall as the taller of its two cells, and all three cells centre
+              within it, so an arrow sits on its row whatever the copy does. The
+              panels are two background elements spanning that grid rather than
+              containers, which is the cost — the rows are cells, so they cannot
+              also be a `ul`. Below `lg` the panels stack, nothing needs to
+              align, and `ContrastPanel` renders the real list markup. Only one
+              form is ever displayed, so nothing is announced twice. */}
+          <div className="flex flex-col gap-4 lg:hidden">
+            <ContrastPanel label="Without a context layer" items={CONTRAST.map(([p]) => p)} />
+            <span
               aria-hidden="true"
-              className="hidden md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:gap-x-10"
+              className="text-center text-[22px] leading-none text-orange-deep"
             >
+              &#8595;
+            </span>
+            <ContrastPanel label="With Dewey" raised items={CONTRAST.map(([, a]) => a)} />
+          </div>
+
+          <div
+            role="group"
+            aria-label="Working without a context layer, and with Dewey"
+            className="hidden lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:grid-rows-[auto_auto_auto_auto]"
+          >
+            {/* The panels themselves. First in the markup so every cell below
+                paints over them. */}
+            <div className="col-start-1 row-start-1 row-span-4 rounded-card border border-ink/30" />
+            <div className="col-start-3 row-start-1 row-span-4 rounded-card border border-ink bg-page shadow-hard" />
+
+            <div className="col-start-1 row-start-1 px-8 pt-8 pb-4">
               <Eyebrow as="span" tone="ink">Without a context layer</Eyebrow>
-              <span />
+            </div>
+            <div className="col-start-3 row-start-1 px-8 pt-8 pb-4">
               <Eyebrow as="span">With Dewey</Eyebrow>
             </div>
 
-            <ul aria-label="Working without a context layer, and with Dewey" className="md:mt-3">
-              {CONTRAST.map(([problem, answer]) => (
-                <li
-                  key={problem}
-                  className="grid items-center gap-x-10 gap-y-2 border-t border-ink/20 py-6 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]"
-                >
-                  <span className="text-body text-ink/70 text-pretty">{problem}</span>
-                  {/* Turns to point down when the row stacks, so it still reads
-                      as this problem becoming this answer rather than as a
-                      bullet sitting between two unrelated lines. */}
-                  <span
-                    aria-hidden="true"
-                    className="rotate-90 justify-self-start text-[20px] leading-none text-orange-deep md:rotate-0 md:justify-self-center"
-                  >
-                    &#8594;
-                  </span>
-                  <span className="text-body font-semibold text-ink text-pretty">{answer}</span>
-                </li>
-              ))}
-            </ul>
+            {/* Ordered as pairs rather than column by column. Placement is
+                explicit, so the grid does not care, and a screen reader reads
+                each problem next to the answer that resolves it. */}
+            {CONTRAST.map(([problem, answer], i) => {
+              const last = i === CONTRAST.length - 1
+              const cell = `flex items-center py-4 ${last ? 'pb-8' : ''}`
+              const rule = i > 0 ? 'border-t border-ink/25' : ''
+              return [
+                <div key={`${problem}-p`} className={`col-start-1 ${PAIR_ROW[i]} ${cell} ${rule} px-8 text-body text-ink/70 text-pretty`}>
+                  {problem}
+                </div>,
+                <div key={`${problem}-a`} aria-hidden="true" className={`col-start-2 ${PAIR_ROW[i]} ${cell} justify-center px-5 text-[20px] leading-none text-orange-deep`}>
+                  &#8594;
+                </div>,
+                <div key={`${problem}-w`} className={`col-start-3 ${PAIR_ROW[i]} ${cell} ${rule} px-8 text-body font-semibold text-ink text-pretty`}>
+                  {answer}
+                </div>,
+              ]
+            })}
           </div>
 
           {/* Not headings. Three statements at body-lg semibold behind the same
