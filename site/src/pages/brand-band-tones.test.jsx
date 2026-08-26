@@ -36,7 +36,11 @@ function brandBands(text) {
   return blocks
 }
 
-const PAGES_WITH_BRAND_BANDS = ['Contact', 'Insights', 'Privacy']
+/* WhyMile42 is here because #84 moved it onto this band. It is the reason the
+   scan exists: its eyebrow was `sky`, which reached 5.97:1 on the forest band
+   it left and 3.28 on the one it joined, and a scan that only knew the three
+   pages that already used `brand` would not have looked at it. */
+const PAGES_WITH_BRAND_BANDS = ['Contact', 'Insights', 'Privacy', 'WhyMile42']
 
 describe('SCN-007 — every line on a brand band takes the light tone', () => {
   it.each(PAGES_WITH_BRAND_BANDS)('gives every line on %s’s brand bands the hero tone', (page) => {
@@ -57,6 +61,8 @@ describe('SCN-007 — every line on a brand band takes the light tone', () => {
          heading, a lead and a button. Assert on the ones that do. */
       for (const band of brandBands(source('pages', `${page}.jsx`))) {
         for (const line of band.split('\n').filter((l) => l.includes('<Eyebrow'))) {
+          /* Not just "not ink": a coloured on-dark tone can fail here too.
+             sky is 3.28 on this fill and ice 4.43, both under 4.5. */
           expect(line).toContain('tone="hero"')
           expect(line).not.toMatch(/text-hero-heading/)
         }
@@ -161,5 +167,54 @@ describe('SCN-004 — a pairing is checked at the size it is drawn at', () => {
 
   it('no longer declares ink on the brand band, which the flip removed', () => {
     expect(gate()).not.toMatch(/'var\(--color-ink\)',\s*'var\(--color-brand\)'/)
+  })
+})
+
+/**
+ * #83 — every band that carries the film reads at one texture.
+ *
+ * The values themselves are measured by design/tokens/verify/grain.mjs, which
+ * composites the tile against each fill. What is asserted here is the part a
+ * measurement cannot: that no band was left behind, and that the recorded
+ * target and the tool agree.
+ */
+describe('SCN-003 — the texture target is a stated number', () => {
+  const tool = () =>
+    readFileSync(join(ROOT, 'design', 'tokens', 'verify', 'grain.mjs'), 'utf8')
+
+  it('states the target where a contributor adding a band will find it', () => {
+    expect(tool()).toMatch(/const TARGET = 3\.95/)
+  })
+
+  it('describes the recipe in the band map rather than leaving it implied', () => {
+    const src = readFileSync(join(SRC, 'components', 'primitives.jsx'), 'utf8')
+    expect(src).toMatch(/grain\.mjs/)
+    expect(src).toMatch(/3\.95/)
+  })
+})
+
+describe('SCN-001 — no band was left at its old film', () => {
+  /* The four that were conspicuous: gold was roughly twice its neighbours, and
+     the two panels and navy all sat well above target. */
+  it.each([
+    ['gold', 0.37],
+    ['navy', 0.5],
+    ['panel-accent', 0.47],
+    ['panel-orange', 0.57],
+  ])('retunes %s', (band, expected) => {
+    expect(BAND_GRAIN[band].opacity).toBeCloseTo(expected, 2)
+  })
+
+  it('leaves the three already at or under target at full opacity', () => {
+    for (const band of ['tint', 'surface', 'page']) {
+      expect(BAND_GRAIN[band].opacity).toBe(1)
+    }
+  })
+
+  it('keeps every blend, since only opacity was the lever', () => {
+    expect(BAND_GRAIN.brand.blend).toBe('soft-light')
+    expect(BAND_GRAIN.navy.blend).toBe('soft-light')
+    expect(BAND_GRAIN.blue.blend).toBe('overlay')
+    expect(BAND_GRAIN['orange-deep'].blend).toBe('overlay')
   })
 })

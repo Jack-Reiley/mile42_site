@@ -45,7 +45,12 @@ export default function WhyMile42() {
     <>
       <Section band="brand" grain>
         <Wrap>
-          <Eyebrow tone="sky" className="mb-4">Why we exist</Eyebrow>
+          {/* The off-white, not sky. This band was `forest`, where sky reached
+              5.97:1; on the revised brand green it is 3.28 and ice only 4.43,
+              both under the 4.5 a 12px eyebrow needs. Same conclusion Meet
+              Dewey's band reached: where neither coloured on-dark tone
+              survives, the eyebrow takes the tone the headings take. */}
+          <Eyebrow tone="hero" className="mb-4">Why we exist</Eyebrow>
           <H1 tone="hero" className="mb-6">We were built around the part that is actually hard.</H1>
           <Lead tone="hero">Not the ideas. Not the technology. The execution.</Lead>
         </Wrap>
