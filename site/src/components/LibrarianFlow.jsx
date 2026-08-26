@@ -31,11 +31,11 @@ const LABEL =
 
 const COLUMN = 'rounded-card border border-ink px-[22px] py-5'
 
-function Column({ eyebrow, items, className }) {
+function Column({ eyebrow, items, tone = 'ink', className }) {
   return (
     <div className={`${COLUMN} ${className}`}>
-      <Eyebrow tone="ink" className="mb-2 block">{eyebrow}</Eyebrow>
-      <PlainList items={items} variant="ruled" />
+      <Eyebrow tone={tone} className="mb-2 block">{eyebrow}</Eyebrow>
+      <PlainList items={items} variant="ruled" tone={tone} />
     </div>
   )
 }
@@ -70,9 +70,14 @@ export default function LibrarianFlow({ sources, dewey, agents }) {
     >
       <Column eyebrow="Systems of record" items={sources} className="bg-surface" />
       <Link label="Inbound connectors" />
-      {/* Ink on the green rather than the off-white hero tone, the same rule the
-          rest of the site follows on `brand`: cream-50 measures 2.51:1 here. */}
-      <Column eyebrow="Dewey™ · The librarian" items={dewey} className="bg-brand shadow-hard" />
+      {/* The off-white hero tone rather than ink, the same rule the rest of the
+          site follows on `brand` since #69: ink measures 3.22:1 here now. */}
+      <Column
+        eyebrow="Dewey™ · The librarian"
+        items={dewey}
+        tone="hero"
+        className="bg-brand shadow-hard"
+      />
       <Link label="Scoped retrieval" />
       <Column eyebrow="Agents" items={agents} className="bg-ice" />
     </div>

@@ -23,7 +23,7 @@
    */
 
   /* Primary */
-  --color-brand: #00b785; /* measured; name INFERRED — full-bleed hero band */
+  --color-brand: #00805d; /* revised by #69; was #00b785, see OPEN-QUESTIONS q1 */
   --color-accent: #0073f4; /* measured; name INFERRED — section eyebrows */
   --color-cta: #ffdf65; /* measured; name INFERRED — primary button fill */
   --color-ink: #2f1e14; /* measured; name INFERRED — text, borders, shadow */
@@ -44,7 +44,6 @@
   --color-orange: #ff5e00; /* measured; name INFERRED */
   --color-peach: #ffaf94; /* measured; name INFERRED */
   --color-gold: #fab600; /* measured; name INFERRED */
-  --color-forest: #00543d; /* measured; name INFERRED */
   --color-mint: #c7ffb1; /* measured; name INFERRED */
 
   /* Darkened variants, for a small glyph that has to stay legible on white.

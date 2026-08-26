@@ -98,12 +98,25 @@ export function TermList({ items, variant = 'stacked', columns = 1, className = 
  * librarian diagram, which is why it is a variant here rather than markup
  * written twice.
  */
-export function PlainList({ items, variant = 'body', className = '' }) {
+export function PlainList({ items, variant = 'body', tone = 'ink', className = '' }) {
+  /* `hero` is for a list drawn on a dark fill. The rule between items takes the
+     same tone as the text, so it does not stay ink on a band the type has left. */
+  const onDark = tone === 'hero'
+
   if (variant === 'ruled') {
     return (
-      <ul className={`${REVEAL_GROUP.relay} text-[15px] leading-6 text-ink ${className}`}>
+      <ul
+        className={`${REVEAL_GROUP.relay} text-[15px] leading-6 ${
+          onDark ? 'text-hero-heading' : 'text-ink'
+        } ${className}`}
+      >
         {items.map((text) => (
-          <li key={text} className="border-t border-ink/25 py-1.5 first:border-t-0 first:pt-0">
+          <li
+            key={text}
+            className={`border-t py-1.5 first:border-t-0 first:pt-0 ${
+              onDark ? 'border-hero-heading/25' : 'border-ink/25'
+            }`}
+          >
             {text}
           </li>
         ))}

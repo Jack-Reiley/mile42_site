@@ -60,7 +60,7 @@ usage. The hex values are exact.
 
 | Token | Value | Value provenance | Name basis |
 | --- | --- | --- | --- |
-| `--color-brand` | `#00b785` | measured | full-bleed hero band |
+| `--color-brand` | `#00805d` | revised, was measured `#00b785` | full-bleed hero band |
 | `--color-accent` | `#0073f4` | measured | section eyebrows |
 | `--color-cta` | `#ffdf65` | measured | primary button fill |
 | `--color-ink` | `#2f1e14` | measured | text, borders, shadow |
@@ -69,9 +69,17 @@ usage. The hex values are exact.
 | `--color-hero-heading` | `#fffbf3` | derived | the H1 on green is off-white, not `--color-page` |
 | `--color-on-cta` | `#000000` | derived | button labels are pure black, **not** `--color-ink` |
 
-The ten secondary colours (`navy` `sky` `ice` `red` `pink` `orange` `peach`
-`gold` `forest` `mint`) are all `measured`, but have **no observed usage
-anywhere**, so they are named by hue. Renaming them later is expected.
+The secondary colours (`navy` `sky` `ice` `red` `pink` `orange` `peach` `gold`
+`mint`) are all `measured`, but had **no observed usage anywhere** when they
+were recovered, so they are named by hue. Renaming them later is expected.
+
+`forest` was one of them and is gone. #84 retired it: it existed only because
+the old brand green was too light to carry on-dark type, and once #69 revised
+the green the two sat 1.82:1 apart, which is not a difference a reader can see.
+
+`--color-brand` is the one entry above that is no longer a recovered value.
+#69 revised it from the measured `#00b785` to `#00805d` on contrast grounds.
+See OPEN-QUESTIONS.md question 1.
 
 ### Type
 

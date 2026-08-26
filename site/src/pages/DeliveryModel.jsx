@@ -42,7 +42,7 @@ export default function DeliveryModel() {
             to="/how-we-work"
             parent="How we work"
             current="Delivery model"
-            markClass="bg-forest"
+            markClass="bg-brand"
             tone="ink"
           />
           <H2 as="h1">An AI-assisted operating system, directed by people.</H2>
@@ -81,7 +81,7 @@ export default function DeliveryModel() {
           <H2 className="mb-9">Our progress is measured by value created, not effort expended.</H2>
           {/* Ruled columns rather than cards. Four bodies of unequal length in a
               box grid leaves ragged trailing space in every box; the page's own
-              forest rule carries the grouping and lets each benefit run to its
+              green rule carries the grouping and lets each benefit run to its
               own height. The rule is the page identity, the same colour the
               header panel and the breadcrumb mark draw. */}
           {/* Two explicit rows per column, each column a subgrid, so the bodies
@@ -95,7 +95,7 @@ export default function DeliveryModel() {
                 key={b.title}
                 as="h3"
                 title={b.title}
-                ruleClass="border-t-forest"
+                ruleClass="border-t-brand"
                 className="md:row-span-2 md:grid md:grid-rows-subgrid md:gap-y-0"
               >
                 <Body className="max-w-none">{b.body}</Body>

@@ -19,9 +19,13 @@ import { REVEAL, REVEAL_GROUP } from './reveal.js'
  * fill as the page header, and the two blocks of colour have to be the same
  * one rather than two literals that drift apart.
  */
+/* The `forest` key is a slot name, not a colour name, and since #84 its fill is
+   a brand mix. Renaming it to match is a naming decision nobody has taken; it
+   would touch HowWeWork and DeliveryModel and changes no pixel. Recorded on #84
+   rather than done quietly here. */
 export const PANEL_FILL = {
   accent: 'bg-[color-mix(in_srgb,var(--color-accent)_16%,var(--color-surface))]',
-  forest: 'bg-[color-mix(in_srgb,var(--color-forest)_18%,var(--color-surface))]',
+  forest: 'bg-[color-mix(in_srgb,var(--color-brand)_18%,var(--color-surface))]',
   orange: 'bg-[color-mix(in_srgb,var(--color-orange)_16%,var(--color-surface))]',
 }
 
@@ -32,7 +36,7 @@ export const PANEL_FILL = {
  */
 export const PANEL_FILL_HOVER = {
   accent: 'hover:bg-[color-mix(in_srgb,var(--color-accent)_26%,var(--color-surface))]',
-  forest: 'hover:bg-[color-mix(in_srgb,var(--color-forest)_28%,var(--color-surface))]',
+  forest: 'hover:bg-[color-mix(in_srgb,var(--color-brand)_28%,var(--color-surface))]',
   orange: 'hover:bg-[color-mix(in_srgb,var(--color-orange)_26%,var(--color-surface))]',
 }
 
@@ -48,12 +52,11 @@ export const BAND = {
   surface: 'bg-surface',
   brand: 'bg-brand',
   navy: 'bg-navy',
-  // Why Mile42's page identity, the way `navy` is What We Do's and `gold` is
-  // How We Work's. Dark, so it takes the on-dark tones: the off-white heading
-  // reaches 8.7:1 and a sky eyebrow 6.0:1. `brand` was what this page used, but
-  // it is the hero on Home and six others, and its off-white heading measures
-  // 2.51:1 — under the 3:1 floor for text that size.
-  forest: 'bg-forest',
+  // `forest` is retired. It existed only because the old brand green was too
+  // light to carry on-dark type, and #69 removed that reason: the revised green
+  // takes the off-white at 4.79:1. The two sat 1.82:1 apart, which is not a
+  // difference a reader can see, so Why Mile42 draws on `brand` like the rest.
+  // The cost is deliberate: the site keeps five page identities, not six.
   blue: 'bg-[color-mix(in_srgb,var(--color-accent)_92%,black)]',
   // The detail comps' `#e6f1fe`, which is the accent at 10% over white.
   tint: 'bg-[color-mix(in_srgb,var(--color-accent)_10%,white)]',
@@ -119,33 +122,49 @@ const SECTION_PAD = {
  * added later has to state its own treatment instead of silently inheriting a
  * blend its colour may not survive.
  */
+/**
+ * Every band draws the same tile. What differs is how hard, and until #83 that
+ * was nine different answers: the same opacity composites differently against
+ * every fill, so copying one number would not have produced one texture.
+ *
+ * Each opacity below is solved so the composited field lands on a luminance
+ * spread of 3.95, the texture the brand band reads at the film #69 left it
+ * with. Measure with `node design/tokens/verify/grain.mjs`, which prints the
+ * texture and the worst glyph-sized contrast for every band. Before it existed
+ * these numbers could not be reproduced.
+ *
+ * Blends are unchanged and are not interchangeable. On a dark backdrop overlay
+ * multiplies and roughly doubles the spread, which is why `brand` takes
+ * soft-light; on `orange-deep` soft-light drags the band's mean 1.1 levels off
+ * where it started, past the one level this file holds every band to, which is
+ * why that one takes overlay.
+ *
+ * Contrast is no longer what holds any film down. `blue` and `orange-deep` were
+ * both cut below the old target to protect their text and described themselves
+ * as fainter than their neighbours; at this target that conflict is gone and
+ * both gained margin, 4.55 to 4.65 and 4.54 to 4.63.
+ *
+ * `tint`, `surface` and `page` already sit at or under the target and are left
+ * at full opacity. `page` is white, and overlay on white changes nothing, so it
+ * has no texture at all.
+ */
 export const BAND_GRAIN = {
-  navy: { opacity: 0.7, blend: 'soft-light' },
-  forest: { opacity: 0.65, blend: 'soft-light' },
-  /* 0.35 rather than the 0.55 the spread target asks for. Off-white on this
-     band is one of the tightest pairings the site draws, 4.92:1 against a 4.5
-     floor, and the film's texture eats into that: at 0.55 the worst
-     glyph-sized area measures 4.36, below AA. 0.40 lands on exactly 4.50 and
-     0.35 leaves 4.55, which is the margin a threshold this close should have.
-     The band's film is fainter than its neighbours as a result. */
-  blue: { opacity: 0.35, blend: 'overlay' },
-  brand: { opacity: 0.75, blend: 'soft-light' },
-  gold: { opacity: 0.95, blend: 'overlay' },
-  /* 0.40, held down by contrast rather than by the spread target, exactly as
-     `blue` is. Off-white on this band is 4.85:1 against a 4.5 floor, and the
-     film eats into that: overlay at 0.45 lands the worst glyph-sized area on
-     4.50 and 0.40 leaves 4.54, which is the margin a threshold this close
-     should have. The 6/255 spread wants 0.60, and there the same measure reads
-     4.39.
-
-     Overlay rather than soft-light. Soft-light returns a comparable spread at
-     the same contrast but drags the band's mean 1.1 levels off where it
-     started, past the one level this file holds every band to; overlay moves it
-     by nothing measurable. */
-  'orange-deep': { opacity: 0.4, blend: 'overlay' },
-  'panel-accent': { opacity: 0.8, blend: 'overlay' },
-  'panel-forest': { opacity: 0.8, blend: 'soft-light' },
-  'panel-orange': { opacity: 0.75, blend: 'overlay' },
+  navy: { opacity: 0.5, blend: 'soft-light' },
+  blue: { opacity: 0.25, blend: 'overlay' },
+  /* The reference. #69 set this one against contrast rather than texture:
+     off-white on the revised green is 4.79:1 flat, soft-light at 0.45 lands the
+     worst glyph-sized area on exactly 4.50, and 0.40 leaves 4.53. */
+  brand: { opacity: 0.4, blend: 'soft-light' },
+  /* Was 0.95, by some distance the grainiest band on the site at a spread of
+     10.1, roughly twice its neighbours. */
+  gold: { opacity: 0.37, blend: 'overlay' },
+  'orange-deep': { opacity: 0.27, blend: 'overlay' },
+  'panel-accent': { opacity: 0.47, blend: 'overlay' },
+  /* 0.62 rather than the 0.56 this needed before #84: the panel is an 18% tint
+     of its parent over surface, and retiring forest changed the parent, so the
+     fill moved from #ccd7cd to #ccdfd2 and had to be re-solved. */
+  'panel-forest': { opacity: 0.62, blend: 'soft-light' },
+  'panel-orange': { opacity: 0.57, blend: 'overlay' },
   tint: { opacity: 1, blend: 'overlay' },
   surface: { opacity: 1, blend: 'overlay' },
   page: { opacity: 1, blend: 'overlay' },

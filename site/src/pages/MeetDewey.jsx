@@ -9,8 +9,8 @@ import LibrarianDiagram from '../components/LibrarianDiagram.jsx'
    breadcrumb — it is a top-level page instead, so it opens the way /why-mile42
    and /insights do, with an eyebrow and a hero H1 on its own identity band.
 
-   `blue` is that identity band, the way `navy` is What We Do's, `gold` is How
-   We Work's and `forest` is Why Mile42's. */
+   `blue` is that identity band, the way `navy` is What We Do's and `gold` is
+   How We Work's. Why Mile42 shares `brand` since #84 retired forest. */
 
 const STEPS = [
   { label: 'Create', line: 'A tenant and namespace. Nothing lands by accident.' },

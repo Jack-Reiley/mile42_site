@@ -21,7 +21,7 @@ export default function Privacy() {
     <>
       <Section band="brand" grain>
         <Wrap>
-          <Eyebrow tone="ink" className="mb-4">Legal</Eyebrow>
+          <Eyebrow tone="hero" className="mb-4">Legal</Eyebrow>
           <H1 tone="hero" className="mb-6">Privacy policy.</H1>
           <Placeholder tag="Placeholder · not legal copy" className="max-w-2xl">
             This page is a stub so the footer link resolves in the prototype. No privacy policy has been written. Counsel must draft it, and nothing here has been reviewed by a lawyer.
