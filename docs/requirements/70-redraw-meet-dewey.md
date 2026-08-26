@@ -4,7 +4,7 @@
 - Pull request: not yet opened
 - Parent epic: none
 - Delivery unit: single ticket, stacked on #64
-- Requirement version: 1
+- Requirement version: 2
 
 ## Objective
 
@@ -167,13 +167,34 @@ Then all seven parts are shown as stacked text
 And none of them requires a pointer to read
 And the diagram's tinted frame is not drawn around that text
 
-### SCN-012 — The hero states the product, and keeps the line it opened on
+### SCN-012 — The hero states the product
 
 Given a reader arriving on Meet Dewey
 When the hero band is displayed
 Then the eyebrow reads "Dewey™"
 And the heading names the product and who it is for
-And the lead line still opens with "Every agent needs a library."
+
+Amended at version 2. See the contract change below.
+
+## Contract change, version 1 to version 2
+
+**What changed.** SCN-012's third clause, "And the lead line still opens with
+'Every agent needs a library.'", is removed. The first two clauses stand.
+
+**Why.** #77 restored this hero after a merge resolution in PR #66 reverted it.
+The revert had left the page saying "Every agent needs a library." twice, once
+as the `h1` and again as the first sentence of the lead directly beneath it.
+Restoring #70's heading fixes the `h1`; the duplication is what remained.
+
+Brett decided during #77's design that the hero should not repeat the line.
+Since the phrase appears nowhere else in `site/src/`, that retires it from the
+site. That reverses a deliberate #70 decision, so it is recorded here rather
+than left as a silent disagreement between this document and the code.
+
+**Approved by** Brett, during #77 design.
+
+**Evidence.** `site/src/pages/MeetDewey.test.jsx` asserts the eyebrow and the
+heading, and asserts that the retired line appears nowhere in the hero.
 
 ## Edge cases
 

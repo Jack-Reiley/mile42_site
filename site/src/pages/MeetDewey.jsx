@@ -109,11 +109,15 @@ export default function MeetDewey() {
           before the grain film touches it, and sky 3.32. See EYEBROW_TONE. */}
       <Section band="orange-deep" grain>
         <Wrap>
-          <Eyebrow tone="hero" className="mb-4">Dewey · The librarian for AI agents</Eyebrow>
-          <H1 tone="hero" className="mb-6">Every agent needs a library.</H1>
+          <Eyebrow tone="hero" className="mb-4">Dewey™</Eyebrow>
+          {/* Two sentences in one heading, the way "Data in. Answers out." is
+              set further down the page. The eyebrow keeps the name alone and
+              the heading carries what it is. */}
+          <H1 tone="hero" className="mb-6">
+            Meet Dewey™. The librarian for AI agents (and humans).
+          </H1>
           <Lead tone="hero">
-            Every agent needs a library. Agents don&#8217;t fail for lack of intelligence. They
-            fail for lack of context.
+            Agents don&#8217;t fail for lack of intelligence. They fail for lack of context.
           </Lead>
         </Wrap>
       </Section>

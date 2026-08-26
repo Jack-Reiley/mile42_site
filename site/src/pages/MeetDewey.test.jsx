@@ -38,6 +38,37 @@ describe('Meet Dewey', () => {
     expect(container.querySelector('nav[aria-label="Breadcrumb"]')).toBeNull()
   })
 
+  /* #77. The hero was reverted by a merge resolution in PR #66, which dropped
+     #60's trademark from the eyebrow and #70's heading, and left the lead
+     repeating the line the h1 had become. The assertion above is what caught
+     it; these two cover the parts it could not see.
+
+     Added beside the existing assertions rather than replacing any of them.
+     Nothing above this comment was modified. */
+  it('carries the trademark on the brand eyebrow', () => {
+    const { container } = page()
+    // Scoped to the hero: the mark appears elsewhere on the page too, and what
+    // the merge dropped was this one.
+    const eyebrow = container.querySelector('section p')
+
+    // The literal U+2122, not an entity: `&#8482;` renders identically in a
+    // browser and would fail this comparison, which is exactly the kind of
+    // near-miss that would read as the restoration not having taken.
+    expect(eyebrow).toHaveTextContent('Dewey\u2122')
+    // The eyebrow names the product and stops; the heading says what it is.
+    expect(eyebrow).not.toHaveTextContent('librarian')
+  })
+
+  it('states its opening line once, in the heading, not twice', () => {
+    const { container } = page()
+    const hero = container.querySelector('section')
+
+    // The tell for the regression: the h1 and the first sentence of the lead
+    // said the same thing. The line is retired from the hero entirely.
+    expect(hero).not.toHaveTextContent('Every agent needs a library.')
+    expect(hero).toHaveTextContent(/Agents don.t fail for lack of intelligence/)
+  })
+
   it('carries the whole integration strip and the comparison', () => {
     page()
     expect(screen.getByText('Retrieve')).toBeInTheDocument()
