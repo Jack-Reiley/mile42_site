@@ -43,6 +43,11 @@ const META = {
     alt: 'A robotic hand and a human hand shaking',
     placeholder: false,
   },
+  chess: {
+    level: 2,
+    alt: 'A human hand and a robotic hand each moving a piece on a chessboard',
+    placeholder: false,
+  },
   laptop: {
     level: 2,
     alt: 'Hands typing on a laptop',

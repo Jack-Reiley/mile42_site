@@ -33,6 +33,11 @@
         "width": 512,
         "height": 322,
         "bytes": 38836
+      },
+      {
+        "width": 704,
+        "height": 442,
+        "bytes": 58832
       }
     ]
   },
@@ -201,6 +206,22 @@
         "width": 208,
         "height": 254,
         "bytes": 27904
+      }
+    ]
+  },
+  "chess": {
+    "width": 1761,
+    "height": 1704,
+    "variants": [
+      {
+        "width": 340,
+        "height": 329,
+        "bytes": 33408
+      },
+      {
+        "width": 680,
+        "height": 658,
+        "bytes": 70794
       }
     ]
   }

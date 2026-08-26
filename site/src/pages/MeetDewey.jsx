@@ -1,4 +1,4 @@
-import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button, Spot, Placeholder } from '../components/primitives.jsx'
+import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button, Spot } from '../components/primitives.jsx'
 import { CompareTable } from '../components/Lists.jsx'
 import DeweyPillars from '../components/DeweyPillars.jsx'
 import IntegrationSteps from '../components/IntegrationSteps.jsx'
@@ -184,7 +184,10 @@ export default function MeetDewey() {
       <Section band="orange-deep" grain className="overflow-hidden">
         {/* Two columns, the way the home hero is set: copy left, artwork right.
             The handshake moved up here from the context band below. */}
-        <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        {/* Not an even split. The home hero halves the band, but this headline
+            is longer than that one and at 600px it broke across three lines.
+            The copy takes the larger share and the artwork shrinks to suit. */}
+        <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)]">
           <div>
           {/* The eyebrow names the category rather than the product. #77 put
               the trademarked name here, back when the heading was "Meet Dewey™.
@@ -209,8 +212,8 @@ export default function MeetDewey() {
           <Spot
             name="handshake"
             priority
-            sizes="(min-width: 1024px) 30rem, 90vw"
-            className="h-auto w-full max-w-[30rem] justify-self-center lg:justify-self-end"
+            sizes="(min-width: 1024px) 22rem, 80vw"
+            className="h-auto w-full max-w-[22rem] justify-self-center lg:justify-self-end"
           />
         </Wrap>
       </Section>
@@ -264,18 +267,20 @@ export default function MeetDewey() {
               is `auto minmax(0,1fr)` here so the copy column can shrink rather
               than being forced to its longest word. */}
           <div className="mb-10 grid items-center gap-8 lg:mb-18 lg:grid-cols-[auto_minmax(0,1fr)] lg:gap-12">
-            {/* The chessboard artwork goes here. It is not in the repo yet —
-                not in the illustration manifest, not in design/, and not in the
-                context-section handoff, whose only asset is the handshake that
-                has moved to the hero. Held as the site's own provisional block
-                rather than left as an empty column, so the slot and its 432px
-                width stay visible until the asset lands. */}
-            <Placeholder
-              tag="Illustration"
-              className="w-full lg:w-[432px]"
-            >
-              Chessboard graphic, 432px wide. Awaiting the asset.
-            </Placeholder>
+            {/* The chess drawing, from `Mile42 Icons 3/chess.svg`. That file is
+                an SVG wrapper around a 2000px PNG, so the master registered in
+                the pipeline is that PNG extracted rather than a re-render of
+                the wrapper.
+
+                Nearly square where the handshake it replaces was landscape, so
+                it is held below the handoff's 432px: at the full width it stood
+                taller than the copy beside it and the lede read as a picture
+                with a caption. */}
+            <Spot
+              name="chess"
+              sizes="(min-width: 1024px) 340px, 70vw"
+              className="h-auto w-full max-w-[340px] justify-self-center lg:justify-self-start"
+            />
             {/* 24px between heading and body, per the handoff. */}
             <div className="flex flex-col gap-6">
               {/* The handoff's 36/46 and 18/34. theme.css produces 42 and 32
