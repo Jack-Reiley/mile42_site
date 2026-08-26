@@ -13,9 +13,9 @@ export default function Insights() {
     <>
       <Section band="brand" grain>
         <Wrap>
-          <Eyebrow tone="ink" className="mb-4">Insights</Eyebrow>
+          <Eyebrow tone="hero" className="mb-4">Insights</Eyebrow>
           <H1 tone="hero" className="mb-6">Arguments, not explainers.</H1>
-          <Lead>We write when we have something specific to say, which is not often.</Lead>
+          <Lead tone="hero">We write when we have something specific to say, which is not often.</Lead>
         </Wrap>
       </Section>
 
@@ -49,8 +49,8 @@ export default function Insights() {
 
       <Section band="brand">
         <Wrap className="text-center">
-          <H2 className="mb-4">Would rather talk than read?</H2>
-          <Lead className="mx-auto mb-8">Most of what we know does not make it onto a page. Ask us directly.</Lead>
+          <H2 tone="hero" className="mb-4">Would rather talk than read?</H2>
+          <Lead tone="hero" className="mx-auto mb-8">Most of what we know does not make it onto a page. Ask us directly.</Lead>
           <Button to="/contact">Start a conversation</Button>
         </Wrap>
       </Section>

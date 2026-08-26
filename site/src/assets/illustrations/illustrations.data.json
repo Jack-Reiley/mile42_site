@@ -133,27 +133,27 @@
       {
         "width": 64,
         "height": 71,
-        "bytes": 4412
+        "bytes": 4260
       },
       {
         "width": 104,
         "height": 116,
-        "bytes": 8712
+        "bytes": 8548
       },
       {
         "width": 128,
         "height": 143,
-        "bytes": 11688
+        "bytes": 11318
       },
       {
         "width": 208,
         "height": 232,
-        "bytes": 21874
+        "bytes": 21124
       },
       {
         "width": 256,
         "height": 285,
-        "bytes": 28632
+        "bytes": 27392
       }
     ]
   },

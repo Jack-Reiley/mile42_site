@@ -60,7 +60,9 @@ const PAIRS = [
   ['var(--color-ink)', 'var(--color-surface)', AA_NORMAL, 'body on the surface band'],
   ['var(--color-ink)', TINT, AA_NORMAL, 'body on the tint band'],
   ['var(--color-ink)', 'var(--color-cta)', AA_NORMAL, 'body on the gold band'],
-  ['var(--color-ink)', 'var(--color-brand)', AA_NORMAL, 'body on the hero band'],
+  // No ink row for the brand band. #69 revised the green and the band became
+  // a light-typed field, the way `orange-deep` already is: ink measures
+  // 3.22:1 on it and nothing draws ink there any more.
   ['var(--color-on-cta)', 'var(--color-cta)', AA_NORMAL, 'button label on its fill'],
 
   // The accent as text. 12px eyebrows and 16px tertiary links, so normal text
@@ -84,10 +86,20 @@ const PAIRS = [
   ['var(--color-hero-heading)', BLUE, AA_NORMAL, 'off-white copy on the blue band'],
   ['var(--color-hero-heading)', ORANGE_DEEP, AA_NORMAL, 'off-white copy on the orange-deep band'],
 
-  // Reported, not enforced. The hero H1 misses even the large-text threshold
-  // and is the most prominent element on the site. Changing either value is a
-  // brand decision nobody has taken. OPEN-QUESTIONS.md question 1.
-  ['var(--color-hero-heading)', 'var(--color-brand)', AA_LARGE, 'the hero H1 on the brand band', 'question 1'],
+  // The brand band, declared once per size it is drawn at.
+  //
+  // A single row here is what let #69 happen. The pairing was declared once at
+  // the large-text threshold and waived as known debt, so the 18px lead, the
+  // 12px eyebrow and the 11px badge numeral drawn in the same two colours were
+  // never evaluated against the 4.5 they actually need. The gate reported the
+  // heading and stayed silent about everything smaller.
+  //
+  // A pairing used at more than one size needs a row per size. A waiver, if one
+  // is ever needed again, belongs on a single row and must not suppress the
+  // others.
+  ['var(--color-hero-heading)', 'var(--color-brand)', AA_LARGE, 'the hero H1 on the brand band'],
+  ['var(--color-hero-heading)', 'var(--color-brand)', AA_NORMAL, 'the lead and eyebrow on the brand band'],
+  ['var(--color-hero-heading)', 'var(--color-brand)', AA_NORMAL, 'the badge numeral on the brand fill'],
 ]
 
 const NAMED = { white: '#ffffff', black: '#000000' }

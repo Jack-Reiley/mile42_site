@@ -8,16 +8,53 @@ Ordered by how much rework a late answer causes.
 
 ---
 
-## 1. The hero H1 fails contrast — 2.51
+## 1. The hero H1 fails contrast — 2.51 (answered)
 
-`--color-hero-heading` `#fffbf3` on `--color-brand` `#00b785` measures **2.51**.
+`--color-hero-heading` `#fffbf3` on `--color-brand` `#00b785` measured **2.51**.
 WCAG AA needs 4.5 for normal text and 3.0 for large. At 57px it counts as large,
-and it still fails.
-
-This is the most prominent element on the site.
+and it still failed.
 
 **Question:** darken the green, darken the heading, or accept the ratio as a
-deliberate brand decision? We have not changed either value.
+deliberate brand decision?
+
+**Answered by #69: darken the green, to `#00805d`.**
+
+The question as written understated the problem. The same pair was drawn at
+seven sites, not one, and four of them are normal text where the bar is 4.5
+rather than 3.0: the `Coming Soon` line at 18px on the public splash, both
+drill-down badge numerals at 12px and 11px, and the eyebrow on three page
+heroes. Only the headings ever sat at the 3.0 bar.
+
+Two of the three proposed answers were not available:
+
+- **Darkening the heading** is impossible. The tone is already `#fffbf3`, and
+  pure white, the brightest colour there is, reaches only **2.59** on the old
+  green. Both thresholds sit above that ceiling, so no lighter tone resolves any
+  of the seven sites.
+- **Accepting it** would have left the only page the public can reach failing at
+  2.51 against a 4.5 bar.
+
+So the green moved. `#00805d` is the old value at 70%, chosen for contrast
+headroom rather than to match a handoff tone, the same way `--color-accent-deep`
+and `--color-orange-deep` were: the off-white reaches **4.79** on it, which is
+the margin `orange-deep` (4.85) and the blue band (4.92) were given so their
+grain films could be tuned without dropping under AA. `#008460` is the least
+darkening that clears 4.5 at all, at 4.57, and was rejected as too tight to film.
+
+**The band flipped with it.** No darkening of this green carries both tones:
+checked at every step from 100% to 20%, cream and ink never both clear 4.5, and
+they cross near 82% where neither passes. This is the same crossover question 15
+records for the orange. So `brand` stopped being a light field with dark type and
+became a dark field with light type, the way `orange-deep` already is. Every
+line on a brand surface now takes the off-white; ink measures 3.22 there.
+
+**Sizes affected and where it was applied:** the splash heading and its 18px
+line, the `h1` on Contact, Insights and Privacy plus their eyebrows and leads,
+the Insights closing band, the WhereAgentsWork decision card, the LibrarianFlow
+Dewey column, and both HardParts badge numerals.
+
+The gate no longer waives this pairing. It is declared once per size it is drawn
+at, which is the defect that let the small-text uses go unmeasured for so long.
 
 ## 2. The blue eyebrow fails contrast — 4.41 (answered)
 

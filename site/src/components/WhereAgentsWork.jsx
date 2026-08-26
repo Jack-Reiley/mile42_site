@@ -41,11 +41,12 @@ export default function WhereAgentsWork({ roles }) {
 
           <PaneHandoff label="Goes to the accountable person" />
 
-          {/* Ink on the green, not the off-white hero tone: cream-50 on this fill
-              is 2.51:1, ink is 6.16:1. Same rule the page follows on `brand`. */}
+          {/* The off-white hero tone, not ink. #69 revised the green and the
+              band flipped to light type: ink is 3.22:1 on this fill now and the
+              off-white 4.79. Same rule the page follows on `brand`. */}
           <div className="rounded-card border border-ink bg-brand px-6 py-[22px] shadow-hard">
-            <Eyebrow tone="ink" className="mb-2">Human decision</Eyebrow>
-            <p className="font-heading text-[22px] font-bold leading-8 text-ink text-pretty">
+            <Eyebrow tone="hero" className="mb-2">Human decision</Eyebrow>
+            <p className="font-heading text-[22px] font-bold leading-8 text-hero-heading text-pretty">
               {role.human}
             </p>
           </div>

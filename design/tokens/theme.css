@@ -23,7 +23,7 @@
    */
 
   /* Primary */
-  --color-brand: #00b785; /* measured; name INFERRED — full-bleed hero band */
+  --color-brand: #00805d; /* revised by #69; was #00b785, see OPEN-QUESTIONS q1 */
   --color-accent: #0073f4; /* measured; name INFERRED — section eyebrows */
   --color-cta: #ffdf65; /* measured; name INFERRED — primary button fill */
   --color-ink: #2f1e14; /* measured; name INFERRED — text, borders, shadow */

@@ -91,9 +91,9 @@ export default function Contact() {
     <>
       <Section band="brand" grain>
         <Wrap>
-          <Eyebrow tone="ink" className="mb-4">Contact</Eyebrow>
+          <Eyebrow tone="hero" className="mb-4">Contact</Eyebrow>
           <H1 tone="hero" className="mb-6">Tell us what needs to work.</H1>
-          <Lead>Describe the situation in your own words. You do not need a scope, a budget, or a defined project. If we are not the right firm for it, we will tell you that.</Lead>
+          <Lead tone="hero">Describe the situation in your own words. You do not need a scope, a budget, or a defined project. If we are not the right firm for it, we will tell you that.</Lead>
         </Wrap>
       </Section>
 

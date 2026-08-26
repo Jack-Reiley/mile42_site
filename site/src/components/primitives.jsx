@@ -129,7 +129,16 @@ export const BAND_GRAIN = {
      0.35 leaves 4.55, which is the margin a threshold this close should have.
      The band's film is fainter than its neighbours as a result. */
   blue: { opacity: 0.35, blend: 'overlay' },
-  brand: { opacity: 0.75, blend: 'soft-light' },
+  /* 0.40, held down by contrast, exactly as `blue` and `orange-deep` are. #69
+     revised the green and the band flipped to light type, so off-white on it is
+     4.79:1 against a 4.5 floor and the film eats into that: soft-light at 0.45
+     lands the worst glyph-sized area on 4.50 and 0.40 leaves 4.53, which is the
+     margin a threshold this close should have.
+
+     Soft-light, not the overlay the other two dark bands take. Overlay on a
+     backdrop this dark multiplies, roughly doubling the spread, and fails at
+     every opacity down to 0.30: the best it reaches is 4.34. */
+  brand: { opacity: 0.4, blend: 'soft-light' },
   gold: { opacity: 0.95, blend: 'overlay' },
   /* 0.40, held down by contrast rather than by the spread target, exactly as
      `blue` is. Off-white on this band is 4.85:1 against a 4.5 floor, and the

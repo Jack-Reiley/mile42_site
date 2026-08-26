@@ -34,7 +34,7 @@ const ROW_PANEL = 'hard-parts-region'
    is what keeps a 19px glyph legible on white — at full strength the gold
    checkmark measures 1.79:1 and effectively disappears. */
 const NODE_TONE = [
-  { fill: 'bg-brand', mark: 'text-ink', rest: 'text-brand-deep' },
+  { fill: 'bg-brand', mark: 'text-hero-heading', rest: 'text-brand-deep' },
   { fill: 'bg-gold', mark: 'text-ink', rest: 'text-gold-deep' },
   { fill: 'bg-orange', mark: 'text-hero-heading', rest: 'text-orange-deep' },
   { fill: 'bg-navy', mark: 'text-hero-heading', rest: 'text-navy' },
@@ -50,7 +50,7 @@ function Badge({ n, size }) {
     <span
       aria-hidden="true"
       className={`mt-0.5 grid flex-none place-items-center rounded-pill border border-ink bg-brand font-bold shadow-[0_2px_0_var(--color-ink)] ${
-        big ? 'h-6 w-6 text-[12px] text-hero-heading' : 'h-[22px] w-[22px] text-[11px] text-white'
+        big ? 'h-6 w-6 text-[12px] text-hero-heading' : 'h-[22px] w-[22px] text-[11px] text-hero-heading'
       }`}
     >
       {n}
