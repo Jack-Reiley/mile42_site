@@ -61,7 +61,11 @@ const OUT = join(SITE, 'src', 'assets', 'illustrations')
  */
 const MAP = {
   'pc_user_with_color.png': { key: 'hero-desk', widths: [384, 768, 1100] },
-  'robo_handshake_with_color.png': { key: 'handshake', widths: [256, 512] },
+  // 256 for the home page's offering spot, which renders near 128px. 704 is the
+  // Meet Dewey hero: `max-w-[22rem]` is 352px, so 704 at 2x. Without it a 2x
+  // screen falls past the 512 to the full-size master, which is 284KB and the
+  // LCP image on that page.
+  'robo_handshake_with_color.png': { key: 'handshake', widths: [256, 512, 704] },
   'laptop_with_color.png': { key: 'laptop', widths: [256, 512] },
   'lightbulb_with_color.png': { key: 'lightbulb', widths: [256, 512] },
   // The How we work hero renders it near 352px, so 384/768 covers 1x and 2x.
@@ -77,6 +81,12 @@ const MAP = {
   // and downscales it itself, which averages back some of the alpha work below.
   'handshake_mono.png': { key: 'path-handshake', widths: [64, 104, 128, 208, 256], tint: '--color-red' },
   'clipboard_mono.png': { key: 'path-clipboard', widths: [104, 208], tint: '--color-orange' },
+  // The Meet Dewey context lede renders it at 340px, so 340/680 covers 1x and
+  // 2x. Tinted rather than left as authored: the master is pure black on alpha
+  // and the site's ink is a warm brown, so untinted it would sit colder than
+  // every line of type beside it. Being a mask, it takes the same exact-tint
+  // assertion the path spots do.
+  'chess_mono.png': { key: 'chess', widths: [340, 680], tint: '--color-ink' },
 }
 
 /** The declared value of a colour token, read the way the token checker does. */
