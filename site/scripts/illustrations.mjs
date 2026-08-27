@@ -26,7 +26,7 @@
  *
  * Dimensions and variant lists are emitted as data because Vite resolves an
  * imported asset to a URL but does not expose its size, and reading it at
- * runtime would require loading the image, the very thing that causes layout
+ * runtime would require loading the image — the very thing that causes layout
  * shift. Never hand-edit the emitted JSON.
  *
  * Run with `npm run illustrations:build`. Idempotent.
@@ -49,10 +49,10 @@ const OUT = join(SITE, 'src', 'assets', 'illustrations')
  * optional `tint` naming a colour token.
  *
  * Widths trace to real rendered sizes rather than arbitrary breakpoints:
- *   hero: `max-w-[34rem]` is 544px, so ~1088 at 2x DPR; a 375px viewport
- *         renders it near 343px, so ~686 at 2x
- *   spots: `w-28 lg:w-32` is 112–128px, so ~256 at 2x
- *   paths: 64px rendered, so ~128 at 2x
+ *   hero  — `max-w-[34rem]` is 544px, so ~1088 at 2x DPR; a 375px viewport
+ *           renders it near 343px, so ~686 at 2x
+ *   spots — `w-28 lg:w-32` is 112–128px, so ~256 at 2x
+ *   paths — 64px rendered, so ~128 at 2x
  * A variant wider than the artwork itself is skipped rather than upscaled.
  *
  * `tint` is a token name rather than a hex, so the colour stays a reference to
@@ -122,7 +122,7 @@ async function assertVisuallyLossless(trimmedBuf, encodedBuf, label) {
   }
   if (visible || alpha) {
     throw new Error(
-      `${label}: encode was not lossless (${visible} visible pixel(s) and ${alpha} alpha value(s) changed)`,
+      `${label}: encode was not lossless — ${visible} visible pixel(s) and ${alpha} alpha value(s) changed`,
     )
   }
   return a.info
@@ -265,8 +265,8 @@ async function assertTinted(trimmedBuf, encodedBuf, [r, g, b], label) {
   }
   if (alpha || offColour) {
     throw new Error(
-      `${label}: tint was not exact (${alpha} alpha value(s) changed and ` +
-        `${offColour} visible pixel(s) are not the tint colour)`,
+      `${label}: tint was not exact — ${alpha} alpha value(s) changed and ` +
+        `${offColour} visible pixel(s) are not the tint colour`,
     )
   }
   return out.info

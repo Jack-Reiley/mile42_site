@@ -7,7 +7,7 @@ import { REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
 
 /* Ported from the Dewey comp. Copy is verbatim; the structure is the site's
    own components. The comp draws this as a child of "What we do" with a
-   breadcrumb. It is a top-level page instead, so it opens the way /why-mile42
+   breadcrumb — it is a top-level page instead, so it opens the way /why-mile42
    and /insights do, with an eyebrow and a hero H1 on its own identity band.
 
    `blue` is that identity band, the way `navy` is What We Do's and `gold` is
@@ -227,7 +227,7 @@ export default function MeetDewey() {
           already making in order. The contrast is the layout now: three lines
           against three, the second half raised off the band, so the shape of
           the argument is visible before a word of it is read. The prose is not
-          summarized somewhere else on the page: these lines are that copy,
+          summarized somewhere else on the page — these lines are that copy,
           tightened.
 
           The three outcomes below them were one heading-scale block, which read
@@ -254,9 +254,9 @@ export default function MeetDewey() {
               text with no surfaces.
 
               The artwork is the site's own `handshake` entry rather than the
-              handoff's two SVG layers. They are the same drawing: the webp is
+              handoff's two SVG layers. They are the same drawing — the webp is
               that blob and that line art composed, in the same final
-              orientation the handoff's `scaleX(-1)` produces. The README also
+              orientation the handoff's `scaleX(-1)` produces — and the README
               asks for the codebase's own patterns. Going through `Spot` keeps
               the content hash, the responsive srcSet, and the intrinsic
               dimensions that stop the illustration shifting the band as it
@@ -309,7 +309,7 @@ export default function MeetDewey() {
               The two halves are deliberately unequal objects: the problem sits
               flat inside a hairline, the answer is the site's raised card on the
               page fill, so the eye lands on the second one. The arrows are what
-              the panels alone could not say: which answer belongs to which
+              the panels alone could not say — which answer belongs to which
               problem. Scattered becomes one layer, unbounded access becomes
               authorized access, competing answers become sourced ones.
 
@@ -325,7 +325,7 @@ export default function MeetDewey() {
               tall as the taller of its two cells, and all three cells centre
               within it, so an arrow sits on its row whatever the copy does. The
               panels are two background elements spanning that grid rather than
-              containers, which is the cost: the rows are cells, so they cannot
+              containers, which is the cost — the rows are cells, so they cannot
               also be a `ul`. Below `lg` the panels stack, nothing needs to
               align, and `ContrastPanel` renders the real list markup. Only one
               form is ever displayed, so nothing is announced twice. */}
