@@ -91,7 +91,10 @@ link and button semantics, and keyboard-reachable interactive elements.
 
 ## Testing and Code Quality
 
-There is no test suite in this repository yet. Do not claim one ran.
+`site/` has a Vitest unit suite. Run it from the repo root with
+`npm run test:unit`, which delegates to `vitest run` inside `site/`. All tests
+must pass before work is declared done. Do not skip, comment out, or disable a
+test to make a run clean; fix the code instead.
 
 When behavior-bearing code is added, add tests alongside it and register the
 command in the `commands` block of `.agents/software-delivery.config.json` so
@@ -99,14 +102,22 @@ the delivery workflow starts enforcing it. Treat that config block as the single
 source of truth for which gates exist; a command configured as an empty string
 means the gate does not exist yet, not that it may be skipped silently.
 
-Until then, the build is the gate. A change that does not build is not done.
+`copy_prototype/` has no tests of its own. There the build is still the gate. A
+change that does not build is not done.
 
 ## Verification
 
 Choose checks based on the work:
-- `npm run copy:build` for any change under `copy_prototype/`. This is currently
-  the only automated gate.
-- `npm run copy` and a real browser pass for anything user-visible.
+- `npm run test:unit` for any change under `site/`.
+- `npm run tokens:check` when design tokens change.
+- `npm run build` for any change under `site/`.
+- `npm run copy:build` for any change under `copy_prototype/`.
+- `npm run dev` or `npm run copy` and a real browser pass for anything
+  user-visible.
+
+The delivery workflow currently configures `test` as
+`npm run test:unit && npm run tokens:check` and `verify` as
+`npm run build && npm run copy:build`.
 
 Node is pinned in `.nvmrc`; run `nvm use` before the checks so results match CI.
 
