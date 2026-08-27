@@ -1,7 +1,7 @@
 # #91 — Rewrite the Meet Dewey hero and add the shared-context introduction band
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/91
-- Pull request: <PR_URL>
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/92
 - Parent epic: none
 - Delivery unit: single-ticket, independent, based on `main`
 - Requirement version: 1
