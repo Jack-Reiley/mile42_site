@@ -203,7 +203,7 @@ export default function MeetDewey() {
           </H1>
           <Lead tone="hero">
             Powerful models are available to everyone. Dewey turns what your organization uniquely
-            knows into governed, up-to-date context that people and agents can use&#8212;without
+            knows into governed, up-to-date context that people and agents can use, without
             exposing your systems of record.
           </Lead>
           </div>
@@ -299,7 +299,7 @@ export default function MeetDewey() {
                 Your people understand the customers, policies, history, and nuance behind the
                 work. Agents can turn that understanding into action with unprecedented speed and
                 reach. But people and agents cannot work together effectively when they operate
-                from different&#8212;or incomplete&#8212;versions of what the enterprise knows.
+                from different, or incomplete, versions of what the enterprise knows.
               </Lead>
             </div>
           </div>
