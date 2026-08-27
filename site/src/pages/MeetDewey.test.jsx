@@ -44,8 +44,8 @@ describe('Meet Dewey', () => {
      mark. The hero copy has since been rewritten to lead with the problem
      rather than the product, so the eyebrow names the category instead and
      there is no longer a name up there to carry a mark. What #77 was actually
-     protecting \u2014 a hero that says one thing once \u2014 is what the two assertions
-     below check. */
+     protecting is a hero that says one thing once, and that is what the two
+     assertions below check. */
   it('names the category on the eyebrow, and the problem in the heading', () => {
     const { container } = page()
     // Scoped to the hero: the page has other eyebrows below it.

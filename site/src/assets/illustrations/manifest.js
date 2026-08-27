@@ -6,9 +6,9 @@ import data from './illustrations.data.json'
  * edit here.
  *
  * `level` follows the style guide's Level One/Two/Three system:
- *   1 — hero scene on a gradient blob with floating accents; hero use only
- *   2 — mid-size spot, ink line art with one flat fill
- *   3 — small spot
+ *   1: hero scene on a gradient blob with floating accents; hero use only
+ *   2: mid-size spot, ink line art with one flat fill
+ *   3: small spot
  *
  * Level Three now covers two visual treatments. The `path-*` entries are flat
  * single-colour linework tinted from a token at build time, not the ink-plus-fill
@@ -22,7 +22,7 @@ import data from './illustrations.data.json'
  * by `npm run illustrations:build` alongside the assets themselves. They are
  * generated rather than hand-written because Vite resolves an imported asset to
  * a URL but does not expose its size, and measuring it at runtime would mean
- * loading the image — the very thing that causes layout shift.
+ * loading the image, the very thing that causes layout shift.
  *
  * Only the human judgement below is authored by hand: alt text, level, and
  * whether the artwork is still a placeholder.
