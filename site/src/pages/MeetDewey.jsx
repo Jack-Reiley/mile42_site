@@ -100,15 +100,15 @@ const PILLARS = [
 const CONTRAST = [
   [
     'Context scattered across systems, documents, teams, and users',
-    'Approved knowledge in one shared, governed layer',
+    'Approved knowledge in one shared, governed context layer',
   ],
   [
     'Direct access to every source creates unacceptable risk',
     'Each person and agent gets exactly what they are authorized to know',
   ],
   [
-    'A separate pipeline per agent creates competing versions of the truth',
-    'The sources behind every answer',
+    'A separate pipeline for every agent creates competing versions of the truth',
+    'Every answer is grounded in identifiable sources',
   ],
 ]
 
@@ -199,11 +199,12 @@ export default function MeetDewey() {
           {/* Two sentences in one heading, the way "Data in. Answers out." is
               set further down the page. */}
           <H1 tone="hero" className="mb-6">
-            Agents don&#8217;t need the keys. They need the context.
+            Intelligence is table stakes. Context is where you win.
           </H1>
           <Lead tone="hero">
-            Dewey gives authorized agents governed, up-to-date enterprise context, without giving
-            autonomous software direct access to your systems of record.
+            Powerful models are available to everyone. Dewey turns what your organization uniquely
+            knows into governed, up-to-date context that people and agents can use&#8212;without
+            exposing your systems of record.
           </Lead>
           </div>
           {/* Eager and high priority: this is the page's largest above-the-fold
@@ -296,9 +297,9 @@ export default function MeetDewey() {
               </H2>
               <Lead className="max-w-none leading-[34px]">
                 Your people understand the customers, policies, history, and nuance behind the
-                work. Agents can extend their capacity with unprecedented speed and reach. But
-                people and agents cannot work together effectively when they operate from
-                different or incomplete versions of what the enterprise knows.
+                work. Agents can turn that understanding into action with unprecedented speed and
+                reach. But people and agents cannot work together effectively when they operate
+                from different&#8212;or incomplete&#8212;versions of what the enterprise knows.
               </Lead>
             </div>
           </div>

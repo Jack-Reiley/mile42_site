@@ -34,7 +34,7 @@ describe('Meet Dewey', () => {
     // An h1 and no breadcrumb: the comp drew this as a child of What we do, and
     // it is a top-level page instead.
     expect(container.querySelector('h1')).toHaveTextContent(
-      'Agents don\u2019t need the keys. They need the context.',
+      'Intelligence is table stakes. Context is where you win.',
     )
     expect(container.querySelector('nav[aria-label="Breadcrumb"]')).toBeNull()
   })
@@ -62,9 +62,9 @@ describe('Meet Dewey', () => {
     const hero = container.querySelector('section')
 
     // The tell for the #77 regression was an h1 and a lead saying the same
-    // thing. The lead says what Dewey does; only the heading frames the keys.
+    // thing. The lead says what Dewey does; only the heading frames the wager.
     expect(hero).not.toHaveTextContent('Every agent needs a library.')
-    expect(hero).toHaveTextContent(/Dewey gives authorized agents governed, up-to-date/)
+    expect(hero).toHaveTextContent(/Dewey turns what your organization uniquely knows/)
   })
 
   /* Counting the band's list items used to stand in for "the proof points are
