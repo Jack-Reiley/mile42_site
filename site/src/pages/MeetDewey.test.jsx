@@ -150,6 +150,106 @@ describe('Meet Dewey', () => {
     ).toBeGreaterThan(0)
   })
 
+  /* SCN-003. The hero artwork is the page's largest above-the-fold image, so it
+     is what LCP measures. Lazy loading it, or shipping it without intrinsic
+     dimensions, are the two ways that regresses silently. */
+  it('leads with the hero artwork, sized and prioritised', () => {
+    const { container } = page()
+    const art = container.querySelector('section img')
+
+    expect(art).toHaveAttribute('loading', 'eager')
+    expect(art).toHaveAttribute('fetchpriority', 'high')
+    expect(art.getAttribute('width')).toBeTruthy()
+    expect(art.getAttribute('height')).toBeTruthy()
+    expect(art).toHaveAccessibleName(/hand/i)
+  })
+
+  /* SCN-006 and SCN-007. The contrast is drawn twice, because corresponding
+     rows cannot be made to line up while each panel owns its own list. The
+     stacked form keeps the real list markup; the side-by-side form is a
+     labelled group whose rows are grid cells. Exactly one is ever displayed, so
+     nothing is announced twice. The risk this guards is a CSS change that drops
+     one of the two visibility classes and leaves both in the accessibility
+     tree. */
+  it('draws the contrast twice, and shows exactly one of the two forms', () => {
+    const { container } = page()
+    const intro = container.querySelectorAll('section')[1]
+
+    const stacked = intro.querySelector('.lg\\:hidden')
+    const sideBySide = intro.querySelector('[role="group"]')
+
+    expect(stacked).not.toBeNull()
+    expect(sideBySide).not.toBeNull()
+    // The stacked form is the one that carries real lists.
+    expect(stacked.querySelectorAll('ul')).toHaveLength(2)
+    expect(stacked.querySelectorAll('li')).toHaveLength(6)
+    // Each is hidden at the widths where the other is shown.
+    expect(stacked.className).toMatch(/lg:hidden/)
+    expect(sideBySide.className).toMatch(/\bhidden\b/)
+    expect(sideBySide.className).toMatch(/lg:grid/)
+    expect(sideBySide).toHaveAttribute('aria-label')
+  })
+
+  /* SCN-005 pairing, as far as the DOM can carry it. Alignment itself is a
+     layout property and is checked in the browser, but the reading order is
+     not: each problem must be followed by the answer that resolves it, so a
+     screen reader hears the pair rather than one column then the other. */
+  it('orders the side-by-side contrast as pairs, not as two columns', () => {
+    const { container } = page()
+    const group = container.querySelector('[role="group"]')
+    const text = group.textContent
+
+    expect(text.indexOf('Context scattered')).toBeLessThan(
+      text.indexOf('Approved knowledge in one shared, governed context layer'),
+    )
+    expect(text.indexOf('Approved knowledge in one shared, governed context layer')).toBeLessThan(
+      text.indexOf('Direct access to every source'),
+    )
+    expect(text.indexOf('Each person and agent gets exactly what they are authorized to know')).toBeLessThan(
+      text.indexOf('A separate pipeline for every agent'),
+    )
+  })
+
+  /* SCN-012. Tailwind reads class names as literals, so a computed
+     `row-start-${i}` produces no utility at all and a fourth pair would render
+     on top of an existing row. PAIR_ROW is written out for that reason; this
+     asserts it still covers every pair. */
+  it('places every contrast pair on a row of its own', () => {
+    const { container } = page()
+    const group = container.querySelector('[role="group"]')
+
+    const rows = [...group.children]
+      .map((el) => [...el.classList].find((c) => c.startsWith('row-start-')))
+      .filter(Boolean)
+    const paired = rows.filter((c) => c !== 'row-start-1')
+
+    // Three pairs, three cells each, one row per pair, none sharing a row with
+    // the column headings.
+    expect(new Set(paired).size).toBe(3)
+    expect(paired).toHaveLength(9)
+  })
+
+  /* SCN-010. Em dashes are fine in this file and in the requirements document.
+     They are not fine in copy a visitor reads. */
+  it('carries no em dashes in the copy a reader sees', () => {
+    const { container } = page()
+    expect(container.textContent).not.toMatch(/\u2014/)
+  })
+
+  /* SCN-011. The illustration is served through the pipeline rather than as a
+     hand-placed file: a responsive source set, real alternative text, and
+     intrinsic dimensions emitted by the build rather than typed in. */
+  it('serves the introduction artwork through the asset pipeline', () => {
+    const { container } = page()
+    const intro = container.querySelectorAll('section')[1]
+    const art = intro.querySelector('img')
+
+    expect(art).toHaveAccessibleName(/chess/i)
+    expect(art.getAttribute('srcset')).toMatch(/\s\d+w/)
+    expect(Number(art.getAttribute('width'))).toBeGreaterThan(0)
+    expect(Number(art.getAttribute('height'))).toBeGreaterThan(0)
+  })
+
   it('is registered as a route', () => {
     const route = PAGES.find((p) => p.path === '/meet-dewey')
     expect(route).toBeDefined()
