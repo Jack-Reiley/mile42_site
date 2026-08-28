@@ -1,7 +1,7 @@
 # #97 — Go live: serve the designed site at / and retire the coming-soon splash
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/97
-- Pull request: <pending>
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/98
 - Parent epic: none
 - Delivery unit: single-ticket, on `feature/97-go-live-root-mount`
 - Requirement version: 1
