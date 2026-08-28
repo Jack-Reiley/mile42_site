@@ -1,7 +1,7 @@
 # #94 — Replace the privacy policy stub with real copy, deferring legal review
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/94
-- Pull request: pending
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/96
 - Parent epic: none
 - Delivery unit: single-ticket, on `feature/mile42-icons-3` by approved deviation
 - Requirement version: 1
