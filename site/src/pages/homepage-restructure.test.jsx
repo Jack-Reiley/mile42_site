@@ -10,9 +10,9 @@ import Home from './Home.jsx'
  * is, because Home.test.jsx would invite every future homepage assertion into one
  * file and this is one contract about one restructure.
  *
- * The basename is reproduced for the reason Footer.test.jsx reproduces it: the
- * site mounts under /working, so a link asserted without the prefix would pass
- * here and 404 in the browser. See main.jsx.
+ * Links are asserted at the root, which is where #97 mounted the site. See
+ * Footer.test.jsx for what that cost and src/go-live.test.jsx for the sweep
+ * that replaces it.
  *
  * Geometry is deliberately absent. SCN-005 to SCN-007 are spot placement and
  * subgrid row alignment, which are rendered positions jsdom does not compute;
@@ -20,11 +20,9 @@ import Home from './Home.jsx'
  * document instead of being faked here.
  */
 
-const BASENAME = '/working'
-
 const draw = () =>
   render(
-    <MemoryRouter basename={BASENAME} initialEntries={[`${BASENAME}/`]}>
+    <MemoryRouter initialEntries={['/']}>
       <Home />
     </MemoryRouter>,
   )
@@ -116,9 +114,9 @@ describe('SCN-004 — the pull-quote is gone', () => {
 
 describe('SCN-010 — the offering links still resolve', () => {
   it.each([
-    ['Explore advisory', `${BASENAME}/what-we-do/advisory`],
-    ['Explore engineering', `${BASENAME}/what-we-do/engineering`],
-    ['Explore AI-driven products', `${BASENAME}/what-we-do/ai-products`],
+    ['Explore advisory', '/what-we-do/advisory'],
+    ['Explore engineering', '/what-we-do/engineering'],
+    ['Explore AI-driven products', '/what-we-do/ai-products'],
   ])('%s carries the basename', (name, href) => {
     draw()
     expect(screen.getByRole('link', { name }).getAttribute('href')).toBe(href)

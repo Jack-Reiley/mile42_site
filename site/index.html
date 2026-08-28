@@ -3,11 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Prototype only. Must not be indexed. -->
-    <meta name="robots" content="noindex, nofollow" />
-    <!-- The splash title. Pages under /working set their own through Layout. -->
-    <title>Mile42</title>
-    <meta name="description" content="Mile42. Coming soon." />
+    <!-- The shell is what a crawler that does not run JavaScript sees, so it
+         carries the Home page's title rather than a bare brand name. Layout
+         replaces it per route once the app paints. src/go-live.test.jsx holds
+         this and App.jsx's route table together. -->
+    <title>Execution, Rebuilt. · Mile42</title>
+    <meta
+      name="description"
+      content="Mile42 combines senior judgment with AI-native delivery, without bloated teams, endless billing, or recommendations that never become results."
+    />
   </head>
   <body>
     <div id="root"></div>

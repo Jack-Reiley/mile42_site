@@ -4,7 +4,7 @@
 - Pull request: https://github.com/Jack-Reiley/mile42_site/pull/96
 - Parent epic: none
 - Delivery unit: single-ticket, on `feature/mile42-icons-3` by approved deviation
-- Requirement version: 2
+- Requirement version: 3
 
 ## Objective
 
@@ -111,6 +111,12 @@ And it states that the copy has not been reviewed by a lawyer
 
 ### SCN-010 — Shipping this page does not make it public
 
+**Retired: superseded by #97.** This scenario required the `/working` mount and
+both `noindex, nofollow` directives. #97 took the site live and removed all
+three by design, so the behavior below is no longer the site's and its coverage
+in `site/src/pages/Privacy.test.jsx` was removed with it. The scenario text is
+kept as the record of what shipped under version 2.
+
 Given the designed site is not public
 When the privacy page is deployed
 Then the site-wide `noindex, nofollow` directives remain in both the HTML shell
@@ -145,11 +151,15 @@ or by manual evidence. That is the chosen level, not a gap left open.
 | SCN-007 | Unit | `site/src/components/Footer.test.jsx` | N/A | — |
 | SCN-008 | Unit | `site/src/pages/Privacy.test.jsx` | N/A | — |
 | SCN-009 | Unit | `site/src/pages/Privacy.test.jsx` | N/A | — |
-| SCN-010 | Unit | `site/src/pages/Privacy.test.jsx` | N/A | — |
+| SCN-010 | Retired | — | N/A | Superseded by #97; see above |
 
 ## Contract history
 
 - Version 1: as approved at design.
+- Version 3: retires SCN-010, superseded by #97. Taking the site live removed
+  the `/working` mount and both `noindex` directives the scenario asserted. The
+  scenario is marked retired in place rather than deleted, so the contract still
+  records what version 2 shipped.
 - Version 2: restores the SCN-002 clause "nested under the rights `h2`", which
   version 1 dropped when transcribing the ticket. Raised as F-001 in
   verification run 1. The ticket is the design-time source and always carried

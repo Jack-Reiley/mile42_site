@@ -14,17 +14,16 @@ import AiProducts from './AiProducts.jsx'
  * reader forms their picture of what the firm builds — and splitting it would
  * scatter one contract across three files that each assert a third of it.
  *
- * The basename is reproduced for the same reason Footer.test.jsx reproduces it:
- * the site mounts under /working, so a link that resolved without the prefix
- * would pass a naive assertion and 404 in the browser. See main.jsx.
+ * Links are asserted at the root, which is where #97 mounted the site. See
+ * Footer.test.jsx for what that cost and src/go-live.test.jsx for the sweep
+ * that replaces it.
  */
 
-const BASENAME = '/working'
-const DEWEY = `${BASENAME}/meet-dewey`
+const DEWEY = '/meet-dewey'
 
 const draw = (Page) =>
   render(
-    <MemoryRouter basename={BASENAME} initialEntries={[`${BASENAME}/`]}>
+    <MemoryRouter initialEntries={['/']}>
       <Page />
     </MemoryRouter>,
   )
