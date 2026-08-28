@@ -58,7 +58,7 @@ export default function Footer() {
           ))}
         </div>
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-ink pt-6">
-          <span className="text-body text-ink">Mile42. Execution is the craft.</span>
+          <span className="text-body text-ink">Mile42</span>
           <Link to="/legal/privacy" className="text-body text-ink no-underline hover:underline">
             Privacy
           </Link>
