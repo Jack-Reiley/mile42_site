@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
-import { readFileSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import Privacy from './Privacy.jsx'
@@ -92,10 +92,20 @@ describe('SCN-002 — the page carries a real heading hierarchy', () => {
 
   it('nests the two jurisdiction subsections under the rights heading as h3', () => {
     const { container } = page()
-    const h3s = [...container.querySelectorAll('h3')].map((h) => h.textContent.trim())
+    /* Scoped to the block the rights heading owns. Asserting the strings exist
+       anywhere on the page passes just as happily when both headings sit under
+       "Security.", which is the regression F-001 found this test missing. */
+    const rights = [...container.querySelectorAll('h2')].find((h) =>
+      /Your rights/.test(h.textContent),
+    )
+    const nested = [...rights.closest('div').querySelectorAll('h3')].map((h) =>
+      h.textContent.trim(),
+    )
 
-    expect(h3s).toContain('If you are in the United Kingdom or the EEA')
-    expect(h3s).toContain('If you are in a US state with a privacy law')
+    expect(nested).toEqual([
+      'If you are in the United Kingdom or the EEA',
+      'If you are in a US state with a privacy law',
+    ])
   })
 
   it('skips no heading level', () => {
@@ -178,8 +188,23 @@ describe('SCN-005 — the no-tracking claim matches the site', () => {
     'mixpanel',
   ]
 
-  it.each(VENDORS)('ships no %s', (vendor) => {
+  /* The scenario covers "the application source or the HTML shell". Scanning
+     only the shell, which is what F-002 found, leaves a gtag( call inside a
+     component free to ship with this guard still green. Test files are excluded
+     because this one names every signature it is looking for. */
+  const appSource = () =>
+    readdirSync(SRC, { recursive: true })
+      .filter((f) => typeof f === 'string' && /\.(jsx?|css)$/.test(f) && !f.includes('.test.'))
+      .map((f) => readFileSync(join(SRC, f), 'utf8'))
+      .join('\n')
+      .toLowerCase()
+
+  it.each(VENDORS)('ships no %s in the HTML shell', (vendor) => {
     expect(rootFile('site', 'index.html').toLowerCase()).not.toContain(vendor)
+  })
+
+  it.each(VENDORS)('ships no %s in the application source', (vendor) => {
+    expect(appSource()).not.toContain(vendor)
   })
 
   it('loads no third-party script from the HTML shell', () => {

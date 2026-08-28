@@ -4,7 +4,7 @@
 - Pull request: https://github.com/Jack-Reiley/mile42_site/pull/96
 - Parent epic: none
 - Delivery unit: single-ticket, on `feature/mile42-icons-3` by approved deviation
-- Requirement version: 1
+- Requirement version: 2
 
 ## Objective
 
@@ -50,7 +50,8 @@ Given a reader opens the privacy page
 When the page renders
 Then the page carries exactly one `h1`, reading "Privacy policy."
 And each policy section is introduced by an `h2`
-And the two jurisdiction subsections under rights are `h3` elements
+And the two jurisdiction subsections under rights are `h3` elements nested
+under the rights `h2`
 And no heading level is skipped
 
 ### SCN-003 — The last-updated date sits below the header
@@ -145,6 +146,16 @@ or by manual evidence. That is the chosen level, not a gap left open.
 | SCN-008 | Unit | `site/src/pages/Privacy.test.jsx` | N/A | — |
 | SCN-009 | Unit | `site/src/pages/Privacy.test.jsx` | N/A | — |
 | SCN-010 | Unit | `site/src/pages/Privacy.test.jsx` | N/A | — |
+
+## Contract history
+
+- Version 1: as approved at design.
+- Version 2: restores the SCN-002 clause "nested under the rights `h2`", which
+  version 1 dropped when transcribing the ticket. Raised as F-001 in
+  verification run 1. The ticket is the design-time source and always carried
+  the clause, so this is a correction of the repository contract rather than a
+  change of behavior. SCN-005's coverage was widened in the same cycle for
+  F-002; the scenario text was already correct and is unchanged.
 
 ## Deliberate deviations
 
