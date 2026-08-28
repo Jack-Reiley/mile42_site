@@ -1,7 +1,7 @@
 # Privacy policy: notes for counsel
 
 Date prepared: August 27, 2026
-Page: `site/src/pages/Privacy.jsx`, served at `/working/legal/privacy`
+Page: `site/src/pages/Privacy.jsx`, served at `/legal/privacy`
 
 ## Status
 

@@ -4,17 +4,20 @@ import { MemoryRouter } from 'react-router'
 import Footer from './Footer.jsx'
 
 /**
- * The footer mixes in-app routes with one address that leaves the app. The
- * basename is the thing worth reproducing here: every internal link must carry
- * it and the mailto: must not, which is the failure a render without one would
- * hide. See main.jsx for why the site is mounted under /working.
+ * The footer mixes in-app routes with one address that leaves the app, and the
+ * separation between them is what this covers: the mailto: must stay an
+ * address while every other link stays a route.
+ *
+ * #97 mounted the site at the root, so these render unprefixed. That cost this
+ * file some of its reach — under the old /working mount a resolved route and a
+ * stray raw anchor looked different, and now they do not. The requirements
+ * document records that; the prefix sweep in src/go-live.test.jsx is what
+ * stands in its place.
  */
-
-const BASENAME = '/working'
 
 const draw = () =>
   render(
-    <MemoryRouter basename={BASENAME} initialEntries={[`${BASENAME}/`]}>
+    <MemoryRouter initialEntries={['/']}>
       <Footer />
     </MemoryRouter>,
   )
@@ -29,18 +32,16 @@ describe('SCN-005 — the footer email link leaves the app', () => {
 
   it('still routes every other footer link inside the app', () => {
     draw()
-    expect(href('Start a conversation')).toBe(`${BASENAME}/contact`)
-    expect(href('LinkedIn')).toBe(`${BASENAME}/contact`)
-    expect(href('Advisory')).toBe(`${BASENAME}/what-we-do/advisory`)
-    expect(href('Privacy')).toBe(`${BASENAME}/legal/privacy`)
+    expect(href('Start a conversation')).toBe('/contact')
+    expect(href('LinkedIn')).toBe('/contact')
+    expect(href('Advisory')).toBe('/what-we-do/advisory')
+    expect(href('Privacy')).toBe('/legal/privacy')
   })
 
   it('leaves no footer link pointing at a route that was never resolved', () => {
     draw()
     for (const link of screen.getAllByRole('link')) {
-      expect(link.getAttribute('href')).toMatch(
-        new RegExp(`^(${BASENAME}/|mailto:)`),
-      )
+      expect(link.getAttribute('href')).toMatch(/^(\/|mailto:)/)
     }
   })
 })

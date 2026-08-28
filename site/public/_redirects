@@ -1,8 +1,6 @@
 # Specific rules first: Netlify takes the first match.
 # Agentic AI moved under Engineering when it became part of that practice.
-# The designed site is mounted under /working (see src/main.jsx), so the
-# public paths carry that prefix.
-/working/agentic-ai  /working/what-we-do/engineering/agentic-ai  301
+/agentic-ai  /what-we-do/engineering/agentic-ai  301
 
 # SPA fallback.
 /*  /index.html  200

@@ -21,13 +21,12 @@ import Home from './Home.jsx'
  * in the requirements document instead of being faked.
  */
 
-const BASENAME = '/working'
 const SRC = join(dirname(fileURLToPath(import.meta.url)), '..')
 const ROOT = join(SRC, '..', '..')
 
 const draw = () =>
   render(
-    <MemoryRouter basename={BASENAME} initialEntries={[`${BASENAME}/`]}>
+    <MemoryRouter initialEntries={['/']}>
       <Home />
     </MemoryRouter>,
   )

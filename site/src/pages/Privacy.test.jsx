@@ -263,7 +263,7 @@ describe('SCN-009 — the counsel notes record what was verified and what is ope
 
   it('names the page and the route it serves at', () => {
     expect(notes()).toContain('site/src/pages/Privacy.jsx')
-    expect(notes()).toContain('/working/legal/privacy')
+    expect(notes()).toContain('/legal/privacy')
   })
 
   it('states plainly that no lawyer has reviewed the copy', () => {
@@ -282,21 +282,7 @@ describe('SCN-009 — the counsel notes record what was verified and what is ope
   })
 })
 
-describe('SCN-010 — shipping this page does not make it public', () => {
-  it('keeps the shell asking not to be indexed', () => {
-    expect(rootFile('site', 'index.html')).toMatch(
-      /<meta name="robots" content="noindex, nofollow"/,
-    )
-  })
-
-  it('keeps the same directive on the hosting configuration', () => {
-    expect(rootFile('netlify.toml')).toMatch(/X-Robots-Tag\s*=\s*"noindex, nofollow"/)
-  })
-
-  it('keeps the designed site behind the working mount', () => {
-    const main = source('main.jsx')
-
-    expect(main).toMatch(/WORKING_BASE\s*=\s*'\/working'/)
-    expect(main).toContain('ComingSoon')
-  })
-})
+/* #94's SCN-010 stood here. It asserted the `/working` mount and the two
+   `noindex` directives, all of which #97 removed to take the site live, so the
+   scenario is superseded rather than broken. See that contract's history and
+   SCN-011 in docs/requirements/97-go-live-root-mount.md. */
