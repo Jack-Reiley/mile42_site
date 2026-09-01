@@ -47,21 +47,6 @@ describe('the Phase Zero page', () => {
     expect(screen.getByText(/You pay when you decide to scale it/)).toBeInTheDocument()
   })
 
-  /* With the two statistics gone, these six carry the problem section on their
-     own, so an edit that thins them has nothing else holding the band up. */
-  it('keeps all six failure modes', () => {
-    at(ROUTE)
-    const modes = [
-      'No number to move',
-      'Nothing can be acted on',
-      'The tool changed, the work did not',
-      'The data cannot carry it',
-      'Nobody owns the decision',
-      'Built for everyone, so it fits no one',
-    ]
-    modes.forEach((m) => expect(screen.getByText(m)).toBeInTheDocument())
-  })
-
   it('keeps the four stages of the engagement', () => {
     at(ROUTE)
     const stages = ['Identify', 'Analyze', 'Pilot', 'Roadmap']

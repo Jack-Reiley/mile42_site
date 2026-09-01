@@ -2,37 +2,7 @@ import {
   Section, Wrap, Eyebrow, H2, H3, Lead, Body, Note, Quote,
   Button, ButtonRow, TextLink, Breadcrumb, LabelBody, Card,
 } from '../components/primitives.jsx'
-import { TermList, CheckList, StepStrip, StatementCards } from '../components/Lists.jsx'
-
-/* The six failure modes from the Phase Zero deck, in the deck's own labels so
-   the page and the conversation it follows make the same argument in the same
-   words. */
-const FAILURES = [
-  [
-    'No number to move',
-    'It starts with where could we use AI, not with a metric and a baseline. So nobody can prove whether it worked.',
-  ],
-  [
-    'Nothing can be acted on',
-    'Agents can read but not write, so every result still needs a person to re-key it somewhere. Nothing compounds.',
-  ],
-  [
-    'The tool changed, the work did not',
-    'New capability dropped onto the old workflow. The team routes around it and quietly goes back to what it knows.',
-  ],
-  [
-    'The data cannot carry it',
-    'Scattered across systems, defined differently in each, owned by no one. The model is fine. What it reads is not.',
-  ],
-  [
-    'Nobody owns the decision',
-    'It works, and then it waits. No one agreed up front who signs off on letting it touch a system of record.',
-  ],
-  [
-    'Built for everyone, so it fits no one',
-    'A general assistant, rather than the one workflow that is actually costing the business time and money.',
-  ],
-]
+import { CheckList, StepStrip, StatementCards } from '../components/Lists.jsx'
 
 /* The deck runs five stages. Scoring is folded into Analyze here: on a slide
    the readiness gates earn their own column because someone is talking over
@@ -94,11 +64,10 @@ const WORTH = [
   },
 ]
 
-/* EXTRAPOLATED — no comp for this page. The band rhythm is the one the sibling
-   What We Do detail pages draw: navy header, two page bands, tint, page, navy
-   CTA. Content is the Phase Zero deck, minus the firm-introduction slide the
-   site already covers three other ways and minus the readiness-gate drilldown,
-   which stays in the deck. */
+/* EXTRAPOLATED — no comp for this page. Content is the Phase Zero deck, cut to
+   the offer itself: what it is, how it runs, and why it is worth doing. The
+   firm introduction, the problem framing, and the readiness-gate drilldown all
+   stay in the deck, where someone is present to talk over them. */
 export default function PhaseZero() {
   return (
     <>
@@ -147,19 +116,6 @@ export default function PhaseZero() {
             <Button to="/contact">Start with Phase Zero</Button>
             <Button to="/what-we-do" variant="secondary">See what we do</Button>
           </ButtonRow>
-        </Wrap>
-      </Section>
-
-      <Section pad="band">
-        <Wrap>
-          <H2 className="mb-3">Most AI pilots never make it into the business.</H2>
-          <Lead className="mb-9 max-w-none text-ink/70">
-            Rarely because the technology failed. Almost always because of everything around it that
-            was never decided.
-          </Lead>
-          <Eyebrow as="span" className="mb-2 block">Where they stall</Eyebrow>
-          <H3 className="mb-[22px]">Six ways it goes wrong, and none of them are the model.</H3>
-          <TermList items={FAILURES} variant="ruled" columns={3} />
         </Wrap>
       </Section>
 
