@@ -1,6 +1,6 @@
 import {
   Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body,
-  Button, ButtonRow, TextLink, Card, Spot, LabelBody,
+  Button, ButtonRow, TextLink, Card, Spot, LabelBody, FeaturePanel,
 } from '../components/primitives.jsx'
 import { NumList, RuledGroup } from '../components/Lists.jsx'
 import CatalogDrawer from '../components/CatalogDrawer.jsx'
@@ -385,6 +385,30 @@ export default function Home() {
             </Body>
             <NumList items={PRINCIPLES} as="ol" />
           </LabelBody>
+        </Wrap>
+      </Section>
+
+      {/* Phase Zero sits under the three ways in, for a reader who is not ready
+          to pick one of them. One panel only: the page it links to carries the
+          argument, and a second full band here would push the closing CTA past
+          where anyone reaches it. */}
+      <Section>
+        <Wrap>
+          <FeaturePanel
+            spot="path-clipboard"
+            eyebrow="Offering · Phase Zero"
+            title="Or start with proof."
+            note="Name a process. See it working. Map what comes next."
+          >
+            <Body className="max-w-none">
+              Phase Zero is a working pilot on one process you name, built beside production and
+              measured against your own baseline. You get something running, and a roadmap for what
+              comes after it. It is free, and you pay when you decide to scale it.
+            </Body>
+            <p className="mt-4">
+              <TextLink to="/what-we-do/phase-zero" tone="accent">See how Phase Zero works</TextLink>
+            </p>
+          </FeaturePanel>
         </Wrap>
       </Section>
 

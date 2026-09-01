@@ -11,6 +11,7 @@ const ENTRY = [
     'Build, with parts already solved',
     <TextLink to="/what-we-do/ai-products">AI-driven products and accelerators</TextLink>,
   ],
+  ['Prove it first, then decide', <TextLink to="/what-we-do/phase-zero">Phase Zero</TextLink>],
 ]
 
 /* EXTRAPOLATED — no comp for this page. */
@@ -47,7 +48,11 @@ export default function ClientJourney() {
         <Wrap>
           <H2 className="mb-6">The journey is the same. Where you enter is not.</H2>
           <Body className="mb-8">Not everyone starts at stage one. Some organizations already have clarity and need execution. Some have been building for a year and need an honest read on whether the path still holds.</Body>
-          <TermList items={ENTRY} className="mb-8" />
+          <TermList items={ENTRY} className="mb-4" />
+          {/* Phase Zero is the fourth entry point and the only one that does not
+              map to a single stage, so it needs a sentence the list cannot
+              carry. Without it a reader is holding two models of how we engage. */}
+          <Body className="mb-8">Phase Zero is the exception to the shape. It compresses understand, design, and build into one small engagement on a single process, so the proof arrives before you commit to a stage at all. What it leaves you with is a baseline, a working solution, and a roadmap, which is the strongest position to enter any of the four stages from.</Body>
           <Quote>Tell us where you actually are, not where a process says you should be.</Quote>
         </Wrap>
       </Section>

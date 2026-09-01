@@ -37,8 +37,13 @@ export default function EngagementModel() {
         <Wrap>
           <H2 className="mb-6">The delivery model is what makes the commercial model possible.</H2>
           <Body className="mb-4">When delivery speed is set by headcount, the only honest thing to sell is time, and the risk of everything taking longer sits with you. Our delivery runs AI agents across every major role in an engagement, which compresses the work enough that we can carry the risk of an estimate instead of passing it to you.</Body>
-          <Body className="mb-8">Reuse compounds the same effect. Each engagement produces methods and patterns that lower the cost of the next one, so a meaningful share of the work is not being invented on your budget.</Body>
+          <Body className="mb-4">Reuse compounds the same effect. Each engagement produces methods and patterns that lower the cost of the next one, so a meaningful share of the work is not being invented on your budget.</Body>
+          {/* The free offer and the pricing posture are the same argument, so
+              they are stated together. Read apart, an engagement that costs
+              nothing looks like a contradiction of everything above it. */}
+          <Body className="mb-8">It is also why the first engagement can cost nothing. Phase Zero produces the baseline and the measured result that a price argued from value has to be argued from. Without that number, pricing on value is a posture rather than a position, so we would rather establish the number first and charge for what comes after it.</Body>
           <ButtonRow>
+            <TextLink to="/what-we-do/phase-zero">See Phase Zero</TextLink>
             <TextLink to="/how-we-work/delivery-model">See the delivery model</TextLink>
             <TextLink to="/what-we-do/ai-products">See AI-driven products</TextLink>
           </ButtonRow>

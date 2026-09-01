@@ -12,12 +12,26 @@ import logo from '../assets/mile42-logo.svg'
 
 const OVERVIEW_BODY = 'The overview, if you would rather read it in order.'
 
+/* Written out per column count rather than interpolated: Tailwind generates a
+   class only when the complete name appears in source, so `repeat(${n},...)`
+   produces no utility at all and the panel silently collapses to one column. */
+const PANEL_GRID = {
+  3: 'lg:grid-cols-[repeat(3,minmax(0,1fr))_19rem]',
+  4: 'lg:grid-cols-[repeat(4,minmax(0,1fr))_19rem]',
+}
+
 const NAV = [
   {
     href: '/what-we-do',
     label: 'What we do',
     overview: { title: 'What we do', body: OVERVIEW_BODY },
     columns: [
+      {
+        href: '/what-we-do/phase-zero',
+        eyebrow: 'Not sure where to start',
+        title: 'Phase Zero',
+        body: 'The low-risk way in, and it is free.',
+      },
       {
         href: '/what-we-do/advisory',
         eyebrow: 'You need clarity',
@@ -350,7 +364,7 @@ export default function Header() {
               its left padding so its copy starts on the wordmark's edge rather
               than 24px inside it. */}
           <div className="px-6 md:px-12">
-            <div className="mx-auto grid w-full max-w-site lg:grid-cols-[repeat(3,minmax(0,1fr))_19rem]">
+            <div className={`mx-auto grid w-full max-w-site ${PANEL_GRID[openItem.columns.length]}`}>
               {openItem.columns.map((column, i) => (
                 <div
                   key={column.href}

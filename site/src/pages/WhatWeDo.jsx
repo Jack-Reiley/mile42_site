@@ -1,8 +1,8 @@
 import {
-  Section, Wrap, Eyebrow, H1, H2, H3, Lead, Body, Quote,
-  Button, ButtonRow, TextLink, Card, PathCard,
+  Section, Wrap, Eyebrow, H1, H2, Lead, Body,
+  Button, ButtonRow, TextLink, PathCard, FeaturePanel,
 } from '../components/primitives.jsx'
-import { REVEAL, REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
+import { REVEAL, REVEAL_GROUP } from '../components/reveal.js'
 
 /* The title names the practice the card leads to, so the three headings are the
    three service names rather than three sentences beginning "You need". The
@@ -28,25 +28,6 @@ const PATHS = [
     body: 'Reuse what already works.',
     href: '/what-we-do/ai-products',
     spot: 'path-handshake',
-  },
-]
-
-const BENEFITS = [
-  {
-    title: 'Cost is predictable.',
-    body: 'We can commit to a price because we are not guessing at how many hours a team will need.',
-  },
-  {
-    title: 'Quality is more consistent.',
-    body: 'Test coverage and documentation happen continuously rather than depending on whether the schedule held.',
-  },
-  {
-    title: 'Context is not lost.',
-    body: 'Decisions and rationale are captured as the work happens, so the reasoning survives past the engagement.',
-  },
-  {
-    title: 'Smaller teams, less overhead.',
-    body: 'Fewer people means fewer handoffs, fewer status meetings, and less of your time spent managing us.',
   },
 ]
 
@@ -110,20 +91,33 @@ export default function WhatWeDo() {
         </Wrap>
       </Section>
 
+      {/* Phase Zero stands where the delivery-benefits band used to. Those four
+          cards were the Delivery model page's own content repeated verbatim, so
+          the page spent its middle band summarising the operating model a second
+          time instead of naming a first step. */}
       <Section band="surface">
         <Wrap>
-          <H2>Speed, consistency, and a commercial model that matches.</H2>
-          <div className={`${REVEAL_GROUP.relay} ${REVEAL_ROW} mt-11 mb-7 grid gap-6 md:grid-cols-2`}>
-            {BENEFITS.map((b) => (
-              <Card key={b.title}>
-                <H3>{b.title}</H3>
-                <Body className="max-w-none">{b.body}</Body>
-              </Card>
-            ))}
-          </div>
-          <Quote>
-            Execution without the overhead is not a slogan. It is what this model produces.
-          </Quote>
+          <H2 className="mb-3">Before you choose, there is a smaller way to start.</H2>
+          <Lead className="mb-9 max-w-none text-ink/70">
+            Phase Zero is a working pilot on one process you name, built beside production and
+            measured against your own baseline. It is free, and you pay when you decide to scale it.
+          </Lead>
+          <FeaturePanel
+            spot="path-clipboard"
+            eyebrow="Offering · Phase Zero"
+            title="The low-risk way in."
+            note="Name a process. See it working. Map what comes next."
+          >
+            <Body className="max-w-none">
+              Name your messiest, most manual workflow. We assess the readiness around it, build a
+              working solution on it, and hand you a sequenced roadmap of what comes next. It runs
+              in parallel to production, it is reversible on day one, and it proves something
+              against a number you already recognise.
+            </Body>
+            <p className="mt-4">
+              <TextLink to="/what-we-do/phase-zero" tone="accent">See how Phase Zero works</TextLink>
+            </p>
+          </FeaturePanel>
         </Wrap>
       </Section>
 
