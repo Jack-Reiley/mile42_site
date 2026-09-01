@@ -2,7 +2,40 @@ import {
   Section, Wrap, Eyebrow, H2, H3, Lead, Body, Note, Quote,
   Button, ButtonRow, TextLink, Breadcrumb, LabelBody, Card,
 } from '../components/primitives.jsx'
-import { CheckList, StepStrip, StatementCards } from '../components/Lists.jsx'
+import { TermList, CheckList, StepStrip, StatementCards } from '../components/Lists.jsx'
+
+/* Slide 4's diagnostic. Four questions rather than a definition, because the
+   right process is one the people doing the work can already name. */
+const QUESTIONS = [
+  ['What frustrates people most?', 'Everyone knows it is slow, and quietly works around it.'],
+  ['What takes the most human time?', 'Manual effort for output that barely needs judgment.'],
+  [
+    'Where does quality slip?',
+    'Work that gets redone, or testing that is manual and skipped under pressure.',
+  ],
+  ['What is the low-hanging fruit?', 'The one you already suspect a machine could carry.'],
+]
+
+/* Shapes a pilot can take, not engagements we have run. The wording stays
+   conditional for that reason. */
+const EXAMPLES = [
+  {
+    title: 'Run agents on a live backlog',
+    body: 'Carve off part of a real backlog, run agents on it beside your team, and compare the result against your baseline.',
+  },
+  {
+    title: 'Automate one business process',
+    body: 'Take one process end to end, with your people reviewing what the agents produce.',
+  },
+  {
+    title: 'Migrate a slice off a legacy platform',
+    body: 'Move one real piece with an AI-native team, before you commit to the whole replatform.',
+  },
+  {
+    title: 'Find and fix what is underperforming',
+    body: 'Agents analyze a live surface, find what is weak, and fix it with review before it ships.',
+  },
+]
 
 /* The deck runs five stages. Scoring is folded into Analyze here: on a slide
    the readiness gates earn their own column because someone is talking over
@@ -64,9 +97,11 @@ const WORTH = [
   },
 ]
 
-/* EXTRAPOLATED — no comp for this page. Content is the Phase Zero deck, cut to
-   the offer itself: what it is, how it runs, and why it is worth doing. The
-   firm introduction, the problem framing, and the readiness-gate drilldown all
+/* EXTRAPOLATED — no comp for this page. The band rhythm is the one the sibling
+   What We Do detail pages draw: navy header, two page bands, tint, page, navy
+   CTA. Content is the Phase Zero deck, cut to the offer and how to enter it:
+   what it is, which process to name, how it runs, and why it is worth doing.
+   The firm introduction, the problem framing, and the readiness-gate drilldown
    stay in the deck, where someone is present to talk over them. */
 export default function PhaseZero() {
   return (
@@ -116,6 +151,34 @@ export default function PhaseZero() {
             <Button to="/contact">Start with Phase Zero</Button>
             <Button to="/what-we-do" variant="secondary">See what we do</Button>
           </ButtonRow>
+        </Wrap>
+      </Section>
+
+      {/* The reader's next question after "name a process" is which one, so it
+          is answered before the method rather than after it. The declarative
+          heading leaves the deck's question itself to the closing band. */}
+      <Section pad="band">
+        <Wrap>
+          <Eyebrow as="span" className="mb-2 block">Choosing a pilot process</Eyebrow>
+          <H2 className="mb-3">The one you would fix first.</H2>
+          <Lead className="mb-9 max-w-none text-ink/70">
+            One named process, not a department and not a category. The right one is usually already
+            obvious to the people doing the work, and these are the four questions that surface it.
+          </Lead>
+          <TermList items={QUESTIONS} variant="ruled" columns={2} />
+
+          <Eyebrow as="span" className="mt-11 mb-2 block">For example</Eyebrow>
+          <H3 className="mb-[22px]">Four shapes it can take.</H3>
+          {/* The card titles take h4: they sit under the "Four shapes" label
+              above them, not beside it. */}
+          <div className="grid gap-4 md:grid-cols-2">
+            {EXAMPLES.map((e) => (
+              <Card key={e.title}>
+                <H3 as="h4">{e.title}</H3>
+                <Body className="max-w-none">{e.body}</Body>
+              </Card>
+            ))}
+          </div>
         </Wrap>
       </Section>
 

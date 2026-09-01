@@ -93,7 +93,7 @@ export default function WhatWeDo() {
 
       {/* Phase Zero stands where the delivery-benefits band used to. Those four
           cards were the Delivery model page's own content repeated verbatim, so
-          the page spent its middle band summarising the operating model a second
+          the page spent its middle band summarizing the operating model a second
           time instead of naming a first step. */}
       <Section band="surface">
         <Wrap>
@@ -112,7 +112,7 @@ export default function WhatWeDo() {
               Name your messiest, most manual workflow. We assess the readiness around it, build a
               working solution on it, and hand you a sequenced roadmap of what comes next. It runs
               in parallel to production, it is reversible on day one, and it proves something
-              against a number you already recognise.
+              against a number you already recognize.
             </Body>
             <p className="mt-4">
               <TextLink to="/what-we-do/phase-zero" tone="accent">See how Phase Zero works</TextLink>

@@ -47,6 +47,32 @@ describe('the Phase Zero page', () => {
     expect(screen.getByText(/You pay when you decide to scale it/)).toBeInTheDocument()
   })
 
+  /* Slide 4's job is to make the reader name a process. Both halves are pinned:
+     the questions that surface one, and the shapes a pilot can take. */
+  it('asks the four questions that surface a candidate process', () => {
+    at(ROUTE)
+    const questions = [
+      'What frustrates people most?',
+      'What takes the most human time?',
+      'Where does quality slip?',
+      'What is the low-hanging fruit?',
+    ]
+    questions.forEach((q) => expect(screen.getByText(q)).toBeInTheDocument())
+  })
+
+  it('shows four shapes a pilot can take', () => {
+    at(ROUTE)
+    const examples = [
+      'Run agents on a live backlog',
+      'Automate one business process',
+      'Migrate a slice off a legacy platform',
+      'Find and fix what is underperforming',
+    ]
+    examples.forEach((e) =>
+      expect(screen.getByRole('heading', { level: 4, name: e })).toBeInTheDocument(),
+    )
+  })
+
   it('keeps the four stages of the engagement', () => {
     at(ROUTE)
     const stages = ['Identify', 'Analyze', 'Pilot', 'Roadmap']
