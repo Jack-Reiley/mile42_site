@@ -71,7 +71,7 @@ export default function HandoffLanes({ people, agents, className = '' }) {
           Written out rather than shared with `BAND.tint`, for the reason
           `CARD_FILL` writes it out too: one is a band and one is a panel, and a
           change made for one should not silently move the other. */}
-      <div className="hidden rounded-card border border-ink bg-[color-mix(in_srgb,var(--color-accent)_10%,white)] px-10 py-9 shadow-hard min-[900px]:block">
+      <div className="hidden rounded-card border border-ink bg-[color-mix(in_srgb,var(--color-accent)_10%,white)] px-10 py-9 shadow-hard lg:block">
         <div className="grid grid-cols-[96px_minmax(0,1fr)] gap-x-5">
           <Eyebrow id={PEOPLE_ID} tone="ink" className="flex items-center">People</Eyebrow>
           <dl
@@ -111,7 +111,7 @@ export default function HandoffLanes({ people, agents, className = '' }) {
         </div>
       </div>
 
-      {/* Below 900px four columns cannot be read side by side, so the lanes
+      {/* Below `lg` four columns cannot be read side by side, so the lanes
           become four handoffs stacked one per row, each keeping its arrow. The
           gutter names go with the columns they labelled; what distinguishes the
           two halves here is the drawing itself, a bordered cell with a ticked
@@ -122,7 +122,7 @@ export default function HandoffLanes({ people, agents, className = '' }) {
           the same group when stacked, and no single DOM order is both. */}
       <ol
         aria-label="Handoffs from people to agents"
-        className={`${REVEAL_GROUP.relay} flex flex-col gap-5 min-[900px]:hidden`}
+        className={`${REVEAL_GROUP.relay} flex flex-col gap-5 lg:hidden`}
       >
         {agents.map((agent, i) => (
           <li key={agent}>
