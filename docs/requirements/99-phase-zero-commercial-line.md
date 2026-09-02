@@ -9,7 +9,10 @@
 ## Revision history
 
 - **v1** — one commercial line stated the same way on every surface.
-- **v2** — scope widened during implementation, at the user's direction. The
+- **v2** — scope widened during implementation, at the user's direction, and
+  extended to absorb commit `217e3e9`, which retitled the homepage panel on this
+  branch before this ticket reached implementation and had no ticket of its own.
+  The
   Engagement Model page's Phase Zero mention was not just re-worded but
   re-presented: it moves out of the delivery band's closing paragraph and into
   the panel treatment the homepage uses, and the page drops from five bands to
@@ -36,7 +39,10 @@ it.
 - **v2:** the Engagement Model page's Phase Zero callout, moved out of that
   paragraph into the homepage's panel treatment at the foot of the delivery
   band, with a one-sentence hinge left in the band to hand off to it.
-- **v2:** the What We Do panel title, aligned to the homepage's.
+- **v2:** the panel titles. The homepage's moved to "Start with a pilot." in
+  commit `217e3e9`, made on this branch before this ticket entered
+  implementation and folded into its scope afterwards. What We Do and Engagement
+  Model were then aligned to it.
 - A guard test pinning all five surfaces together.
 
 ## Out of scope
@@ -121,6 +127,17 @@ Given a reader has read the homepage Phase Zero panel
 When they read the Engagement Model page's panel
 Then the offer is stated in the same words
 
+### SCN-011 — The three offering panels share one title
+
+Added at v2, with commit `217e3e9`.
+
+Given a reader is on the homepage, What We Do, or the Engagement Model page
+When they reach the Phase Zero panel
+Then it is titled "Start with a pilot."
+
+`site/src/pages/Advisory.jsx` is deliberately excluded and keeps "The low-risk
+way in."
+
 ## Non-functional requirements
 
 - The header card's link accessible name is unchanged. Only the body paragraph
@@ -147,6 +164,7 @@ Then the offer is stated in the same words
 | SCN-008 | Unit | `site/src/pages/phase-zero-commercial-line.test.jsx` | N/A | - |
 | SCN-009 | Unit | `site/src/pages/phase-zero-commercial-line.test.jsx` | N/A | Band rhythm checked at 1440 |
 | SCN-010 | Unit | `site/src/pages/phase-zero-commercial-line.test.jsx` | N/A | - |
+| SCN-011 | Unit | `site/src/pages/phase-zero-commercial-line.test.jsx` | N/A | - |
 
 E2E is N/A throughout: the repository has no E2E harness, and the delivery
 config's `verify` is `npm run build && npm run copy:build`.
@@ -164,6 +182,10 @@ config's `verify` is `npm run build && npm run copy:build`.
 
 ## Deliberate deviations, v2
 
+- Commit `217e3e9` carries no ticket prefix, because it was made before this
+  ticket covered it. Its scope is recorded here rather than the commit message
+  being rewritten, since the branch is four commits past it and an accurate
+  contract is worth more than a tidy prefix.
 - The Engagement Model panel body is the homepage's word for word, and the
   baseline-and-risk argument sits in the band above it rather than inside the
   panel. Stating it in both places would repeat the same point about forty words

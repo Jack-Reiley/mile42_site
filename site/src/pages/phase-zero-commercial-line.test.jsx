@@ -145,6 +145,26 @@ describe('the Phase Zero page itself', () => {
 })
 
 /**
+ * One title for the offering, wherever it is offered. Advisory is deliberately
+ * out: it keeps "The low-risk way in." and is asserted here so the exclusion is
+ * a decision on the record rather than a page someone forgot.
+ */
+describe('the offering panels share one title', () => {
+  it.each(['/', '/what-we-do', '/how-we-work/engagement-model'])(
+    '%s titles the panel "Start with a pilot."',
+    (path) => {
+      at(path)
+      expect(main().getByRole('heading', { name: 'Start with a pilot.' })).toBeInTheDocument()
+    },
+  )
+
+  it('leaves Advisory on its own title', () => {
+    at('/what-we-do/advisory')
+    expect(main().getByRole('heading', { name: 'The low-risk way in.' })).toBeInTheDocument()
+  })
+})
+
+/**
  * The credit against later work is implied everywhere and stated nowhere. The
  * design handoff asks for that on the Phase Zero page, and stating it on one
  * surface only would put the site back where it started, saying two different
