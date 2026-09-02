@@ -397,7 +397,7 @@ export default function Home() {
           <FeaturePanel
             spot="path-clipboard"
             eyebrow="Offering · Phase Zero"
-            title="Or start with proof."
+            title="Start with a pilot."
             note="Name a process. See it working. Map what comes next."
           >
             <Body className="max-w-none">
