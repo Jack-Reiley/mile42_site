@@ -4,14 +4,15 @@ import { MemoryRouter } from 'react-router'
 import App from '../App.jsx'
 
 /**
- * Phase Zero is the site's only free offer, and the things most likely to drift
- * are the ones a build cannot catch: the terms of the offer disappearing in an
- * edit, and the entry points that were pointed here going back to /contact.
+ * Phase Zero is the page the rest of the site points at, and the things most
+ * likely to drift are the ones a build cannot catch: the terms of the offer
+ * disappearing in an edit, and the entry points that were pointed here going
+ * back to /contact.
  *
  * Queries are by role and accessible name rather than by class or DOM position,
  * so restyling the page does not break a test and a skipped heading level does
- * not pass one. Entry-point queries are scoped to the main landmark, because
- * the header and footer carry their own Phase Zero links on every route and an
+ * not pass one. Queries are scoped to the main landmark, because the header and
+ * footer carry their own Phase Zero links and copy on every route and an
  * unscoped query matches those too.
  */
 
@@ -38,13 +39,31 @@ describe('the Phase Zero page', () => {
     })
   })
 
-  /* The catch question is the one a reader brings to a free offer, so both
-     halves of the answer are pinned. Losing the second half turns the first
-     into a claim nobody believes. */
-  it('states that the offering is free and says when payment starts', () => {
+  /* The page opens on the reader's own question rather than closing on it, and
+     it is the largest type on the page without being its h1 — the navy header
+     still owns that. Both halves are pinned because either one alone is a
+     different page. */
+  it('opens with the diagnostic question, below the h1', () => {
     at(ROUTE)
-    expect(screen.getByRole('heading', { level: 3, name: 'Phase Zero is free.' })).toBeInTheDocument()
-    expect(screen.getByText(/You pay when you decide to scale it/)).toBeInTheDocument()
+    const [first, second] = outline()
+    expect(first).toEqual([1, 'Proof, not a proposal.'])
+    expect(second).toEqual([2, 'What is the one process you would fix first?'])
+  })
+
+  /* The commercial line, and the reason it is not a price. Losing the second
+     half turns the first into a claim with nothing behind it. */
+  it('states the commercial terms without calling the offering free', () => {
+    at(ROUTE)
+    const main = within(screen.getByRole('main'))
+    expect(
+      main.getByRole('heading', { name: 'Priced to be a decision, not an investment.' }),
+    ).toBeInTheDocument()
+    expect(main.getByText(/no obligation to continue, and the roadmap is yours either way/))
+      .toBeInTheDocument()
+    /* The offering is no longer described as free. Scoped to main: the header's
+       Phase Zero card still makes that claim, and until it is rewritten an
+       unscoped query would pass on the wrong element. */
+    expect(main.queryByText(/\bfree\b/i)).toBeNull()
   })
 
   /* Slide 4's job is to make the reader name a process. Both halves are pinned:
@@ -69,7 +88,7 @@ describe('the Phase Zero page', () => {
       'Find and fix what is underperforming',
     ]
     examples.forEach((e) =>
-      expect(screen.getByRole('heading', { level: 4, name: e })).toBeInTheDocument(),
+      expect(screen.getByRole('heading', { level: 3, name: e })).toBeInTheDocument(),
     )
   })
 
@@ -77,6 +96,19 @@ describe('the Phase Zero page', () => {
     at(ROUTE)
     const stages = ['Identify', 'Analyze', 'Pilot', 'Roadmap']
     stages.forEach((s) => expect(screen.getByText(s)).toBeInTheDocument())
+  })
+
+  /* The handoff diagram's argument is the pairing, so both lanes are pinned in
+     the same order. `getAllByText`, because the diagram draws a wide form and a
+     stacked one and jsdom renders both — the media query that hides one is not
+     applied. */
+  it('pairs each human step with the agent step it hands to', () => {
+    at(ROUTE)
+    const main = within(screen.getByRole('main'))
+    const people = ['Name the outcome', 'Give context', 'Review the work', 'Approve to land']
+    const agents = ['Plan', 'Build', 'Validate', 'Deploy']
+    people.forEach((p) => expect(main.getAllByText(p).length).toBeGreaterThan(0))
+    agents.forEach((a) => expect(main.getAllByText(a).length).toBeGreaterThan(0))
   })
 
   it('offers a way to start the conversation', () => {
