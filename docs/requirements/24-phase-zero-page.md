@@ -119,10 +119,11 @@ And no heading level is skipped
 | Scenario | Expected level | Automated coverage | E2E behavior | Manual evidence |
 | --- | --- | --- | --- | --- |
 | SCN-001 | Unit | `site/src/pages/PhaseZero.test.jsx` | N/A | Click through from the Advisory panel |
-| SCN-002 | Unit | `site/src/pages/PhaseZero.test.jsx` | N/A | - |
-| SCN-003 | Unit | `site/src/pages/PhaseZero.test.jsx` | N/A | - |
-| SCN-004 | Unit | `site/src/pages/PhaseZero.test.jsx` | N/A | - |
-| SCN-005 | Unit | `site/src/pages/PhaseZero.test.jsx` | N/A | Browser pass at 1440 |
+| SCN-002 | Unit + manual | `site/src/pages/PhaseZero.test.jsx` (heading order only) | N/A | Type step measured in the browser |
+| SCN-003 | Unit + manual | `site/src/pages/PhaseZero.test.jsx` (question text only) | N/A | Per-question rule colour read from `QUESTION_MARKS` |
+| SCN-004 | Unit + manual | `site/src/pages/PhaseZero.test.jsx` (stage names only) | N/A | Sequence numerals and the fixed-scope note read in the browser |
+| SCN-005 | Unit + manual | `site/src/pages/PhaseZero.test.jsx` (pairing only) | N/A | Arrow direction read from `UP_AT`; browser pass at 1440 |
+| Route renders | Unit | `site/src/pages/routes.test.jsx` | N/A | - |
 | SCN-006 | Manual | - | N/A | Browser pass at 375, 768, 1023; no horizontal overflow |
 | SCN-007 | Unit | `site/src/pages/PhaseZero.test.jsx` | N/A | - |
 | SCN-008 | Unit | `site/src/pages/phase-zero-commercial-line.test.jsx` | N/A | Click through from the Header panel and the Footer |
@@ -130,7 +131,13 @@ And no heading level is skipped
 | SCN-010 | Unit | `site/src/pages/PhaseZero.test.jsx` | N/A | - |
 
 SCN-006 is manual because the suite runs in jsdom, which applies no media
-queries. SCN-008's panel half became automated when #99's guard test began
+queries.
+
+SCN-002 through SCN-005 are marked "Unit + manual" after verification found the
+unit tests cover only part of each scenario: heading order but not type step,
+question text but not rule colour, stage names but not numerals or the note,
+lane pairing but not arrow direction. The behaviour is correct in every case;
+the map previously overstated what the automated tests prove. SCN-008's panel half became automated when #99's guard test began
 opening the panel; the footer half and the click-through stay manual because
 jsdom follows no navigation.
 
