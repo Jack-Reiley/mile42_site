@@ -142,7 +142,7 @@ export default function PhaseZero() {
           owns that, so the question takes the top type step at h2.
      *
      * No grain, where the handoff draws it. The site films the opening band of
-     * a page and nothing below it — see hero-grain.test.jsx — and this band is
+     * a page and nothing below it (see hero-grain.test.jsx), and this band is
      * the second. On `tint` the film is close to a no-op anyway: the recipe in
      * BAND_GRAIN is overlay at full opacity because that fill has no headroom
      * for a symmetric blend, so it reads as a faint tooth rather than grain. */}

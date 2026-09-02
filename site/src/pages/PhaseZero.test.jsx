@@ -40,8 +40,8 @@ describe('the Phase Zero page', () => {
   })
 
   /* The page opens on the reader's own question rather than closing on it, and
-     it is the largest type on the page without being its h1 — the navy header
-     still owns that. Both halves are pinned because either one alone is a
+     it is the largest type on the page without being its h1, because the navy
+     header still owns that. Both halves are pinned because either one alone is a
      different page. */
   it('opens with the diagnostic question, below the h1', () => {
     at(ROUTE)
@@ -100,8 +100,8 @@ describe('the Phase Zero page', () => {
 
   /* The handoff diagram's argument is the pairing, so both lanes are pinned in
      the same order. `getAllByText`, because the diagram draws a wide form and a
-     stacked one and jsdom renders both — the media query that hides one is not
-     applied. */
+     stacked one and jsdom renders both, and the media query that hides one is
+     not applied. */
   it('pairs each human step with the agent step it hands to', () => {
     at(ROUTE)
     const main = within(screen.getByRole('main'))

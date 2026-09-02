@@ -351,7 +351,7 @@ export function StepStrip({ items, className = '' }) {
  * rules, a numeral in the gutter of each row.
  *
  * A second export rather than a variant of `StepStrip`, because only the data
- * shape is shared — the strip is a wrapping flex row whose rule flips from top
+ * shape is shared. The strip is a wrapping flex row whose rule flips from top
  * to left at 900px, and this is a fixed two-column grid that never reflows. One
  * function carrying both would be two components behind a flag.
  *

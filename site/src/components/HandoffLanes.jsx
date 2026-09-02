@@ -7,13 +7,13 @@ import { REVEAL, REVEAL_GROUP, REVEAL_ROW } from './reveal.js'
  * what an agent does along the bottom, and the direction of the handoff between
  * them. From design/design_handoff_phase_zero, option 2A band 5.
  *
- * It replaces two separate lists — People, then Agents — which stated the pairing
+ * It replaces two separate lists, People then Agents, which stated the pairing
  * in their ordering and nowhere else. A reader had to hold four items in mind to
  * see that "Review the work" is the answer to "Validate". Drawn as columns, the
  * pairing is the picture.
  *
  * Nothing here is interactive, so it is markup and tokens only: no state, no
- * measurement — the same way `LibrarianFlow` and `ExecutionContrast` are built.
+ * measurement, the same way `LibrarianFlow` and `ExecutionContrast` are built.
  */
 
 /**
@@ -22,7 +22,7 @@ import { REVEAL, REVEAL_GROUP, REVEAL_ROW } from './reveal.js'
  * the reviewer, which is the whole claim of the band's heading.
  *
  * It lives here rather than on the page because it is a fact about the drawing,
- * not about the copy — the same reason `LibrarianDiagram` owns its own keying.
+ * not about the copy, the same reason `LibrarianDiagram` owns its own keying.
  * Indexed against the agent list the page passes in.
  */
 const UP_AT = 2
@@ -114,8 +114,8 @@ export default function HandoffLanes({ people, agents, className = '' }) {
       {/* Below 900px four columns cannot be read side by side, so the lanes
           become four handoffs stacked one per row, each keeping its arrow. The
           gutter names go with the columns they labelled; what distinguishes the
-          two halves here is the drawing itself — a bordered cell with a ticked
-          badge above, bare heading type below — so the list is named instead.
+          two halves here is the drawing itself, a bordered cell with a ticked
+          badge above and bare heading type below, so the list is named instead.
 
           Two forms rather than one reordered grid, following `LibrarianDiagram`:
           the person and the agent belong to different lists at full width and to
