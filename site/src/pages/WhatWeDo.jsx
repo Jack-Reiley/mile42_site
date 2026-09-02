@@ -100,7 +100,7 @@ export default function WhatWeDo() {
           <H2 className="mb-3">Before you choose, there is a smaller way to start.</H2>
           <Lead className="mb-9 max-w-none text-ink/70">
             Phase Zero is a working pilot on one process you name, built beside production and
-            measured against your own baseline. It is free, and you pay when you decide to scale it.
+            measured against your own baseline. It is priced to be a decision, not an investment.
           </Lead>
           <FeaturePanel
             spot="path-clipboard"

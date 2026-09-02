@@ -60,10 +60,11 @@ describe('the Phase Zero page', () => {
     ).toBeInTheDocument()
     expect(main.getByText(/no obligation to continue, and the roadmap is yours either way/))
       .toBeInTheDocument()
-    /* The offering is no longer described as free. Scoped to main: the header's
-       Phase Zero card still makes that claim, and until it is rewritten an
-       unscoped query would pass on the wrong element. */
-    expect(main.queryByText(/\bfree\b/i)).toBeNull()
+    /* The offering is no longer described as free. Unscoped since #99 rewrote
+       the header's Phase Zero card, which is what previously forced this to
+       main. The card itself lives inside a panel that is closed until opened,
+       so it is pinned in phase-zero-commercial-line.test.jsx rather than here. */
+    expect(screen.queryByText(/\bfree\b/i)).toBeNull()
   })
 
   /* Slide 4's job is to make the reader name a process. Both halves are pinned:

@@ -30,7 +30,7 @@ const NAV = [
         href: '/what-we-do/phase-zero',
         eyebrow: 'Not sure where to start',
         title: 'Phase Zero',
-        body: 'The low-risk way in, and it is free.',
+        body: 'The low-risk way in, priced to be a decision.',
       },
       {
         href: '/what-we-do/advisory',
