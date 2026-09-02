@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll } from 'vitest'
-import { render, screen, within } from '@testing-library/react'
+import { render, screen, within, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router'
 import App from '../App.jsx'
@@ -91,16 +91,41 @@ describe('the pages that point at Phase Zero state the priced line', () => {
 })
 
 describe('the engagement model argues the first engagement', () => {
-  /* The page's argument, not its wording. It used to rest on the engagement
-     costing nothing; it now rests on who carries the risk of an estimate made
-     before there is a baseline to argue a price from. Both halves are pinned,
-     because the first alone is a price with no reason behind it. */
-  it('prices the first engagement as a decision and says who carries the risk', () => {
+  /* The offer is made in the same words here as on the homepage, so a reader
+     who has seen one is not told something different by the other. Pinned as
+     the same string on both routes rather than as two separate assertions,
+     because the failure worth catching is the two drifting apart. */
+  it('makes the offer in the homepage panel words', () => {
+    const OFFER =
+      /Phase Zero is a working pilot on one process you name, built beside production and measured against your own baseline\. You get something running, and a roadmap for what comes after it\. It is priced to be a decision, not an investment\./
     at('/how-we-work/engagement-model')
-    expect(main().getByText(/the first engagement is priced to be a decision/i))
+    const panel = within(
+      main().getByRole('heading', { name: 'Start with a pilot.' }).closest('div').parentElement,
+    )
+    expect(panel.getByText(OFFER)).toBeInTheDocument()
+
+    cleanup()
+    at('/')
+    expect(main().getByText(OFFER)).toBeInTheDocument()
+  })
+
+  /* The hinge sentence that hands the band off to the panel. It is the third
+     of the band's three reasons and the only one naming Phase Zero, so losing
+     it leaves the page arguing a pricing posture it never lands. */
+  it('keeps the sentence that ties the delivery model to the offer', () => {
+    at('/how-we-work/engagement-model')
+    expect(main().getByText(/It is also why the first engagement is the small one/))
       .toBeInTheDocument()
-    expect(main().getByText(/the risk of an unproven estimate is ours to carry/i))
+    expect(main().getByText(/the risk of an estimate is ours to carry rather than yours/))
       .toBeInTheDocument()
+  })
+
+  /* The offer is no longer one of three peer links under the argument. */
+  it('offers Phase Zero as a panel rather than as one link among three', () => {
+    at('/how-we-work/engagement-model')
+    expect(main().getByRole('link', { name: /See how Phase Zero works/ }))
+      .toHaveAttribute('href', '/what-we-do/phase-zero')
+    expect(main().queryByRole('link', { name: 'See Phase Zero' })).toBeNull()
   })
 
   it('no longer claims the first engagement can cost nothing', () => {

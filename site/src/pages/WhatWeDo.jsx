@@ -105,7 +105,7 @@ export default function WhatWeDo() {
           <FeaturePanel
             spot="path-clipboard"
             eyebrow="Offering · Phase Zero"
-            title="The low-risk way in."
+            title="Start with a pilot."
             note="Name a process. See it working. Map what comes next."
           >
             <Body className="max-w-none">

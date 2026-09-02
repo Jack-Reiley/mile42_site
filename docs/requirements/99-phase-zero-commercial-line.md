@@ -4,7 +4,19 @@
 - Pull request: TBD
 - Parent epic: none
 - Delivery unit: U1-phase-zero
-- Requirement version: 1
+- Requirement version: 2
+
+## Revision history
+
+- **v1** — one commercial line stated the same way on every surface.
+- **v2** — scope widened during implementation, at the user's direction. The
+  Engagement Model page's Phase Zero mention was not just re-worded but
+  re-presented: it moves out of the delivery band's closing paragraph and into
+  the panel treatment the homepage uses, and the page drops from five bands to
+  four. The rewritten paragraph v1 produced no longer exists in that form, so
+  SCN-005 is restated and SCN-009 and SCN-010 are added. Recorded here rather
+  than silently absorbed, because a layout change is beyond what the ticket
+  title describes.
 
 ## Objective
 
@@ -21,6 +33,10 @@ it.
 - The What We Do Phase Zero band.
 - The Engagement Model paragraph that argued from the first engagement costing
   nothing, rebuilt as an argument about who carries the risk of an estimate.
+- **v2:** the Engagement Model page's Phase Zero callout, moved out of that
+  paragraph into the homepage's panel treatment at the foot of the delivery
+  band, with a one-sentence hinge left in the band to hand off to it.
+- **v2:** the What We Do panel title, aligned to the homepage's.
 - A guard test pinning all five surfaces together.
 
 ## Out of scope
@@ -59,12 +75,16 @@ When they reach the Phase Zero band
 Then the band states the offering is priced to be a decision, not an investment
 And the band does not use the word "free"
 
-### SCN-005 — The Engagement Model argues the first engagement without claiming it costs nothing
+### SCN-005 — The Engagement Model band ties its argument to the offer
+
+Restated at v2. The band's three moves are the delivery model, reuse, and the
+first engagement; the third is the hinge that hands off to the panel.
 
 Given a reader is on `/how-we-work/engagement-model`
-When they read the delivery-model band's closing paragraph
-Then it states the first engagement is priced to be a decision rather than an investment
-And it states the risk of an unproven estimate stays with Mile42 until the baseline exists
+When they read the delivery-model band
+Then it states the first engagement is the small one
+And it states Phase Zero produces the baseline a value price is argued from
+And it states the risk of an estimate stays with Mile42 until that number exists
 And neither "free" nor "cost nothing" appears in the band
 
 ### SCN-006 — The Phase Zero page's own line is unchanged
@@ -83,6 +103,24 @@ Then none of them state that the pilot cost is credited against later work
 Given a reader is on `/how-we-work` or `/why-mile42`
 Then the sentences that use "free" in a non-commercial sense are unchanged
 
+### SCN-009 — Phase Zero is offered as a panel, not as one link among several
+
+Added at v2.
+
+Given a reader is on `/how-we-work/engagement-model`
+When they reach the foot of the delivery-model band
+Then Phase Zero is offered in the panel treatment the homepage uses
+And it is not one of several peer text links
+And the panel links to `/what-we-do/phase-zero`
+
+### SCN-010 — The offer is made in the same words on both pages
+
+Added at v2.
+
+Given a reader has read the homepage Phase Zero panel
+When they read the Engagement Model page's panel
+Then the offer is stated in the same words
+
 ## Non-functional requirements
 
 - The header card's link accessible name is unchanged. Only the body paragraph
@@ -90,6 +128,9 @@ Then the sentences that use "free" in a non-commercial sense are unchanged
 - The panel grid does not break at the `lg` four-column breakpoint or in the
   drawer.
 - No em dashes in copy or comments.
+- **v2:** the Engagement Model page keeps four bands. The panel shares the
+  delivery band's fill and is carried by its border and hard shadow, as What We
+  Do already draws it.
 - `npm run test:unit`, `npm run tokens:check` and `npm run build` pass.
 
 ## Verification map
@@ -104,6 +145,8 @@ Then the sentences that use "free" in a non-commercial sense are unchanged
 | SCN-006 | Unit | `site/src/pages/PhaseZero.test.jsx` | N/A | - |
 | SCN-007 | Unit | `site/src/pages/phase-zero-commercial-line.test.jsx` | N/A | - |
 | SCN-008 | Unit | `site/src/pages/phase-zero-commercial-line.test.jsx` | N/A | - |
+| SCN-009 | Unit | `site/src/pages/phase-zero-commercial-line.test.jsx` | N/A | Band rhythm checked at 1440 |
+| SCN-010 | Unit | `site/src/pages/phase-zero-commercial-line.test.jsx` | N/A | - |
 
 E2E is N/A throughout: the repository has no E2E harness, and the delivery
 config's `verify` is `npm run build && npm run copy:build`.
@@ -118,6 +161,16 @@ config's `verify` is `npm run build && npm run copy:build`.
   than in `src/test-setup.js`. jsdom does not implement it, and the header asks
   it whether hovering is real before opening a panel on hover. This is the first
   test to reach that handler, so the stub stays with the test that needs it.
+
+## Deliberate deviations, v2
+
+- The Engagement Model panel body is the homepage's word for word, and the
+  baseline-and-risk argument sits in the band above it rather than inside the
+  panel. Stating it in both places would repeat the same point about forty words
+  apart. This was raised with the user twice and decided deliberately.
+- `site/src/pages/Advisory.jsx` keeps the title "The low-risk way in." while the
+  homepage, What We Do and Engagement Model now say "Start with a pilot." The
+  user chose to leave it.
 
 ## Open questions
 
