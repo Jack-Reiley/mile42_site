@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&family=Figtree:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@600&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #ffffff; font-family: 'Figtree', ui-sans-serif, system-ui, sans-serif; color: #2f1e14; }
+  a { color: #005ec8; text-decoration: none; }
+  a:hover { color: #2f1e14; }
+</style>
+</helmet>
+
+<div style="width:1440px;margin:0 auto;background:#fff;overflow:hidden">
+
+<div style="position:relative;isolation:isolate;background:#002161;padding:30px 0">
+  <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:soft-light;filter:brightness(.629) contrast(2.78);opacity:.5;pointer-events:none"></span></sc-if>
+  <div style="position:relative;width:1240px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <span aria-hidden="true" style="height:5px;width:24px;border-radius:3px;background:#ff5e00"></span>
+      <span style="font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#73e1ff">What we do / Phase Zero</span>
+    </div>
+    <h1 style="margin:0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:38px;line-height:44px;letter-spacing:-0.018em;color:#fffbf3">Proof, not a proposal.</h1>
+  </div>
+</div>
+
+<div style="padding:54px 0 64px;background:#e6f1fe;position:relative;isolation:isolate">
+  <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:overlay;filter:brightness(.629) contrast(2.78);pointer-events:none"></span></sc-if>
+  <div style="position:relative;width:1240px;margin:0 auto">
+    <h2 style="margin:0 0 20px;max-width:22ch;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:57px;line-height:63px;letter-spacing:-0.022em;text-wrap:balance">What is the one process you would fix first?</h2>
+    <p style="margin:0 0 36px;max-width:44rem;font-size:18px;line-height:32px;text-wrap:pretty">The one everyone works around, or the one eating human time for output that barely needs judgment. Name it and we will tell you whether it is a good Phase Zero.</p>
+    <dl style="margin:0 0 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:0 32px">
+      <sc-for list="{{ questions }}" as="q" hint-placeholder-count="4">
+        <div style="border-top:3px solid {{ q.mark }};padding:18px 0 0">
+          <dt style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:20px;line-height:26px;text-wrap:balance">{{ q.q }}</dt>
+          <dd style="margin:8px 0 0;font-size:15px;line-height:24px;color:rgba(47,30,20,.72);text-wrap:pretty">{{ q.a }}</dd>
+        </div>
+      </sc-for>
+    </dl>
+    <div style="display:flex;flex-wrap:wrap;gap:21px;align-items:center">
+      <a href="/contact" style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#ffdf65;color:#000;box-shadow:0 4px 0 #2f1e14;padding:12px 24px;font-weight:600;font-size:16px">Start with Phase Zero</a>
+    </div>
+  </div>
+</div>
+
+<div style="padding:54px 0;background:#fff">
+  <div style="width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:start">
+    <div>
+      <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">Offering &middot; Phase Zero pilot</p>
+      <h2 style="margin:0 0 16px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;text-wrap:balance">Name a process. See it working. Map what comes next.</h2>
+      <p style="margin:0 0 14px;font-size:18px;line-height:32px;color:rgba(47,30,20,.7);text-wrap:pretty">Most firms answer an AI question with a roadmap and a demo. Both die on a shelf. We build a real working solution on one process you name, in a fraction of the time and at a fraction of the cost.</p>
+      <p style="margin:0;font-size:16px;line-height:26px;text-wrap:pretty">You name the workflow. We assess the readiness around it, build something that actually runs on it, and hand you a sequenced roadmap for what comes after the proof. One engagement, fixed scope.</p>
+    </div>
+    <div>
+      <ol style="margin:0;padding:0;list-style:none;border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;overflow:hidden">
+        <sc-for list="{{ stages }}" as="s" hint-placeholder-count="4">
+          <li style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:20px;padding:20px 28px;border-top: {{ s.rule }}">
+            <span style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:27px;line-height:1;color:#c24700">{{ s.n }}</span>
+            <div>
+              <span style="display:block;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:20px;line-height:26px">{{ s.label }}</span>
+              <span style="display:block;margin-top:4px;font-size:15px;line-height:24px;text-wrap:pretty">{{ s.line }}</span>
+            </div>
+          </li>
+        </sc-for>
+      </ol>
+      <p style="margin:14px 0 0;font-size:15px;line-height:26px;color:rgba(47,30,20,.7);text-wrap:pretty">Fixed scope, and every stage produces something you keep whether or not you continue.</p>
+    </div>
+  </div>
+</div>
+
+<div style="padding:54px 0;background:#f9f4ec">
+  <div style="width:1240px;margin:0 auto">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:40px;margin-bottom:24px">
+      <h2 style="margin:0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em">Four shapes it can take.</h2>
+      <p style="margin:0;max-width:34rem;font-size:16px;line-height:26px;color:rgba(47,30,20,.7);text-wrap:pretty">One named process, not a department and not a category. The right one is usually already obvious to the people doing the work.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+      <sc-for list="{{ examples }}" as="e" hint-placeholder-count="4">
+        <div style="border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;padding:26px;display:flex;flex-direction:column;gap:8px">
+          <span aria-hidden="true" style="height:5px;width:32px;border-radius:3px;background:{{ e.fill }}"></span>
+          <h3 style="margin:6px 0 0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:20px;line-height:26px;text-wrap:balance">{{ e.title }}</h3>
+          <p style="margin:0;font-size:15px;line-height:24px;text-wrap:pretty">{{ e.body }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+
+<div style="padding:54px 0;background:#fff">
+  <div style="width:1240px;margin:0 auto">
+    <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">How we build it</p>
+    <h2 style="margin:0 0 14px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em">The build starts and ends with human oversight.</h2>
+    <p style="margin:0 0 40px;font-size:18px;line-height:32px;color:rgba(47,30,20,.7);max-width:46rem;text-wrap:pretty">An AI-native build, not a demo. It runs in parallel to production and is measured against the baseline from stage one.</p>
+
+    <div style="border:1px solid #2f1e14;border-radius:12px;background:#e6f1fe;box-shadow:0 4px 0 #2f1e14;padding:36px 40px">
+      <div style="display:grid;grid-template-columns:96px repeat(4,minmax(0,1fr));gap:0 20px;align-items:stretch">
+        <div style="display:flex;align-items:center;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase">People</div>
+        <sc-for list="{{ lanes }}" as="l" hint-placeholder-count="4">
+          <div style="border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;padding:20px">
+            <span aria-hidden="true" style="margin-bottom:12px;display:grid;place-items:center;height:24px;width:24px;border-radius:9999px;border:1px solid #2f1e14;background:#ff5e00;color:#fff;font-size:12px;font-weight:700;box-shadow:0 4px 0 #2f1e14">&#10003;</span>
+            <span style="display:block;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:16px;line-height:22px">{{ l.person }}</span>
+            <span style="display:block;margin-top:6px;font-size:14px;line-height:21px;color:rgba(47,30,20,.72)">{{ l.personBody }}</span>
+          </div>
+        </sc-for>
+
+        <div></div>
+        <sc-for list="{{ lanes }}" as="l" hint-placeholder-count="4">
+          <div aria-hidden="true" style="display:flex;align-items:center;padding:12px 0;flex-direction: {{ l.flow }}">
+            <span style="display:block;width:1px;height:26px;background:#2f1e14;margin:0 auto"></span>
+            <span style="display:block;font-size:11px;line-height:11px;color:#2f1e14;text-align:center">{{ l.arrow }}</span>
+          </div>
+        </sc-for>
+
+        <div style="display:flex;align-items:flex-start;padding-top:18px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase">Agents</div>
+        <div style="grid-column:span 4;border-top:1px solid #2f1e14;padding-top:18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 20px">
+          <sc-for list="{{ lanes }}" as="l" hint-placeholder-count="4">
+            <div style="display:flex;justify-content:center;text-align:center">
+              <span style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:20px;line-height:26px">{{ l.agent }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin:38px 0 0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px;max-width:46rem;text-wrap:pretty">AI work rarely stalls on the technology. It stalls where people and machines are supposed to meet.</p>
+  </div>
+</div>
+
+<div style="padding:54px 0;background:#f9f4ec">
+  <div style="width:1240px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <sc-for list="{{ worth }}" as="w" hint-placeholder-count="3">
+        <div style="border-top:3px solid #ff5e00;padding:18px 0 0">
+          <h3 style="margin:0 0 8px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px">{{ w.title }}</h3>
+          <p style="margin:0;font-size:16px;line-height:26px;text-wrap:pretty">{{ w.body }}</p>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:26px;margin-top:28px">
+      <a href="/contact" style="font-size:16px;font-weight:600;color:#005ec8">See where it sits in the client journey &#8250;</a>
+      <a href="/contact" style="font-size:16px;font-weight:600;color:#005ec8">See the engagement model &#8250;</a>
+    </div>
+  </div>
+</div>
+
+<div style="padding:92px 0;background:#002161">
+  <div style="width:1240px;margin:0 auto;text-align:center">
+    <h2 style="margin:0 0 12px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;color:#fffbf3;text-wrap:balance">Priced to be a decision, not an investment.</h2>
+    <p style="margin:0 auto 24px;max-width:42rem;font-size:18px;line-height:32px;color:#fffbf3;text-wrap:pretty">You pay when you decide to scale it. The scope is fixed and agreed before we start, there is no obligation to continue, and the roadmap is yours either way.</p>
+    <a href="/contact" style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#ffdf65;color:#000;box-shadow:0 4px 0 #2f1e14;padding:12px 24px;font-weight:600;font-size:16px">Start a conversation</a>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;grain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+/* Option 2A - Phase Zero page. Copy is verbatim from the live
+   site/src/pages/PhaseZero.jsx except where noted in the handoff README. */
+
+const QUESTIONS = [
+  { q: 'What frustrates people most?', a: 'Everyone knows it is slow, and quietly works around it.', mark: '#ff5e00' },
+  { q: 'What takes the most human time?', a: 'Manual effort for output that barely needs judgment.', mark: '#fab600' },
+  { q: 'Where does quality slip?', a: 'Work that gets redone, or testing that is manual and skipped under pressure.', mark: '#00805d' },
+  { q: 'What is the low-hanging fruit?', a: 'The one you already suspect a machine could carry.', mark: '#002161' },
+]
+
+const EXAMPLES = [
+  { title: 'Run agents on a live backlog', body: 'Carve off part of a real backlog, run agents on it beside your team, and compare the result against your baseline.', fill: '#ff5e00' },
+  { title: 'Automate one business process', body: 'Take one process end to end, with your people reviewing what the agents produce.', fill: '#73e1ff' },
+  { title: 'Migrate a slice off a legacy platform', body: 'Move one real piece with an AI-native team, before you commit to the whole replatform.', fill: '#c7ffb1' },
+  { title: 'Find and fix what is underperforming', body: 'Agents analyze a live surface, find what is weak, and fix it with review before it ships.', fill: '#fab600' },
+]
+
+const STAGES = [
+  { label: 'Identify', line: 'The process you named, its baseline today, who owns it, and what good looks like.' },
+  { label: 'Analyze', line: 'What surrounds it. Whether the knowledge is findable, the data usable, and the systems actionable.' },
+  { label: 'Pilot', line: 'A working solution on your process, running beside production and measured against that baseline.' },
+  { label: 'Roadmap', line: 'A sequenced map of what comes next, with an implementation estimate specific enough to execute.' },
+]
+
+const PEOPLE = [
+  { title: 'Name the outcome', body: 'The metric and the baseline, before any tool. Without this, there is no way to prove value.' },
+  { title: 'Give context', body: 'The rules, the edge cases, what good looks like. Without this, a generic tool nobody adopts.' },
+  { title: 'Review the work', body: 'Judgment on what the agent produced. Without this, quality drifts.' },
+  { title: 'Approve to land', body: 'Agreed up front, so nothing waits on a decision. Without this, working software sits frozen.' },
+]
+
+const AGENTS = ['Plan', 'Build', 'Validate', 'Deploy']
+
+/* Handoff direction of each column. Validate hands its output back UP to the
+   reviewer; the other three take their input from the person above them. */
+const FLOW = ['down', 'down', 'up', 'down']
+
+const WORTH = [
+  { title: 'Low risk.', body: 'It runs beside production, never through it, and it is reversible on day one.' },
+  { title: 'Real proof.', body: 'Something working on your own process, measured against your own baseline rather than a vendor benchmark.' },
+  { title: 'Built to last.', body: 'The proof is the first increment rather than a dead end, and the governance around it outlives the pilot.' },
+]
+
+const num = (i) => String(i + 1).padStart(2, '0')
+/* The first cell of a divided strip carries no rule: it would sit 1px inside
+   the container's own border. Same reason StepStrip zeroes it in Lists.jsx. */
+const rule = (i) => (i ? '1px solid #2f1e14' : 'none')
+
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      grain: this.props.grain ?? true,
+      questions: QUESTIONS,
+      examples: EXAMPLES,
+      worth: WORTH,
+      stages: STAGES.map((s, i) => ({ ...s, n: num(i), rule: rule(i) })),
+      lanes: PEOPLE.map((p, i) => ({
+        person: p.title,
+        personBody: p.body,
+        agent: AGENTS[i],
+        arrow: FLOW[i] === 'up' ? '\u25B2' : '\u25BC',
+        flow: FLOW[i] === 'up' ? 'column-reverse' : 'column',
+      })),
+    }
+  }
+}
+
+</script>
+</body>
+</html>

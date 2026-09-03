@@ -6,6 +6,7 @@ import WhatWeDo from './pages/WhatWeDo.jsx'
 import Advisory from './pages/Advisory.jsx'
 import Engineering from './pages/Engineering.jsx'
 import AiProducts from './pages/AiProducts.jsx'
+import PhaseZero from './pages/PhaseZero.jsx'
 import HowWeWork from './pages/HowWeWork.jsx'
 import ClientJourney from './pages/ClientJourney.jsx'
 import DeliveryModel from './pages/DeliveryModel.jsx'
@@ -26,6 +27,7 @@ export const PAGES = [
   { path: '/what-we-do/engineering', title: 'Engineering' + SUFFIX, Component: Engineering },
   { path: '/what-we-do/engineering/agentic-ai', title: 'Agentic AI' + SUFFIX, Component: AgenticAi },
   { path: '/what-we-do/ai-products', title: 'AI-driven Products' + SUFFIX, Component: AiProducts },
+  { path: '/what-we-do/phase-zero', title: 'Phase Zero' + SUFFIX, Component: PhaseZero },
   { path: '/how-we-work', title: 'How we work' + SUFFIX, Component: HowWeWork },
   { path: '/how-we-work/client-journey', title: 'Client journey' + SUFFIX, Component: ClientJourney },
   { path: '/how-we-work/delivery-model', title: 'Delivery model' + SUFFIX, Component: DeliveryModel },

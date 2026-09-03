@@ -61,9 +61,6 @@ export default function Advisory() {
 
       <Section pad="band">
         <Wrap>
-          {/* Phase Zero has no page yet. It points at /contact until the ticket
-              that owns the route lands and flips it, because App.jsx bounces an
-              unknown path to the homepage, which reads as a broken site. */}
           <FeaturePanel
             spot="path-clipboard"
             eyebrow="Offering · Phase Zero"
@@ -77,7 +74,7 @@ export default function Advisory() {
               proposal.
             </Body>
             <p className="mt-4">
-              <TextLink to="/contact" tone="accent">Start with Phase Zero</TextLink>
+              <TextLink to="/what-we-do/phase-zero" tone="accent">Start with Phase Zero</TextLink>
             </p>
           </FeaturePanel>
         </Wrap>

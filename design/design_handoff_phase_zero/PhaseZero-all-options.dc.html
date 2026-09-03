@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&family=Figtree:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@600&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #e8e0d2; font-family: 'Figtree', ui-sans-serif, system-ui, sans-serif; color: #2f1e14; }
+  a { color: #005ec8; text-decoration: none; }
+  a:hover { color: #2f1e14; }
+  @keyframes m42-drop { from { grid-template-rows: 0fr; } to { grid-template-rows: 1fr; } }
+  @keyframes m42-draw-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes m42-item { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+</style>
+</helmet>
+
+<section style="display:flex;gap:96px;align-items:flex-start;padding:72px 80px 0">
+  <div id="2a" style="display:flex;flex-direction:column;width:1442px;flex:none">
+    <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:20px">
+      <span style="font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:#ffdf65;color:#000;border:1px solid #2f1e14;border-radius:9999px;padding:4px 12px;box-shadow:0 4px 0 #2f1e14">2a</span>
+      <span style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px;letter-spacing:-0.01em">Question first, with the handoff</span>
+      <span style="font-size:16px;line-height:26px;color:rgba(47,30,20,.7);max-width:640px;text-wrap:pretty">1d built out: the compact navy header from 1c, the question block moved below it onto tint, and the two-lane people-and-agents diagram brought across.</span>
+    </div>
+
+    <div style="width:1440px;background:#fff;border:1px solid #2f1e14;box-shadow:0 4px 0 #2f1e14;overflow:hidden">
+
+      <div style="position:relative;isolation:isolate;background:#002161;padding:30px 0">
+        <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:soft-light;filter:brightness(.629) contrast(2.78);opacity:.5;pointer-events:none"></span></sc-if>
+        <div style="position:relative;width:1240px;margin:0 auto">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <span aria-hidden="true" style="height:5px;width:24px;border-radius:3px;background:#ff5e00"></span>
+            <span style="font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#73e1ff">What we do / Phase Zero</span>
+          </div>
+          <h1 style="margin:0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:38px;line-height:44px;letter-spacing:-0.018em;color:#fffbf3">Proof, not a proposal.</h1>
+        </div>
+      </div>
+
+      <div style="padding:54px 0 64px;background:#e6f1fe;position:relative;isolation:isolate">
+        <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:overlay;filter:brightness(.629) contrast(2.78);pointer-events:none"></span></sc-if>
+        <div style="position:relative;width:1240px;margin:0 auto">
+          <h2 style="margin:0 0 20px;max-width:22ch;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:57px;line-height:63px;letter-spacing:-0.022em;text-wrap:balance">What is the one process you would fix first?</h2>
+          <p style="margin:0 0 36px;max-width:44rem;font-size:18px;line-height:32px;text-wrap:pretty">The one everyone works around, or the one eating human time for output that barely needs judgment. Name it and we will tell you whether it is a good Phase Zero.</p>
+          <dl style="margin:0 0 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:0 32px">
+            <sc-for list="{{ questions }}" as="q" hint-placeholder-count="4">
+              <div style="border-top:3px solid {{ q.mark }};padding:18px 0 0">
+                <dt style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:20px;line-height:26px;text-wrap:balance">{{ q.q }}</dt>
+                <dd style="margin:8px 0 0;font-size:15px;line-height:24px;color:rgba(47,30,20,.72);text-wrap:pretty">{{ q.a }}</dd>
+              </div>
+            </sc-for>
+          </dl>
+          <div style="display:flex;flex-wrap:wrap;gap:21px;align-items:center">
+            <a href="#2a" style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#ffdf65;color:#000;box-shadow:0 4px 0 #2f1e14;padding:12px 24px;font-weight:600;font-size:16px">Start with Phase Zero</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#fff">
+        <div style="width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:start">
+          <div>
+            <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">Offering &middot; Phase Zero pilot</p>
+            <h2 style="margin:0 0 16px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;text-wrap:balance">Name a process. See it working. Map what comes next.</h2>
+            <p style="margin:0 0 14px;font-size:18px;line-height:32px;color:rgba(47,30,20,.7);text-wrap:pretty">Most firms answer an AI question with a roadmap and a demo. Both die on a shelf. We build a real working solution on one process you name, in a fraction of the time and at a fraction of the cost.</p>
+            <p style="margin:0;font-size:16px;line-height:26px;text-wrap:pretty">You name the workflow. We assess the readiness around it, build something that actually runs on it, and hand you a sequenced roadmap for what comes after the proof. One engagement, fixed scope.</p>
+          </div>
+          <div>
+            <ol style="margin:0;padding:0;list-style:none;border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;overflow:hidden">
+              <sc-for list="{{ stages }}" as="s" hint-placeholder-count="4">
+                <li style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:20px;padding:20px 28px;border-top: {{ s.rule }}">
+                  <span style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:27px;line-height:1;color:#c24700">{{ s.n }}</span>
+                  <div>
+                    <span style="display:block;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:20px;line-height:26px">{{ s.label }}</span>
+                    <span style="display:block;margin-top:4px;font-size:15px;line-height:24px;text-wrap:pretty">{{ s.line }}</span>
+                  </div>
+                </li>
+              </sc-for>
+            </ol>
+            <p style="margin:14px 0 0;font-size:15px;line-height:26px;color:rgba(47,30,20,.7);text-wrap:pretty">Fixed scope, and every stage produces something you keep whether or not you continue.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#f9f4ec">
+        <div style="width:1240px;margin:0 auto">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:40px;margin-bottom:24px">
+            <h2 style="margin:0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em">Four shapes it can take.</h2>
+            <p style="margin:0;max-width:34rem;font-size:16px;line-height:26px;color:rgba(47,30,20,.7);text-wrap:pretty">One named process, not a department and not a category. The right one is usually already obvious to the people doing the work.</p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+            <sc-for list="{{ examples }}" as="e" hint-placeholder-count="4">
+              <div style="border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;padding:26px;display:flex;flex-direction:column;gap:8px">
+                <span aria-hidden="true" style="height:5px;width:32px;border-radius:3px;background:{{ e.fill }}"></span>
+                <h3 style="margin:6px 0 0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:20px;line-height:26px;text-wrap:balance">{{ e.title }}</h3>
+                <p style="margin:0;font-size:15px;line-height:24px;text-wrap:pretty">{{ e.body }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#fff">
+        <div style="width:1240px;margin:0 auto">
+          <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">How we build it</p>
+          <h2 style="margin:0 0 14px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em">The build starts and ends with human oversight.</h2>
+          <p style="margin:0 0 40px;font-size:18px;line-height:32px;color:rgba(47,30,20,.7);max-width:46rem;text-wrap:pretty">An AI-native build, not a demo. It runs in parallel to production and is measured against the baseline from stage one.</p>
+
+          <div style="border:1px solid #2f1e14;border-radius:12px;background:#e6f1fe;box-shadow:0 4px 0 #2f1e14;padding:36px 40px">
+            <div style="display:grid;grid-template-columns:96px repeat(4,minmax(0,1fr));gap:0 20px;align-items:stretch">
+              <div style="display:flex;align-items:center;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase">People</div>
+              <sc-for list="{{ lanes }}" as="l" hint-placeholder-count="4">
+                <div style="border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;padding:20px">
+                  <span aria-hidden="true" style="margin-bottom:12px;display:grid;place-items:center;height:24px;width:24px;border-radius:9999px;border:1px solid #2f1e14;background:#ff5e00;color:#fff;font-size:12px;font-weight:700;box-shadow:0 4px 0 #2f1e14">&#10003;</span>
+                  <span style="display:block;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:16px;line-height:22px">{{ l.person }}</span>
+                  <span style="display:block;margin-top:6px;font-size:14px;line-height:21px;color:rgba(47,30,20,.72)">{{ l.personBody }}</span>
+                </div>
+              </sc-for>
+
+              <div></div>
+              <sc-for list="{{ lanes }}" as="l" hint-placeholder-count="4">
+                <div aria-hidden="true" style="display:flex;align-items:center;padding:12px 0;flex-direction: {{ l.flow }}">
+                  <span style="display:block;width:1px;height:26px;background:#2f1e14;margin:0 auto"></span>
+                  <span style="display:block;font-size:11px;line-height:11px;color:#2f1e14;text-align:center">{{ l.arrow }}</span>
+                </div>
+              </sc-for>
+
+              <div style="display:flex;align-items:flex-start;padding-top:18px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase">Agents</div>
+              <div style="grid-column:span 4;border-top:1px solid #2f1e14;padding-top:18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 20px">
+                <sc-for list="{{ lanes }}" as="l" hint-placeholder-count="4">
+                  <div style="display:flex;justify-content:center;text-align:center">
+                    <span style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:20px;line-height:26px">{{ l.agent }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <p style="margin:38px 0 0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px;max-width:46rem;text-wrap:pretty">AI work rarely stalls on the technology. It stalls where people and machines are supposed to meet.</p>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#f9f4ec">
+        <div style="width:1240px;margin:0 auto">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+            <sc-for list="{{ worth }}" as="w" hint-placeholder-count="3">
+              <div style="border-top:3px solid #ff5e00;padding:18px 0 0">
+                <h3 style="margin:0 0 8px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px">{{ w.title }}</h3>
+                <p style="margin:0;font-size:16px;line-height:26px;text-wrap:pretty">{{ w.body }}</p>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:26px;margin-top:28px">
+            <a href="#2a" style="font-size:16px;font-weight:600;color:#005ec8">See where it sits in the client journey &#8250;</a>
+            <a href="#2a" style="font-size:16px;font-weight:600;color:#005ec8">See the engagement model &#8250;</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:92px 0;background:#002161">
+        <div style="width:1240px;margin:0 auto;text-align:center">
+          <h2 style="margin:0 0 12px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;color:#fffbf3;text-wrap:balance">Priced to be a decision, not an investment.</h2>
+          <p style="margin:0 auto 24px;max-width:42rem;font-size:18px;line-height:32px;color:#fffbf3;text-wrap:pretty">You pay when you decide to scale it. The scope is fixed and agreed before we start, there is no obligation to continue, and the roadmap is yours either way.</p>
+          <a href="#2a" style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#ffdf65;color:#000;box-shadow:0 4px 0 #2f1e14;padding:12px 24px;font-weight:600;font-size:16px">Start a conversation</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="display:flex;gap:96px;align-items:flex-start;padding:72px 80px 120px">
+
+  <!-- ============================== 1a ============================== -->
+  <div id="1a" style="display:flex;flex-direction:column;width:1442px;flex:none">
+    <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:20px">
+      <span style="font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:#ffdf65;color:#000;border:1px solid #2f1e14;border-radius:9999px;padding:4px 12px;box-shadow:0 4px 0 #2f1e14">1a</span>
+      <span style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px;letter-spacing:-0.01em">Terms up front</span>
+      <span style="font-size:16px;line-height:26px;color:rgba(47,30,20,.7);max-width:640px;text-wrap:pretty">The current page, re-set. The offer and its terms share the opening band, and the four stages become one ruled strip instead of a list.</span>
+    </div>
+
+    <div style="width:1440px;background:#fff;border:1px solid #2f1e14;box-shadow:0 4px 0 #2f1e14;overflow:hidden">
+
+      <div style="position:relative;isolation:isolate;background:#002161;padding:30px 0">
+        <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:soft-light;filter:brightness(.629) contrast(2.78);opacity:.5;pointer-events:none"></span></sc-if>
+        <div style="position:relative;width:1240px;margin:0 auto">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <span aria-hidden="true" style="height:5px;width:24px;border-radius:3px;background:#ff5e00"></span>
+            <span style="font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#73e1ff">What we do / Phase Zero</span>
+          </div>
+          <h1 style="margin:0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:38px;line-height:44px;letter-spacing:-0.018em;color:#fffbf3">Proof, not a proposal.</h1>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#fff">
+        <div style="width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:64px;align-items:start">
+          <div>
+            <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">Offering &middot; Phase Zero pilot</p>
+            <h2 style="margin:0 0 14px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;text-wrap:balance">Name a process. See it working. Map what comes next.</h2>
+            <p style="margin:0 0 16px;font-size:18px;line-height:32px;color:rgba(47,30,20,.7);text-wrap:pretty">Most firms answer an AI question with a roadmap and a demo. Both die on a shelf. We build a real working solution on one process you name, in a fraction of the time and at a fraction of the cost.</p>
+            <p style="margin:0 0 28px;font-size:16px;line-height:26px;text-wrap:pretty">You name the workflow. We assess the readiness around it, build something that actually runs on it, and hand you a sequenced roadmap for what comes after the proof. One engagement, fixed scope.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:21px">
+              <a href="#1a" style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#ffdf65;color:#000;box-shadow:0 4px 0 #2f1e14;padding:12px 24px;font-weight:600;font-size:16px">Start with Phase Zero</a>
+              <a href="#1a" style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#f9f4ec;color:#000;box-shadow:0 4px 0 #2f1e14;padding:12px 24px;font-weight:600;font-size:16px">See what we do</a>
+            </div>
+          </div>
+          <div style="border:1px solid #2f1e14;border-radius:12px;background:#fab600;box-shadow:0 4px 0 #2f1e14;padding:36px;position:relative;isolation:isolate">
+            <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;border-radius:12px;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:overlay;filter:brightness(.629) contrast(2.78);opacity:.37;pointer-events:none"></span></sc-if>
+            <div style="position:relative">
+              <p style="margin:0 0 10px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase">The terms</p>
+              <h3 style="margin:0 0 12px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px">Priced to be a decision, not an investment.</h3>
+              <p style="margin:0;font-size:16px;line-height:26px;text-wrap:pretty">You pay when you decide to scale it. The scope is fixed and agreed before we start, there is no obligation to continue, and the roadmap is yours either way.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#e6f1fe;position:relative;isolation:isolate">
+        <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:overlay;filter:brightness(.629) contrast(2.78);pointer-events:none"></span></sc-if>
+        <div style="position:relative;width:1240px;margin:0 auto">
+          <div style="display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.6fr);gap:56px;align-items:start">
+            <div>
+              <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">How it runs</p>
+              <h3 style="margin:0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px;text-wrap:balance">Four stages, one engagement.</h3>
+              <p style="margin:14px 0 0;font-size:15px;line-height:26px;color:rgba(47,30,20,.7);text-wrap:pretty">Fixed scope, and every stage produces something you keep whether or not you continue.</p>
+            </div>
+            <ol style="margin:0;padding:0;list-style:none;display:flex;border:1px solid #2f1e14;border-radius:12px;background:#fff;overflow:hidden;box-shadow:0 4px 0 #2f1e14">
+              <sc-for list="{{ stages }}" as="s" hint-placeholder-count="4">
+                <li style="flex:1 1 150px;padding:18px 20px;border-left: {{ s.rule }}">
+                  <span style="display:block;margin-bottom:6px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">{{ s.n }}</span>
+                  <span style="display:block;margin-bottom:4px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:16px;line-height:22px">{{ s.label }}</span>
+                  <span style="display:block;font-size:14px;line-height:22px">{{ s.line }}</span>
+                </li>
+              </sc-for>
+            </ol>
+          </div>
+
+          <div style="display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.6fr);gap:56px;align-items:start;margin-top:46px">
+            <div>
+              <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">How we build it</p>
+              <h3 style="margin:0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px;text-wrap:balance">The build starts and ends with human oversight.</h3>
+              <p style="margin:14px 0 0;font-size:15px;line-height:26px;color:rgba(47,30,20,.7);text-wrap:pretty">An AI-native build, not a demo. It runs in parallel to production and is measured against the baseline from stage one.</p>
+            </div>
+            <div>
+              <p style="margin:0 0 10px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase">People</p>
+              <dl style="margin:0;display:grid;grid-template-columns:1fr 1fr;gap:16px 36px">
+                <sc-for list="{{ people }}" as="p" hint-placeholder-count="4">
+                  <div style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start">
+                    <span aria-hidden="true" style="margin-top:2px;display:grid;place-items:center;height:24px;width:24px;border-radius:9999px;border:1px solid #2f1e14;background:#ff5e00;color:#fff;font-size:12px;font-weight:700;box-shadow:0 4px 0 #2f1e14">&#10003;</span>
+                    <div>
+                      <dt style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:16px;line-height:26px">{{ p.title }}</dt>
+                      <dd style="margin:2px 0 0;font-size:14px;line-height:21px;color:rgba(47,30,20,.72)">{{ p.body }}</dd>
+                    </div>
+                  </div>
+                </sc-for>
+              </dl>
+              <p style="margin:28px 0 10px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase">Agents</p>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+                <sc-for list="{{ agents }}" as="a" hint-placeholder-count="4">
+                  <div style="border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;padding:20px;font-size:16px;line-height:26px">{{ a }}</div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <p style="margin:38px 0 0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px;max-width:46rem;text-wrap:pretty">AI work rarely stalls on the technology. It stalls where people and machines are supposed to meet.</p>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#fff">
+        <div style="width:1240px;margin:0 auto">
+          <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">Choosing a pilot process</p>
+          <h2 style="margin:0 0 14px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em">The one you would fix first.</h2>
+          <p style="margin:0 0 36px;font-size:18px;line-height:32px;color:rgba(47,30,20,.7);max-width:46rem;text-wrap:pretty">One named process, not a department and not a category. The right one is usually already obvious to the people doing the work, and these are the four questions that surface it.</p>
+          <dl style="margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0 40px">
+            <sc-for list="{{ questions }}" as="q" hint-placeholder-count="4">
+              <div style="border-top:1px solid rgba(47,30,20,.14);padding:16px 0">
+                <dt style="font-size:16px;line-height:26px;font-weight:600">{{ q.q }}</dt>
+                <dd style="margin:4px 0 0;font-size:14px;line-height:21px;color:rgba(47,30,20,.72)">{{ q.a }}</dd>
+              </div>
+            </sc-for>
+          </dl>
+
+          <p style="margin:44px 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">For example</p>
+          <h3 style="margin:0 0 22px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px">Four shapes it can take.</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <sc-for list="{{ examples }}" as="e" hint-placeholder-count="4">
+              <div style="border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;padding:32px;display:flex;flex-direction:column;gap:8px">
+                <h4 style="margin:0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px;text-wrap:balance">{{ e.title }}</h4>
+                <p style="margin:0;font-size:16px;line-height:26px;text-wrap:pretty">{{ e.body }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#f9f4ec">
+        <div style="width:1240px;margin:0 auto">
+          <h2 style="margin:0 0 14px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em">The smallest, lowest-risk way to find out.</h2>
+          <p style="margin:0 0 36px;font-size:18px;line-height:32px;color:rgba(47,30,20,.7);max-width:46rem;text-wrap:pretty">Phase Zero puts a working thing in front of you on work you already care about, at the smallest scale that still proves something. What it costs you is the process you name and the people who know it.</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+            <sc-for list="{{ worth }}" as="w" hint-placeholder-count="3">
+              <div style="border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;padding:32px;display:flex;flex-direction:column;gap:8px">
+                <h3 style="margin:0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px">{{ w.title }}</h3>
+                <p style="margin:0;font-size:16px;line-height:26px;text-wrap:pretty">{{ w.body }}</p>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:26px;margin-top:28px">
+            <a href="#1a" style="font-size:16px;font-weight:600;color:#005ec8">See where it sits in the client journey &#8250;</a>
+            <a href="#1a" style="font-size:16px;font-weight:600;color:#005ec8">See the engagement model &#8250;</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:92px 0;background:#002161;position:relative;isolation:isolate">
+        <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:soft-light;filter:brightness(.629) contrast(2.78);opacity:.5;pointer-events:none"></span></sc-if>
+        <div style="position:relative;width:1240px;margin:0 auto;text-align:center">
+          <p style="margin:0 0 12px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#73e1ff">Phase Zero</p>
+          <h2 style="margin:0 0 12px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;color:#fffbf3;text-wrap:balance">What is the one process you would fix first?</h2>
+          <p style="margin:0 auto 24px;max-width:42rem;font-size:18px;line-height:32px;color:#fffbf3;text-wrap:pretty">The one everyone works around, or the one eating human time for output that barely needs judgment. Name it and we will tell you whether it is a good Phase Zero.</p>
+          <a href="#1a" style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#ffdf65;color:#000;box-shadow:0 4px 0 #2f1e14;padding:12px 24px;font-weight:600;font-size:16px">Start a conversation</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 1b ============================== -->
+  <div id="1b" style="display:flex;flex-direction:column;width:1442px;flex:none">
+    <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:20px">
+      <span style="font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:#ffdf65;color:#000;border:1px solid #2f1e14;border-radius:9999px;padding:4px 12px;box-shadow:0 4px 0 #2f1e14">1b</span>
+      <span style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px;letter-spacing:-0.01em">Walk the pilot</span>
+      <span style="font-size:16px;line-height:26px;color:rgba(47,30,20,.7);max-width:640px;text-wrap:pretty">The stages and the four pilot shapes become things the reader operates, using the selector already on the client journey page. Click a stage; click a shape.</span>
+    </div>
+
+    <div style="width:1440px;background:#fff;border:1px solid #2f1e14;box-shadow:0 4px 0 #2f1e14;overflow:hidden">
+
+      <div style="position:relative;isolation:isolate;background:#002161;padding:30px 0 76px">
+        <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:soft-light;filter:brightness(.629) contrast(2.78);opacity:.5;pointer-events:none"></span></sc-if>
+        <div style="position:relative;width:1240px;margin:0 auto">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <span aria-hidden="true" style="height:5px;width:24px;border-radius:3px;background:#ff5e00"></span>
+            <span style="font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#73e1ff">What we do / Phase Zero</span>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:64px;align-items:end;margin-top:34px">
+            <div>
+              <h1 style="margin:0 0 16px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:57px;line-height:63px;letter-spacing:-0.022em;color:#fffbf3;text-wrap:balance">Proof, not a proposal.</h1>
+              <p style="margin:0 0 28px;font-size:18px;line-height:32px;color:#fffbf3;max-width:44rem;text-wrap:pretty">Most firms answer an AI question with a roadmap and a demo. Both die on a shelf. We build a real working solution on one process you name, in a fraction of the time and at a fraction of the cost.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:21px;align-items:center">
+                <a href="#1b" style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#ffdf65;color:#000;box-shadow:0 4px 0 #2f1e14;padding:12px 24px;font-weight:600;font-size:16px">Start with Phase Zero</a>
+                <span style="display:inline-flex;align-items:center;gap:10px;border:1px solid #2f1e14;border-radius:9999px;background:#c7ffb1;color:#000;box-shadow:0 4px 0 #2f1e14;padding:11px 22px;font-weight:600;font-size:16px">Priced to be a decision.</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;align-items:flex-end">
+              <sc-if value="{{ illustrations }}" hint-placeholder-val="{{ true }}"><img src="assets/laptop.webp" alt="" style="width:300px;height:auto;display:block"></sc-if>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#fff">
+        <div style="width:1240px;margin:0 auto">
+          <div style="display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.6fr);gap:56px;align-items:start;margin-bottom:34px">
+            <div>
+              <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">How it runs</p>
+              <h2 style="margin:0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;text-wrap:balance">Four stages, one engagement.</h2>
+            </div>
+            <div>
+              <p style="margin:0 0 12px;font-size:16px;line-height:26px;text-wrap:pretty">You name the workflow. We assess the readiness around it, build something that actually runs on it, and hand you a sequenced roadmap for what comes after the proof. One engagement, fixed scope.</p>
+              <p style="margin:0;font-size:15px;line-height:26px;color:rgba(47,30,20,.7);text-wrap:pretty">Fixed scope, and every stage produces something you keep whether or not you continue.</p>
+            </div>
+          </div>
+
+          <div style="position:relative;isolation:isolate;border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;padding:40px 44px">
+            <div style="position:relative;display:grid;grid-template-columns:repeat(4,1fr)">
+              <span aria-hidden="true" style="position:absolute;left:0;right:0;top:61px;height:1px;background:#2f1e14"></span>
+              <sc-for list="{{ stageTabs }}" as="s" hint-placeholder-count="4">
+                <button type="button" onClick="{{ s.pick }}" style="position:relative;display:flex;flex-direction:column;text-align:left;background:none;border:0;border-left: {{ s.rule }};padding:0 18px 34px;cursor:pointer;font:inherit;color:inherit">
+                  <span aria-hidden="true" style="position:absolute;left:0;right:0;top:-40px;bottom:0;z-index:-1;transition:transform 380ms cubic-bezier(.2,0,0,1);transform-origin:top;background: {{ s.fill }};transform: {{ s.fieldScale }}"></span>
+                  <span style="display:block">
+                    <span style="display:block;margin-bottom:14px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px">{{ s.label }}</span>
+                    <span style="display:grid;place-items:center;height:30px;width:30px;border-radius:9999px;border:1px solid #2f1e14;font-family:'IBM Plex Sans Condensed',sans-serif;font-size:12px;letter-spacing:.08em;background: {{ s.badgeBg }};box-shadow: {{ s.badgeShadow }};transform: {{ s.badgeShift }};transition:all 180ms cubic-bezier(.2,0,0,1)">{{ s.n }}</span>
+                  </span>
+                </button>
+              </sc-for>
+            </div>
+
+            <div style="margin:0 -44px" key="{{ openStage.n }}">
+              <span aria-hidden="true" style="display:block;height:1px;background:#2f1e14;margin-bottom:30px;transform-origin:left;animation:m42-draw-x 440ms cubic-bezier(.2,0,0,1) both"></span>
+              <div style="padding:0 44px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:56px;align-items:start">
+                <div>
+                  <p style="margin:0 0 10px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">{{ openStage.eyebrow }}</p>
+                  <h3 style="margin:0 0 16px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;text-wrap:pretty">{{ openStage.heading }}</h3>
+                  <p style="margin:0;font-size:18px;line-height:32px;text-wrap:pretty">{{ openStage.line }}</p>
+                </div>
+                <div style="display:flex;justify-content:flex-end">
+                  <sc-if value="{{ illustrations }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="display:block;width:132px;height:132px;background-repeat:no-repeat;background-position:center;background-size:contain;background-image: {{ openStage.spotUrl }}"></span></sc-if>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#e6f1fe;position:relative;isolation:isolate">
+        <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:overlay;filter:brightness(.629) contrast(2.78);pointer-events:none"></span></sc-if>
+        <div style="position:relative;width:1240px;margin:0 auto">
+          <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">Choosing a pilot process</p>
+          <h2 style="margin:0 0 14px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em">The one you would fix first.</h2>
+          <p style="margin:0 0 32px;font-size:18px;line-height:32px;color:rgba(47,30,20,.7);max-width:46rem;text-wrap:pretty">One named process, not a department and not a category. The right one is usually already obvious to the people doing the work, and these are the four questions that surface it.</p>
+
+          <div style="border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;overflow:hidden">
+            <div style="display:grid;grid-template-columns:repeat(4,1fr)">
+              <sc-for list="{{ shapeTabs }}" as="e" hint-placeholder-count="4">
+                <button type="button" onClick="{{ e.pick }}" style="text-align:left;border:0;border-left: {{ e.rule }};border-bottom:1px solid #2f1e14;padding:20px 24px;cursor:pointer;font:inherit;color:inherit;background: {{ e.bg }}">
+                  <span style="display:block;margin-bottom:6px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">{{ e.n }}</span>
+                  <span style="display:block;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:16px;line-height:22px;text-wrap:balance">{{ e.title }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <div style="padding:40px 44px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:center" key="{{ openShape.title }}">
+              <div style="animation:m42-item 420ms cubic-bezier(.2,0,0,1) both">
+                <p style="margin:0 0 10px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase">For example</p>
+                <h3 style="margin:0 0 12px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;text-wrap:pretty">{{ openShape.title }}</h3>
+                <p style="margin:0;font-size:18px;line-height:32px;max-width:44rem;text-wrap:pretty">{{ openShape.body }}</p>
+              </div>
+              <sc-if value="{{ illustrations }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="display:block;width:132px;height:132px;background-repeat:no-repeat;background-position:center;background-size:contain;background-image: {{ openShape.spotUrl }}"></span></sc-if>
+            </div>
+          </div>
+
+          <dl style="margin:36px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:0 32px">
+            <sc-for list="{{ questions }}" as="q" hint-placeholder-count="4">
+              <div style="border-top:3px solid #ff5e00;padding:16px 0 0">
+                <dt style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:16px;line-height:22px;text-wrap:balance">{{ q.q }}</dt>
+                <dd style="margin:8px 0 0;font-size:14px;line-height:21px;color:rgba(47,30,20,.72)">{{ q.a }}</dd>
+              </div>
+            </sc-for>
+          </dl>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#fff">
+        <div style="width:1240px;margin:0 auto">
+          <div style="display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.6fr);gap:56px;align-items:start">
+            <div>
+              <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">How we build it</p>
+              <h2 style="margin:0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;text-wrap:balance">The build starts and ends with human oversight.</h2>
+              <p style="margin:14px 0 0;font-size:15px;line-height:26px;color:rgba(47,30,20,.7);text-wrap:pretty">An AI-native build, not a demo. It runs in parallel to production and is measured against the baseline from stage one.</p>
+              <p style="margin:24px 0 0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px;text-wrap:pretty">AI work rarely stalls on the technology. It stalls where people and machines are supposed to meet.</p>
+            </div>
+            <div>
+              <p style="margin:0 0 10px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase">People</p>
+              <dl style="margin:0;display:grid;grid-template-columns:1fr 1fr;gap:16px 36px">
+                <sc-for list="{{ people }}" as="p" hint-placeholder-count="4">
+                  <div style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start">
+                    <span aria-hidden="true" style="margin-top:2px;display:grid;place-items:center;height:24px;width:24px;border-radius:9999px;border:1px solid #2f1e14;background:#ff5e00;color:#fff;font-size:12px;font-weight:700;box-shadow:0 4px 0 #2f1e14">&#10003;</span>
+                    <div>
+                      <dt style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:16px;line-height:26px">{{ p.title }}</dt>
+                      <dd style="margin:2px 0 0;font-size:14px;line-height:21px;color:rgba(47,30,20,.72)">{{ p.body }}</dd>
+                    </div>
+                  </div>
+                </sc-for>
+              </dl>
+              <p style="margin:28px 0 10px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase">Agents</p>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+                <sc-for list="{{ agents }}" as="a" hint-placeholder-count="4">
+                  <div style="border:1px solid #2f1e14;border-radius:12px;background:#f9f4ec;box-shadow:0 4px 0 #2f1e14;padding:20px;font-size:16px;line-height:26px">{{ a }}</div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:92px 0;background:#002161;position:relative;isolation:isolate">
+        <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:soft-light;filter:brightness(.629) contrast(2.78);opacity:.5;pointer-events:none"></span></sc-if>
+        <div style="position:relative;width:1240px;margin:0 auto;text-align:center">
+          <p style="margin:0 0 12px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#73e1ff">Phase Zero</p>
+          <h2 style="margin:0 0 12px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;color:#fffbf3;text-wrap:balance">What is the one process you would fix first?</h2>
+          <p style="margin:0 auto 24px;max-width:42rem;font-size:18px;line-height:32px;color:#fffbf3;text-wrap:pretty">The one everyone works around, or the one eating human time for output that barely needs judgment. Name it and we will tell you whether it is a good Phase Zero.</p>
+          <a href="#1b" style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#ffdf65;color:#000;box-shadow:0 4px 0 #2f1e14;padding:12px 24px;font-weight:600;font-size:16px">Start a conversation</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 1c ============================== -->
+  <div id="1c" style="display:flex;flex-direction:column;width:1442px;flex:none">
+    <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:20px">
+      <span style="font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:#ffdf65;color:#000;border:1px solid #2f1e14;border-radius:9999px;padding:4px 12px;box-shadow:0 4px 0 #2f1e14">1c</span>
+      <span style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px;letter-spacing:-0.01em">Two lanes</span>
+      <span style="font-size:16px;line-height:26px;color:rgba(47,30,20,.7);max-width:640px;text-wrap:pretty">Diagram-led. The four stages run down a spine, and the people-and-agents argument is drawn as a handoff: each human touchpoint sits above the agent step it gates.</span>
+    </div>
+
+    <div style="width:1440px;background:#fff;border:1px solid #2f1e14;box-shadow:0 4px 0 #2f1e14;overflow:hidden">
+
+      <div style="position:relative;isolation:isolate;background:#002161;padding:30px 0">
+        <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:soft-light;filter:brightness(.629) contrast(2.78);opacity:.5;pointer-events:none"></span></sc-if>
+        <div style="position:relative;width:1240px;margin:0 auto">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <span aria-hidden="true" style="height:5px;width:24px;border-radius:3px;background:#ff5e00"></span>
+            <span style="font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#73e1ff">What we do / Phase Zero</span>
+          </div>
+          <h1 style="margin:0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:38px;line-height:44px;letter-spacing:-0.018em;color:#fffbf3">Proof, not a proposal.</h1>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#fff">
+        <div style="width:1240px;margin:0 auto;max-width:1240px">
+          <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">Offering &middot; Phase Zero pilot</p>
+          <h2 style="margin:0 0 14px;max-width:24ch;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:57px;line-height:63px;letter-spacing:-0.022em;text-wrap:balance">Name a process. See it working. Map what comes next.</h2>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:start;margin-top:32px">
+            <p style="margin:0;font-size:18px;line-height:32px;color:rgba(47,30,20,.7);text-wrap:pretty">Most firms answer an AI question with a roadmap and a demo. Both die on a shelf. We build a real working solution on one process you name, in a fraction of the time and at a fraction of the cost.</p>
+            <div>
+              <p style="margin:0 0 24px;font-size:16px;line-height:26px;text-wrap:pretty">You name the workflow. We assess the readiness around it, build something that actually runs on it, and hand you a sequenced roadmap for what comes after the proof. One engagement, fixed scope.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:21px">
+                <a href="#1c" style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#ffdf65;color:#000;box-shadow:0 4px 0 #2f1e14;padding:12px 24px;font-weight:600;font-size:16px">Start with Phase Zero</a>
+                <a href="#1c" style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#f9f4ec;color:#000;box-shadow:0 4px 0 #2f1e14;padding:12px 24px;font-weight:600;font-size:16px">See what we do</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#f9f4ec">
+        <div style="width:1240px;margin:0 auto">
+          <div style="display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.6fr);gap:56px;align-items:start">
+            <div style="position:sticky;top:40px">
+              <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">How it runs</p>
+              <h2 style="margin:0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;text-wrap:balance">Four stages, one engagement.</h2>
+              <p style="margin:14px 0 0;font-size:15px;line-height:26px;color:rgba(47,30,20,.7);text-wrap:pretty">Fixed scope, and every stage produces something you keep whether or not you continue.</p>
+              <sc-if value="{{ illustrations }}" hint-placeholder-val="{{ true }}"><img src="assets/gears.webp" alt="" style="margin-top:24px;width:180px;height:auto;display:block"></sc-if>
+            </div>
+            <ol style="margin:0;padding:0;list-style:none;position:relative">
+              <span aria-hidden="true" style="position:absolute;left:24px;top:12px;bottom:12px;width:1px;background:#2f1e14"></span>
+              <sc-for list="{{ spine }}" as="s" hint-placeholder-count="4">
+                <li style="position:relative;display:grid;grid-template-columns:48px minmax(0,1fr);gap:24px;padding-bottom:28px">
+                  <span style="position:relative;z-index:1;display:grid;place-items:center;height:48px;width:48px;border-radius:9999px;border:1px solid #2f1e14;background:{{ s.fill }};box-shadow:0 4px 0 #2f1e14;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em">{{ s.n }}</span>
+                  <div style="border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;padding:28px 32px">
+                    <h3 style="margin:0 0 6px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px">{{ s.label }}</h3>
+                    <p style="margin:0;font-size:18px;line-height:32px;text-wrap:pretty">{{ s.line }}</p>
+                  </div>
+                </li>
+              </sc-for>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#fff">
+        <div style="width:1240px;margin:0 auto">
+          <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">How we build it</p>
+          <h2 style="margin:0 0 14px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em">The build starts and ends with human oversight.</h2>
+          <p style="margin:0 0 40px;font-size:18px;line-height:32px;color:rgba(47,30,20,.7);max-width:46rem;text-wrap:pretty">An AI-native build, not a demo. It runs in parallel to production and is measured against the baseline from stage one.</p>
+
+          <div style="border:1px solid #2f1e14;border-radius:12px;background:#e6f1fe;box-shadow:0 4px 0 #2f1e14;padding:36px 40px">
+            <div style="display:grid;grid-template-columns:96px repeat(4,minmax(0,1fr));gap:0 20px;align-items:stretch">
+              <div style="display:flex;align-items:center;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase">People</div>
+              <sc-for list="{{ lanes }}" as="l" hint-placeholder-count="4">
+                <div style="border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;padding:20px">
+                  <span aria-hidden="true" style="margin-bottom:12px;display:grid;place-items:center;height:24px;width:24px;border-radius:9999px;border:1px solid #2f1e14;background:#ff5e00;color:#fff;font-size:12px;font-weight:700;box-shadow:0 4px 0 #2f1e14">&#10003;</span>
+                  <span style="display:block;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:16px;line-height:22px">{{ l.person }}</span>
+                  <span style="display:block;margin-top:6px;font-size:14px;line-height:21px;color:rgba(47,30,20,.72)">{{ l.personBody }}</span>
+                </div>
+              </sc-for>
+
+              <div></div>
+              <sc-for list="{{ lanes }}" as="l" hint-placeholder-count="4">
+                <div aria-hidden="true" style="display:flex;align-items:center;padding:12px 0;flex-direction: {{ l.flow }}">
+                  <span style="display:block;width:1px;height:26px;background:#2f1e14;margin:0 auto"></span>
+                  <span style="display:block;font-size:11px;line-height:11px;color:#2f1e14;text-align:center">{{ l.arrow }}</span>
+                </div>
+              </sc-for>
+
+              <div style="display:flex;align-items:flex-start;padding-top:18px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase">Agents</div>
+              <div style="grid-column:span 4;border-top:1px solid #2f1e14;padding-top:18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 20px">
+                <sc-for list="{{ lanes }}" as="l" hint-placeholder-count="4">
+                  <div style="display:flex;justify-content:center;text-align:center">
+                    <span style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:20px;line-height:26px">{{ l.agent }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <p style="margin:38px 0 0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px;max-width:46rem;text-wrap:pretty">AI work rarely stalls on the technology. It stalls where people and machines are supposed to meet.</p>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#f9f4ec">
+        <div style="width:1240px;margin:0 auto">
+          <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">Choosing a pilot process</p>
+          <h2 style="margin:0 0 14px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em">The one you would fix first.</h2>
+          <p style="margin:0 0 32px;font-size:18px;line-height:32px;color:rgba(47,30,20,.7);max-width:46rem;text-wrap:pretty">One named process, not a department and not a category. The right one is usually already obvious to the people doing the work, and these are the four questions that surface it.</p>
+          <dl style="margin:0 0 44px;display:grid;grid-template-columns:repeat(4,1fr);gap:0 32px">
+            <sc-for list="{{ questions }}" as="q" hint-placeholder-count="4">
+              <div style="border-top:1px solid rgba(47,30,20,.14);padding:16px 0 0">
+                <dt style="font-size:16px;line-height:26px;font-weight:600;text-wrap:balance">{{ q.q }}</dt>
+                <dd style="margin:4px 0 0;font-size:14px;line-height:21px;color:rgba(47,30,20,.72)">{{ q.a }}</dd>
+              </div>
+            </sc-for>
+          </dl>
+          <h3 style="margin:0 0 22px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px">Four shapes it can take.</h3>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;overflow:hidden">
+            <sc-for list="{{ examples }}" as="e" hint-placeholder-count="4">
+              <div style="border-left: {{ e.rule }};padding:28px 24px">
+                <h4 style="margin:0 0 8px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:20px;line-height:26px;text-wrap:balance">{{ e.title }}</h4>
+                <p style="margin:0;font-size:15px;line-height:24px;text-wrap:pretty">{{ e.body }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#fff">
+        <div style="width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:64px;align-items:start">
+          <div>
+            <h2 style="margin:0 0 14px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;text-wrap:balance">The smallest, lowest-risk way to find out.</h2>
+            <p style="margin:0 0 20px;font-size:18px;line-height:32px;color:rgba(47,30,20,.7);text-wrap:pretty">Phase Zero puts a working thing in front of you on work you already care about, at the smallest scale that still proves something. What it costs you is the process you name and the people who know it.</p>
+            <div style="border:1px solid #2f1e14;border-radius:12px;background:#fab600;box-shadow:0 4px 0 #2f1e14;padding:28px 32px">
+              <h3 style="margin:0 0 8px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px">Priced to be a decision, not an investment.</h3>
+              <p style="margin:0;font-size:16px;line-height:26px;text-wrap:pretty">You pay when you decide to scale it. The scope is fixed and agreed before we start, there is no obligation to continue, and the roadmap is yours either way.</p>
+            </div>
+          </div>
+          <div>
+            <dl style="margin:0">
+              <sc-for list="{{ worth }}" as="w" hint-placeholder-count="3">
+                <div style="border-top:1px solid rgba(47,30,20,.16);padding:20px 0;display:grid;grid-template-columns:230px minmax(0,1fr);gap:24px">
+                  <dt style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:16px;line-height:24px">{{ w.title }}</dt>
+                  <dd style="margin:0;font-size:15px;line-height:24px;text-wrap:pretty">{{ w.body }}</dd>
+                </div>
+              </sc-for>
+            </dl>
+            <div style="display:flex;flex-wrap:wrap;gap:26px;margin-top:24px">
+              <a href="#1c" style="font-size:16px;font-weight:600;color:#005ec8">See where it sits in the client journey &#8250;</a>
+              <a href="#1c" style="font-size:16px;font-weight:600;color:#005ec8">See the engagement model &#8250;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:92px 0;background:#002161;position:relative;isolation:isolate">
+        <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:soft-light;filter:brightness(.629) contrast(2.78);opacity:.5;pointer-events:none"></span></sc-if>
+        <div style="position:relative;width:1240px;margin:0 auto;text-align:center">
+          <p style="margin:0 0 12px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#73e1ff">Phase Zero</p>
+          <h2 style="margin:0 0 12px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;color:#fffbf3;text-wrap:balance">What is the one process you would fix first?</h2>
+          <p style="margin:0 auto 24px;max-width:42rem;font-size:18px;line-height:32px;color:#fffbf3;text-wrap:pretty">The one everyone works around, or the one eating human time for output that barely needs judgment. Name it and we will tell you whether it is a good Phase Zero.</p>
+          <a href="#1c" style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#ffdf65;color:#000;box-shadow:0 4px 0 #2f1e14;padding:12px 24px;font-weight:600;font-size:16px">Start a conversation</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 1d ============================== -->
+  <div id="1d" style="display:flex;flex-direction:column;width:1442px;flex:none">
+    <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:20px">
+      <span style="font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:#ffdf65;color:#000;border:1px solid #2f1e14;border-radius:9999px;padding:4px 12px;box-shadow:0 4px 0 #2f1e14">1d</span>
+      <span style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px;letter-spacing:-0.01em">Question first</span>
+      <span style="font-size:16px;line-height:26px;color:rgba(47,30,20,.7);max-width:640px;text-wrap:pretty">The closing question becomes the opening one. The four diagnostics carry the hero, the method compresses to one band, and the page is roughly half as long.</span>
+    </div>
+
+    <div style="width:1440px;background:#fff;border:1px solid #2f1e14;box-shadow:0 4px 0 #2f1e14;overflow:hidden">
+
+      <div style="position:relative;isolation:isolate;background:#002161;padding:30px 0 64px">
+        <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:soft-light;filter:brightness(.629) contrast(2.78);opacity:.5;pointer-events:none"></span></sc-if>
+        <div style="position:relative;width:1240px;margin:0 auto">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:44px">
+            <span aria-hidden="true" style="height:5px;width:24px;border-radius:3px;background:#ff5e00"></span>
+            <span style="font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#73e1ff">What we do / Phase Zero</span>
+          </div>
+          <h1 style="margin:0 0 20px;max-width:22ch;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:57px;line-height:63px;letter-spacing:-0.022em;color:#fffbf3;text-wrap:balance">What is the one process you would fix first?</h1>
+          <p style="margin:0 0 36px;max-width:44rem;font-size:18px;line-height:32px;color:#fffbf3;text-wrap:pretty">The one everyone works around, or the one eating human time for output that barely needs judgment. Name it and we will tell you whether it is a good Phase Zero.</p>
+          <dl style="margin:0 0 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:0 32px">
+            <sc-for list="{{ questions }}" as="q" hint-placeholder-count="4">
+              <div style="border-top:1px solid rgba(255,251,243,.3);padding:18px 0 0">
+                <dt style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:20px;line-height:26px;color:#fffbf3;text-wrap:balance">{{ q.q }}</dt>
+                <dd style="margin:8px 0 0;font-size:15px;line-height:24px;color:#c8fcff;text-wrap:pretty">{{ q.a }}</dd>
+              </div>
+            </sc-for>
+          </dl>
+          <div style="display:flex;flex-wrap:wrap;gap:21px;align-items:center">
+            <a href="#1d" style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#ffdf65;color:#000;box-shadow:0 4px 0 #2f1e14;padding:12px 24px;font-weight:600;font-size:16px">Start with Phase Zero</a>
+            <span style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#c7ffb1;color:#000;box-shadow:0 4px 0 #2f1e14;padding:11px 22px;font-weight:600;font-size:16px">Priced to be a decision.</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#fff">
+        <div style="width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:start">
+          <div>
+            <p style="margin:0 0 8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#005ec8">Offering &middot; Phase Zero pilot</p>
+            <h2 style="margin:0 0 16px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;text-wrap:balance">Name a process. See it working. Map what comes next.</h2>
+            <p style="margin:0 0 14px;font-size:18px;line-height:32px;color:rgba(47,30,20,.7);text-wrap:pretty">Most firms answer an AI question with a roadmap and a demo. Both die on a shelf. We build a real working solution on one process you name, in a fraction of the time and at a fraction of the cost.</p>
+            <p style="margin:0;font-size:16px;line-height:26px;text-wrap:pretty">You name the workflow. We assess the readiness around it, build something that actually runs on it, and hand you a sequenced roadmap for what comes after the proof. One engagement, fixed scope.</p>
+          </div>
+          <div>
+            <ol style="margin:0;padding:0;list-style:none;border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;overflow:hidden">
+              <sc-for list="{{ stages }}" as="s" hint-placeholder-count="4">
+                <li style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:20px;padding:20px 28px;border-top:1px solid #2f1e14">
+                  <span style="font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:27px;line-height:1;color:#c24700">{{ s.n }}</span>
+                  <div>
+                    <span style="display:block;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:20px;line-height:26px">{{ s.label }}</span>
+                    <span style="display:block;margin-top:4px;font-size:15px;line-height:24px;text-wrap:pretty">{{ s.line }}</span>
+                  </div>
+                </li>
+              </sc-for>
+            </ol>
+            <p style="margin:14px 0 0;font-size:15px;line-height:26px;color:rgba(47,30,20,.7);text-wrap:pretty">Fixed scope, and every stage produces something you keep whether or not you continue.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#e6f1fe;position:relative;isolation:isolate">
+        <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:overlay;filter:brightness(.629) contrast(2.78);pointer-events:none"></span></sc-if>
+        <div style="position:relative;width:1240px;margin:0 auto">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:40px;margin-bottom:24px">
+            <h2 style="margin:0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em">Four shapes it can take.</h2>
+            <p style="margin:0;max-width:34rem;font-size:16px;line-height:26px;color:rgba(47,30,20,.7);text-wrap:pretty">One named process, not a department and not a category. The right one is usually already obvious to the people doing the work.</p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+            <sc-for list="{{ examples }}" as="e" hint-placeholder-count="4">
+              <div style="border:1px solid #2f1e14;border-radius:12px;background:#fff;box-shadow:0 4px 0 #2f1e14;padding:26px;display:flex;flex-direction:column;gap:8px">
+                <span aria-hidden="true" style="height:5px;width:32px;border-radius:3px;background:{{ e.fill }}"></span>
+                <h3 style="margin:6px 0 0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:20px;line-height:26px;text-wrap:balance">{{ e.title }}</h3>
+                <p style="margin:0;font-size:15px;line-height:24px;text-wrap:pretty">{{ e.body }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:54px 0;background:#fff">
+        <div style="width:1240px;margin:0 auto">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+            <sc-for list="{{ worth }}" as="w" hint-placeholder-count="3">
+              <div style="border-top:3px solid #ff5e00;padding:18px 0 0">
+                <h3 style="margin:0 0 8px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px">{{ w.title }}</h3>
+                <p style="margin:0;font-size:16px;line-height:26px;text-wrap:pretty">{{ w.body }}</p>
+              </div>
+            </sc-for>
+          </div>
+          <p style="margin:36px 0 0;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:26px;line-height:32px;max-width:46rem;text-wrap:pretty">AI work rarely stalls on the technology. It stalls where people and machines are supposed to meet.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:26px;margin-top:24px">
+            <a href="#1d" style="font-size:16px;font-weight:600;color:#005ec8">See where it sits in the client journey &#8250;</a>
+            <a href="#1d" style="font-size:16px;font-weight:600;color:#005ec8">See the engagement model &#8250;</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:92px 0;background:#fab600;position:relative;isolation:isolate">
+        <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:0;background:url(assets/grain-fine.png) repeat;background-size:256px 256px;mix-blend-mode:overlay;filter:brightness(.629) contrast(2.78);opacity:.37;pointer-events:none"></span></sc-if>
+        <div style="position:relative;width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:64px;align-items:center">
+          <div>
+            <p style="margin:0 0 12px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase">Phase Zero</p>
+            <h2 style="margin:0 0 12px;font-family:'Merriweather Sans',sans-serif;font-weight:700;font-size:36px;line-height:42px;letter-spacing:-0.018em;text-wrap:balance">Priced to be a decision, not an investment.</h2>
+            <p style="margin:0 0 24px;max-width:42rem;font-size:18px;line-height:32px;text-wrap:pretty">You pay when you decide to scale it. The scope is fixed and agreed before we start, there is no obligation to continue, and the roadmap is yours either way.</p>
+            <a href="#1d" style="display:inline-flex;align-items:center;border:1px solid #2f1e14;border-radius:9999px;background:#ffdf65;color:#000;box-shadow:0 4px 0 #2f1e14;padding:12px 24px;font-weight:600;font-size:16px">Start a conversation</a>
+          </div>
+          <div style="display:flex;justify-content:flex-end">
+            <sc-if value="{{ illustrations }}" hint-placeholder-val="{{ true }}"><img src="assets/handshake.webp" alt="" style="width:240px;height:auto;display:block"></sc-if>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;grain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Fidelity&quot;},&quot;illustrations&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Fidelity&quot;},&quot;openStage&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:3,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Option 1b&quot;}}">
+const QUESTIONS = [
+  { q: 'What frustrates people most?', a: 'Everyone knows it is slow, and quietly works around it.', mark: '#ff5e00' },
+  { q: 'What takes the most human time?', a: 'Manual effort for output that barely needs judgment.', mark: '#fab600' },
+  { q: 'Where does quality slip?', a: 'Work that gets redone, or testing that is manual and skipped under pressure.', mark: '#00805d' },
+  { q: 'What is the low-hanging fruit?', a: 'The one you already suspect a machine could carry.', mark: '#002161' },
+]
+
+const EXAMPLES = [
+  { title: 'Run agents on a live backlog', body: 'Carve off part of a real backlog, run agents on it beside your team, and compare the result against your baseline.', fill: '#ff5e00', spot: 'assets/gears.webp' },
+  { title: 'Automate one business process', body: 'Take one process end to end, with your people reviewing what the agents produce.', fill: '#73e1ff', spot: 'assets/brain-gear.webp' },
+  { title: 'Migrate a slice off a legacy platform', body: 'Move one real piece with an AI-native team, before you commit to the whole replatform.', fill: '#c7ffb1', spot: 'assets/laptop.webp' },
+  { title: 'Find and fix what is underperforming', body: 'Agents analyze a live surface, find what is weak, and fix it with review before it ships.', fill: '#fab600', spot: 'assets/lightbulb.webp' },
+]
+
+const STAGES = [
+  { label: 'Identify', line: 'The process you named, its baseline today, who owns it, and what good looks like.', fill: '#ff5e00', spot: 'assets/lightbulb.webp' },
+  { label: 'Analyze', line: 'What surrounds it. Whether the knowledge is findable, the data usable, and the systems actionable.', fill: '#73e1ff', spot: 'assets/brain-gear.webp' },
+  { label: 'Pilot', line: 'A working solution on your process, running beside production and measured against that baseline.', fill: '#c7ffb1', spot: 'assets/laptop.webp' },
+  { label: 'Roadmap', line: 'A sequenced map of what comes next, with an implementation estimate specific enough to execute.', fill: '#fab600', spot: 'assets/clipboard.webp' },
+]
+
+const PEOPLE = [
+  { title: 'Name the outcome', body: 'The metric and the baseline, before any tool. Without this, there is no way to prove value.' },
+  { title: 'Give context', body: 'The rules, the edge cases, what good looks like. Without this, a generic tool nobody adopts.' },
+  { title: 'Review the work', body: 'Judgment on what the agent produced. Without this, quality drifts.' },
+  { title: 'Approve to land', body: 'Agreed up front, so nothing waits on a decision. Without this, working software sits frozen.' },
+]
+
+const AGENTS = ['Plan', 'Build', 'Validate', 'Deploy']
+
+/* The lane diagram's handoff direction. Validate hands its output back up to
+   the reviewer; the other three take their input from the person above. */
+const FLOW = ['down', 'down', 'up', 'down']
+
+const WORTH = [
+  { title: 'Low risk.', body: 'It runs beside production, never through it, and it is reversible on day one.' },
+  { title: 'Real proof.', body: 'Something working on your own process, measured against your own baseline rather than a vendor benchmark.' },
+  { title: 'Built to last.', body: 'The proof is the first increment rather than a dead end, and the governance around it outlives the pilot.' },
+]
+
+const num = (i) => String(i + 1).padStart(2, '0')
+/* The first cell of a divided strip carries no rule: it would sit 1px inside
+   the container's own border. Same reason StepStrip zeroes it in Lists.jsx. */
+const rule = (i) => (i ? '1px solid #2f1e14' : 'none')
+
+class Component extends DCLogic {
+  state = { stage: null, shape: 0 }
+
+  componentDidMount() {
+    this.setState({ stage: this.props.openStage ?? 0 })
+  }
+
+  renderVals() {
+    const open = this.state.stage === null ? (this.props.openStage ?? 0) : this.state.stage
+    const shape = this.state.shape
+
+    return {
+      grain: this.props.grain ?? true,
+      illustrations: this.props.illustrations ?? true,
+      questions: QUESTIONS,
+      examples: EXAMPLES.map((e, i) => ({ ...e, rule: rule(i) })),
+      people: PEOPLE,
+      agents: AGENTS,
+      worth: WORTH,
+      stages: STAGES.map((s, i) => ({ ...s, n: num(i), rule: rule(i) })),
+      spine: STAGES.map((s, i) => ({ ...s, n: num(i) })),
+      lanes: PEOPLE.map((p, i) => ({
+        person: p.title,
+        personBody: p.body,
+        agent: AGENTS[i],
+        arrow: FLOW[i] === 'up' ? '\u25B2' : '\u25BC',
+        flow: FLOW[i] === 'up' ? 'column-reverse' : 'column',
+      })),
+
+      stageTabs: STAGES.map((s, i) => ({
+        n: num(i),
+        label: s.label,
+        rule: rule(i),
+        fill: s.fill,
+        fieldScale: i === open ? 'scaleY(1)' : 'scaleY(0)',
+        badgeBg: i === open ? s.fill : '#ffffff',
+        badgeShadow: i === open ? '0 1px 0 #2f1e14' : '0 4px 0 #2f1e14',
+        badgeShift: i === open ? 'translateY(2px)' : 'none',
+        pick: () => this.setState({ stage: i }),
+      })),
+      openStage: {
+        n: num(open),
+        eyebrow: 'Stage ' + num(open) + ' of 04',
+        heading: STAGES[open].label,
+        line: STAGES[open].line,
+        spotUrl: 'url(' + STAGES[open].spot + ')',
+      },
+
+      shapeTabs: EXAMPLES.map((e, i) => ({
+        n: num(i),
+        title: e.title,
+        rule: rule(i),
+        bg: i === shape ? '#e6f1fe' : '#ffffff',
+        pick: () => this.setState({ shape: i }),
+      })),
+      openShape: { ...EXAMPLES[shape], spotUrl: 'url(' + EXAMPLES[shape].spot + ')' },
+    }
+  }
+}
+
+</script>
+</body>
+</html>

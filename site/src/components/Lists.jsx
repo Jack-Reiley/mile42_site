@@ -30,6 +30,7 @@ const RULED_COLUMNS = {
   1: '',
   2: 'md:grid-cols-2',
   3: 'md:grid-cols-2 lg:grid-cols-3',
+  4: 'md:grid-cols-2 lg:grid-cols-4',
 }
 
 /**
@@ -45,7 +46,29 @@ const RULED_COLUMNS = {
  * muted. It exists for a term list inside a panel that is already inset, where
  * two-up columns would break the definitions into three and four words a line.
  */
-export function TermList({ items, variant = 'stacked', columns = 1, className = '' }) {
+export function TermList({ items, variant = 'stacked', columns = 1, marks = [], className = '' }) {
+  /* `marked` is `ruled` with the hairline replaced by a 3px rule in each term's
+     own colour, and the type stepped up to carry a band on its own rather than
+     annotate one. `marks` supplies the border colour per item, in item order.
+     A variant rather than a prop on `ruled`, because six pages draw `ruled` and
+     none of them should move; the two share `RULED_COLUMNS` and the `dl`. */
+  if (variant === 'marked') {
+    return (
+      <dl
+        className={`${REVEAL_GROUP.relay} ${columns > 1 ? `${REVEAL_ROW} ` : ''}grid gap-x-8 gap-y-7 ${RULED_COLUMNS[columns]} ${className}`}
+      >
+        {items.map(([term, definition], i) => (
+          <div key={term} className={`border-t-[3px] pt-[18px] ${marks[i] ?? 'border-ink'}`}>
+            <dt className="font-heading text-balance text-[20px] font-bold leading-[26px] text-ink">
+              {term}
+            </dt>
+            <dd className="mt-2 text-[15px] leading-6 text-pretty text-ink/72">{definition}</dd>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+
   if (variant === 'wide') {
     return (
       <dl className={`${REVEAL_GROUP.relay} ${className}`}>
@@ -179,19 +202,29 @@ export function NumberedSteps({ items, className = '' }) {
  * plain list instead, because wrapping a sentence in a `dt` with no `dd` would
  * be a description list that describes nothing.
  */
+/**
+ * The ticked badge on its own, exported because the handoff diagram marks its
+ * People lane with the same badge and drawing it twice would leave the two free
+ * to drift.
+ *
+ * The tick is drawn as generated content rather than as a text node: it is a
+ * glyph, not copy, and copy parity compares the two projects' text.
+ */
+export function CheckBadge({ fillClass = 'bg-orange', className = '' }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`grid h-6 w-6 flex-none place-items-center rounded-pill border border-ink text-[12px] font-bold text-white shadow-hard before:content-['✓'] ${fillClass} ${className}`}
+    />
+  )
+}
+
 export function CheckList({ items, columns = 1, badgeClass = 'bg-orange', className = '' }) {
   const titled = items.some((i) => i.title)
   const grid = `${REVEAL_GROUP.relay} grid gap-4 ${
     columns === 2 ? `${REVEAL_ROW} md:grid-cols-2 md:gap-x-9` : ''
   } ${className}`
-  // The tick is drawn as generated content rather than as a text node: it is a
-  // glyph, not copy, and copy parity compares the two projects' text.
-  const Badge = () => (
-    <span
-      aria-hidden="true"
-      className={`mt-0.5 grid h-6 w-6 flex-none place-items-center rounded-pill border border-ink text-[12px] font-bold text-white shadow-hard before:content-['✓'] ${badgeClass}`}
-    />
-  )
+  const Badge = () => <CheckBadge fillClass={badgeClass} className="mt-0.5" />
 
   if (titled) {
     return (
@@ -307,6 +340,47 @@ export function StepStrip({ items, className = '' }) {
             {label}
           </span>
           <span className="block text-[14px] leading-[22px] text-ink">{line}</span>
+        </li>
+      ))}
+    </ol>
+  )
+}
+
+/**
+ * The same stages as `StepStrip`, turned vertical: one bordered card divided by
+ * rules, a numeral in the gutter of each row.
+ *
+ * A second export rather than a variant of `StepStrip`, because only the data
+ * shape is shared. The strip is a wrapping flex row whose rule flips from top
+ * to left at 900px, and this is a fixed two-column grid that never reflows. One
+ * function carrying both would be two components behind a flag.
+ *
+ * It exists for a stage list sitting in one half of a two-column band, where
+ * the strip's five-across rhythm has nowhere to go.
+ */
+export function StepStack({ items, className = '' }) {
+  return (
+    <ol
+      className={`${REVEAL_GROUP.relay} overflow-hidden rounded-card border border-ink bg-page shadow-hard ${className}`}
+    >
+      {items.map(({ label, line }, i) => (
+        <li
+          key={label}
+          /* The first row carries no rule: it would sit 1px inside the
+             container's own border. Same reason `StepStrip` zeroes it. */
+          className="grid grid-cols-[64px_minmax(0,1fr)] gap-5 border-t border-ink px-7 py-5 first:border-t-0"
+        >
+          {/* Announced, not hidden. The numeral carries sequence, and an `ol`
+              alone does not survive `list-style: none` in every screen reader. */}
+          <span className="font-heading text-[27px] leading-none text-orange-deep">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <div>
+            <span className="block font-heading text-[20px] font-bold leading-[26px] text-ink">
+              {label}
+            </span>
+            <span className="mt-1 block text-[15px] leading-6 text-pretty text-ink">{line}</span>
+          </div>
         </li>
       ))}
     </ol>

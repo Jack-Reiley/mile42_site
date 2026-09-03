@@ -53,7 +53,7 @@ detail pages, so it also lands the patterns the other two consume.
 | **Term titles** | 14px muted, in the comp as rendered | 16px semibold ink | The comp's own `.term-title` asks for 16px and is overridden by a later `.term p` rule, so its rendered 14px looks like an accident rather than intent. Shipping the intent, with the title distinguished from its definition by more than weight. |
 | **Breadcrumb** | decoration, no link markup | a `nav` landmark, a real link to `/what-we-do`, `aria-current` on the leaf, and an `aria-hidden` separator | A breadcrumb is navigation. Authored rather than copied, and #21 and #22 use the same component. |
 | **Eyebrow tracking** | `.09em` | the token's `.08em` | One hundredth of an em, and the token is the source of truth. |
-| **Phase Zero link** | `href="#"` | `/contact` | The Phase Zero page does not exist yet, and `App.jsx` bounces an unknown path to the homepage, which reads as a broken site. The ticket that owns the route flips it. |
+| **Phase Zero link** | `href="#"` | `/what-we-do/phase-zero` | The comp's placeholder now has a real destination. It pointed at `/contact` while the page did not exist; the ticket that added the route flipped it. |
 | **Horizontal padding** | `clamp(22px,5vw,64px)` | `px-6 md:px-12` | As on `/what-we-do`. Retired by #23 after measurement. |
 
 The content **measure** is not a deviation: `--container-detail` is 1120px and

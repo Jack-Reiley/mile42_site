@@ -6,6 +6,7 @@ const COLUMNS = [
   {
     heading: 'What we do',
     links: [
+      { href: '/what-we-do/phase-zero', label: 'Phase Zero' },
       { href: '/what-we-do/advisory', label: 'Advisory' },
       { href: '/what-we-do/engineering', label: 'Engineering' },
       { href: '/what-we-do/engineering/agentic-ai', label: 'Agentic AI', nested: true },
