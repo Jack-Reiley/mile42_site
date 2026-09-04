@@ -9,7 +9,7 @@
    The origin matters more here than anywhere else on the site: og:url and
    og:image are the only absolute URLs the site publishes, and a crawler that
    cannot resolve them shows a bare link. */
-export const SITE_ORIGIN = 'https://mile42.ai'
+export const SITE_ORIGIN = 'https://www.mile42.ai'
 
 export const SHARE_IMAGE = '/share-card.png'
 export const SHARE_IMAGE_WIDTH = 1200

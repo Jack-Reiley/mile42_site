@@ -88,6 +88,18 @@ describe('SCN-002 — the card artwork is reachable by a remote crawler', () => 
       expect(value.startsWith(SITE_ORIGIN)).toBe(true)
     }
   })
+
+  /* www.mile42.ai is the canonical host, which makes the bare apex a different
+     URL rather than a shorter spelling of the same one. A card advertising the
+     apex splits every share between two hosts and attributes none of them to
+     the canonical one. */
+  it('names the canonical host rather than the bare apex', () => {
+    expect(SITE_ORIGIN).toBe('https://www.mile42.ai')
+
+    for (const value of [og('image'), og('url'), twitter('image')]) {
+      expect(value).not.toMatch(/^https:\/\/mile42\.ai/)
+    }
+  })
 })
 
 describe('SCN-003 — the card declares its shape and describes itself', () => {

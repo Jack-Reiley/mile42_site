@@ -24,6 +24,8 @@ rather than a default glyph.
   manifest that keeps the artwork honest about the copy it drew.
 - Tests holding the shell, `site/src/site-meta.js`, the hero copy, and the
   generated artwork together.
+- The production origin, recorded once in `site/src/site-meta.js` as
+  `https://www.mile42.ai`. Confirmed as the canonical host on 2026-09-04.
 
 ## Out of scope
 
@@ -35,7 +37,10 @@ rather than a default glyph.
 - JSON-LD and other structured data.
 - `favicon.ico`. See deviations.
 - `copy_prototype/`.
-- Netlify domain configuration.
+- Netlify domain configuration, including the apex-to-`www` redirect. The
+  canonical host is `www.mile42.ai`, so a share of the bare apex is a share of a
+  different URL; making the apex redirect is a hosting concern rather than a
+  change to this repository.
 
 ## Behavioral scenarios
 
@@ -191,11 +196,11 @@ Automated tests never read this document, and nothing here generates a test.
 
 ## Open questions
 
-- **Is the site serving at `https://mile42.ai` today, and is the canonical form
-  the apex or `www`?** The design's Unresolved decision 3, still open. `og:url`
-  and `og:image` are absolute, so a wrong answer produces a card that fails to
-  load for everyone. `site/src/site-meta.js` holds the origin as one constant so
-  the correction is a one-line change.
+- **Resolved.** The design's Unresolved decision 3 asked whether the canonical
+  form was the apex or `www`. Confirmed on 2026-09-04 as `www.mile42.ai`, and
+  `site/src/site-meta.js` carries it. What remains is a hosting question rather
+  than a repository one: the bare apex must redirect to `www`, or a share of
+  `mile42.ai` unfurls against a host that is not the canonical one.
 - **The `42` device as the icon** was the design's recommendation on Unresolved
   decision 4 and is implemented as such. It is a brand call; the mark is cut
   from the existing lockup and no new artwork was commissioned.
