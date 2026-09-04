@@ -1,7 +1,7 @@
 # #101 — Add Open Graph and Twitter card tags, and generate the share image and favicon set
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/101
-- Pull request: <URL>
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/102
 - Parent epic: none
 - Delivery unit: 101-social-sharing-metadata
 - Requirement version: 1
