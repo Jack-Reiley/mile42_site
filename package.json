@@ -18,7 +18,8 @@
     "copy:setup": "npm --prefix copy_prototype install",
     "copy:build": "npm --prefix copy_prototype run build",
     "copy:preview": "npm --prefix copy_prototype run preview",
-    "illustrations:build": "npm --prefix site run illustrations:build"
+    "illustrations:build": "npm --prefix site run illustrations:build",
+    "social:build": "npm --prefix site run social:build"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.3",
