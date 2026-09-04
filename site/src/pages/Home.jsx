@@ -5,6 +5,7 @@ import {
 import { NumList, RuledGroup } from '../components/Lists.jsx'
 import CatalogDrawer from '../components/CatalogDrawer.jsx'
 import { REVEAL, REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
+import { HOME_HERO } from './home-hero-copy.js'
 
 const OFFERINGS = [
   {
@@ -107,14 +108,9 @@ export default function Home() {
               buttons each enter from the left in turn. As one block it read as
               a slab sliding; in sequence it reads as a page composing itself. */}
           <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
-            <p className="text-body-lg text-hero-heading mb-6">Execution, Rebuilt.</p>
-            <H1 tone="hero" className="mb-6">
-              The consulting model is broken. We didn’t bring it with us.
-            </H1>
-            <Lead tone="hero" className="mb-8">
-              Mile42 combines senior judgment with AI-native delivery, without bloated teams,
-              endless billing, or recommendations that never become results.
-            </Lead>
+            <p className="text-body-lg text-hero-heading mb-6">{HOME_HERO.kicker}</p>
+            <H1 tone="hero" className="mb-6">{HOME_HERO.heading}</H1>
+            <Lead tone="hero" className="mb-8">{HOME_HERO.lead}</Lead>
             <ButtonRow>
               <Button to="/contact">Start a conversation</Button>
               <Button to="/how-we-work/delivery-model" variant="secondary">

@@ -1,0 +1,33 @@
+{
+  "shareCard": {
+    "width": 1200,
+    "height": 630,
+    "band": "#006ae0",
+    "copy": {
+      "kicker": "Execution, Rebuilt.",
+      "heading": "The consulting model is broken. We didn’t bring it with us.",
+      "lead": "Mile42 combines senior judgment with AI-native delivery, without bloated teams, endless billing, or recommendations that never become results."
+    },
+    "headingLines": [
+      "The consulting model is broken.",
+      "We didn’t bring it with us."
+    ],
+    "leadLines": [
+      "Mile42 combines senior judgment with AI-native delivery, without bloated",
+      "teams, endless billing, or recommendations that never become results."
+    ]
+  },
+  "icon": {
+    "deviceBox": {
+      "x": 146,
+      "y": 11.865,
+      "size": 120
+    },
+    "pngSize": 32,
+    "appleTouchSize": 180
+  },
+  "fonts": [
+    "Merriweather Sans",
+    "Figtree"
+  ]
+}
