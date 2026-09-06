@@ -87,6 +87,19 @@ const MAP = {
   // every line of type beside it. Being a mask, it takes the same exact-tint
   // assertion the path spots do.
   'chess_mono.png': { key: 'chess', widths: [340, 680], tint: '--color-ink' },
+  // The Meet Dewey hero. It fills a 390px column at `lg` and is capped at 352px
+  // below it, so 400 covers 1x and 800 covers 2x at both. The 2x candidate is
+  // what matters here: at 390px rendered a retina screen wants 780, and without
+  // an 800 the nearest candidate up is the 1674w master at 683KB. Untinted:
+  // this is authored full-colour artwork, not an alpha mask, so it ships in the
+  // colours it was drawn in.
+  //
+  // It costs far more than anything else here — roughly 124KB at 384w against
+  // gears' 49KB. The drawing is built on soft gradient blobs and a stipple
+  // texture rather than flat fills, and lossless WebP cannot reduce smooth
+  // noise. Recorded on #105 rather than solved by dropping the lossless
+  // guarantee, which the tinted masks depend on.
+  'dewey_librarian_with_color.png': { key: 'dewey-librarian', widths: [400, 800] },
 }
 
 /** The declared value of a colour token, read the way the token checker does. */

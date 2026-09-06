@@ -183,7 +183,9 @@ export default function MeetDewey() {
           before the grain film touches it, and sky 3.32. See EYEBROW_TONE. */}
       <Section band="orange-deep" grain className="overflow-hidden">
         {/* Two columns, the way the home hero is set: copy left, artwork right.
-            The handshake moved up here from the context band below. */}
+            #105 put the librarian here. It is the page's own metaphor, and until
+            then the hero argued it with a robot handshake — a Level Two spot
+            standing in because the site had only one Level One drawing. */}
         {/* Not an even split. The home hero halves the band, but this headline
             is longer than that one and at 600px it broke across three lines.
             The copy takes the larger share and the artwork shrinks to suit. */}
@@ -210,12 +212,39 @@ export default function MeetDewey() {
           </div>
           {/* Eager and high priority: this is the page's largest above-the-fold
               image, so it is what LCP measures. The artwork carries its own
-              alpha, so it sits straight on the band with no plate behind it. */}
+              alpha, so it sits straight on the band with no plate behind it.
+
+              Sized to match the other image heroes. Home's band is 619px and
+              How we work's 583px; this one sat at 471px, which read as a
+              smaller hero rather than a different one.
+
+              At `lg` the cap is Home's 34rem, and here it never binds: the
+              artwork column is `0.65fr` of a 1240px wrap, so 390px, and the
+              image fills it. That is the point — 34rem says "as big as the home
+              hero allows" and the column does the actual constraining. The
+              result is 390x422 and a 620px band, level with Home's 619px.
+
+              This deliberately lets the artwork set the band's height. An
+              earlier pass held it under the copy column instead, which is why
+              it was small; matching the other heroes matters more than which
+              element decides the height, and Home's hero sets its own the same
+              way.
+
+              Below `lg` the copy stacks above the artwork, and 22rem keeps it
+              near the home hero's width there too.
+
+              `sizes` has three arms because the width has three regimes, and a
+              value that overstates the render is not a rounding error: an
+              earlier `85vw` made a 1023px viewport declare 870px, the only
+              candidate that large was the 1674w master, and a tablet
+              downloaded 683KB for an image painted 352px wide. 25rem is the
+              390px column rounded up; 85vw only genuinely binds below 415px,
+              where it falls under the 22rem cap. */}
           <Spot
-            name="handshake"
+            name="dewey-librarian"
             priority
-            sizes="(min-width: 1024px) 22rem, 80vw"
-            className="h-auto w-full max-w-[22rem] justify-self-center lg:justify-self-end"
+            sizes="(min-width: 1024px) 25rem, (min-width: 415px) 22rem, 85vw"
+            className="h-auto w-full max-w-[22rem] justify-self-center lg:max-w-[34rem] lg:justify-self-end"
           />
         </Wrap>
       </Section>
