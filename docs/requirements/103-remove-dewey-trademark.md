@@ -1,7 +1,7 @@
 # #103 — Drop the ™ from every Dewey mark on the site
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/103
-- Pull request: <URL>
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/104
 - Parent epic: none
 - Delivery unit: unit-103-dewey-trademark
 - Requirement version: 1
