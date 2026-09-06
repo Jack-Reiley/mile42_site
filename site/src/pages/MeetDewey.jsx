@@ -183,7 +183,9 @@ export default function MeetDewey() {
           before the grain film touches it, and sky 3.32. See EYEBROW_TONE. */}
       <Section band="orange-deep" grain className="overflow-hidden">
         {/* Two columns, the way the home hero is set: copy left, artwork right.
-            The handshake moved up here from the context band below. */}
+            #105 put the librarian here. It is the page's own metaphor, and until
+            then the hero argued it with a robot handshake — a Level Two spot
+            standing in because the site had only one Level One drawing. */}
         {/* Not an even split. The home hero halves the band, but this headline
             is longer than that one and at 600px it broke across three lines.
             The copy takes the larger share and the artwork shrinks to suit. */}
@@ -210,12 +212,23 @@ export default function MeetDewey() {
           </div>
           {/* Eager and high priority: this is the page's largest above-the-fold
               image, so it is what LCP measures. The artwork carries its own
-              alpha, so it sits straight on the band with no plate behind it. */}
+              alpha, so it sits straight on the band with no plate behind it.
+
+              Held at 16rem where the handshake ran at 22rem, because this
+              drawing is near-square (1674x1813) where that one was landscape.
+              Measured at 1920px: the copy column is 279px tall, and the artwork
+              renders 277px at 16rem, 312px at 18rem, and 381px at the old
+              22rem. Only 16rem stays under the copy, so the band keeps the
+              471px it has today instead of being set by its own illustration.
+              `chess` was capped for the same reason in the band below.
+
+              `sizes` tracks the width. A stale value defeats srcSet, which is
+              the whole reason the responsive variants exist. */}
           <Spot
-            name="handshake"
+            name="dewey-librarian"
             priority
-            sizes="(min-width: 1024px) 22rem, 80vw"
-            className="h-auto w-full max-w-[22rem] justify-self-center lg:justify-self-end"
+            sizes="(min-width: 1024px) 16rem, 70vw"
+            className="h-auto w-full max-w-[16rem] justify-self-center lg:justify-self-end"
           />
         </Wrap>
       </Section>

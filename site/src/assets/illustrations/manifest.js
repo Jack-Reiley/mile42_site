@@ -38,6 +38,14 @@ const META = {
     alt: 'A person seated at a desk typing, with a cursor, a star and a gear floating around them',
     placeholder: false,
   },
+  /* The site's second Level One, and the only one that is a hero because of what
+     it depicts rather than only how it is drawn: Meet Dewey argues the librarian
+     metaphor, so the librarian is what its first image shows. */
+  'dewey-librarian': {
+    level: 1,
+    alt: 'A librarian taking a book from a well-stocked shelf',
+    placeholder: false,
+  },
   handshake: {
     level: 2,
     alt: 'A robotic hand and a human hand shaking',

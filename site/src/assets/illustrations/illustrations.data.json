@@ -224,5 +224,21 @@
         "bytes": 70794
       }
     ]
+  },
+  "dewey-librarian": {
+    "width": 1674,
+    "height": 1813,
+    "variants": [
+      {
+        "width": 384,
+        "height": 416,
+        "bytes": 49538
+      },
+      {
+        "width": 768,
+        "height": 832,
+        "bytes": 122808
+      }
+    ]
   }
 }

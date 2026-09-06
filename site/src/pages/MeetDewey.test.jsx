@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
 import MeetDewey from './MeetDewey.jsx'
 import { PAGES } from '../App.jsx'
+import { illustrations } from '../assets/illustrations/manifest.js'
 
 /**
  * The page renders, and it is reachable.
@@ -153,15 +154,42 @@ describe('Meet Dewey', () => {
   /* SCN-003. The hero artwork is the page's largest above-the-fold image, so it
      is what LCP measures. Lazy loading it, or shipping it without intrinsic
      dimensions, are the two ways that regresses silently. */
-  it('leads with the hero artwork, sized and prioritised', () => {
+  /* SCN-001, SCN-003 and SCN-004. The accessible name is asserted on the hero's
+     own image rather than the page's first image, because both this and the
+     introduction artwork below it are announced and a looser query would let
+     one stand in for the other. */
+  it('leads with the librarian artwork, sized and prioritised', () => {
     const { container } = page()
-    const art = container.querySelector('section img')
+    const hero = container.querySelector('section')
+    const art = hero.querySelector('img')
 
     expect(art).toHaveAttribute('loading', 'eager')
     expect(art).toHaveAttribute('fetchpriority', 'high')
-    expect(art.getAttribute('width')).toBeTruthy()
-    expect(art.getAttribute('height')).toBeTruthy()
-    expect(art).toHaveAccessibleName(/hand/i)
+    expect(Number(art.getAttribute('width'))).toBeGreaterThan(0)
+    expect(Number(art.getAttribute('height'))).toBeGreaterThan(0)
+    expect(art.getAttribute('srcset')).toMatch(/\s\d+w/)
+    expect(art.getAttribute('sizes')).toBeTruthy()
+    expect(art).toHaveAccessibleName(/librarian/i)
+  })
+
+  /* SCN-004. One prioritised image, and it is the hero's. Everything below the
+     fold stays lazy; a second eager image would compete with the LCP fetch. */
+  it('prioritises the hero image and nothing else', () => {
+    const { container } = page()
+    const eager = [...container.querySelectorAll('img')].filter(
+      (i) => i.getAttribute('loading') === 'eager',
+    )
+
+    expect(eager).toHaveLength(1)
+    expect(eager[0]).toHaveAccessibleName(/librarian/i)
+  })
+
+  /* SCN-002. The manifest's level system reserves Level One for hero use. The
+     hero ran a Level Two spot until #105, because the site had only one Level
+     One drawing; this asserts it cannot quietly drop back to one. */
+  it('runs a Level One illustration in the hero, not a spot', () => {
+    expect(illustrations['dewey-librarian'].level).toBe(1)
+    expect(illustrations['dewey-librarian'].placeholder).toBe(false)
   })
 
   /* SCN-006 and SCN-007. The contrast is drawn twice, because corresponding

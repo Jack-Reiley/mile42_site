@@ -114,9 +114,15 @@ const PAD = 'clamp(18px,2.4vw,44px)'
 const DETAIL_ID = 'stage-journey-detail'
 
 /* Hover previews the detail on a mouse; a tap must not, because a touch browser
-   fires a synthetic mouseenter on tap and the preview would race the click. */
+   fires a synthetic mouseenter on tap and the preview would race the click.
+
+   `matchMedia` is tested for, not assumed, the way reveal.js tests for it. A
+   browser always has it; jsdom does not, so an unguarded call throws on the
+   first synthetic mouseenter rather than falling back to no preview. */
 const canHover = () =>
-  typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  typeof window !== 'undefined' &&
+  typeof window.matchMedia === 'function' &&
+  window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
 export default function StageJourney({ Spot }) {
   /* Two sources, one open stage. Hovering previews a stage, clicking pins one so
