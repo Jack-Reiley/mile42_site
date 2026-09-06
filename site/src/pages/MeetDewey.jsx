@@ -190,11 +190,12 @@ export default function MeetDewey() {
         <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)]">
           <div>
           {/* The eyebrow names the category rather than the product. #77 put
-              the trademarked name here, back when the heading was "Meet Dewey™.
-              The librarian for AI agents (and humans)." and the eyebrow was the
-              only thing above it; the heading below now leads with the problem
-              instead of the name, so the eyebrow has to say what this is. The
-              name still carries its mark everywhere else on the page. */}
+              the product name here, carrying the trademark symbol, back when the
+              heading was "Meet Dewey. The librarian for AI agents (and humans)."
+              and the eyebrow was the only thing above it; the heading below now
+              leads with the problem instead of the name, so the eyebrow has to
+              say what this is. #103 has since removed the symbol from the whole
+              site, so no mention of the name anywhere carries a mark. */}
           <Eyebrow tone="hero" className="mb-4">The context layer for enterprise AI</Eyebrow>
           {/* Two sentences in one heading, the way "Data in. Answers out." is
               set further down the page. */}
@@ -439,7 +440,7 @@ export default function MeetDewey() {
 
       <Section band="surface">
         <Wrap>
-          <H2 className="mb-4">Why teams put Dewey™ between their data and their agents.</H2>
+          <H2 className="mb-4">Why teams put Dewey between their data and their agents.</H2>
           <Lead className="mb-3">Seven reasons, one system.</Lead>
           <Body className="mb-10">
             Each pillar pairs the benefit you get with where it lives in the product. Pick one to
