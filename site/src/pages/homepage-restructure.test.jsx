@@ -6,7 +6,7 @@ import Home from './Home.jsx'
 /**
  * #63 — the homepage's band order and the merged engagement band.
  *
- * Named for the ticket rather than the page, the way dewey-entry-points.test.jsx
+ * Named for the ticket rather than the page, the way vickee-entry-points.test.jsx
  * is, because Home.test.jsx would invite every future homepage assertion into one
  * file and this is one contract about one restructure.
  *
@@ -49,9 +49,9 @@ describe('SCN-001 — the core practice band leads the page', () => {
   })
 
   /* The band moved as one object. #60 merged the practice argument and the
-     product it produced for a reason, and a move that left Dewey behind would
+     product it produced for a reason, and a move that left Vickee behind would
      undo that silently. */
-  it('carries the Dewey block with it', () => {
+  it('carries the Vickee block with it', () => {
     const { container } = draw()
     expect(bandsOf(container)[2].textContent).toContain('the knowledge layer that keeps agents')
   })

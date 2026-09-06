@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
-import MeetDewey from './MeetDewey.jsx'
+import MeetVickee from './MeetVickee.jsx'
 import { PAGES } from '../App.jsx'
 import { illustrations } from '../assets/illustrations/manifest.js'
 
@@ -17,11 +17,11 @@ import { illustrations } from '../assets/illustrations/manifest.js'
 const page = () =>
   render(
     <MemoryRouter>
-      <MeetDewey />
+      <MeetVickee />
     </MemoryRouter>,
   )
 
-describe('Meet Dewey', () => {
+describe('Meet Vickee', () => {
   it('renders every section', () => {
     const { container } = page()
     // Seven, not the eight this page opened with: #70 folded the librarian,
@@ -41,7 +41,7 @@ describe('Meet Dewey', () => {
   })
 
   /* #77 asserted the trademarked product name on the hero eyebrow, because the
-     heading it sat above opened with "Meet Dewey\u2122" and a merge had dropped the
+     heading it sat above opened with "Meet Vickee\u2122" and a merge had dropped the
      mark. The hero copy has since been rewritten to lead with the problem
      rather than the product, so the eyebrow names the category instead and
      there is no longer a name up there to carry a mark. What #77 was actually
@@ -63,9 +63,9 @@ describe('Meet Dewey', () => {
     const hero = container.querySelector('section')
 
     // The tell for the #77 regression was an h1 and a lead saying the same
-    // thing. The lead says what Dewey does; only the heading frames the wager.
+    // thing. The lead says what Vickee does; only the heading frames the wager.
     expect(hero).not.toHaveTextContent('Every agent needs a library.')
-    expect(hero).toHaveTextContent(/Dewey turns what your organization uniquely knows/)
+    expect(hero).toHaveTextContent(/Vickee turns what your organization uniquely knows/)
   })
 
   /* Counting the band's list items used to stand in for "the proof points are
@@ -85,7 +85,7 @@ describe('Meet Dewey', () => {
     const intro = container.querySelectorAll('section')[1]
 
     expect(intro).toHaveTextContent('Without a context layer')
-    expect(intro).toHaveTextContent('With Dewey')
+    expect(intro).toHaveTextContent('With Vickee')
     expect(intro).toHaveTextContent('Direct access to every source creates unacceptable risk')
     expect(intro).toHaveTextContent('Each person and agent gets exactly what they are authorized to know')
   })
@@ -135,7 +135,7 @@ describe('Meet Dewey', () => {
      behaviour instead of the old markup. */
   it('carries the librarian diagram, and every part of it is reachable', () => {
     page()
-    expect(screen.getByRole('button', { name: 'Dewey, the librarian' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Vickee, the librarian' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Your systems of record' })).toBeInTheDocument()
   })
 
@@ -207,8 +207,8 @@ describe('Meet Dewey', () => {
      hero ran a Level Two spot until #105, because the site had only one Level
      One drawing; this asserts it cannot quietly drop back to one. */
   it('runs a Level One illustration in the hero, not a spot', () => {
-    expect(illustrations['dewey-librarian'].level).toBe(1)
-    expect(illustrations['dewey-librarian'].placeholder).toBe(false)
+    expect(illustrations['vickee-librarian'].level).toBe(1)
+    expect(illustrations['vickee-librarian'].placeholder).toBe(false)
   })
 
   /* SCN-006 and SCN-007. The contrast is drawn twice, because corresponding
@@ -298,8 +298,8 @@ describe('Meet Dewey', () => {
   })
 
   it('is registered as a route', () => {
-    const route = PAGES.find((p) => p.path === '/meet-dewey')
+    const route = PAGES.find((p) => p.path === '/meet-vickee')
     expect(route).toBeDefined()
-    expect(route.title).toMatch(/^Meet Dewey/)
+    expect(route.title).toMatch(/^Meet Vickee/)
   })
 })

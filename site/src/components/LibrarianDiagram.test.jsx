@@ -29,13 +29,13 @@ describe('LibrarianDiagram', () => {
   it('swaps the panel on hover and puts it back on leave', async () => {
     const user = userEvent.setup()
     render(<LibrarianDiagram />)
-    const dewey = screen.getByRole('button', { name: 'Dewey, the librarian' })
+    const vickee = screen.getByRole('button', { name: 'Vickee, the librarian' })
 
-    await user.hover(dewey)
+    await user.hover(vickee)
     expect(screen.queryByText(IDLE)).not.toBeInTheDocument()
-    expect(panel().getByText('Dewey · the librarian')).toBeInTheDocument()
+    expect(panel().getByText('Vickee · the librarian')).toBeInTheDocument()
 
-    await user.unhover(dewey)
+    await user.unhover(vickee)
     expect(screen.getByText(IDLE)).toBeInTheDocument()
   })
 
@@ -70,7 +70,7 @@ describe('LibrarianDiagram', () => {
   it('carries the outbound path the handoff left out', () => {
     render(<LibrarianDiagram />)
     expect(
-      screen.getByRole('button', { name: 'Outbound, Dewey to your systems of record' }),
+      screen.getByRole('button', { name: 'Outbound, Vickee to your systems of record' }),
     ).toBeInTheDocument()
     expect(panel().queryByText('Gated')).not.toBeInTheDocument()
     expect(screen.getByText('Gated')).toBeInTheDocument()

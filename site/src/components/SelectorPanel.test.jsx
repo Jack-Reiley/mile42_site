@@ -3,10 +3,10 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import SelectorPanel from './SelectorPanel.jsx'
 import WhereAgentsWork from './WhereAgentsWork.jsx'
-import DeweyPillars from './DeweyPillars.jsx'
+import VickeePillars from './VickeePillars.jsx'
 
 /**
- * The shell shared by the delivery model's roles and Dewey's pillars.
+ * The shell shared by the delivery model's roles and Vickee's pillars.
  *
  * These cover the behaviour the extraction had to preserve, since it was pulled
  * out from under a page that had already shipped.
@@ -97,7 +97,7 @@ describe('the two pages that use it', () => {
 
   it('renders a pillar with its benefit and every proof line', () => {
     const PILLARS = [{ title: 'Organized', benefit: 'The benefit copy.', proof: ['One', 'Two'] }]
-    render(<DeweyPillars pillars={PILLARS} />)
+    render(<VickeePillars pillars={PILLARS} />)
     expect(screen.getByText('The benefit copy.')).toBeInTheDocument()
     expect(screen.getByText('One')).toBeInTheDocument()
     expect(screen.getByText('Two')).toBeInTheDocument()

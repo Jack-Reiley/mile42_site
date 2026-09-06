@@ -3,12 +3,12 @@ import { PlainList } from './Lists.jsx'
 import { REVEAL_GROUP, REVEAL_ROW } from './reveal.js'
 
 /**
- * The buffer, drawn: systems of record on the left, Dewey in the middle, agents
+ * The buffer, drawn: systems of record on the left, Vickee in the middle, agents
  * on the right, with the direction of travel marked between them. It states the
  * section's claim — data flows in on a schedule, answers flow out, and agents
  * never reach past the middle column.
  *
- * Dewey's column is the only one on a fill with a shadow, because the whole
+ * Vickee's column is the only one on a fill with a shadow, because the whole
  * point is that it is a thing standing between the other two rather than a
  * third peer.
  *
@@ -25,8 +25,8 @@ import { REVEAL_GROUP, REVEAL_ROW } from './reveal.js'
  */
 
 const LABEL =
-  'Diagram: inbound connectors carry data from systems of record into Dewey on a ' +
-  'schedule, and agents retrieve scoped answers from Dewey. Agents never touch ' +
+  'Diagram: inbound connectors carry data from systems of record into Vickee on a ' +
+  'schedule, and agents retrieve scoped answers from Vickee. Agents never touch ' +
   'the systems of record.'
 
 const COLUMN = 'rounded-card border border-ink px-[22px] py-5'
@@ -58,7 +58,7 @@ function Link({ label }) {
   )
 }
 
-export default function LibrarianFlow({ sources, dewey, agents }) {
+export default function LibrarianFlow({ sources, vickee, agents }) {
   return (
     <div
       role="img"
@@ -73,8 +73,8 @@ export default function LibrarianFlow({ sources, dewey, agents }) {
       {/* The off-white hero tone rather than ink, the same rule the rest of the
           site follows on `brand` since #69: ink measures 3.22:1 here now. */}
       <Column
-        eyebrow="Dewey · The librarian"
-        items={dewey}
+        eyebrow="Vickee · The librarian"
+        items={vickee}
         tone="hero"
         className="bg-brand shadow-hard"
       />

@@ -1,7 +1,7 @@
 import { Eyebrow, Grain } from './primitives.jsx'
 
 /**
- * Dewey's card catalog drawer, from the handoff in
+ * Vickee's card catalog drawer, from the handoff in
  * design/illustrations/design_handoff_catalog_drawer (option `2a`).
  *
  * Source systems route into a drawer on the left, scoped answers fan out to
@@ -28,7 +28,7 @@ import { Eyebrow, Grain } from './primitives.jsx'
  * first standard breakpoint that clears the 1080px grid.
  */
 
-/* Exported from here rather than duplicated, because /meet-dewey draws this same
+/* Exported from here rather than duplicated, because /meet-vickee draws this same
    picture with an interactive layer over it. See `LibrarianDiagram`. The parts
    below are shared with it; what stays private is how this file arranges them,
    which is the homepage's own composition. */
@@ -38,8 +38,8 @@ const SHELF = ['Governed, read-only copy', 'Indexed automatically', 'Scoped and 
 
 const LABEL =
   'Diagram: marketing and CRM, commerce, ERP and finance, and analytics systems publish ' +
-  'curated copies into Dewey, a card catalog drawer holding a governed, read-only, ' +
-  'automatically indexed and auditable copy. Agents draw scoped answers out of Dewey, with ' +
+  'curated copies into Vickee, a card catalog drawer holding a governed, read-only, ' +
+  'automatically indexed and auditable copy. Agents draw scoped answers out of Vickee, with ' +
   'sources and no credentials, from one shared source. Agents never reach the source systems.'
 
 /* The handoff's `--edge`: a 1px ink ring drawn as an inset shadow rather than a
@@ -89,7 +89,7 @@ export function Pill({ children, className = '' }) {
 }
 
 /* The filed cards and the sticker: everything above the drawer face. Split from
-   the face because /meet-dewey lights the catalog and the drawer separately,
+   the face because /meet-vickee lights the catalog and the drawer separately,
    and a hover that dimmed both would say the two are one thing. Both halves are
    positioned against the same container, so `Drawer` composing them renders
    exactly what one function did before. */
@@ -150,7 +150,7 @@ export function DrawerFace() {
         <span
           className={`self-start rounded-[4px] bg-hero-heading px-[10px] pb-[2px] pt-px font-eyebrow text-[12px] uppercase leading-[18px] tracking-[0.08em] text-ink ${RING}`}
         >
-          Dewey
+          Vickee
         </span>
         <div className="flex flex-col">
           {SHELF.map((line, i) => (

@@ -1,11 +1,11 @@
 import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Button, Spot } from '../components/primitives.jsx'
 import { CompareTable } from '../components/Lists.jsx'
-import DeweyPillars from '../components/DeweyPillars.jsx'
+import VickeePillars from '../components/VickeePillars.jsx'
 import IntegrationSteps from '../components/IntegrationSteps.jsx'
 import LibrarianDiagram from '../components/LibrarianDiagram.jsx'
 import { REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
 
-/* Ported from the Dewey comp. Copy is verbatim; the structure is the site's
+/* Ported from the Vickee comp. Copy is verbatim; the structure is the site's
    own components. The comp draws this as a child of "What we do" with a
    breadcrumb — it is a top-level page instead, so it opens the way /why-mile42
    and /insights do, with an eyebrow and a hero H1 on its own identity band.
@@ -33,7 +33,7 @@ const PILLARS = [
   },
   {
     title: 'Indexing is automatic',
-    benefit: 'Upload is the whole pipeline. Put a file in and Dewey extracts the text, chunks it, and embeds it. No separate vector database to run, no sync jobs to babysit, no drift between what’s stored and what’s searchable.',
+    benefit: 'Upload is the whole pipeline. Put a file in and Vickee extracts the text, chunks it, and embeds it. No separate vector database to run, no sync jobs to babysit, no drift between what’s stored and what’s searchable.',
     proof: [
       'Single call to upload, with folder paths auto-created to any depth',
       'Async indexing with a status endpoint, so agents know exactly when content becomes searchable',
@@ -42,7 +42,7 @@ const PILLARS = [
   },
   {
     title: 'Retrieval in every shape',
-    benefit: 'Meaning and precision are different problems. Dewey gives agents both, plus answers. Semantic search finds concepts. Hybrid search adds an exact-term leg for part numbers and error codes. Ask returns a synthesized answer with cited sources.',
+    benefit: 'Meaning and precision are different problems. Vickee gives agents both, plus answers. Semantic search finds concepts. Hybrid search adds an exact-term leg for part numbers and error codes. Ask returns a synthesized answer with cited sources.',
     proof: [
       'Semantic, hybrid, ask, and similarity endpoints, plus bounded grep and structured find',
       'Hybrid results report which leg found each hit, so relevance is explainable',
@@ -51,7 +51,7 @@ const PILLARS = [
   },
   {
     title: 'Built for agents, approachable to humans',
-    benefit: 'Point an agent at Dewey and it can learn the system on its own. The API serves a task-oriented agent guide with real captured examples. Humans get a wiki-style admin console over the same data, with search and cited answers built in.',
+    benefit: 'Point an agent at Vickee and it can learn the system on its own. The API serves a task-oriented agent guide with real captured examples. Humans get a wiki-style admin console over the same data, with search and cited answers built in.',
     proof: [
       'Self-serve agent guide served by the API itself, with worked scenarios from a live stack',
       'Error responses carry stable machine-readable codes so agents can branch, fix, and retry',
@@ -60,16 +60,16 @@ const PILLARS = [
   },
   {
     title: 'Agents never touch the system of record',
-    benefit: 'Payroll, orders, HR, finance: these systems were never designed to be probed by autonomous software. Dewey is the buffer. Curated extracts land in Dewey, and agents work against the copy. The blast radius of a misbehaving agent is a read-only knowledge layer, not your ERP.',
+    benefit: 'Payroll, orders, HR, finance: these systems were never designed to be probed by autonomous software. Vickee is the buffer. Curated extracts land in Vickee, and agents work against the copy. The blast radius of a misbehaving agent is a read-only knowledge layer, not your ERP.',
     proof: [
       'No SOR credentials in agent context windows, prompts, or logs',
       'Least privilege by construction: scoped by tenant, namespace, and tags',
-      'Retrieval load lands on Dewey, not on production transactional systems',
+      'Retrieval load lands on Vickee, not on production transactional systems',
     ],
   },
   {
     title: 'One source of truth, every agent',
-    benefit: 'Multi-agent systems drift when each agent carries its own context. Dewey centralizes knowledge and memory so every agent, and every human, reads from the same catalog. Update a document once and every consumer sees the change.',
+    benefit: 'Multi-agent systems drift when each agent carries its own context. Vickee centralizes knowledge and memory so every agent, and every human, reads from the same catalog. Update a document once and every consumer sees the change.',
     proof: [
       'One platform serving orchestrators, sub-agents, and humans from the same store',
       'Exactly one current version of every file, findable by all',
@@ -78,7 +78,7 @@ const PILLARS = [
   },
   {
     title: 'Connected in both directions, deterministically',
-    benefit: 'Data moves between Dewey and your systems of record through connectors built from plain, deterministic code. No LLM sits in the sync path, so there is no inference cost per run, no drift, and no surprises: the same input shapes the same way every time. Outbound updates can be gated by human review before they touch a source system.',
+    benefit: 'Data moves between Vickee and your systems of record through connectors built from plain, deterministic code. No LLM sits in the sync path, so there is no inference cost per run, no drift, and no surprises: the same input shapes the same way every time. Outbound updates can be gated by human review before they touch a source system.',
     proof: [
       'Inbound connectors with transformation and validation built in, so data arrives shaped and classified',
       'Configurable synchronization schedules per connector',
@@ -172,7 +172,7 @@ function ContrastPanel({ label, items, raised }) {
   )
 }
 
-export default function MeetDewey() {
+export default function MeetVickee() {
   return (
     <>
       {/* The off-white tone throughout, which is what this band was chosen to
@@ -205,7 +205,7 @@ export default function MeetDewey() {
             Intelligence is table stakes. Context is where you win.
           </H1>
           <Lead tone="hero">
-            Powerful models are available to everyone. Dewey turns what your organization uniquely
+            Powerful models are available to everyone. Vickee turns what your organization uniquely
             knows into governed, up-to-date context that people and agents can use, without
             exposing your systems of record.
           </Lead>
@@ -241,7 +241,7 @@ export default function MeetDewey() {
               390px column rounded up; 85vw only genuinely binds below 415px,
               where it falls under the 22rem cap. */}
           <Spot
-            name="dewey-librarian"
+            name="vickee-librarian"
             priority
             sizes="(min-width: 1024px) 25rem, (min-width: 415px) 22rem, 85vw"
             className="h-auto w-full max-w-[22rem] justify-self-center lg:max-w-[34rem] lg:justify-self-end"
@@ -322,7 +322,7 @@ export default function MeetDewey() {
                   because below it `H2` steps down to heading-3, which the
                   handoff does not describe. */}
               <H2 className="lg:leading-[46px]">
-                Your people know the business. Your agents scale the work. Dewey gives them shared
+                Your people know the business. Your agents scale the work. Vickee gives them shared
                 context.
               </H2>
               <Lead className="max-w-none leading-[34px]">
@@ -367,12 +367,12 @@ export default function MeetDewey() {
             >
               &#8595;
             </span>
-            <ContrastPanel label="With Dewey" raised items={CONTRAST.map(([, a]) => a)} />
+            <ContrastPanel label="With Vickee" raised items={CONTRAST.map(([, a]) => a)} />
           </div>
 
           <div
             role="group"
-            aria-label="Working without a context layer, and with Dewey"
+            aria-label="Working without a context layer, and with Vickee"
             className="hidden lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:grid-rows-[auto_auto_auto_auto]"
           >
             {/* The panels themselves. First in the markup so every cell below
@@ -384,7 +384,7 @@ export default function MeetDewey() {
               <Eyebrow as="span" tone="ink">Without a context layer</Eyebrow>
             </div>
             <div className="col-start-3 row-start-1 px-8 pt-8 pb-4">
-              <Eyebrow as="span">With Dewey</Eyebrow>
+              <Eyebrow as="span">With Vickee</Eyebrow>
             </div>
 
             {/* Ordered as pairs rather than column by column. Placement is
@@ -452,7 +452,7 @@ export default function MeetDewey() {
               copy stopped two thirds of the way across a strip that runs the
               full width. */}
           <Body className="mb-3 max-w-none">
-            Upload a file and Dewey takes it from there: storing, indexing, analyzing, and more.
+            Upload a file and Vickee takes it from there: storing, indexing, analyzing, and more.
             Agents then search by meaning, match exact terms when precision matters, or ask a
             question and get a cited answer. Storage, indexing, and retrieval in one API, built for
             agents from the first line.
@@ -469,13 +469,13 @@ export default function MeetDewey() {
 
       <Section band="surface">
         <Wrap>
-          <H2 className="mb-4">Why teams put Dewey between their data and their agents.</H2>
+          <H2 className="mb-4">Why teams put Vickee between their data and their agents.</H2>
           <Lead className="mb-3">Seven reasons, one system.</Lead>
           <Body className="mb-10">
             Each pillar pairs the benefit you get with where it lives in the product. Pick one to
             see both.
           </Body>
-          <DeweyPillars pillars={PILLARS} />
+          <VickeePillars pillars={PILLARS} />
         </Wrap>
       </Section>
 
@@ -489,8 +489,8 @@ export default function MeetDewey() {
             what&#8217;s appropriate and keeps the stacks intact.
           </Body>
           <Body className="mb-8">
-            That is Dewey&#8217;s job between agents and sensitive systems. Publish curated extracts
-            into Dewey and agents work against the copy, never the source.
+            That is Vickee&#8217;s job between agents and sensitive systems. Publish curated extracts
+            into Vickee and agents work against the copy, never the source.
           </Body>
 
           <LibrarianDiagram />
@@ -500,9 +500,9 @@ export default function MeetDewey() {
       <Section band="surface">
         <Wrap>
           <H2 className="mb-4">Why not just&#8230;?</H2>
-          <Body className="mb-8">Dewey is not another database to integrate. It&#8217;s the integration.</Body>
+          <Body className="mb-8">Vickee is not another database to integrate. It&#8217;s the integration.</Body>
           <CompareTable
-            columns={['Alternative', 'Where it falls short', 'Dewey’s answer']}
+            columns={['Alternative', 'Where it falls short', 'Vickee’s answer']}
             rows={COMPARE}
           />
         </Wrap>

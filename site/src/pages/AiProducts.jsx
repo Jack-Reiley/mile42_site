@@ -86,15 +86,15 @@ export default function AiProducts() {
               them.
             </Body>
             {/* Its own paragraph rather than an edit to the sentence above, so
-                the Blink Social copy is untouched and Dewey is described at the
+                the Blink Social copy is untouched and Vickee is described at the
                 same weight instead of appended to someone else's claim. */}
             <Body className="mt-[14px] max-w-none">
-              Dewey, our knowledge layer for AI agents, is built the same way. It combines storage,
+              Vickee, our knowledge layer for AI agents, is built the same way. It combines storage,
               automatic indexing, and multi-mode retrieval in one API, so agentic projects start
               with the retrieval problem already solved rather than rebuilding it every time.
             </Body>
             <p className="mt-5">
-              <TextLink to="/meet-dewey">Meet Dewey</TextLink>
+              <TextLink to="/meet-vickee">Meet Vickee</TextLink>
             </p>
           </FeaturePanel>
         </Wrap>

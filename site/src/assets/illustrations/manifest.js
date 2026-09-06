@@ -39,9 +39,9 @@ const META = {
     placeholder: false,
   },
   /* The site's second Level One, and the only one that is a hero because of what
-     it depicts rather than only how it is drawn: Meet Dewey argues the librarian
+     it depicts rather than only how it is drawn: Meet Vickee argues the librarian
      metaphor, so the librarian is what its first image shows. */
-  'dewey-librarian': {
+  'vickee-librarian': {
     level: 1,
     alt: 'A librarian taking a book from a well-stocked shelf',
     placeholder: false,

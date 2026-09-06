@@ -62,7 +62,7 @@ const OUT = join(SITE, 'src', 'assets', 'illustrations')
 const MAP = {
   'pc_user_with_color.png': { key: 'hero-desk', widths: [384, 768, 1100] },
   // 256 for the home page's offering spot, which renders near 128px. 704 is the
-  // Meet Dewey hero: `max-w-[22rem]` is 352px, so 704 at 2x. Without it a 2x
+  // Meet Vickee hero: `max-w-[22rem]` is 352px, so 704 at 2x. Without it a 2x
   // screen falls past the 512 to the full-size master, which is 284KB and the
   // LCP image on that page.
   'robo_handshake_with_color.png': { key: 'handshake', widths: [256, 512, 704] },
@@ -81,13 +81,13 @@ const MAP = {
   // and downscales it itself, which averages back some of the alpha work below.
   'handshake_mono.png': { key: 'path-handshake', widths: [64, 104, 128, 208, 256], tint: '--color-red' },
   'clipboard_mono.png': { key: 'path-clipboard', widths: [104, 208], tint: '--color-orange' },
-  // The Meet Dewey context lede renders it at 340px, so 340/680 covers 1x and
+  // The Meet Vickee context lede renders it at 340px, so 340/680 covers 1x and
   // 2x. Tinted rather than left as authored: the master is pure black on alpha
   // and the site's ink is a warm brown, so untinted it would sit colder than
   // every line of type beside it. Being a mask, it takes the same exact-tint
   // assertion the path spots do.
   'chess_mono.png': { key: 'chess', widths: [340, 680], tint: '--color-ink' },
-  // The Meet Dewey hero. It fills a 390px column at `lg` and is capped at 352px
+  // The Meet Vickee hero. It fills a 390px column at `lg` and is capped at 352px
   // below it, so 400 covers 1x and 800 covers 2x at both. The 2x candidate is
   // what matters here: at 390px rendered a retina screen wants 780, and without
   // an 800 the nearest candidate up is the 1674w master at 683KB. Untinted:
@@ -99,7 +99,7 @@ const MAP = {
   // texture rather than flat fills, and lossless WebP cannot reduce smooth
   // noise. Recorded on #105 rather than solved by dropping the lossless
   // guarantee, which the tinted masks depend on.
-  'dewey_librarian_with_color.png': { key: 'dewey-librarian', widths: [400, 800] },
+  'vickee_librarian_with_color.png': { key: 'vickee-librarian', widths: [400, 800] },
 }
 
 /** The declared value of a colour token, read the way the token checker does. */

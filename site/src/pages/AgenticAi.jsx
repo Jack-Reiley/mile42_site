@@ -183,7 +183,7 @@ export default function AgenticAi() {
               thing that does it. Default ink, not the page accent — accent on
               the cream band lands on the AA boundary for body-sized text. */}
           <p className="mt-8">
-            <TextLink to="/meet-dewey">Meet Dewey, our knowledge layer for agents</TextLink>
+            <TextLink to="/meet-vickee">Meet Vickee, our knowledge layer for agents</TextLink>
           </p>
         </Wrap>
       </Section>

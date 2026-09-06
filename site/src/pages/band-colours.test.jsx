@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 import { BAND, BAND_GRAIN } from '../components/primitives.jsx'
 
 /**
- * #75 — the bands the homepage and Meet Dewey are drawn on, and the tones the
+ * #75 — the bands the homepage and Meet Vickee are drawn on, and the tones the
  * type on them takes.
  *
  * Source scans rather than rendered assertions, for the reason
@@ -36,13 +36,13 @@ describe('SCN-001 — the homepage opens and closes on the same field', () => {
   })
 })
 
-describe('SCN-002 — Meet Dewey opens and closes on the burnt orange', () => {
+describe('SCN-002 — Meet Vickee opens and closes on the burnt orange', () => {
   it('draws both of its coloured bands on orange-deep', () => {
-    const dewey = source('pages', 'MeetDewey.jsx')
+    const vickee = source('pages', 'MeetVickee.jsx')
 
-    expect(bandsNamed(dewey, 'orange-deep')).toHaveLength(2)
-    expect(bandsNamed(dewey, 'blue')).toHaveLength(0)
-    expect(bandsNamed(dewey, 'gold')).toHaveLength(0)
+    expect(bandsNamed(vickee, 'orange-deep')).toHaveLength(2)
+    expect(bandsNamed(vickee, 'blue')).toHaveLength(0)
+    expect(bandsNamed(vickee, 'gold')).toHaveLength(0)
   })
 })
 
@@ -68,10 +68,10 @@ describe('SCN-003 — every line on a dark band is legible on it', () => {
     expect(closing).toContain('<Lead tone="hero"')
   })
 
-  it('gives both Meet Dewey bands the off-white tone on every line', () => {
-    const dewey = source('pages', 'MeetDewey.jsx')
-    const hero = dewey.slice(dewey.indexOf('<Section band="orange-deep" grain'))
-    const closing = dewey.slice(dewey.lastIndexOf('<Section band="orange-deep">'))
+  it('gives both Meet Vickee bands the off-white tone on every line', () => {
+    const vickee = source('pages', 'MeetVickee.jsx')
+    const hero = vickee.slice(vickee.indexOf('<Section band="orange-deep" grain'))
+    const closing = vickee.slice(vickee.lastIndexOf('<Section band="orange-deep">'))
 
     expect(hero).toContain('<Eyebrow tone="hero"')
     expect(hero).toContain('<H1 tone="hero"')
@@ -119,8 +119,8 @@ describe('SCN-007 — a dark band with no surviving coloured eyebrow has a fallb
      utility beside the eyebrow class in #62 and the primitive fix left them
      behind; this is the same failure mode one band later. */
   it('is reached through the prop rather than a hand-written utility', () => {
-    const dewey = source('pages', 'MeetDewey.jsx')
-    const eyebrow = dewey.split('\n').filter((line) => line.includes('<Eyebrow'))
+    const vickee = source('pages', 'MeetVickee.jsx')
+    const eyebrow = vickee.split('\n').filter((line) => line.includes('<Eyebrow'))
 
     expect(eyebrow.length).toBeGreaterThan(0)
     for (const line of eyebrow) expect(line).not.toMatch(/text-hero-heading/)

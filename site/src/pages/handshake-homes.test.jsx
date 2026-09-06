@@ -7,7 +7,7 @@ import ClientJourney from './ClientJourney.jsx'
 import { illustrations } from '../assets/illustrations/manifest.js'
 
 /**
- * SCN-008 — #105 took the handshake off the Meet Dewey hero, where it had been
+ * SCN-008 — #105 took the handshake off the Meet Vickee hero, where it had been
  * standing in for a Level One drawing the site did not have yet.
  *
  * It still has two homes: the homepage's AI-products card and the client
