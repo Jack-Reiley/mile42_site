@@ -1,7 +1,7 @@
 # #107 — Rename the product from Dewey to Vickee across the site
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/107
-- Pull request: pending
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/108
 - Parent epic: none
 - Delivery unit: unit-107-rename-vickee
 - Requirement version: 1
