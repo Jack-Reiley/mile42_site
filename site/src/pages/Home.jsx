@@ -260,13 +260,12 @@ export default function Home() {
                 is narrower than that and it balances onto two lines again, which
                 is the intended behaviour rather than a fallback.
 
-                68rem, not 66: the trademark symbol added 29px and pushed the
-                single line from 1039 to 1068, straight past a 1056px cap and
-                back onto two lines. 67rem is the first that clears it; 68 is
-                taken so the next word added to this heading does not silently
-                re-wrap it. */}
-            <H3 as="h3" className="max-w-[68rem]">
-              Meet Dewey™, the knowledge layer that keeps agents out of your systems of record.
+                It read 68rem between #60 and #103. The trademark symbol added
+                29px, which pushed the single line from 1039 to 1068 and straight
+                past a 1056px cap. #103 removed the symbol, so the measured
+                pre-#60 number is the right one again. */}
+            <H3 as="h3" className="max-w-[66rem]">
+              Meet Dewey, the knowledge layer that keeps agents out of your systems of record.
             </H3>
             {/* Two paragraphs: the problem, then the answer. The break falls where
                 the subject changes from the reader's stalled project to the

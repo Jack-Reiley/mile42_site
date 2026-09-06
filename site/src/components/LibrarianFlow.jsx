@@ -73,7 +73,7 @@ export default function LibrarianFlow({ sources, dewey, agents }) {
       {/* The off-white hero tone rather than ink, the same rule the rest of the
           site follows on `brand` since #69: ink measures 3.22:1 here now. */}
       <Column
-        eyebrow="Dewey™ · The librarian"
+        eyebrow="Dewey · The librarian"
         items={dewey}
         tone="hero"
         className="bg-brand shadow-hard"
