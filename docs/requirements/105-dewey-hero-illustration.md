@@ -66,7 +66,7 @@ And no other image on the page is prioritised ahead of it
 
 ### SCN-005 — The band holds its layout while the artwork loads
 
-Given a reader opens /meet-dewey
+Given a reader opens /meet-dewey on a cold cache
 When the hero artwork has not yet arrived
 Then the space it will occupy is already reserved
 And no copy in the hero moves once it arrives
@@ -77,20 +77,20 @@ Given the illustration build runs
 When the full-size asset is compared against its trimmed master
 Then every visible pixel is identical and the build passes
 And the emitted data records each variant's width, height, and byte size
-And those byte sizes are carried here as the measured baseline
+And those byte sizes are carried into the requirements document as the measured baseline
 
 ### SCN-007 — The contrast question is answered by looking, not by assertion
 
 Given the artwork is on the `orange-deep` band with no treatment added
-When the hero is viewed in a browser
+When the hero is viewed in a browser at desktop and at a narrow viewport
 Then the developer records which strokes read and which do not
-And that observation is attached to the ticket
+And that observation is attached to this ticket
 And any correction is raised as its own ticket rather than folded in here
 
 ### SCN-008 — The handshake keeps its remaining homes
 
 Given the hero no longer uses the handshake
-When the homepage practice band and the client journey's Evolve stage render
+When the homepage practice band and the client journey's stage list render
 Then each still shows the handshake artwork unchanged
 And the `handshake` entry is still built and still registered
 
