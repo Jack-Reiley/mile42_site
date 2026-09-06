@@ -113,14 +113,17 @@ Emitted by `npm run illustrations:build`, lossless verified:
 | `handshake` (previous hero) | 1116×701 | 15 KB @256 | 57 KB @704 | 284 KB |
 | `gears` | 1359×1510 | 48 KB @384 | 113 KB @768 | 123 KB |
 | `chess` | 1761×1704 | 33 KB @340 | 69 KB @680 | 105 KB |
-| **`dewey-librarian`** | **1674×1813** | **48 KB @384** | **120 KB @768** | **667 KB** |
+| **`dewey-librarian`** | **1674×1813** | **51 KB @400** | **125 KB @800** | **667 KB** |
+
+The variant widths trace to the real render: the hero fills a 390px column at
+`lg` and is capped at 352px below it, so 400 covers 1x and 800 covers 2x at
+both. The 2x candidate is the one that matters — at 390px rendered a retina
+screen wants 780, and without an 800 the nearest candidate up is the master.
 
 The served variants are on par with `gears`, the closest comparable hero. The
 full-size asset is heavy — 667 KB against `hero-desk`'s 596 KB — because the
 drawing is built on soft gradient blobs and stipple, which lossless WebP cannot
-reduce. It is never served at the hero's rendered width: at 256 CSS px the
-browser selects the 384w candidate at 1x and the 768w at 2x, and the 1674w
-candidate exists only for a viewport far wider than this layout allows.
+reduce. It is never selected at any tested viewport or density.
 
 ### Measured contrast (SCN-007)
 
@@ -168,21 +171,35 @@ Unit tests never parse this document.
   the 3:1 threshold for graphical objects. SCN-007 is satisfied by the
   observation, and no follow-up is warranted.
 
-- **The hero artwork takes two widths: 22rem below `lg`, 16rem at `lg` and
-  above.** The design left the width to implementation. At `lg` the artwork sits
-  beside the copy: the copy column is 279px tall and the artwork renders 277px
-  at 16rem, 312px at 18rem and 381px at 22rem, so only 16rem keeps the band's
-  height set by its copy rather than by its own illustration, and the band holds
-  the 471px it had before this change.
+- **The hero artwork is sized to match the site's other image heroes: 34rem at
+  `lg`, 22rem below it.** The design left the width to implementation, and two
+  earlier passes got it wrong by optimising the wrong thing.
 
-  A first pass applied that cap at every width. The developer reported the
-  artwork looking smaller than the home hero, and the narrow probe confirmed it:
-  256px against the home hero's 351px on a 390px viewport. Below `lg` the copy
-  stacks above the artwork and nothing competes for height, so the cap had no
-  reason to apply there. 22rem restores it to 342px, in the same range as the
-  home hero, without giving a near-square drawing the home hero's 34rem, which
-  at tablet width would stand it 589px tall. This follows the two-width idiom
-  the How we work hero already uses.
+  The first pass held the artwork under the copy column at every width, on the
+  reasoning that a near-square drawing must not set the band's height. That
+  produced 256px, and the developer reported it looking smaller than the home
+  hero. The second pass fixed only the narrow case. The developer then measured
+  the desktop case directly and found 34rem matched the other heroes.
+
+  Measured band heights at 1440px settle the question:
+
+  | Route | Band before | Band after |
+  | --- | --- | --- |
+  | Home | 619px | 619px |
+  | How we work | 583px | 583px |
+  | What we do | 569px | 569px |
+  | **Meet Dewey** | **471px** | **614px** |
+  | Why Mile42 (no hero image) | 407px | 407px |
+
+  The governing rule is that heroes carrying an image should read as the same
+  hero, not that the artwork must not set the band's height. Home's hero sets
+  its own band height the same way.
+
+  At `lg` the 34rem cap never actually binds here: the artwork column is
+  `0.65fr` of a 1240px wrap, so 390px, and the image fills it. 34rem is the
+  home hero's number and states the intent — as large as that hero allows —
+  while the column does the constraining. Below `lg` the copy stacks above the
+  artwork and 22rem keeps it near the home hero's width there too.
 
 - **`StageJourney.jsx` gained a `matchMedia` guard, outside this ticket's
   stated scope.** `canHover()` called `window.matchMedia` unguarded, which
@@ -198,10 +215,11 @@ Unit tests never parse this document.
   declares 870px; the only candidate that large is the 1674w master, so a tablet
   downloaded 683KB for an image painted 352px wide. `sizes` must describe the
   rendered width, and this hero's is capped by `max-w`, not by the viewport.
-  Corrected to `(min-width: 1024px) 16rem, (min-width: 415px) 22rem, 85vw` —
-  85vw only genuinely binds below 415px, where it falls under the 22rem cap.
-  Re-measured across 390/414/768/1023/1024/1440: the master is never selected.
-  Guarded by a test rather than a comment.
+  Corrected to `(min-width: 1024px) 25rem, (min-width: 415px) 22rem, 85vw` —
+  25rem is the 390px column rounded up, and 85vw only genuinely binds below
+  415px where it falls under the 22rem cap. Re-measured across
+  360/390/414/768/1023/1024/1280/1440/1920 at dpr 2: the master is never
+  selected. Guarded by a test rather than a comment.
 
 ## Open questions
 

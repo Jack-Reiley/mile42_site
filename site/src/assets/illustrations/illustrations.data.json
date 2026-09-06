@@ -230,14 +230,14 @@
     "height": 1813,
     "variants": [
       {
-        "width": 384,
-        "height": 416,
-        "bytes": 49538
+        "width": 400,
+        "height": 433,
+        "bytes": 52070
       },
       {
-        "width": 768,
-        "height": 832,
-        "bytes": 122808
+        "width": 800,
+        "height": 866,
+        "bytes": 127556
       }
     ]
   }
