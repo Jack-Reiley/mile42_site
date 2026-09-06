@@ -145,7 +145,7 @@ all legible.
 | --- | --- | --- | --- | --- |
 | SCN-001 | Unit | `site/src/pages/MeetDewey.test.jsx` | N/A | Browser pass at 1920px |
 | SCN-002 | Unit | `site/src/pages/MeetDewey.test.jsx` | N/A | `npm run illustrations:placeholders` reports none |
-| SCN-003 | Unit | `site/src/pages/MeetDewey.test.jsx` | N/A | `currentSrc` resolved to `dewey-librarian-384.webp` at dpr 1 |
+| SCN-003 | Unit | `site/src/pages/MeetDewey.test.jsx` | N/A | Candidate selection confirmed cold at both densities: `dewey-librarian-384.webp` at dpr 1 and `dewey-librarian-768.webp` at dpr 2, where 16rem needs 512 device px. The 1674w master is selected at no tested viewport or density. |
 | SCN-004 | Unit | `site/src/pages/MeetDewey.test.jsx` | N/A | — |
 | SCN-005 | Manual | — | N/A | PerformanceObserver on reload: CLS 0, 0 shift entries; `aspect-ratio: auto 1674 / 1813` reserved |
 | SCN-006 | Build | — | N/A | `npm run illustrations:build` — lossless verified, idempotent; sizes in the table above |
