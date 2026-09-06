@@ -149,7 +149,7 @@ all legible.
 | SCN-004 | Unit | `site/src/pages/MeetDewey.test.jsx` | N/A | — |
 | SCN-005 | Manual | — | N/A | PerformanceObserver on reload: CLS 0, 0 shift entries; `aspect-ratio: auto 1674 / 1813` reserved |
 | SCN-006 | Build | — | N/A | `npm run illustrations:build` — lossless verified, idempotent; sizes in the table above |
-| SCN-007 | Manual | — | N/A | Contrast table above; zoomed capture of the shelf frame and legs |
+| SCN-007 | Manual | — | N/A | Contrast table above; zoomed capture of the shelf frame and legs; narrow viewports exercised in a same-origin iframe probe at 390/414/768/1023px and confirmed by the developer resizing a real window |
 | SCN-008 | Unit | `site/src/pages/handshake-homes.test.jsx` | N/A | — |
 
 Unit tests never parse this document.
@@ -168,11 +168,21 @@ Unit tests never parse this document.
   the 3:1 threshold for graphical objects. SCN-007 is satisfied by the
   observation, and no follow-up is warranted.
 
-- **The hero artwork is held at 16rem, not the 22rem the handshake used.** The
-  design left the width to implementation. Measured at 1920px, the copy column
-  is 279px tall and the artwork renders 277px at 16rem, 312px at 18rem, and
-  381px at 22rem. Only 16rem keeps the band's height set by its copy rather than
-  by its illustration, so the band holds the 471px it had before this change.
+- **The hero artwork takes two widths: 22rem below `lg`, 16rem at `lg` and
+  above.** The design left the width to implementation. At `lg` the artwork sits
+  beside the copy: the copy column is 279px tall and the artwork renders 277px
+  at 16rem, 312px at 18rem and 381px at 22rem, so only 16rem keeps the band's
+  height set by its copy rather than by its own illustration, and the band holds
+  the 471px it had before this change.
+
+  A first pass applied that cap at every width. The developer reported the
+  artwork looking smaller than the home hero, and the narrow probe confirmed it:
+  256px against the home hero's 351px on a 390px viewport. Below `lg` the copy
+  stacks above the artwork and nothing competes for height, so the cap had no
+  reason to apply there. 22rem restores it to 342px, in the same range as the
+  home hero, without giving a near-square drawing the home hero's 34rem, which
+  at tablet width would stand it 589px tall. This follows the two-width idiom
+  the How we work hero already uses.
 
 - **`StageJourney.jsx` gained a `matchMedia` guard, outside this ticket's
   stated scope.** `canHover()` called `window.matchMedia` unguarded, which
@@ -183,12 +193,17 @@ Unit tests never parse this document.
   already uses. A browser always has `matchMedia`, so no user-facing behavior
   changed.
 
+- **`sizes` gained a third arm after the narrow probe found it selecting the
+  full-size master.** With `(min-width: 1024px) 16rem, 85vw`, a 1023px viewport
+  declares 870px; the only candidate that large is the 1674w master, so a tablet
+  downloaded 683KB for an image painted 352px wide. `sizes` must describe the
+  rendered width, and this hero's is capped by `max-w`, not by the viewport.
+  Corrected to `(min-width: 1024px) 16rem, (min-width: 415px) 22rem, 85vw` —
+  85vw only genuinely binds below 415px, where it falls under the 22rem cap.
+  Re-measured across 390/414/768/1023/1024/1440: the master is never selected.
+  Guarded by a test rather than a comment.
+
 ## Open questions
 
-- Narrow viewports are unverified. The browser tooling reports a successful
-  resize while the viewport does not change, the same limitation recorded on
-  #5, #12, #15 and #54. Below `lg` the hero collapses to one column with the
-  artwork centred at `70vw` capped by the same 16rem; that path has not been
-  seen.
 - Whether the artwork's green and orange are the brand tokens exactly is not
   verified. An exact match would be a change to the master, not to code.

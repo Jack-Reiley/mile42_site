@@ -184,6 +184,25 @@ describe('Meet Dewey', () => {
     expect(eager[0]).toHaveAccessibleName(/librarian/i)
   })
 
+  /* SCN-003. `sizes` has to describe the width the image actually renders at,
+     and the hero's is capped by `max-w`, not by the viewport. A bare `vw`
+     fallback overstates it: at a 1023px viewport `85vw` declares 870px, the
+     only candidate that large is the 1674w master, and a tablet downloads
+     683KB for an image it paints 352px wide. Caught in a narrow-viewport
+     probe, so the guard is an assertion rather than a comment. */
+  it('never lets sizes outgrow the width the hero is capped at', () => {
+    const { container } = page()
+    const sizes = container.querySelector('section img').getAttribute('sizes')
+    const arms = sizes.split(',').map((a) => a.trim())
+
+    // The last arm is the unconditional fallback, and it is the only one
+    // allowed to be viewport-relative, because below the smallest breakpoint
+    // the viewport really is narrower than the cap.
+    expect(arms.length).toBeGreaterThan(2)
+    expect(arms.slice(0, -1).every((a) => /\)\s*\d+(\.\d+)?rem$/.test(a))).toBe(true)
+    expect(arms.at(-1)).toMatch(/^\d+vw$/)
+  })
+
   /* SCN-002. The manifest's level system reserves Level One for hero use. The
      hero ran a Level Two spot until #105, because the site had only one Level
      One drawing; this asserts it cannot quietly drop back to one. */

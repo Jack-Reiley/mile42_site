@@ -214,21 +214,35 @@ export default function MeetDewey() {
               image, so it is what LCP measures. The artwork carries its own
               alpha, so it sits straight on the band with no plate behind it.
 
-              Held at 16rem where the handshake ran at 22rem, because this
-              drawing is near-square (1674x1813) where that one was landscape.
-              Measured at 1920px: the copy column is 279px tall, and the artwork
-              renders 277px at 16rem, 312px at 18rem, and 381px at the old
-              22rem. Only 16rem stays under the copy, so the band keeps the
-              471px it has today instead of being set by its own illustration.
-              `chess` was capped for the same reason in the band below.
+              Two widths, the way the How we work hero is set, because the two
+              layouts pose different problems.
 
-              `sizes` tracks the width. A stale value defeats srcSet, which is
-              the whole reason the responsive variants exist. */}
+              At `lg` the artwork sits beside the copy, and this drawing is
+              near-square (1674x1813) where the handshake it replaces was
+              landscape. Measured at 1920px the copy column is 279px tall and
+              the artwork renders 277px at 16rem, 312px at 18rem and 381px at
+              the handshake's 22rem, so only 16rem keeps the band's height set
+              by its copy rather than by its own illustration. `chess` was
+              capped for the same reason in the band below.
+
+              Below `lg` the copy stacks above the artwork and nothing competes
+              for height, so that cap has no reason to apply and only makes the
+              drawing small: at 16rem it rendered 256px against the home hero's
+              351px on the same phone. 22rem and 85vw put it back in the same
+              range. It is not given the home hero's 34rem and 90vw, which at
+              tablet width would stand this near-square drawing 589px tall.
+
+              `sizes` has three arms because the width has three regimes, and a
+              value that overstates the render is not a rounding error: at
+              `85vw` alone a 1023px viewport declares 870px, the only candidate
+              that large is the 1674w master, and a tablet downloads 683KB for
+              an image it paints 352px wide. 85vw only actually binds below
+              415px, where it falls under the 22rem cap. */}
           <Spot
             name="dewey-librarian"
             priority
-            sizes="(min-width: 1024px) 16rem, 70vw"
-            className="h-auto w-full max-w-[16rem] justify-self-center lg:justify-self-end"
+            sizes="(min-width: 1024px) 16rem, (min-width: 415px) 22rem, 85vw"
+            className="h-auto w-full max-w-[22rem] justify-self-center lg:max-w-[16rem] lg:justify-self-end"
           />
         </Wrap>
       </Section>
