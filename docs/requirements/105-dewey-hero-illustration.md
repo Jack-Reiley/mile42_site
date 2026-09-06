@@ -1,7 +1,7 @@
 # #105 — Give Meet Dewey a Level One hero illustration
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/105
-- Pull request: <PR_URL>
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/106
 - Parent epic: none
 - Delivery unit: unit-105
 - Requirement version: 1
