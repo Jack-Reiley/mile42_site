@@ -5,10 +5,10 @@ import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { MemoryRouter } from 'react-router'
 import Home from './Home.jsx'
-import MeetDewey from './MeetDewey.jsx'
+import MeetVickee from './MeetVickee.jsx'
 
 /**
- * #103 — the trademark symbol is retired from every Dewey mark.
+ * #103 — the trademark symbol is retired from every Vickee mark.
  *
  * #60 applied it to headings and brand marks with a legal rationale that held
  * on its own terms. The decision changed; the site no longer claims the mark.
@@ -20,7 +20,7 @@ import MeetDewey from './MeetDewey.jsx'
  * `&#8482;` in JSX children, so a rendered assertion cannot tell the entity
  * from the literal, and both spellings were in use here. The scan reads source,
  * which is also what catches the symbol inside a comment — the form it took in
- * MeetDewey.jsx, where a comment from #91 asserted the name "still carries its
+ * MeetVickee.jsx, where a comment from #91 asserted the name "still carries its
  * mark everywhere else on the page".
  */
 
@@ -43,30 +43,30 @@ function sourceFiles(dir) {
   })
 }
 
-describe('SCN-001 — the Dewey page carries no trademark symbol', () => {
+describe('SCN-001 — the Vickee page carries no trademark symbol', () => {
   it('states the pillars heading without a mark', () => {
-    const { container } = draw(MeetDewey)
+    const { container } = draw(MeetVickee)
     const headings = [...container.querySelectorAll('h2')].map((h) => h.textContent)
 
     // The exact string, not a prefix. `toHaveTextContent` matches substrings,
     // so an assertion shaped that way passes just as happily on the marked
     // heading this replaces.
-    expect(headings).toContain('Why teams put Dewey between their data and their agents.')
+    expect(headings).toContain('Why teams put Vickee between their data and their agents.')
   })
 
   it('renders no trademark symbol anywhere on the page', () => {
-    const { container } = draw(MeetDewey)
+    const { container } = draw(MeetVickee)
     expect(container.textContent).not.toContain('™')
   })
 })
 
 describe('SCN-002 — the homepage carries no trademark symbol', () => {
-  it('states the Dewey panel heading without a mark', () => {
+  it('states the Vickee panel heading without a mark', () => {
     draw(Home)
-    const heading = screen.getByRole('heading', { level: 3, name: /Meet Dewey/i })
+    const heading = screen.getByRole('heading', { level: 3, name: /Meet Vickee/i })
 
     expect(heading.textContent).toBe(
-      'Meet Dewey, the knowledge layer that keeps agents out of your systems of record.',
+      'Meet Vickee, the knowledge layer that keeps agents out of your systems of record.',
     )
   })
 
@@ -76,7 +76,7 @@ describe('SCN-002 — the homepage carries no trademark symbol', () => {
   it('labels the catalog drawer plate with the bare name', () => {
     const { container } = draw(Home)
     const plate = [...container.querySelectorAll('span')].find(
-      (s) => s.textContent.trim() === 'Dewey',
+      (s) => s.textContent.trim() === 'Vickee',
     )
 
     expect(plate).toBeDefined()
@@ -94,7 +94,7 @@ describe('SCN-003 — the homepage heading returns to its pre-trademark measure'
      is asserted here is the constant, which is the thing a later change would
      get wrong. 66rem is the measured pre-#60 value; #60 raised it to 68 only to
      fit the symbol. */
-  it('caps the Dewey heading at the width it had before the symbol', () => {
+  it('caps the Vickee heading at the width it had before the symbol', () => {
     const home = readFileSync(join(SRC, 'pages', 'Home.jsx'), 'utf8')
 
     expect(home).toContain('<H3 as="h3" className="max-w-[66rem]">')

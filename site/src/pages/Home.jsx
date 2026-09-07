@@ -69,14 +69,14 @@ const PRACTICE = [
   { title: 'Adoption and accountability', body: 'Used, measured, and improved after go-live.' },
 ]
 
-/* Dewey's supporting points on the homepage.
+/* Vickee's supporting points on the homepage.
 
    Two, not four. The sealed systems of record and the one shared source both
    moved into the catalog drawer diagram, which shows them rather than claiming
    them; repeating them underneath would be the same sentence twice. What is
    left is the pair the picture cannot make: the approval argument and the cost
    argument. */
-const DEWEY = [
+const VICKEE = [
   {
     title: 'Security review has something it can approve.',
     body: 'What agents are allowed to reach is an explicit decision your team makes and can audit, scoped by business unit and domain.',
@@ -213,7 +213,7 @@ export default function Home() {
 
       {/* EXTRAPOLATED. The practice and the product it produced were two bands
           and are now one: the argument for agentic AI implementation, then the
-          thing that argument built. Splitting them made the reader meet Dewey
+          thing that argument built. Splitting them made the reader meet Vickee
           with no idea why this firm would have one.
 
           First band under the hero: what we actually do, before the three ways
@@ -245,7 +245,7 @@ export default function Home() {
             <TextLink to="/what-we-do/engineering/agentic-ai">Inside our agentic AI practice</TextLink>
           </p>
 
-          {/* Dewey, inside the practice band rather than beside it. `tint`, so
+          {/* Vickee, inside the practice band rather than beside it. `tint`, so
               the product reads as an object sitting on the argument that
               produced it. It sat on cream when this band did; the band is white
               now and the panel separates from it either way. */}
@@ -265,7 +265,7 @@ export default function Home() {
                 past a 1056px cap. #103 removed the symbol, so the measured
                 pre-#60 number is the right one again. */}
             <H3 as="h3" className="max-w-[66rem]">
-              Meet Dewey, the knowledge layer that keeps agents out of your systems of record.
+              Meet Vickee, the knowledge layer that keeps agents out of your systems of record.
             </H3>
             {/* Two paragraphs: the problem, then the answer. The break falls where
                 the subject changes from the reader's stalled project to the
@@ -284,21 +284,21 @@ export default function Home() {
               conversation.
             </Body>
             <Body className="max-w-[56rem]">
-              Dewey holds a governed copy of what your agents are allowed to know, indexes it
+              Vickee holds a governed copy of what your agents are allowed to know, indexes it
               automatically, and answers their questions with sources attached.
             </Body>
             <CatalogDrawer className="mt-4" />
             {/* h4, not h3: these sit under the panel's own h3, where the practice
                 columns above sit under the band's h2. */}
             <div className="mt-4 grid gap-x-10 gap-y-6 md:grid-cols-2">
-              {DEWEY.map((d) => (
+              {VICKEE.map((d) => (
                 <RuledGroup key={d.title} as="h4" title={d.title} ruleClass="border-t-accent">
                   <Body className="max-w-none text-ink/72">{d.body}</Body>
                 </RuledGroup>
               ))}
             </div>
             <div className="mt-4">
-              <Button to="/meet-dewey">Meet Dewey</Button>
+              <Button to="/meet-vickee">Meet Vickee</Button>
             </div>
           </Card>
         </Wrap>

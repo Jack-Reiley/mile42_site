@@ -2,7 +2,7 @@ import { Eyebrow } from './primitives.jsx'
 import SelectorPanel, { PaneHandoff } from './SelectorPanel.jsx'
 
 /**
- * The seven reasons teams put Dewey between their data and their agents, each
+ * The seven reasons teams put Vickee between their data and their agents, each
  * pairing what you get with where it lives in the product. Pick one and both
  * halves change together.
  *
@@ -18,9 +18,9 @@ import SelectorPanel, { PaneHandoff } from './SelectorPanel.jsx'
  * of the page's copy.
  */
 
-const PANE_ID = 'dewey-pillar'
+const PANE_ID = 'vickee-pillar'
 
-export default function DeweyPillars({ pillars }) {
+export default function VickeePillars({ pillars }) {
   return (
     <SelectorPanel
       eyebrow="Seven pillars"

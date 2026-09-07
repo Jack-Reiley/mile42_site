@@ -17,7 +17,7 @@ import {
 /**
  * The card catalog diagram with an interactive layer over it, from the handoff
  * in design/illustrations/Dewey Homepage Graphic Integration. Replaces three
- * consecutive bands on /meet-dewey — "Every library needs a librarian",
+ * consecutive bands on /meet-vickee — "Every library needs a librarian",
  * "Connectors are code, not prompts", and "One source of truth, every agent" —
  * with one picture whose parts explain themselves.
  *
@@ -69,14 +69,14 @@ const PARTS = [
       'controlled transactions, not for autonomous software running open-ended queries. You ' +
       'don’t hand a patron the keys to the archive.',
     proof: [
-      ['Scalability', 'Retrieval load hits Dewey, not production. Your ERP never fields a thousand exploratory queries at 2 a.m.'],
-      ['Stability', 'SOR schemas change on their own release cycles. Dewey decouples agents from those changes, so an upstream migration doesn’t break every agent overnight.'],
+      ['Scalability', 'Retrieval load hits Vickee, not production. Your ERP never fields a thousand exploratory queries at 2 a.m.'],
+      ['Stability', 'SOR schemas change on their own release cycles. Vickee decouples agents from those changes, so an upstream migration doesn’t break every agent overnight.'],
     ],
   },
   {
     key: 'publish',
     label: 'Curated publish, inbound',
-    eyebrow: 'Inbound · SOR to Dewey',
+    eyebrow: 'Inbound · SOR to Vickee',
     title: 'Connectors are code, not prompts.',
     body:
       'The acquisitions desk. Deterministic connectors pull from source systems on your schedule ' +
@@ -101,12 +101,12 @@ const PARTS = [
     ],
   },
   {
-    key: 'dewey',
-    label: 'Dewey, the librarian',
-    eyebrow: 'Dewey · the librarian',
+    key: 'vickee',
+    label: 'Vickee, the librarian',
+    eyebrow: 'Vickee · the librarian',
     title: 'Every library needs a librarian.',
     body:
-      'Publish curated extracts into Dewey and agents work against the copy, never the source. ' +
+      'Publish curated extracts into Vickee and agents work against the copy, never the source. ' +
       'The librarian retrieves what’s appropriate and keeps the stacks intact.',
     proof: [
       ['Governed', 'A read-optimized copy, scoped by tenant and namespace, indexed automatically and answerable.'],
@@ -144,14 +144,14 @@ const PARTS = [
      six parts. Without this the claim leaves the site. */
   {
     key: 'outbound',
-    label: 'Outbound, Dewey to your systems of record',
-    eyebrow: 'Outbound · Dewey to SOR',
+    label: 'Outbound, Vickee to your systems of record',
+    eyebrow: 'Outbound · Vickee to SOR',
     title: 'Agents propose. Humans approve. Code executes.',
     body:
       'Circulation with a signature. When agent work should flow back to a source system, updates ' +
       'travel as deterministic code, and nothing ships without the librarian’s stamp.',
     proof: [
-      ['Proposed, never written', 'Agents propose changes in Dewey, never in the SOR.'],
+      ['Proposed, never written', 'Agents propose changes in Vickee, never in the SOR.'],
       ['Gated', 'Human review and signoff before anything reaches a source system.'],
       ['Repeatable', 'Approved updates execute as plain, repeatable code.'],
     ],
@@ -305,11 +305,11 @@ export default function LibrarianDiagram({ className = '' }) {
               <Region active={active} part="catalog">
                 <CatalogStack />
               </Region>
-              <Region active={active} part="dewey">
+              <Region active={active} part="vickee">
                 <DrawerFace />
               </Region>
               {spot('catalog', 'inset-x-0 top-0 h-[72px]')}
-              {spot('dewey', 'inset-x-0 bottom-0 top-[74px]')}
+              {spot('vickee', 'inset-x-0 bottom-0 top-[74px]')}
             </div>
 
             <div className={COLUMN}>

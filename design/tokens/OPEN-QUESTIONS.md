@@ -51,7 +51,7 @@ line on a brand surface now takes the off-white; ink measures 3.22 there.
 **Sizes affected and where it was applied:** the splash heading and its 18px
 line, the `h1` on Contact, Insights and Privacy plus their eyebrows and leads,
 the Insights closing band, the WhereAgentsWork decision card, the LibrarianFlow
-Dewey column, and both HardParts badge numerals.
+Vickee column, and both HardParts badge numerals.
 
 The gate no longer waives this pairing. It is declared once per size it is drawn
 at, which is the defect that let the small-text uses go unmeasured for so long.

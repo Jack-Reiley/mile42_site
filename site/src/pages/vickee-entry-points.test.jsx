@@ -6,11 +6,11 @@ import AgenticAi from './AgenticAi.jsx'
 import AiProducts from './AiProducts.jsx'
 
 /**
- * Dewey shipped in #58 as a page nothing else on the site pointed at. This is
+ * Vickee shipped in #58 as a page nothing else on the site pointed at. This is
  * the contract for the three entry points that fix that.
  *
  * One suite across three pages rather than three per-page files, because the
- * behavior under test is a single claim — Dewey is reachable from the places a
+ * behavior under test is a single claim — Vickee is reachable from the places a
  * reader forms their picture of what the firm builds — and splitting it would
  * scatter one contract across three files that each assert a third of it.
  *
@@ -19,7 +19,7 @@ import AiProducts from './AiProducts.jsx'
  * that replaces it.
  */
 
-const DEWEY = '/meet-dewey'
+const VICKEE = '/meet-vickee'
 
 const draw = (Page) =>
   render(
@@ -30,16 +30,16 @@ const draw = (Page) =>
 
 const href = (name) => screen.getByRole('link', { name }).getAttribute('href')
 
-describe('SCN-001 — the homepage carries a Dewey block in position', () => {
+describe('SCN-001 — the homepage carries a Vickee block in position', () => {
   /* Two failure modes this guards against, both of which the block has already
      had. Leading with the library metaphor told a first-time reader nothing.
-     Leading with "Dewey is the knowledge layer" explained the product but spoke
+     Leading with "Vickee is the knowledge layer" explained the product but spoke
      to an engineer rather than the person who signs. The block has to open on
-     the reader's problem and still say plainly what Dewey is. */
-  it('leads on the name and says what Dewey is in the same breath', () => {
+     the reader's problem and still say plainly what Vickee is. */
+  it('leads on the name and says what Vickee is in the same breath', () => {
     draw(Home)
     // h3, not h2: the band's h2 is the practice argument this panel sits inside.
-    const heading = screen.getByRole('heading', { level: 3, name: /Meet Dewey/i })
+    const heading = screen.getByRole('heading', { level: 3, name: /Meet Vickee/i })
     expect(heading).toHaveTextContent(/knowledge layer/i)
     expect(heading).toHaveTextContent(/systems of record/i)
   })
@@ -63,7 +63,7 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
       screen.getByText('Every project after the first starts ahead.'),
     ).toBeInTheDocument()
 
-    const panel = screen.getByRole('heading', { level: 3, name: /Meet Dewey/i }).closest('div')
+    const panel = screen.getByRole('heading', { level: 3, name: /Meet Vickee/i }).closest('div')
     expect(within(panel).getAllByRole('heading', { level: 4 })).toHaveLength(2)
   })
 
@@ -79,7 +79,7 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
   })
 
   /* The practice argument and the product it produced are one band now. A
-     reader who meets Dewey without it has no idea why this firm would have
+     reader who meets Vickee without it has no idea why this firm would have
      built one. */
   it('keeps the practice argument in the same band as the product', () => {
     const { container } = draw(Home)
@@ -106,13 +106,13 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
   it('sits in the band the hero opening hands off to', () => {
     const { container } = draw(Home)
     const bands = [...container.querySelectorAll('section')]
-    const dewey = bands.findIndex((b) => b.textContent.includes('the knowledge layer that keeps agents'))
+    const vickee = bands.findIndex((b) => b.textContent.includes('the knowledge layer that keeps agents'))
 
     /* Two, not one. The anti-consulting argument band now sits between the hero
-       and the practice band that carries Dewey. Dewey is still in the opening
+       and the practice band that carries Vickee. Vickee is still in the opening
        run of the page rather than filed near the end, which is what #60 was
        protecting. */
-    expect(dewey).toBe(2)
+    expect(vickee).toBe(2)
     expect(bands[0].textContent).toContain('The consulting model is broken')
     expect(bands.at(-1).textContent).toContain('Tell us what needs to work.')
   })
@@ -137,14 +137,14 @@ describe('SCN-001 — the homepage carries a Dewey block in position', () => {
   })
 })
 
-describe('SCN-002 — the homepage block leads to the Dewey page', () => {
-  it('points its call to action at the Dewey route, carrying the basename', () => {
+describe('SCN-002 — the homepage block leads to the Vickee page', () => {
+  it('points its call to action at the Vickee route, carrying the basename', () => {
     draw(Home)
-    expect(href('Meet Dewey')).toBe(DEWEY)
+    expect(href('Meet Vickee')).toBe(VICKEE)
   })
 })
 
-describe('SCN-003 — the Agentic AI page points to Dewey', () => {
+describe('SCN-003 — the Agentic AI page points to Vickee', () => {
   it('offers the link inside the capability band that claims retrieval work', () => {
     const { container } = draw(AgenticAi)
     const band = [...container.querySelectorAll('section')].find((b) =>
@@ -152,41 +152,41 @@ describe('SCN-003 — the Agentic AI page points to Dewey', () => {
     )
     expect(band).toBeDefined()
     expect(
-      within(band).getByRole('link', { name: /Meet Dewey/ }).getAttribute('href'),
-    ).toBe(DEWEY)
+      within(band).getByRole('link', { name: /Meet Vickee/ }).getAttribute('href'),
+    ).toBe(VICKEE)
   })
 })
 
-describe('SCN-004 — the AI-driven Products page describes Dewey and links to it', () => {
-  it('describes Dewey as a product of the firm, the way Blink Social already is', () => {
+describe('SCN-004 — the AI-driven Products page describes Vickee and links to it', () => {
+  it('describes Vickee as a product of the firm, the way Blink Social already is', () => {
     const { container } = draw(AiProducts)
     const panel = [...container.querySelectorAll('section')].find((b) =>
       b.textContent.includes('Blink Social'),
     )
     expect(panel).toBeDefined()
-    expect(panel.textContent).toMatch(/Dewey, our knowledge layer for AI agents/)
+    expect(panel.textContent).toMatch(/Vickee, our knowledge layer for AI agents/)
   })
 
-  it('points its link at the Dewey route', () => {
+  it('points its link at the Vickee route', () => {
     draw(AiProducts)
-    expect(href('Meet Dewey')).toBe(DEWEY)
+    expect(href('Meet Vickee')).toBe(VICKEE)
   })
 })
 
 describe('SCN-006 — every new entry point is real, keyboard reachable navigation', () => {
   /* An anchor with an href is focusable and activatable by construction. What
      is worth asserting is that these are anchors at all rather than click
-     handlers on something else, and that each one names Dewey so the
+     handlers on something else, and that each one names Vickee so the
      destination is clear out of context. */
   it.each([
     ['the homepage', Home],
     ['the Agentic AI page', AgenticAi],
     ['the AI-driven Products page', AiProducts],
-  ])('renders %s entry point as a link that names Dewey', (_label, Page) => {
+  ])('renders %s entry point as a link that names Vickee', (_label, Page) => {
     draw(Page)
-    const link = screen.getByRole('link', { name: /Meet Dewey/ })
+    const link = screen.getByRole('link', { name: /Meet Vickee/ })
     expect(link.tagName).toBe('A')
-    expect(link).toHaveAttribute('href', DEWEY)
+    expect(link).toHaveAttribute('href', VICKEE)
     expect(link).not.toHaveAttribute('aria-disabled')
   })
 })

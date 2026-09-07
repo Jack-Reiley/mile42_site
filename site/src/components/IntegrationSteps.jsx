@@ -2,9 +2,9 @@ import { Eyebrow } from './primitives.jsx'
 import { REVEAL_GROUP, REVEAL_ROW } from './reveal.js'
 
 /**
- * The five drawn moments of a Dewey integration, from the handoff in
+ * The five drawn moments of a Vickee integration, from the handoff in
  * design/illustrations/data-in-answers-out.html. Replaces the flat five-cell
- * `StepStrip` in the "Data in. Answers out." band of /meet-dewey.
+ * `StepStrip` in the "Data in. Answers out." band of /meet-vickee.
  *
  * The strip stated the sequence. This draws it: a warm gradient blob per step
  * with the moment sketched inside it, and the gradient running continuously

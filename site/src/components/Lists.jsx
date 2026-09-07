@@ -117,7 +117,7 @@ export function TermList({ items, variant = 'stacked', columns = 1, marks = [], 
  *
  * `ruled` divides the items with hairlines instead of spacing them, for a list
  * sitting inside a card where the gap alone does not read as separation. It is
- * the treatment the Dewey comp uses in both its connector cards and its
+ * the treatment the Vickee comp uses in both its connector cards and its
  * librarian diagram, which is why it is a variant here rather than markup
  * written twice.
  */

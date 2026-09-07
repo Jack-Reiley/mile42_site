@@ -2,5 +2,9 @@
 # Agentic AI moved under Engineering when it became part of that practice.
 /agentic-ai  /what-we-do/engineering/agentic-ai  301
 
+# The product was renamed from Dewey to Vickee. The old path is public and has
+# accumulated inbound links, so it keeps resolving.
+/meet-dewey  /meet-vickee  301
+
 # SPA fallback.
 /*  /index.html  200

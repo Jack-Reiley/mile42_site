@@ -9,7 +9,7 @@ import SelectorPanel, { PaneHandoff } from './SelectorPanel.jsx'
  *
  * The interaction carries the section's argument: agents produce, a human
  * decides, and the human side never empties. The shell that holds it is
- * `SelectorPanel`, shared with the Dewey pillars.
+ * `SelectorPanel`, shared with the Vickee pillars.
  *
  * `roles` is the page's own `ROLES`, passed in rather than copied: the copy is
  * verbatim from the page and belongs beside the rest of the page's copy.

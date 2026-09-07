@@ -10,7 +10,7 @@ import Home from './Home.jsx'
  * #74 — the homepage hero's copy and the argument band under it.
  *
  * Named for the ticket rather than the page, the way homepage-restructure and
- * dewey-entry-points are. The band ORDER those two pin is their contract, not
+ * vickee-entry-points are. The band ORDER those two pin is their contract, not
  * this one; what this file holds is what the hero says and what the new band
  * carries.
  *

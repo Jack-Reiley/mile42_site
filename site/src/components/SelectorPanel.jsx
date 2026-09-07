@@ -5,9 +5,9 @@ import { Eyebrow, H3 } from './primitives.jsx'
  * A numbered list of choices beside the chosen one's detail, in one bordered
  * card. The shell only: what fills the pane belongs to the page using it.
  *
- * Extracted when the Dewey pillars turned out to need the same thing the
+ * Extracted when the Vickee pillars turned out to need the same thing the
  * delivery model's roles already had — an eyebrow, a run of `aria-pressed`
- * buttons divided by rules, a footnote, and a live pane. The comp for Dewey
+ * buttons divided by rules, a footnote, and a live pane. The comp for Vickee
  * says as much in its own source: "adapted from the seven-roles pattern".
  *
  * There is no closed state. One choice is always selected and selecting

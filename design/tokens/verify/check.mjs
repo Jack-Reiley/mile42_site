@@ -76,7 +76,7 @@ const PAIRS = [
   // blue band sky measures 3.37 and only ice clears AA.
   ['var(--color-sky)', 'var(--color-navy)', AA_NORMAL, 'sky eyebrow on the navy band'],
   ['var(--color-ice)', BLUE, AA_NORMAL, 'ice eyebrow on the blue band'],
-  // Meet Dewey's eyebrow. Neither coloured on-dark tone survives on this fill —
+  // Meet Vickee's eyebrow. Neither coloured on-dark tone survives on this fill —
   // ice measures 4.49 and sky 3.32 — so it takes the off-white the headings
   // take, and that pairing is the row below rather than a fourth entry here.
 
