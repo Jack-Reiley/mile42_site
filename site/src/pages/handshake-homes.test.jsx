@@ -53,11 +53,19 @@ describe('the handshake is retired but not lost', () => {
     expect(illustrations.handshake.placeholder).toBe(false)
   })
 
-  /* The flat `path-handshake` is a different entry and a different treatment,
-     and #109 leaves it alone. Asserting it here keeps the two from being
-     conflated by a later edit that reads "handshake" and retires both. */
-  it('does not take the flat path handshake with it', () => {
-    expect(illustrations['path-handshake'].retired).toBeFalsy()
+  /* The flat `path-handshake` is a different entry and a different treatment.
+     #109 left it alone at first and then took it too, so both are retired now
+     and the distinction survives only in the manifest. Asserted because the two
+     are easy to conflate, and because restoring one is not restoring the other:
+     this drawing had two homes in flowing layout, the flat one had a grid
+     column in PathCard that has since been closed. */
+  it('is retired alongside the flat path handshake, which is a different entry', () => {
+    expect(illustrations['path-handshake'].retired).toBe(true)
+    // They depict the same thing and share alt text, which is exactly why they
+    // are easy to conflate. What separates them is the artwork and the
+    // treatment, so that is what this compares.
+    expect(illustrations['path-handshake'].src).not.toBe(illustrations.handshake.src)
+    expect(illustrations['path-handshake'].width).not.toBe(illustrations.handshake.width)
   })
 
   it('no longer draws on the homepage', () => {
