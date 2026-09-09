@@ -117,6 +117,8 @@ And the homepage argument panel's copy starts at the card's own padding rather
 than being indented past an empty track
 And each path card's copy starts at the card's edge rather than behind a 4rem
 gutter
+And each offerings card's button follows its body copy directly, rather than
+being pushed down by padding held for an absent spot
 And the lead and body copy keep the site's 46rem reading measure
 
 ### SCN-007 — Every retired entry is still built and registered
@@ -187,6 +189,15 @@ a real browser can answer. SCN-006 is the geometry one and is manual by design.
 
 ## Deliberate deviations
 
+- SCN-006 was extended after verification. Version 2 enumerated the heroes, the
+  argument panel and `PathCard`, and deliberately kept the offerings cards'
+  `xl:pt-32` as placement code carried over from version 1. Verification measured
+  that as 128px of top padding holding a 140px gap between the body copy and the
+  button on all three cards, raised it as F-001, and Brett resolved it in favour
+  of closing the gap. It is now 24px of padding and a 36px gap, and the cards are
+  429px tall rather than 533px. Both this document
+  and the ticket were updated together this time; the first scope change updated
+  only this document, which verification caught as F-002.
 - The contract was widened to version 2 mid-implementation, after Brett reviewed
   the first pass. See "Contract version 2" above. Both the ticket's original Out
   of scope and version 1's SCN-006 now say the opposite of what shipped, and

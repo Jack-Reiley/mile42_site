@@ -353,9 +353,9 @@ export default function Home() {
                 >
                   {/* Inert since #109, and the only calls whose placement is an
                       overhang rather than a slot: each offset below was set per
-                      card against the edge it breaks. The button row keeps its
-                      `xl:pt-32` for the same reason, so the gap this spot sits
-                      in survives to be filled again. */}
+                      card against the edge it breaks, so they are kept as the
+                      record of where the artwork sat. The button row no longer
+                      holds a gap for them; see the note on it below. */}
                   <Spot
                     name={o.spot}
                     sizes={o.spotSizes}
@@ -364,17 +364,17 @@ export default function Home() {
                   <Eyebrow>{o.kicker}</Eyebrow>
                   <H3>{o.title}</H3>
                   <Body className="max-w-none">{o.body}</Body>
-                  {/* The gap #15 opened between the body copy and the row beneath
-                      it is where the laptop spot sits, so it outlives the "You leave
-                      with" block that used to fill it: the button row inherits it,
-                      widened to hold the spot against a shorter card. From lg up
-                      only: below that the spots sit inside the column, so the space
-                      would be dead. */}
+                  {/* #15 opened the gap between the body copy and this row for the
+                      "You leave with" block, and when that went the laptop spot
+                      inherited it. #109 retired the spot, so `xl:pt-32` was holding
+                      256px of nothing on all three cards. Removed: the cards close
+                      up the way the heroes and the argument panel do. Restoring an
+                      overhang here means restoring the gap for it. */}
                   {/* mt-auto bottoms this block in the stacked flex layout. From lg
                       up the subgrid already places the row, and leaving mt-auto on
                       would bottom-align it inside its own row — which is what
                       pushed the shorter columns' buttons below the taller one's. */}
-                  <div className="mt-auto pt-6 lg:mt-0 xl:pt-32">
+                  <div className="mt-auto pt-6 lg:mt-0">
                     <Button to={o.href} variant="secondary">{o.linkLabel}</Button>
                   </div>
                 </article>

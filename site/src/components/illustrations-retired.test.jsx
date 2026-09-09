@@ -152,6 +152,19 @@ describe('SCN-006 — the containers close the space the artwork left', () => {
     expect(card).toContain('mx-auto')
   })
 
+  /* The offerings cards were the one container this ticket first left alone, on
+     the reasoning that their spots were overhangs rather than slots and the
+     button row's padding was placement code worth keeping. Verification measured
+     what that actually left: 128px of top padding holding a 140px gap between the
+     body copy and the button on all three cards, which is the same thing the
+     heroes were changed to avoid. It is 24px and 36px now. */
+  it('closes the offerings cards gap rather than padding for an absent spot', () => {
+    const home = read('pages/Home.jsx')
+    const row = home.slice(home.indexOf('mt-auto pt-6'), home.indexOf('mt-auto pt-6') + 80)
+
+    expect(row).not.toContain('xl:pt-32')
+  })
+
   it('closes the path card gutter rather than leaving copy indented', () => {
     const primitives = read('components/primitives.jsx')
 
