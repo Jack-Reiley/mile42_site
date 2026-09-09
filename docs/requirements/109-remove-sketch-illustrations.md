@@ -1,7 +1,7 @@
 # #109 — Stop rendering the ink sketch illustrations, keeping their layout slots
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/109
-- Pull request: <URL>
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/110
 - Parent epic: none
 - Delivery unit: U1
 - Requirement version: 2
