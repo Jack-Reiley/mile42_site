@@ -63,6 +63,9 @@ export default function HowWeWork() {
 
               Enters without fading, for the same reason as the home hero: it is
               eager and above the fold, and opacity 0 is not contentful. */}
+          {/* Inert since #109 retired the ink sketches. Left exactly as placed,
+              because a follow-up restores artwork to this slot and reads this
+              call as its spec. See `retired` in the illustrations manifest. */}
           <Spot
             name="gears"
             priority

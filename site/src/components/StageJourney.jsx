@@ -268,6 +268,8 @@ export default function StageJourney({ Spot }) {
                     </div>
 
                     <div>
+                      {/* Inert since #109. Each stage still names its spot, which is
+                          where the restore reads them from. */}
                       {Spot ? <Spot name={stage.spot} decorative sizes="76px" className="mb-4 h-[76px] w-[76px] object-contain" /> : null}
                       <Eyebrow tone="ink" className="mb-4">You leave with:</Eyebrow>
                       <ol className="flex flex-col gap-[14px]">

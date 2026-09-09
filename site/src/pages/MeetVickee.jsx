@@ -240,6 +240,9 @@ export default function MeetVickee() {
               downloaded 683KB for an image painted 352px wide. 25rem is the
               390px column rounded up; 85vw only genuinely binds below 415px,
               where it falls under the 22rem cap. */}
+          {/* Inert since #109 retired the ink sketches. Left exactly as placed,
+              because a follow-up restores artwork to this slot and reads this
+              call as its spec. See `retired` in the illustrations manifest. */}
           <Spot
             name="vickee-librarian"
             priority
@@ -307,6 +310,7 @@ export default function MeetVickee() {
                 it is held below the handoff's 432px: at the full width it stood
                 taller than the copy beside it and the lede read as a picture
                 with a caption. */}
+            {/* Inert since #109. See the hero note above. */}
             <Spot
               name="chess"
               sizes="(min-width: 1024px) 340px, 70vw"

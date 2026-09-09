@@ -122,6 +122,9 @@ export default function Home() {
               to fix LCP, and an element at opacity 0 is not yet contentful, so
               fading the largest above-the-fold image in would give that back.
               Moving it costs nothing. */}
+          {/* Inert since #109 retired the ink sketches. Left exactly as placed,
+              because a follow-up restores artwork to this slot and reads this
+              call as its spec. See `retired` in the illustrations manifest. */}
           <Spot
             name="hero-desk"
             priority
@@ -201,6 +204,7 @@ export default function Home() {
                   Stacked under the copy below `lg` and capped smaller there,
                   for the reason the How We Work hero caps its gears: at the
                   desktop size it would fill a phone's width. */}
+              {/* Inert since #109. See the hero note above. */}
               <Spot
                 name="brain-gear"
                 sizes="(min-width: 1024px) 13rem, 8rem"
@@ -334,6 +338,11 @@ export default function Home() {
                     i > 0 ? 'border-t border-ink lg:border-t-0 lg:border-l' : ''
                   }`}
                 >
+                  {/* Inert since #109, and the only calls whose placement is an
+                      overhang rather than a slot: each offset below was set per
+                      card against the edge it breaks. The button row keeps its
+                      `xl:pt-32` for the same reason, so the gap this spot sits
+                      in survives to be filled again. */}
                   <Spot
                     name={o.spot}
                     sizes={o.spotSizes}
