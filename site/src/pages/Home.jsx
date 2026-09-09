@@ -159,7 +159,12 @@ export default function Home() {
           that builds across three paragraphs rather than three parallel offers. */}
       <Section band="surface">
         <Wrap>
-          <Card fill="page" className="p-8 md:p-card">
+          {/* Narrowed to the copy it holds. #109 took the artwork out of this panel
+              and moved the copy left to fill the track; at the wrap's full 1240px
+              that only moved the empty space to the right, because `Body` stops at
+              the site's 46rem measure. 52rem is that measure plus the card's two
+              40px paddings, so the card is now the width of its own content. */}
+          <Card fill="page" className="mx-auto max-w-[52rem] p-8 md:p-card">
             {/* The artwork takes the LEFT column, against the site's usual
                 copy-left arrangement, because the hero's illustration sits at
                 the top right of the band immediately above. Two spots of this

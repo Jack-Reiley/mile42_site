@@ -140,6 +140,18 @@ describe('SCN-006 — the containers close the space the artwork left', () => {
     expect(home).not.toContain('lg:col-start-2 lg:row-start-1')
   })
 
+  /* Widening the copy was only half the fix for this panel. At the wrap's full
+     1240px the copy filled the artwork's track and left the same amount of
+     space on the other side, because `Body` stops at 46rem. The card is sized
+     to its content instead: 46rem plus the card's two 40px paddings. */
+  it('narrows the argument panel card to the measure its copy actually uses', () => {
+    const home = read('pages/Home.jsx')
+    const card = home.slice(home.indexOf('<Card fill="page"'), home.indexOf('<Card fill="page"') + 200)
+
+    expect(card).toContain('max-w-[52rem]')
+    expect(card).toContain('mx-auto')
+  })
+
   it('closes the path card gutter rather than leaving copy indented', () => {
     const primitives = read('components/primitives.jsx')
 
