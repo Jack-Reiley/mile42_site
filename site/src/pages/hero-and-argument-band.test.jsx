@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import Home from './Home.jsx'
+import { illustrations } from '../assets/illustrations/manifest.js'
 
 /**
  * #74 — the homepage hero's copy and the argument band under it.
@@ -106,12 +107,17 @@ describe('SCN-005 — the artwork is a built asset, not a placed file', () => {
     expect(widths).toContain(256)
   })
 
-  it('carries alt text describing what it depicts', () => {
+  /* Rewritten by #109, which retired the ink sketches. The band draws nothing
+     now. The alt text this asserted is not gone, it moved out of the rendered
+     tree and back to the entry that owns it, and it has to survive there: alt
+     text is the one part of an illustration the build cannot regenerate, so
+     losing it would make the restore a rewrite rather than a swap. */
+  it('draws no artwork, and keeps the alt text on the entry', () => {
     const { container } = draw()
-    const art = bandsOf(container)[1].querySelector('img')
+    expect(bandsOf(container)[1].querySelector('img')).toBeNull()
 
-    expect(art).not.toBeNull()
-    expect(art.getAttribute('alt')).toMatch(/brain and a gear/i)
+    expect(illustrations['brain-gear'].retired).toBe(true)
+    expect(illustrations['brain-gear'].alt).toMatch(/brain and a gear/i)
   })
 })
 

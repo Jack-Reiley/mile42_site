@@ -83,6 +83,12 @@ describe('SCN-002 — content is never left waiting on JavaScript', () => {
   })
 })
 
+/* #109 retired the ink sketches, so the home hero draws nothing and there is no
+   LCP image left for this to protect. Both assertions read source text, so both
+   still pass, and neither is edited: what they now guard is that the preserved,
+   inert hero call keeps the no-fade treatment it was placed with, and that the
+   variant it depends on still exists in the stylesheet. That is exactly what the
+   follow-up ticket needs to find when it puts artwork back. */
 describe('SCN-004 — the hero illustration keeps the LCP work from #12', () => {
   it('moves the home hero illustration without fading it', () => {
     const home = read('../pages/Home.jsx')
@@ -97,6 +103,8 @@ describe('SCN-004 — the hero illustration keeps the LCP work from #12', () => 
 })
 
 describe('SCN-005 — direction is consistent and declared once', () => {
+  /* Also source text, and also unchanged by #109: the hero's `REVEAL.right`
+     rides on the retired Spot call, which stays exactly where it was placed. */
   it('gives copy and imagery opposite entrances in two-column blocks', () => {
     expect(REVEAL.left).toContain('m42-in-left')
     expect(REVEAL.right).toContain('m42-in-right')
