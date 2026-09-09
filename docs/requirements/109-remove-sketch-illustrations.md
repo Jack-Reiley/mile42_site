@@ -4,14 +4,32 @@
 - Pull request: <URL>
 - Parent epic: none
 - Delivery unit: U1
-- Requirement version: 1
+- Requirement version: 2
 
 ## Objective
 
-The eight hand-drawn ink sketch illustrations stop appearing anywhere on the
-site. The flat `path-*` spot icons are untouched. Every entry stays built and
-registered, and every placement stays in the source, so a later ticket restores
-artwork by swapping the art rather than rebuilding the layout.
+Every illustration stops appearing anywhere on the site, and the containers that
+existed to sit copy beside an image close the space instead of holding it open.
+The header logo becomes the only image the site renders. Entries stay built and
+registered and every Spot call stays in the source, so restoring artwork is a
+flag change plus band-level layout work rather than a rebuild from nothing.
+
+## Contract version 2
+
+Version 1 covered the eight ink sketches only, explicitly excluded the flat
+`path-*` icons, and deliberately added nothing to hold a slot open. Brett
+reviewed the first pass and changed both halves of that:
+
+- The four `path-*` icons are retired too, so nothing in the manifest draws.
+- The blank space is closed rather than left. Three heroes, the homepage
+  argument panel, and `PathCard` are restructured.
+- `Lead` and `Body` keep their site-wide 46rem measure. The headline gains the
+  width; body copy does not. Lifting that cap would move all sixteen pages.
+
+The consequence Brett accepted knowingly: restoring artwork to these slots is
+now a redesign of each band, not a swap. Version 1's premise that the placement
+survives intact holds only for which artwork belonged where and at what size,
+not for the layout around it.
 
 ## Contract drift recorded at implementation
 
@@ -25,8 +43,12 @@ returned to design.
 
 ## Scope
 
-- The eight sketch entries stop rendering: `hero-desk`, `vickee-librarian`,
-  `brain-gear`, `handshake`, `chess`, `laptop`, `lightbulb`, `gears`.
+- All twelve entries stop rendering: the eight sketches (`hero-desk`,
+  `vickee-librarian`, `brain-gear`, `handshake`, `chess`, `laptop`, `lightbulb`,
+  `gears`) and the four flat icons (`path-lightbulb`, `path-gears`,
+  `path-handshake`, `path-clipboard`).
+- Three heroes and the homepage argument panel become one column.
+- `PathCard` drops its 4rem icon gutter.
 - `site/src/assets/illustrations/manifest.js` marks them retired.
 - `site/src/components/primitives.jsx` teaches `Spot` to skip a retired entry.
 - Comments at `Home.jsx`, `MeetVickee.jsx`, `HowWeWork.jsx`, and
@@ -35,64 +57,67 @@ returned to design.
 
 ## Out of scope
 
-- The `path-*` flat spot icons.
 - The brand lockup and the header logo.
+- The site-wide 46rem reading measure on `Lead` and `Body`.
+- Removing the illustration plumbing. Every entry is now retired and `Spot` can
+  never render, so the manifest, assets, build scripts and inert calls are dead
+  weight by design. Brett chose to keep them; the cleanup is its own ticket.
 - The inline SVG diagrams: `LibrarianDiagram`, `IntegrationSteps`,
   `CatalogDrawer`, `ExecutionContrast`.
 - Deleting `.webp` assets, `manifest.js`, `illustrations.data.json`, or the
   `illustrations:build` / `illustrations:placeholders` scripts.
 - `copy_prototype/`, which carries none of this artwork.
 - Commissioning or designing replacement artwork.
-- Holding any slot open. Brett chose "let it fall where it may" after
-  comparing three rendered options; SCN-006 records where each band settles.
+- Commissioning replacement artwork or deciding whether any returns.
 
 ## Behavioral scenarios
 
-### SCN-001 — The homepage draws no sketch illustration
+### SCN-001 — No page draws an illustration
+
+Given a reader opens any page on the site
+When the page has finished loading
+Then no illustration appears anywhere on it
+And the header logo is the only image the page renders
+
+### SCN-002 — Meet Vickee and How we work draw nothing
+
+Given a reader opens Meet Vickee or How we work
+When the page has finished loading
+Then neither the librarian, the chess drawing, nor the gears appear
+
+### SCN-003 — The homepage draws nothing, including the Phase Zero icon
 
 Given a reader opens the homepage
 When the page has finished loading
-Then no hand-drawn sketch illustration appears anywhere on it
-And the only illustration still drawn is the flat clipboard icon in the Phase
-Zero panel
+Then no hero artwork, no argument-panel artwork, no offerings-card artwork,
+and no clipboard icon appears
 
-### SCN-002 — Meet Vickee draws no sketch illustration
-
-Given a reader opens Meet Vickee
-When the page has finished loading
-Then neither the librarian nor the chess drawing appears
-And the page draws no illustration at all
-
-### SCN-003 — How We Work draws no sketch illustration
-
-Given a reader opens How We Work
-When the page has finished loading
-Then the gears drawing does not appear
-
-### SCN-004 — The client journey's stages draw no sketch illustration
+### SCN-004 — The client journey's stages draw no spot
 
 Given a reader opens the client journey
 When the reader opens any one of the four stages
 Then that stage's spot drawing does not appear
 And the "You leave with" list is the first thing in its column
 
-### SCN-005 — The flat path icons are untouched
+### SCN-005 — The flat path icons are retired too
 
 Given a reader opens What We Do, Engineering, Advisory, AI Products,
 Engagement Model, or the homepage
 When each page has finished loading
-Then every flat single-colour path icon still draws as it does today
+Then no flat single-colour path icon appears
+And each path card is named by its own copy, with its link still reachable
 
-### SCN-006 — Each band settles where the browser puts it
+### SCN-006 — The containers close the space the artwork left
 
-Given the sketch illustrations no longer draw
+Given the illustrations no longer draw
 When a reader views the site at 1024px and above
-Then the Home, Meet Vickee, and How We Work heroes keep their column
-arrangement with the artwork half left blank
-And the homepage argument panel keeps its blank 13rem track, because its copy
-is already pinned to the second column
-And Meet Vickee's lede copy occupies the full width of the band
-And nothing has been added anywhere to hold a slot open
+Then the Home, Meet Vickee and How we work heroes are one column, and each
+headline runs the full width of the wrap
+And the homepage argument panel's copy starts at the card's own padding rather
+than being indented past an empty track
+And each path card's copy starts at the card's edge rather than behind a 4rem
+gutter
+And the lead and body copy keep the site's 46rem reading measure
 
 ### SCN-007 — Every retired entry is still built and registered
 
@@ -134,23 +159,27 @@ And every remaining decorative icon still carries an empty alt
 - No new dependency.
 - Build output size is unchanged: `manifest.js` glob-imports the assets eagerly,
   so they are still emitted even though nothing renders them. Accepted.
-- Keyboard behavior, focus order, and reduced-motion handling are unchanged. The
-  removed elements were `pointer-events-none` and not focusable.
+- Keyboard behavior and reduced-motion handling are unchanged. The removed
+  elements were `pointer-events-none` and not focusable. `PathCard`'s icon sat
+  inside the link, so removing it must not change the link's accessible name.
+- Measured at 1440px after the change: the homepage h1 spans 1221px on two
+  lines, down from three in a 600px column; its lead holds at 725px, the 46rem
+  measure. No horizontal overflow at 1440, 832 or 390.
 
 ## Verification map
 
 | Scenario | Expected level | Automated coverage | E2E behavior | Manual evidence |
 | --- | --- | --- | --- | --- |
-| SCN-001 | Unit | `site/src/components/sketch-illustrations-retired.test.jsx` | N/A | Browser pass at 390/832/1440 |
-| SCN-002 | Unit | `site/src/pages/MeetVickee.test.jsx` | N/A | Browser pass at 390/832/1440 |
-| SCN-003 | Unit | `site/src/components/sketch-illustrations-retired.test.jsx` | N/A | Browser pass at 390/832/1440 |
-| SCN-004 | Unit | `site/src/pages/handshake-homes.test.jsx` | N/A | Browser pass, stage opened |
-| SCN-005 | Unit | `site/src/components/sketch-illustrations-retired.test.jsx` | N/A | Browser pass |
-| SCN-006 | Manual | — | N/A | Browser pass; jsdom resolves no Tailwind utility, so rendered geometry cannot be asserted here |
-| SCN-007 | Unit | `site/src/components/sketch-illustrations-retired.test.jsx`, `site/src/pages/hero-and-argument-band.test.jsx` | N/A | `npm run illustrations:placeholders` |
-| SCN-008 | Unit | `site/src/components/sketch-illustrations-retired.test.jsx`, `site/src/components/reveal.test.jsx` | N/A | — |
-| SCN-009 | Unit | `site/src/pages/MeetVickee.test.jsx` | N/A | Browser network panel |
-| SCN-010 | Unit | `site/src/components/sketch-illustrations-retired.test.jsx`, `site/src/pages/hero-and-argument-band.test.jsx` | N/A | Browser pass |
+| SCN-001 | Unit | `site/src/components/illustrations-retired.test.jsx` | N/A | Browser pass, 9 routes |
+| SCN-002 | Unit | `site/src/pages/MeetVickee.test.jsx`, `site/src/components/illustrations-retired.test.jsx` | N/A | Browser pass at 390/832/1440 |
+| SCN-003 | Unit | `site/src/components/illustrations-retired.test.jsx`, `site/src/pages/hero-and-argument-band.test.jsx` | N/A | Browser pass at 390/832/1440 |
+| SCN-004 | Unit | `site/src/components/illustrations-retired.test.jsx`, `site/src/pages/handshake-homes.test.jsx` | N/A | Browser pass, all four stages opened |
+| SCN-005 | Unit | `site/src/components/illustrations-retired.test.jsx` | N/A | Browser pass |
+| SCN-006 | Unit + Manual | `site/src/components/illustrations-retired.test.jsx` | N/A | Measured widths above; jsdom resolves no Tailwind utility, so the unit assertions are class contracts and the geometry is browser-only |
+| SCN-007 | Unit | `site/src/components/illustrations-retired.test.jsx`, `site/src/pages/hero-and-argument-band.test.jsx` | N/A | `npm run illustrations:placeholders` |
+| SCN-008 | Unit | `site/src/components/illustrations-retired.test.jsx`, `site/src/components/reveal.test.jsx` | N/A | — |
+| SCN-009 | Unit | `site/src/pages/MeetVickee.test.jsx` | N/A | Production build fetches zero `.webp` |
+| SCN-010 | Unit | `site/src/components/illustrations-retired.test.jsx`, `site/src/pages/hero-and-argument-band.test.jsx` | N/A | Browser pass |
 
 E2E is N/A throughout: the repository has no E2E suite, and every scenario here
 is either a rendered-output assertion jsdom can make or a geometry question only
@@ -158,10 +187,15 @@ a real browser can answer. SCN-006 is the geometry one and is manual by design.
 
 ## Deliberate deviations
 
-- The ticket's Summary and two bullets of its Initial acceptance intent describe
-  holding each slot open. Brett superseded that during design after comparing
-  three rendered options. SCN-006 is the replacement and the ticket carries a
-  pointer at the top of its body.
+- The contract was widened to version 2 mid-implementation, after Brett reviewed
+  the first pass. See "Contract version 2" above. Both the ticket's original Out
+  of scope and version 1's SCN-006 now say the opposite of what shipped, and
+  both are superseded rather than deleted.
+- Issue 45, "Replace the handshake path card icon so it reads on the navy band",
+  is about an icon this ticket removes. Brett approved closing it as obsolete.
+- The test file rename landed one commit earlier than intended, in the manifest
+  commit, because `git mv` had already staged it. Content and rename are
+  therefore split across two commits.
 - Files were staged individually rather than with `git add -A`, because three
   unrelated untracked files under `design/illustrations/mile42 Logos/` were in
   the working tree before this ticket began and must not enter this PR.
