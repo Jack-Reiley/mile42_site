@@ -189,7 +189,10 @@ export default function MeetVickee() {
         {/* Not an even split. The home hero halves the band, but this headline
             is longer than that one and at 600px it broke across three lines.
             The copy takes the larger share and the artwork shrinks to suit. */}
-        <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)]">
+        {/* One column since #109, for the reason Home's hero is. The uneven split
+            existed so this longer headline had more room than the artwork; with
+            no artwork it has the whole wrap. */}
+        <Wrap className="grid items-center gap-10">
           <div>
           {/* The eyebrow names the category rather than the product. #77 put
               the product name here, carrying the trademark symbol, back when the

@@ -103,7 +103,12 @@ export default function Home() {
           here, under AA, so the eyebrow and the lead move with the heading
           rather than staying the default. */}
       <Section band="blue" grain className="overflow-hidden">
-        <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        {/* One column since #109. The band halved itself for the hero artwork; with
+            the artwork gone the copy takes the whole wrap, so the headline sets on
+            one or two lines instead of three in a 600px column. `Lead` keeps its
+            46rem measure, which is the site-wide reading width and not this
+            band's to change. */}
+        <Wrap className="grid items-center gap-10">
           {/* A relay: the column holds still and its eyebrow, heading, lead and
               buttons each enter from the left in turn. As one block it read as
               a slab sliding; in sequence it reads as a page composing itself. */}
@@ -173,8 +178,11 @@ export default function Home() {
 
                 The two halves still converge the way FeaturePanel's do, with
                 the directions swapped to match the sides they now sit on. */}
-            <div className="grid items-center gap-8 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-12">
-              <div className={`lg:col-start-2 lg:row-start-1 ${REVEAL_GROUP.right} ${REVEAL.still}`}>
+            {/* One column since #109. The 13rem track held the brain-and-gear spot and
+                the copy was pinned to the second column to sit beside it; both go
+                together, or the panel keeps a blank quarter down its left edge. */}
+            <div className="grid items-center gap-8">
+              <div className={`${REVEAL_GROUP.right} ${REVEAL.still}`}>
                 <H2 className="mb-4">Consulting should create momentum, not overhead.</H2>
                 {/* The opening paragraph takes the lead size. It is the charge
                     the other two answer, and at body size the panel opened on

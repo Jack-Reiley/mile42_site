@@ -47,7 +47,8 @@ export default function HowWeWork() {
       <Section band="gold" grain>
         {/* The text keeps the wider column. The gears are a mid-size spot, not a
             hero scene, so an even split would oversize them. */}
-        <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.6fr)]">
+        {/* One column since #109, for the reason Home's hero is. */}
+        <Wrap className="grid items-center gap-10">
           {/* A relay: the column holds still and its eyebrow, heading, lead and
               buttons each enter from the left in turn. As one block it read as
               a slab sliding; in sequence it reads as a page composing itself. */}
