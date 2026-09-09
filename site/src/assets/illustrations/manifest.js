@@ -18,14 +18,24 @@ import data from './illustrations.data.json'
  * artwork, so nothing is flagged. `npm run illustrations:placeholders` reports
  * what remains outstanding, and should stay empty.
  *
- * `retired` marks artwork that is deliberately not drawn. #109 took the whole
- * ink-sketch treatment off the site; `Spot` skips a retired entry, so the flag
- * is the single switch and no page had to be edited to obey it. It is not
- * `placeholder`: a placeholder is unfinished, a retired entry is finished and
- * withheld. Retired entries stay registered, keep their alt text and generated
- * dimensions, and are still built, because a follow-up ticket restores artwork
- * to these same slots and reads this file and the untouched `Spot` calls as its
- * spec. Do not delete a retired entry, and do not delete the calls that name it.
+ * `retired` marks artwork that is deliberately not drawn. #109 took every
+ * illustration off the site: first the eight ink sketches, then the four flat
+ * `path-*` icons. `Spot` skips a retired entry, so the flag is the single
+ * switch. It is not `placeholder`: a placeholder is unfinished, a retired entry
+ * is finished and withheld.
+ *
+ * Every entry is retired, so nothing here draws anywhere on the site and `Spot`
+ * currently cannot render. That is deliberate rather than an oversight, and the
+ * plumbing is kept on purpose: the entries stay registered with their alt text
+ * and generated dimensions, and the assets are still built, so restoring any of
+ * this is a flag change plus band-level layout work rather than a rebuild from
+ * nothing. Removing the plumbing is its own ticket, if it is ever wanted.
+ *
+ * The Spot calls left in the pages are inert for the same reason. They still
+ * record which artwork belonged where and at what size. What they no longer
+ * record is the layout around them: the heroes, the homepage argument panel,
+ * and PathCard were all restructured to close the space the artwork left, so
+ * putting art back is a redesign of those bands, not a swap.
  *
  * Dimensions and variants come from `illustrations.data.json`, which is emitted
  * by `npm run illustrations:build` alongside the assets themselves. They are
@@ -100,21 +110,25 @@ const META = {
     level: 3,
     alt: 'A lit lightbulb',
     placeholder: false,
+    retired: true,
   },
   'path-gears': {
     level: 3,
     alt: 'Two interlocking gears',
     placeholder: false,
+    retired: true,
   },
   'path-handshake': {
     level: 3,
     alt: 'A robotic hand and a human hand shaking',
     placeholder: false,
+    retired: true,
   },
   'path-clipboard': {
     level: 3,
     alt: 'A clipboard holding a checklist',
     placeholder: false,
+    retired: true,
   },
 }
 
