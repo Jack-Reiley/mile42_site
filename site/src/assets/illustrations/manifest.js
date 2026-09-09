@@ -18,14 +18,23 @@ import data from './illustrations.data.json'
  * artwork, so nothing is flagged. `npm run illustrations:placeholders` reports
  * what remains outstanding, and should stay empty.
  *
+ * `retired` marks artwork that is deliberately not drawn. #109 took the whole
+ * ink-sketch treatment off the site; `Spot` skips a retired entry, so the flag
+ * is the single switch and no page had to be edited to obey it. It is not
+ * `placeholder`: a placeholder is unfinished, a retired entry is finished and
+ * withheld. Retired entries stay registered, keep their alt text and generated
+ * dimensions, and are still built, because a follow-up ticket restores artwork
+ * to these same slots and reads this file and the untouched `Spot` calls as its
+ * spec. Do not delete a retired entry, and do not delete the calls that name it.
+ *
  * Dimensions and variants come from `illustrations.data.json`, which is emitted
  * by `npm run illustrations:build` alongside the assets themselves. They are
  * generated rather than hand-written because Vite resolves an imported asset to
  * a URL but does not expose its size, and measuring it at runtime would mean
  * loading the image — the very thing that causes layout shift.
  *
- * Only the human judgement below is authored by hand: alt text, level, and
- * whether the artwork is still a placeholder.
+ * Only the human judgement below is authored by hand: alt text, level, whether
+ * the artwork is still a placeholder, and whether it is retired.
  */
 
 // Resolved through Vite so every file is content-hashed. Keyed by filename.
@@ -37,6 +46,7 @@ const META = {
     level: 1,
     alt: 'A person seated at a desk typing, with a cursor, a star and a gear floating around them',
     placeholder: false,
+    retired: true,
   },
   /* The site's second Level One, and the only one that is a hero because of what
      it depicts rather than only how it is drawn: Meet Vickee argues the librarian
@@ -45,31 +55,37 @@ const META = {
     level: 1,
     alt: 'A librarian taking a book from a well-stocked shelf',
     placeholder: false,
+    retired: true,
   },
   handshake: {
     level: 2,
     alt: 'A robotic hand and a human hand shaking',
     placeholder: false,
+    retired: true,
   },
   chess: {
     level: 2,
     alt: 'A human hand and a robotic hand each moving a piece on a chessboard',
     placeholder: false,
+    retired: true,
   },
   laptop: {
     level: 2,
     alt: 'Hands typing on a laptop',
     placeholder: false,
+    retired: true,
   },
   lightbulb: {
     level: 3,
     alt: 'A lit lightbulb',
     placeholder: false,
+    retired: true,
   },
   gears: {
     level: 2,
     alt: 'Two interlocking gears',
     placeholder: false,
+    retired: true,
   },
   /* Level Two by size. The treatment is a third one: ink linework with no flat
      fill and no tint, so it ships in the artwork's own black rather than being
@@ -78,6 +94,7 @@ const META = {
     level: 2,
     alt: 'A brain and a gear drawn as one shape, divided down the middle',
     placeholder: false,
+    retired: true,
   },
   'path-lightbulb': {
     level: 3,

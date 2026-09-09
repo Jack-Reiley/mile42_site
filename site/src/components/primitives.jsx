@@ -584,10 +584,17 @@ export function Placeholder({ tag, className = '', children }) {
  * technology. Use it when the image sits beside a full text label that already
  * says what it says — inside a link, an announced alt would otherwise be
  * concatenated into the link's accessible name.
+ *
+ * A retired entry draws nothing, the same as an unknown name. #109 withdrew the
+ * whole ink-sketch treatment through that flag rather than by editing the twelve
+ * calls, so the calls below still carry every name, size and offset the artwork
+ * was placed with. They are inert on purpose. Restoring the treatment is a swap
+ * in the manifest, not a rebuild of the layout, and only while those calls are
+ * left alone.
  */
 export function Spot({ name, className = '', sizes = '128px', priority = false, decorative = false }) {
   const art = illustrations[name]
-  if (!art) return null
+  if (!art || art.retired) return null
   return (
     <img
       src={art.src}
