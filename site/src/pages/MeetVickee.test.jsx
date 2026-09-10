@@ -1,9 +1,14 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
+import { readFileSync } from 'node:fs'
+import { join, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import MeetVickee from './MeetVickee.jsx'
 import { PAGES } from '../App.jsx'
 import { illustrations } from '../assets/illustrations/manifest.js'
+
+const SRC = join(dirname(fileURLToPath(import.meta.url)), '..')
 
 /**
  * The page renders, and it is reachable.
@@ -151,48 +156,42 @@ describe('Meet Vickee', () => {
     ).toBeGreaterThan(0)
   })
 
-  /* SCN-003. The hero artwork is the page's largest above-the-fold image, so it
-     is what LCP measures. Lazy loading it, or shipping it without intrinsic
-     dimensions, are the two ways that regresses silently. */
-  /* SCN-001, SCN-003 and SCN-004. The accessible name is asserted on the hero's
-     own image rather than the page's first image, because both this and the
-     introduction artwork below it are announced and a looser query would let
-     one stand in for the other. */
-  it('leads with the librarian artwork, sized and prioritised', () => {
+  /* #109 SCN-002. The librarian and the chess drawing were this page's only two
+     images, and the ink-sketch treatment they belong to is retired, so the page
+     now draws none. Asserted on the whole document rather than on the hero,
+     because "the hero lost its image" and "the page lost both" are different
+     regressions and only the second one is the contract. */
+  it('draws no illustration at all', () => {
     const { container } = page()
-    const hero = container.querySelector('section')
-    const art = hero.querySelector('img')
-
-    expect(art).toHaveAttribute('loading', 'eager')
-    expect(art).toHaveAttribute('fetchpriority', 'high')
-    expect(Number(art.getAttribute('width'))).toBeGreaterThan(0)
-    expect(Number(art.getAttribute('height'))).toBeGreaterThan(0)
-    expect(art.getAttribute('srcset')).toMatch(/\s\d+w/)
-    expect(art.getAttribute('sizes')).toBeTruthy()
-    expect(art).toHaveAccessibleName(/librarian/i)
+    expect(container.querySelectorAll('img')).toHaveLength(0)
   })
 
-  /* SCN-004. One prioritised image, and it is the hero's. Everything below the
-     fold stays lazy; a second eager image would compete with the LCP fetch. */
-  it('prioritises the hero image and nothing else', () => {
+  /* #109 SCN-009. This used to read "one prioritised image, and it is the
+     hero's", guarding the LCP fetch from #12 against a second eager image. With
+     no image left there is no image fetch to protect, and the thing worth
+     holding is that nothing quietly reintroduces one. */
+  it('fetches no image, at any priority', () => {
     const { container } = page()
-    const eager = [...container.querySelectorAll('img')].filter(
-      (i) => i.getAttribute('loading') === 'eager',
+    const fetched = [...container.querySelectorAll('img')].filter(
+      (i) => i.getAttribute('loading') === 'eager' || i.getAttribute('fetchpriority') === 'high',
     )
 
-    expect(eager).toHaveLength(1)
-    expect(eager[0]).toHaveAccessibleName(/librarian/i)
+    expect(fetched).toHaveLength(0)
   })
 
-  /* SCN-003. `sizes` has to describe the width the image actually renders at,
-     and the hero's is capped by `max-w`, not by the viewport. A bare `vw`
-     fallback overstates it: at a 1023px viewport `85vw` declares 870px, the
-     only candidate that large is the 1674w master, and a tablet downloads
-     683KB for an image it paints 352px wide. Caught in a narrow-viewport
-     probe, so the guard is an assertion rather than a comment. */
-  it('never lets sizes outgrow the width the hero is capped at', () => {
-    const { container } = page()
-    const sizes = container.querySelector('section img').getAttribute('sizes')
+  /* #109 SCN-008. The rule this guards outlived the image it was written for.
+     `sizes` has to describe the width the artwork actually renders at, and the
+     hero's is capped by `max-w`, not by the viewport: a bare `vw` fallback
+     overstates it, and at a 1023px viewport `85vw` declared 870px, so a tablet
+     downloaded 683KB for an image it painted 352px wide.
+
+     The value is still in the source, unrendered, waiting for the follow-up
+     that restores artwork to this slot. Read from the file rather than the DOM
+     for that reason — and so the guard cannot be satisfied by an empty page. */
+  it('never lets the preserved hero sizes outgrow the width it is capped at', () => {
+    const source = readFileSync(join(SRC, 'pages', 'MeetVickee.jsx'), 'utf8')
+    const call = source.slice(source.indexOf('name="vickee-librarian"'), source.indexOf('name="chess"'))
+    const sizes = call.match(/sizes="([^"]+)"/)[1]
     const arms = sizes.split(',').map((a) => a.trim())
 
     // The last arm is the unconditional fallback, and it is the only one
@@ -203,12 +202,15 @@ describe('Meet Vickee', () => {
     expect(arms.at(-1)).toMatch(/^\d+vw$/)
   })
 
-  /* SCN-002. The manifest's level system reserves Level One for hero use. The
-     hero ran a Level Two spot until #105, because the site had only one Level
-     One drawing; this asserts it cannot quietly drop back to one. */
-  it('runs a Level One illustration in the hero, not a spot', () => {
+  /* SCN-002, and since #109 the reason has shifted. The manifest's level system
+     reserves Level One for hero use, and the hero ran a Level Two spot until
+     #105 because the site had only one Level One drawing. Nothing draws now, so
+     this no longer asserts what the hero runs; it asserts that the entry stays
+     registered as the Level One this slot gets back when artwork returns. */
+  it('keeps the librarian registered as the hero-grade illustration', () => {
     expect(illustrations['vickee-librarian'].level).toBe(1)
     expect(illustrations['vickee-librarian'].placeholder).toBe(false)
+    expect(illustrations['vickee-librarian'].retired).toBe(true)
   })
 
   /* SCN-006 and SCN-007. The contrast is drawn twice, because corresponding
@@ -283,18 +285,24 @@ describe('Meet Vickee', () => {
     expect(container.textContent).not.toMatch(/\u2014/)
   })
 
-  /* SCN-011. The illustration is served through the pipeline rather than as a
-     hand-placed file: a responsive source set, real alternative text, and
-     intrinsic dimensions emitted by the build rather than typed in. */
-  it('serves the introduction artwork through the asset pipeline', () => {
+  /* SCN-011, rewritten by #109. The introduction artwork is retired, so the
+     lede draws nothing. What the original assertion was really protecting is
+     that this drawing is served through the pipeline rather than hand-placed —
+     a responsive source set, real alternative text, and intrinsic dimensions
+     emitted by the build rather than typed in — and all of that still has to be
+     true of the entry for the restore to be a swap. */
+  it('leaves the introduction band drawing nothing, with the entry still built', () => {
     const { container } = page()
     const intro = container.querySelectorAll('section')[1]
-    const art = intro.querySelector('img')
 
-    expect(art).toHaveAccessibleName(/chess/i)
-    expect(art.getAttribute('srcset')).toMatch(/\s\d+w/)
-    expect(Number(art.getAttribute('width'))).toBeGreaterThan(0)
-    expect(Number(art.getAttribute('height'))).toBeGreaterThan(0)
+    expect(intro.querySelector('img')).toBeNull()
+
+    const art = illustrations.chess
+    expect(art.retired).toBe(true)
+    expect(art.alt).toMatch(/chess/i)
+    expect(art.srcSet).toMatch(/\s\d+w/)
+    expect(art.width).toBeGreaterThan(0)
+    expect(art.height).toBeGreaterThan(0)
   })
 
   it('is registered as a route', () => {

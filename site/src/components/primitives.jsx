@@ -453,11 +453,17 @@ export function PathCard({ to, spot, eyebrow, title, heading = 'h2', className =
   return (
     <Link
       to={to}
-      className={`group grid grid-cols-[4rem_1fr_auto] items-center gap-[18px] rounded-card border border-white/15 px-[22px] py-[15px] no-underline transition-colors hover:border-white/30 hover:bg-white/5 motion-reduce:transition-none ${className}`}
+      className={`group grid grid-cols-[1fr_auto] items-center gap-[18px] rounded-card border border-white/15 px-[22px] py-[15px] no-underline transition-colors hover:border-white/30 hover:bg-white/5 motion-reduce:transition-none ${className}`}
     >
-      {/* 64px rather than the 48px this started at. The artwork is single-weight
-          line drawing, so the only way it gains presence on the navy band is
-          more pixels per stroke — see the alpha note in scripts/illustrations.mjs. */}
+      {/* Two columns, not three. #109 retired the icon that held the first one,
+          and the card closes up rather than keeping a 4rem gutter in front of
+          copy that no longer has anything beside it.
+
+          The call below is inert and kept for the record: 64px rather than the
+          48px this started at, because the artwork is single-weight line drawing
+          and the only way it gained presence on the navy band was more pixels
+          per stroke — see the alpha note in scripts/illustrations.mjs. Restoring
+          an icon here means restoring the column too. */}
       <Spot name={spot} decorative priority sizes="64px" className="h-16 w-16 object-contain" />
       <span>
         <Eyebrow as="span" tone="sky" className="block">{eyebrow}</Eyebrow>
@@ -584,10 +590,17 @@ export function Placeholder({ tag, className = '', children }) {
  * technology. Use it when the image sits beside a full text label that already
  * says what it says — inside a link, an announced alt would otherwise be
  * concatenated into the link's accessible name.
+ *
+ * A retired entry draws nothing, the same as an unknown name. #109 withdrew the
+ * whole ink-sketch treatment through that flag rather than by editing the twelve
+ * calls, so the calls below still carry every name, size and offset the artwork
+ * was placed with. They are inert on purpose. Restoring the treatment is a swap
+ * in the manifest, not a rebuild of the layout, and only while those calls are
+ * left alone.
  */
 export function Spot({ name, className = '', sizes = '128px', priority = false, decorative = false }) {
   const art = illustrations[name]
-  if (!art) return null
+  if (!art || art.retired) return null
   return (
     <img
       src={art.src}

@@ -47,7 +47,8 @@ export default function HowWeWork() {
       <Section band="gold" grain>
         {/* The text keeps the wider column. The gears are a mid-size spot, not a
             hero scene, so an even split would oversize them. */}
-        <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.6fr)]">
+        {/* One column since #109, for the reason Home's hero is. */}
+        <Wrap className="grid items-center gap-10">
           {/* A relay: the column holds still and its eyebrow, heading, lead and
               buttons each enter from the left in turn. As one block it read as
               a slab sliding; in sequence it reads as a page composing itself. */}
@@ -63,6 +64,9 @@ export default function HowWeWork() {
 
               Enters without fading, for the same reason as the home hero: it is
               eager and above the fold, and opacity 0 is not contentful. */}
+          {/* Inert since #109 retired the ink sketches. Left exactly as placed,
+              because a follow-up restores artwork to this slot and reads this
+              call as its spec. See `retired` in the illustrations manifest. */}
           <Spot
             name="gears"
             priority

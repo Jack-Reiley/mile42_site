@@ -103,7 +103,12 @@ export default function Home() {
           here, under AA, so the eyebrow and the lead move with the heading
           rather than staying the default. */}
       <Section band="blue" grain className="overflow-hidden">
-        <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        {/* One column since #109. The band halved itself for the hero artwork; with
+            the artwork gone the copy takes the whole wrap, so the headline sets on
+            one or two lines instead of three in a 600px column. `Lead` keeps its
+            46rem measure, which is the site-wide reading width and not this
+            band's to change. */}
+        <Wrap className="grid items-center gap-10">
           {/* A relay: the column holds still and its eyebrow, heading, lead and
               buttons each enter from the left in turn. As one block it read as
               a slab sliding; in sequence it reads as a page composing itself. */}
@@ -122,6 +127,9 @@ export default function Home() {
               to fix LCP, and an element at opacity 0 is not yet contentful, so
               fading the largest above-the-fold image in would give that back.
               Moving it costs nothing. */}
+          {/* Inert since #109 retired the ink sketches. Left exactly as placed,
+              because a follow-up restores artwork to this slot and reads this
+              call as its spec. See `retired` in the illustrations manifest. */}
           <Spot
             name="hero-desk"
             priority
@@ -151,7 +159,12 @@ export default function Home() {
           that builds across three paragraphs rather than three parallel offers. */}
       <Section band="surface">
         <Wrap>
-          <Card fill="page" className="p-8 md:p-card">
+          {/* Narrowed to the copy it holds. #109 took the artwork out of this panel
+              and moved the copy left to fill the track; at the wrap's full 1240px
+              that only moved the empty space to the right, because `Body` stops at
+              the site's 46rem measure. 52rem is that measure plus the card's two
+              40px paddings, so the card is now the width of its own content. */}
+          <Card fill="page" className="mx-auto max-w-[52rem] p-8 md:p-card">
             {/* The artwork takes the LEFT column, against the site's usual
                 copy-left arrangement, because the hero's illustration sits at
                 the top right of the band immediately above. Two spots of this
@@ -170,8 +183,11 @@ export default function Home() {
 
                 The two halves still converge the way FeaturePanel's do, with
                 the directions swapped to match the sides they now sit on. */}
-            <div className="grid items-center gap-8 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-12">
-              <div className={`lg:col-start-2 lg:row-start-1 ${REVEAL_GROUP.right} ${REVEAL.still}`}>
+            {/* One column since #109. The 13rem track held the brain-and-gear spot and
+                the copy was pinned to the second column to sit beside it; both go
+                together, or the panel keeps a blank quarter down its left edge. */}
+            <div className="grid items-center gap-8">
+              <div className={`${REVEAL_GROUP.right} ${REVEAL.still}`}>
                 <H2 className="mb-4">Consulting should create momentum, not overhead.</H2>
                 {/* The opening paragraph takes the lead size. It is the charge
                     the other two answer, and at body size the panel opened on
@@ -201,6 +217,7 @@ export default function Home() {
                   Stacked under the copy below `lg` and capped smaller there,
                   for the reason the How We Work hero caps its gears: at the
                   desktop size it would fill a phone's width. */}
+              {/* Inert since #109. See the hero note above. */}
               <Spot
                 name="brain-gear"
                 sizes="(min-width: 1024px) 13rem, 8rem"
@@ -334,6 +351,11 @@ export default function Home() {
                     i > 0 ? 'border-t border-ink lg:border-t-0 lg:border-l' : ''
                   }`}
                 >
+                  {/* Inert since #109, and the only calls whose placement is an
+                      overhang rather than a slot: each offset below was set per
+                      card against the edge it breaks, so they are kept as the
+                      record of where the artwork sat. The button row no longer
+                      holds a gap for them; see the note on it below. */}
                   <Spot
                     name={o.spot}
                     sizes={o.spotSizes}
@@ -342,17 +364,17 @@ export default function Home() {
                   <Eyebrow>{o.kicker}</Eyebrow>
                   <H3>{o.title}</H3>
                   <Body className="max-w-none">{o.body}</Body>
-                  {/* The gap #15 opened between the body copy and the row beneath
-                      it is where the laptop spot sits, so it outlives the "You leave
-                      with" block that used to fill it: the button row inherits it,
-                      widened to hold the spot against a shorter card. From lg up
-                      only: below that the spots sit inside the column, so the space
-                      would be dead. */}
+                  {/* #15 opened the gap between the body copy and this row for the
+                      "You leave with" block, and when that went the laptop spot
+                      inherited it. #109 retired the spot, so `xl:pt-32` was holding
+                      256px of nothing on all three cards. Removed: the cards close
+                      up the way the heroes and the argument panel do. Restoring an
+                      overhang here means restoring the gap for it. */}
                   {/* mt-auto bottoms this block in the stacked flex layout. From lg
                       up the subgrid already places the row, and leaving mt-auto on
                       would bottom-align it inside its own row — which is what
                       pushed the shorter columns' buttons below the taller one's. */}
-                  <div className="mt-auto pt-6 lg:mt-0 xl:pt-32">
+                  <div className="mt-auto pt-6 lg:mt-0">
                     <Button to={o.href} variant="secondary">{o.linkLabel}</Button>
                   </div>
                 </article>
