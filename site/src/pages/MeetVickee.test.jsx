@@ -156,27 +156,32 @@ describe('Meet Vickee', () => {
     ).toBeGreaterThan(0)
   })
 
-  /* #109 SCN-002. The librarian and the chess drawing were this page's only two
-     images, and the ink-sketch treatment they belong to is retired, so the page
-     now draws none. Asserted on the whole document rather than on the hero,
-     because "the hero lost its image" and "the page lost both" are different
-     regressions and only the second one is the contract. */
-  it('draws no illustration at all', () => {
+  /* #111 SCN-001 and SCN-009. #109 emptied this page of both its images; #111
+     gives the hero a new one, the dashboard scene, and leaves the chess lede
+     empty. Asserted on the whole document so that "the hero has its image" and
+     "the lede stayed empty" are both held, since either drifting is a
+     regression. */
+  it('draws the dashboard scene in the hero and nothing else', () => {
     const { container } = page()
-    expect(container.querySelectorAll('img')).toHaveLength(0)
+    const images = [...container.querySelectorAll('img')]
+
+    expect(images).toHaveLength(1)
+    expect(images[0].getAttribute('alt')).toBe(illustrations['dashboard-user'].alt)
+    expect(images[0].closest('section')).toBe(container.querySelector('section'))
   })
 
-  /* #109 SCN-009. This used to read "one prioritised image, and it is the
-     hero's", guarding the LCP fetch from #12 against a second eager image. With
-     no image left there is no image fetch to protect, and the thing worth
-     holding is that nothing quietly reintroduces one. */
-  it('fetches no image, at any priority', () => {
+  /* #111 SCN-002, the #12 rule back in force. One prioritised image, and it is
+     the hero's: the page's largest above-the-fold element is the LCP candidate
+     and a second eager image would compete with it for bandwidth. */
+  it('fetches exactly one image eagerly, and it is the hero artwork', () => {
     const { container } = page()
     const fetched = [...container.querySelectorAll('img')].filter(
       (i) => i.getAttribute('loading') === 'eager' || i.getAttribute('fetchpriority') === 'high',
     )
 
-    expect(fetched).toHaveLength(0)
+    expect(fetched).toHaveLength(1)
+    expect(fetched[0].getAttribute('alt')).toBe(illustrations['dashboard-user'].alt)
+    expect(fetched[0].getAttribute('fetchpriority')).toBe('high')
   })
 
   /* #109 SCN-008. The rule this guards outlived the image it was written for.
@@ -202,15 +207,20 @@ describe('Meet Vickee', () => {
     expect(arms.at(-1)).toMatch(/^\d+vw$/)
   })
 
-  /* SCN-002, and since #109 the reason has shifted. The manifest's level system
+  /* SCN-002, and the reason has shifted twice. The manifest's level system
      reserves Level One for hero use, and the hero ran a Level Two spot until
-     #105 because the site had only one Level One drawing. Nothing draws now, so
-     this no longer asserts what the hero runs; it asserts that the entry stays
-     registered as the Level One this slot gets back when artwork returns. */
-  it('keeps the librarian registered as the hero-grade illustration', () => {
+     #105 because the site had only one Level One drawing. #109 retired the
+     librarian and #111 seated a different Level One in the slot, so this holds
+     both halves: the retired entry stays registered as it was, and what the
+     hero runs now is hero-grade too. */
+  it('keeps the librarian registered, and runs a hero-grade illustration', () => {
     expect(illustrations['vickee-librarian'].level).toBe(1)
     expect(illustrations['vickee-librarian'].placeholder).toBe(false)
     expect(illustrations['vickee-librarian'].retired).toBe(true)
+
+    expect(illustrations['dashboard-user'].level).toBe(1)
+    expect(illustrations['dashboard-user'].placeholder).toBe(false)
+    expect(illustrations['dashboard-user'].retired).toBe(false)
   })
 
   /* SCN-006 and SCN-007. The contrast is drawn twice, because corresponding
