@@ -1,7 +1,7 @@
 # #111 — Restore illustrations across the site with a second set of artwork
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/111
-- Pull request: PR_URL_PLACEHOLDER
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/112
 - Parent epic: none
 - Delivery unit: U1
 - Requirement version: 1
