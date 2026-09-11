@@ -189,10 +189,9 @@ export default function MeetVickee() {
         {/* Not an even split. The home hero halves the band, but this headline
             is longer than that one and at 600px it broke across three lines.
             The copy takes the larger share and the artwork shrinks to suit. */}
-        {/* One column since #109, for the reason Home's hero is. The uneven split
-            existed so this longer headline had more room than the artwork; with
-            no artwork it has the whole wrap. */}
-        <Wrap className="grid items-center gap-10">
+        {/* #109 collapsed this to one column while the band had no artwork. The
+            dashboard drawing brings the split back exactly as it was. */}
+        <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)]">
           <div>
           {/* The eyebrow names the category rather than the product. #77 put
               the product name here, carrying the trademark symbol, back when the
@@ -250,6 +249,14 @@ export default function MeetVickee() {
             name="vickee-librarian"
             priority
             sizes="(min-width: 1024px) 25rem, (min-width: 415px) 22rem, 85vw"
+            className="h-auto w-full max-w-[22rem] justify-self-center lg:max-w-[34rem] lg:justify-self-end"
+          />
+          {/* The dashboard drawing takes the slot the librarian held, at the
+              librarian's placement. It is an SVG, so `sizes` has nothing to
+              choose between and is left off; the classes are the ones above. */}
+          <Spot
+            name="dashboard-user"
+            priority
             className="h-auto w-full max-w-[22rem] justify-self-center lg:max-w-[34rem] lg:justify-self-end"
           />
         </Wrap>

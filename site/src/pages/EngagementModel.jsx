@@ -58,7 +58,7 @@ export default function EngagementModel() {
               it is made. */}
           <FeaturePanel
             className="mt-12"
-            spot="path-clipboard"
+            spot="magnifier-gear"
             eyebrow="Offering · Phase Zero"
             title="Start with a pilot."
             note="Name a process. See it working. Map what comes next."

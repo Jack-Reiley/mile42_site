@@ -103,12 +103,11 @@ export default function Home() {
           here, under AA, so the eyebrow and the lead move with the heading
           rather than staying the default. */}
       <Section band="blue" grain className="overflow-hidden">
-        {/* One column since #109. The band halved itself for the hero artwork; with
-            the artwork gone the copy takes the whole wrap, so the headline sets on
-            one or two lines instead of three in a 600px column. `Lead` keeps its
-            46rem measure, which is the site-wide reading width and not this
-            band's to change. */}
-        <Wrap className="grid items-center gap-10">
+        {/* Halved again for the developer drawing. #109 collapsed this to one
+            column while the band had no artwork; the split is the one it had
+            before that. `Lead` keeps its 46rem measure, which is the site-wide
+            reading width and not this band's to change. */}
+        <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           {/* A relay: the column holds still and its eyebrow, heading, lead and
               buttons each enter from the left in turn. As one block it read as
               a slab sliding; in sequence it reads as a page composing itself. */}
@@ -136,6 +135,14 @@ export default function Home() {
             sizes="(min-width: 1024px) 34rem, 90vw"
             className={`h-auto w-full max-w-[34rem] justify-self-center lg:justify-self-end ${REVEAL.right} m42-in-solid`}
           />
+          {/* The developer drawing takes the slot hero-desk held, at the same
+              placement and with the same solid entrance. It is an SVG, so
+              `sizes` has nothing to choose between and is left off. */}
+          <Spot
+            name="developer-desk"
+            priority
+            className={`h-auto w-full max-w-[34rem] justify-self-center lg:justify-self-end ${REVEAL.right} m42-in-solid`}
+          />
         </Wrap>
       </Section>
 
@@ -159,12 +166,11 @@ export default function Home() {
           that builds across three paragraphs rather than three parallel offers. */}
       <Section band="surface">
         <Wrap>
-          {/* Narrowed to the copy it holds. #109 took the artwork out of this panel
-              and moved the copy left to fill the track; at the wrap's full 1240px
-              that only moved the empty space to the right, because `Body` stops at
-              the site's 46rem measure. 52rem is that measure plus the card's two
-              40px paddings, so the card is now the width of its own content. */}
-          <Card fill="page" className="mx-auto max-w-[52rem] p-8 md:p-card">
+          {/* Sized to its content. #109 narrowed this to 52rem, the copy's 46rem
+              measure plus the card's two 40px paddings, once the artwork was
+              gone. With the gear-and-brain back in its 13rem track and the 3rem
+              gap beside it, the content is 67rem wide, and the card follows. */}
+          <Card fill="page" className="mx-auto max-w-[67rem] p-8 md:p-card">
             {/* The artwork takes the LEFT column, against the site's usual
                 copy-left arrangement, because the hero's illustration sits at
                 the top right of the band immediately above. Two spots of this
@@ -183,11 +189,11 @@ export default function Home() {
 
                 The two halves still converge the way FeaturePanel's do, with
                 the directions swapped to match the sides they now sit on. */}
-            {/* One column since #109. The 13rem track held the brain-and-gear spot and
-                the copy was pinned to the second column to sit beside it; both go
-                together, or the panel keeps a blank quarter down its left edge. */}
-            <div className="grid items-center gap-8">
-              <div className={`${REVEAL_GROUP.right} ${REVEAL.still}`}>
+            {/* #109 collapsed this to one column while the panel had no artwork.
+                The 13rem track and the copy's pin to the second column come back
+                together for the gear-and-brain, exactly as they were. */}
+            <div className="grid items-center gap-8 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-12">
+              <div className={`lg:col-start-2 lg:row-start-1 ${REVEAL_GROUP.right} ${REVEAL.still}`}>
                 <H2 className="mb-4">Consulting should create momentum, not overhead.</H2>
                 {/* The opening paragraph takes the lead size. It is the charge
                     the other two answer, and at body size the panel opened on
@@ -221,6 +227,12 @@ export default function Home() {
               <Spot
                 name="brain-gear"
                 sizes="(min-width: 1024px) 13rem, 8rem"
+                className={`h-auto w-full max-w-[8rem] justify-self-center lg:col-start-1 lg:row-start-1 lg:max-w-[13rem] lg:justify-self-start ${REVEAL.left}`}
+              />
+              {/* The gear-and-brain takes the slot brain-gear held, at the same
+                  placement. An SVG, so `sizes` is left off. */}
+              <Spot
+                name="gear-brain"
                 className={`h-auto w-full max-w-[8rem] justify-self-center lg:col-start-1 lg:row-start-1 lg:max-w-[13rem] lg:justify-self-start ${REVEAL.left}`}
               />
             </div>
@@ -412,7 +424,7 @@ export default function Home() {
       <Section>
         <Wrap>
           <FeaturePanel
-            spot="path-clipboard"
+            spot="magnifier-gear"
             eyebrow="Offering · Phase Zero"
             title="Start with a pilot."
             note="Name a process. See it working. Map what comes next."

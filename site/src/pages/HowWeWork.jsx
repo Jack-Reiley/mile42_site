@@ -47,8 +47,9 @@ export default function HowWeWork() {
       <Section band="gold" grain>
         {/* The text keeps the wider column. The gears are a mid-size spot, not a
             hero scene, so an even split would oversize them. */}
-        {/* One column since #109, for the reason Home's hero is. */}
-        <Wrap className="grid items-center gap-10">
+        {/* #109 collapsed this to one column while the band had no artwork. The
+            robot-and-gear scene brings the split back exactly as it was. */}
+        <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.6fr)]">
           {/* A relay: the column holds still and its eyebrow, heading, lead and
               buttons each enter from the left in turn. As one block it read as
               a slab sliding; in sequence it reads as a page composing itself. */}
@@ -69,6 +70,14 @@ export default function HowWeWork() {
               call as its spec. See `retired` in the illustrations manifest. */}
           <Spot
             name="gears"
+            priority
+            sizes="(min-width: 1024px) 22rem, 14rem"
+            className={`h-auto w-full max-w-[14rem] justify-self-center lg:max-w-[22rem] lg:justify-self-end ${REVEAL.right} m42-in-solid`}
+          />
+          {/* The robot-and-gear scene takes the slot the gears held, at the same
+              placement and with the same solid entrance. */}
+          <Spot
+            name="robot-team"
             priority
             sizes="(min-width: 1024px) 22rem, 14rem"
             className={`h-auto w-full max-w-[14rem] justify-self-center lg:max-w-[22rem] lg:justify-self-end ${REVEAL.right} m42-in-solid`}

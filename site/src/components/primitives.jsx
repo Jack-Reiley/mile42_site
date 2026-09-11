@@ -449,22 +449,24 @@ export function Card({ as: Tag = 'div', fill = 'page', className = '', children 
   )
 }
 
-export function PathCard({ to, spot, eyebrow, title, heading = 'h2', className = '', children }) {
+export function PathCard({ to, spot, spotClass = '', eyebrow, title, heading = 'h2', className = '', children }) {
+  /* The icon column comes back per card, not per component. #109 closed it on
+     every card when every icon was retired; the icons are now returning one
+     card at a time, and a card whose spot is still retired keeps the closed-up
+     two-column layout rather than an empty 4rem gutter. Same test `Spot` makes
+     before it draws. */
+  const drawsIcon = Boolean(illustrations[spot]) && !illustrations[spot].retired
+  const columns = drawsIcon ? 'grid-cols-[4rem_1fr_auto]' : 'grid-cols-[1fr_auto]'
   return (
     <Link
       to={to}
-      className={`group grid grid-cols-[1fr_auto] items-center gap-[18px] rounded-card border border-white/15 px-[22px] py-[15px] no-underline transition-colors hover:border-white/30 hover:bg-white/5 motion-reduce:transition-none ${className}`}
+      className={`group grid ${columns} items-center gap-[18px] rounded-card border border-white/15 px-[22px] py-[15px] no-underline transition-colors hover:border-white/30 hover:bg-white/5 motion-reduce:transition-none ${className}`}
     >
-      {/* Two columns, not three. #109 retired the icon that held the first one,
-          and the card closes up rather than keeping a 4rem gutter in front of
-          copy that no longer has anything beside it.
-
-          The call below is inert and kept for the record: 64px rather than the
-          48px this started at, because the artwork is single-weight line drawing
-          and the only way it gained presence on the navy band was more pixels
-          per stroke — see the alpha note in scripts/illustrations.mjs. Restoring
-          an icon here means restoring the column too. */}
-      <Spot name={spot} decorative priority sizes="64px" className="h-16 w-16 object-contain" />
+      {/* 64px rather than the 48px this started at, because the artwork is
+          single-weight line drawing and the only way it gained presence on the
+          navy band was more pixels per stroke — see the alpha note in
+          scripts/illustrations.mjs. Inert on a card whose spot is retired. */}
+      <Spot name={spot} decorative priority sizes="64px" className={`h-16 w-16 object-contain ${spotClass}`} />
       <span>
         <Eyebrow as="span" tone="sky" className="block">{eyebrow}</Eyebrow>
         <H3 as={heading} tone="hero" className="mt-1">{title}</H3>
@@ -544,6 +546,13 @@ export function LabelBody({ label, className = '', children }) {
  * colour instead.
  */
 export function FeaturePanel({ spot, eyebrow, title, note, className = '', children }) {
+  /* The slot was cut at 52px for the flat `path-*` icons. A Level Two drawing,
+     ink line with a fill, does not read at that size: the magnifier's gear
+     vanished into its lens. So the slot is sized by the artwork's level, and a
+     restored flat icon still gets the 52px it was drawn for. */
+  const mid = illustrations[spot]?.level === 2
+  const spotSize = mid ? 'h-28 w-28' : 'h-[52px] w-[52px]'
+  const spotSizes = mid ? '112px' : '52px'
   return (
     <div
       className={`grid items-center gap-5 rounded-card border border-ink bg-surface p-7 shadow-hard lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.5fr)] lg:gap-12 lg:p-[46px] ${className}`}
@@ -552,7 +561,7 @@ export function FeaturePanel({ spot, eyebrow, title, note, className = '', child
           its explanation from the right, so the panel assembles from its edges
           rather than sliding in as one slab. */}
       <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
-        <Spot name={spot} decorative sizes="52px" className="mb-[14px] h-[52px] w-[52px] object-contain" />
+        <Spot name={spot} decorative sizes={spotSizes} className={`mb-[14px] object-contain ${spotSize}`} />
         <Eyebrow as="span" tone="ink" className="mb-2 block">{eyebrow}</Eyebrow>
         <H2>{title}</H2>
         {note ? <Note className="mt-3 text-[15px]">{note}</Note> : null}
