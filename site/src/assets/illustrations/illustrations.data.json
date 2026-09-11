@@ -240,5 +240,116 @@
         "bytes": 127556
       }
     ]
+  },
+  "robot-team": {
+    "width": 1444,
+    "height": 1219,
+    "variants": [
+      {
+        "width": 384,
+        "height": 324,
+        "bytes": 37814
+      },
+      {
+        "width": 768,
+        "height": 648,
+        "bytes": 91032
+      }
+    ]
+  },
+  "path-lightbulb-target": {
+    "width": 833,
+    "height": 945,
+    "variants": [
+      {
+        "width": 64,
+        "height": 73,
+        "bytes": 3626
+      },
+      {
+        "width": 128,
+        "height": 145,
+        "bytes": 9282
+      },
+      {
+        "width": 256,
+        "height": 290,
+        "bytes": 21912
+      }
+    ]
+  },
+  "path-gears-trio": {
+    "width": 1013,
+    "height": 961,
+    "variants": [
+      {
+        "width": 64,
+        "height": 61,
+        "bytes": 3946
+      },
+      {
+        "width": 128,
+        "height": 121,
+        "bytes": 10556
+      },
+      {
+        "width": 256,
+        "height": 243,
+        "bytes": 26134
+      }
+    ]
+  },
+  "path-phone-circuit": {
+    "width": 589,
+    "height": 1057,
+    "variants": [
+      {
+        "width": 64,
+        "height": 115,
+        "bytes": 5572
+      },
+      {
+        "width": 128,
+        "height": 230,
+        "bytes": 12316
+      },
+      {
+        "width": 256,
+        "height": 459,
+        "bytes": 25432
+      }
+    ]
+  },
+  "magnifier-gear": {
+    "width": 853,
+    "height": 861,
+    "variants": [
+      {
+        "width": 112,
+        "height": 113,
+        "bytes": 6954
+      },
+      {
+        "width": 224,
+        "height": 226,
+        "bytes": 17754
+      }
+    ]
+  },
+  "path-magnifier-gear": {
+    "width": 853,
+    "height": 861,
+    "variants": [
+      {
+        "width": 104,
+        "height": 105,
+        "bytes": 7032
+      },
+      {
+        "width": 208,
+        "height": 210,
+        "bytes": 18280
+      }
+    ]
   }
 }

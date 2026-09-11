@@ -13,21 +13,24 @@ const PATHS = [
     title: 'Advisory',
     body: 'Before a major investment.',
     href: '/what-we-do/advisory',
-    spot: 'path-lightbulb',
+    spot: 'path-lightbulb-target',
   },
   {
     eyebrow: 'You need to execute',
     title: 'Engineering',
     body: 'When something must be built.',
     href: '/what-we-do/engineering',
-    spot: 'path-gears',
+    spot: 'path-gears-trio',
   },
   {
     eyebrow: 'You need proven solutions',
     title: 'AI products and accelerators',
     body: 'Reuse what already works.',
     href: '/what-we-do/ai-products',
-    spot: 'path-handshake',
+    spot: 'path-phone-circuit',
+    // Tilted rather than upright: the master is drawn dead vertical, and a
+    // phone set square beside two hand-drawn icons reads as a screenshot.
+    spotClass: 'rotate-[-5deg]',
   },
 ]
 
@@ -64,6 +67,7 @@ export default function WhatWeDo() {
                 key={p.title}
                 to={p.href}
                 spot={p.spot}
+                spotClass={p.spotClass}
                 eyebrow={p.eyebrow}
                 title={p.title}
               >
@@ -103,7 +107,7 @@ export default function WhatWeDo() {
             measured against your own baseline. It is priced to be a decision, not an investment.
           </Lead>
           <FeaturePanel
-            spot="path-clipboard"
+            spot="magnifier-gear"
             eyebrow="Offering · Phase Zero"
             title="Start with a pilot."
             note="Name a process. See it working. Map what comes next."

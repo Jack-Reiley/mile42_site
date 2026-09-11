@@ -46,7 +46,12 @@ const OUT = join(SITE, 'src', 'assets', 'illustrations')
 
 /**
  * Master filename -> illustration key, the variant widths to emit, and an
- * optional `tint` naming a colour token.
+ * optional `tint` naming a colour token, or `mask` for a single-colour master
+ * whose colour is not a token. Both go through the same recolour, assertion,
+ * and thickening; the difference is only where the colour comes from.
+ *
+ * `refill` is for ink-and-fill artwork instead: it names the token the flat
+ * fill is swapped to, leaving the ink line and the grain as drawn.
  *
  * Widths trace to real rendered sizes rather than arbitrary breakpoints:
  *   hero  — `max-w-[34rem]` is 544px, so ~1088 at 2x DPR; a 375px viewport
@@ -100,6 +105,50 @@ const MAP = {
   // noise. Recorded on #105 rather than solved by dropping the lossless
   // guarantee, which the tinted masks depend on.
   'vickee_librarian_with_color.png': { key: 'vickee-librarian', widths: [400, 800] },
+  // The How we work hero, in the slot the gears held. Same 384/768 as the gears
+  // for the same reason: the column renders near 352px, so that covers 1x and 2x.
+  // Untinted, full-colour artwork like the librarian.
+  'robot_gear_team_with_color.png': { key: 'robot-team', widths: [384, 768] },
+  // The Advisory path card's icon, in the slot `path-lightbulb` held and at the
+  // same 64px, so the same 64/128/256. The master is already the orange token
+  // on alpha; it is still registered as a tint so the build asserts that rather
+  // than trusting the export, and so a token change reaches it.
+  'lightbulb_target_mono_orange.png': { key: 'path-lightbulb-target', widths: [64, 128, 256], tint: '--color-orange' },
+  // The Engineering path card's icon, in the slot `path-gears` held. A mask in
+  // a single green, #60e2a0, that is not a token, so `mask` rather than `tint`:
+  // it ships in the colour it was exported in, and still takes the thickening
+  // below. Left as plain artwork it arrived at 64px with roughly half the
+  // stroke alpha of the two tinted icons beside it.
+  'gears_trio_mono_green.png': { key: 'path-gears-trio', widths: [64, 128, 256], mask: true },
+  // The AI products path card's icon, in the slot `path-handshake` held.
+  // Exactly the red token on alpha, so tinted.
+  'phone_circuit_mono_red.png': { key: 'path-phone-circuit', widths: [64, 128, 256], tint: '--color-red' },
+  // The Phase Zero panels, in the slot `path-clipboard` held. FeaturePanel
+  // renders a Level Two spot at 112px, so 112/224 covers 1x and 2x. Ink line
+  // over one fill; the fill was painted accent blue and is swapped to sky,
+  // which on the panel's off-white surface reads as the lens rather than as a
+  // solid disc.
+  'magnifier_gear_with_color.png': { key: 'magnifier-gear', widths: [112, 224], refill: '--color-sky' },
+  // Built but not placed: the mono cut of the same drawing, kept for the day a
+  // panel on a dark band wants the single-colour treatment.
+  'magnifier_gear_mono.png': { key: 'path-magnifier-gear', widths: [104, 208], mask: true },
+}
+
+/**
+ * The one colour a `mask` master is drawn in. Read from the visible pixels and
+ * refused if there is more than one, so a master that is not actually a mask
+ * fails the build rather than being flattened to whichever colour came first.
+ */
+async function masterRgb(trimmedBuf, label) {
+  const { data } = await sharp(trimmedBuf).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+  const seen = new Set()
+  for (let i = 0; i < data.length; i += 4) {
+    if (data[i + 3] === 0) continue
+    seen.add((data[i] << 16) | (data[i + 1] << 8) | data[i + 2])
+    if (seen.size > 1) throw new Error(`${label}: mask master carries more than one colour`)
+  }
+  const [packed] = seen
+  return [packed >> 16, (packed >> 8) & 255, packed & 255]
 }
 
 /** The declared value of a colour token, read the way the token checker does. */
@@ -242,6 +291,56 @@ async function boostVariantAlpha(resizedBuf) {
     .toBuffer()
 }
 
+/**
+ * Swaps the one flat fill in an ink-and-fill drawing for a token colour.
+ *
+ * The masters at this level are ink line over a single fill with grain on it,
+ * so every pixel is read as a mix of the ink and the fill's mean, plus a small
+ * residual that is the grain (or the antialiasing at an edge). The mix is kept
+ * and the residual is carried over, so the line, the edges and the texture all
+ * survive; only the colour underneath them changes. Alpha is untouched.
+ *
+ * The fill's mean is measured from the pixels far from the ink rather than
+ * declared, because the grain pulls it away from whichever token it was
+ * painted with.
+ */
+async function refillArtwork(trimmedBuf, ink, target) {
+  const { data, info } = await sharp(trimmedBuf)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true })
+
+  const dist = (i) => Math.hypot(data[i] - ink[0], data[i + 1] - ink[1], data[i + 2] - ink[2])
+  const fill = [0, 0, 0]
+  let n = 0
+  for (let i = 0; i < data.length; i += 4) {
+    if (data[i + 3] < 255 || dist(i) < 150) continue
+    fill[0] += data[i]
+    fill[1] += data[i + 1]
+    fill[2] += data[i + 2]
+    n++
+  }
+  if (!n) throw new Error('refill: no fill pixels found away from the ink')
+  for (let c = 0; c < 3; c++) fill[c] /= n
+
+  const axis = fill.map((f, c) => f - ink[c])
+  const axisLength = axis[0] ** 2 + axis[1] ** 2 + axis[2] ** 2
+  for (let i = 0; i < data.length; i += 4) {
+    if (data[i + 3] === 0) continue
+    const p = [data[i], data[i + 1], data[i + 2]]
+    const along = p.reduce((sum, v, c) => sum + (v - ink[c]) * axis[c], 0) / axisLength
+    const t = Math.min(1, Math.max(0, along))
+    for (let c = 0; c < 3; c++) {
+      const residual = p[c] - (ink[c] + t * axis[c])
+      data[i + c] = Math.min(255, Math.max(0, Math.round(ink[c] + t * (target[c] - ink[c]) + residual)))
+    }
+  }
+
+  return sharp(data, { raw: { width: info.width, height: info.height, channels: 4 } })
+    .png()
+    .toBuffer()
+}
+
 /** Replaces RGB with the tint on every pixel, leaving alpha untouched. */
 async function applyTint(trimmedBuf, [r, g, b]) {
   const { data, info } = await sharp(trimmedBuf)
@@ -300,17 +399,20 @@ async function main() {
   const data = {}
   const written = new Set()
 
-  for (const [file, { key, widths, tint }] of Object.entries(MAP)) {
+  for (const [file, { key, widths, tint, mask, refill }] of Object.entries(MAP)) {
     const src = join(MASTERS, file)
     if (!existsSync(src)) throw new Error(`Missing master for "${key}": ${file}`)
 
-    const rgb = tint ? tokenRgb(tint) : null
     const trimmed = await sharp(src).trim({ threshold: 0 }).png().toBuffer()
-    const source = rgb ? await applyTint(trimmed, rgb) : trimmed
+    const rgb = tint ? tokenRgb(tint) : mask ? await masterRgb(trimmed, key) : null
+    // A refilled master is the artwork the lossless check is held to: the swap
+    // is the intended change, and everything after it must still be exact.
+    const artwork = refill ? await refillArtwork(trimmed, tokenRgb('--color-ink'), tokenRgb(refill)) : trimmed
+    const source = rgb ? await applyTint(trimmed, rgb) : artwork
     const full = await sharp(source).webp({ lossless: true, effort: 6 }).toBuffer()
     const info = rgb
       ? await assertTinted(trimmed, full, rgb, key)
-      : await assertVisuallyLossless(trimmed, full, key)
+      : await assertVisuallyLossless(artwork, full, key)
     await writeFile(join(OUT, `${key}.webp`), full)
     written.add(`${key}.webp`)
 
@@ -338,7 +440,7 @@ async function main() {
     console.log(
       `  ${key.padEnd(15)} ${String(info.width).padStart(5)}x${String(info.height).padEnd(5)} ` +
         `${String(Math.round(full.length / 1024)).padStart(5)}KB  ` +
-        `${rgb ? `${tint} tint verified` : 'lossless verified'.padEnd(14)}   variants: ${vs}`,
+        `${rgb ? `${tint ?? 'own colour'} tint verified` : refill ? `${refill} refill verified` : 'lossless verified'.padEnd(14)}   variants: ${vs}`,
     )
   }
 

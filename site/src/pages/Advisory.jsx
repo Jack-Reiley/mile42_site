@@ -62,7 +62,7 @@ export default function Advisory() {
       <Section pad="band">
         <Wrap>
           <FeaturePanel
-            spot="path-clipboard"
+            spot="magnifier-gear"
             eyebrow="Offering · Phase Zero"
             title="The low-risk way in."
             note="Name a process. Prove the fix. Map what comes next."

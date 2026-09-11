@@ -1,4 +1,4 @@
-import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Quote, Button } from '../components/primitives.jsx'
+import { Section, Wrap, Eyebrow, H1, H2, Lead, Body, Quote, Button, Spot } from '../components/primitives.jsx'
 import { PlainList } from '../components/Lists.jsx'
 import ExecutionContrast from '../components/ExecutionContrast.jsx'
 import { REVEAL_GROUP, REVEAL_ROW } from '../components/reveal.js'
@@ -44,15 +44,29 @@ export default function WhyMile42() {
   return (
     <>
       <Section band="brand" grain>
-        <Wrap>
-          {/* The off-white, not sky. This band was `forest`, where sky reached
-              5.97:1; on the revised brand green it is 3.28 and ice only 4.43,
-              both under the 4.5 a 12px eyebrow needs. Same conclusion Meet
-              Vickee's band reached: where neither coloured on-dark tone
-              survives, the eyebrow takes the tone the headings take. */}
-          <Eyebrow tone="hero" className="mb-4">Why we exist</Eyebrow>
-          <H1 tone="hero" className="mb-6">We were built around the part that is actually hard.</H1>
-          <Lead tone="hero">Not the ideas. Not the technology. The execution.</Lead>
+        {/* Meet Vickee's uneven split. The copy keeps the larger share so the
+            headline holds to two lines at the desktop width; the mark is square
+            and reads at a fraction of the width a scene would need. */}
+        <Wrap className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)]">
+          <div>
+            {/* The off-white, not sky. This band was `forest`, where sky reached
+                5.97:1; on the revised brand green it is 3.28 and ice only 4.43,
+                both under the 4.5 a 12px eyebrow needs. Same conclusion Meet
+                Vickee's band reached: where neither coloured on-dark tone
+                survives, the eyebrow takes the tone the headings take. */}
+            <Eyebrow tone="hero" className="mb-4">Why we exist</Eyebrow>
+            <H1 tone="hero" className="mb-6">We were built around the part that is actually hard.</H1>
+            <Lead tone="hero">Not the ideas. Not the technology. The execution.</Lead>
+          </div>
+          {/* Decorative: the header lockup already names the firm, so a second
+              mark in the same viewport says nothing a reader needs read aloud.
+              An SVG, so `sizes` has nothing to choose between and is left off. */}
+          <Spot
+            name="mile42-mark-white"
+            priority
+            decorative
+            className="h-auto w-full max-w-[12rem] justify-self-center lg:max-w-[18rem] lg:justify-self-end"
+          />
         </Wrap>
       </Section>
 

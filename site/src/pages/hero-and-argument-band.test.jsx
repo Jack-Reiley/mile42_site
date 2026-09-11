@@ -107,14 +107,18 @@ describe('SCN-005 — the artwork is a built asset, not a placed file', () => {
     expect(widths).toContain(256)
   })
 
-  /* Rewritten by #109, which retired the ink sketches. The band draws nothing
-     now. The alt text this asserted is not gone, it moved out of the rendered
-     tree and back to the entry that owns it, and it has to survive there: alt
-     text is the one part of an illustration the build cannot regenerate, so
-     losing it would make the restore a rewrite rather than a swap. */
-  it('draws no artwork, and keeps the alt text on the entry', () => {
+  /* Rewritten by #109, which retired the ink sketches, and again by #111,
+     which seated the vector gear-and-brain in the same slot (SCN-004). The
+     retired entry keeps its alt text because alt is the one part of an
+     illustration the build cannot regenerate; the band draws the new entry and
+     announces it, since nothing else in the panel says what the drawing says. */
+  it('draws the gear-and-brain, and keeps the retired entry intact', () => {
     const { container } = draw()
-    expect(bandsOf(container)[1].querySelector('img')).toBeNull()
+    const images = bandsOf(container)[1].querySelectorAll('img')
+
+    expect(images).toHaveLength(1)
+    expect(images[0].getAttribute('alt')).toBe(illustrations['gear-brain'].alt)
+    expect(images[0].getAttribute('loading')).toBe('lazy')
 
     expect(illustrations['brain-gear'].retired).toBe(true)
     expect(illustrations['brain-gear'].alt).toMatch(/brain and a gear/i)
