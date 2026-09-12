@@ -114,10 +114,10 @@ And below 1280px the drawer's stacked layout lists the four rows and nothing ove
 | SCN-003 | Manual | — | N/A | Browser at 1280px and 1440px: row heights on / |
 | SCN-004 | Unit + manual | `site/src/components/LibrarianDiagram.test.jsx` | N/A | Browser at 1280px on /meet-vickee |
 | SCN-005 | Unit | `site/src/pages/MeetVickee.test.jsx` | N/A | — |
-| SCN-006 | Unit | `site/src/components/LibrarianDiagram.test.jsx` | N/A | — |
+| SCN-006 | Unit | `site/src/pages/MeetVickee.test.jsx` | N/A | — |
 | SCN-007 | Unit | `site/src/pages/MeetVickee.test.jsx` | N/A | — |
 | SCN-008 | Unit | `site/src/pages/vickee-entry-points.test.jsx`, `site/src/pages/homepage-restructure.test.jsx` | N/A | — |
-| SCN-009 | Unit + manual | `site/src/pages/vickee-entry-points.test.jsx` | N/A | Repository grep for the three old strings |
+| SCN-009 | Unit + manual | `site/src/pages/vickee-entry-points.test.jsx`, `site/src/pages/MeetVickee.test.jsx` | N/A | Repository grep for the three old strings |
 | SCN-010 | Unit + manual | `site/src/components/LibrarianDiagram.test.jsx` | N/A | Browser at 375px |
 
 ## Deliberate deviations

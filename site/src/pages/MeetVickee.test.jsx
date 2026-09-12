@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router'
 import { readFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
@@ -319,5 +320,48 @@ describe('Meet Vickee', () => {
     const route = PAGES.find((p) => p.path === '/meet-vickee')
     expect(route).toBeDefined()
     expect(route.title).toMatch(/^Meet Vickee/)
+  })
+})
+
+/**
+ * The systems-of-record examples (#117). A marketing or customer experience
+ * buyer has to see their own systems named, so every list of example systems
+ * on this page opens on CMS, CDP, commerce, and marketing automation beside
+ * finance and ERP. Three surfaces carry a list: the librarian band's prose,
+ * the librarian diagram's sources part, and the pillar that argues the buffer.
+ */
+describe('the systems-of-record examples name the marketing side', () => {
+  const LIST = 'CMS and CDP, CRM and marketing automation, commerce, ERP and finance, analytics:'
+
+  it('opens the librarian band on the full list', () => {
+    page()
+    const band = screen.getAllByRole('heading', { name: 'Every library needs a librarian.' })[0].closest('section')
+    const first = band.querySelector('p')
+    expect(first.textContent).toMatch(new RegExp(`^${LIST} systems of record were built for controlled transactions\.`))
+  })
+
+  it('opens the sources part of the diagram on the full list', () => {
+    page()
+    // The part renders twice, in the panel and in the list form; either copy
+    // is the same string, so the first is enough.
+    const body = screen.getAllByText(
+      (_, el) => el.tagName === 'P' && el.textContent.startsWith(`${LIST} these systems`),
+    )[0]
+    expect(body.textContent).toContain('these systems were built for controlled transactions.')
+    expect(screen.getAllByText('Agents never touch the system of record.').length).toBeGreaterThan(0)
+  })
+
+  it('opens the buffer pillar on customer records and content', async () => {
+    page()
+    await userEvent.click(screen.getByRole('button', { name: /Agents never touch the system of record/ }))
+    const pane = document.querySelector('[aria-live="polite"]')
+    expect(within(pane).getByText(/^Customer records, content, orders, payroll, finance:/)).toBeInTheDocument()
+  })
+
+  it('carries none of the old example lists', () => {
+    const { container } = page()
+    for (const old of ['Marketing & CRM', 'Marketing and CRM', 'Payroll, orders, HR, finance']) {
+      expect(container.textContent).not.toContain(old)
+    }
   })
 })
