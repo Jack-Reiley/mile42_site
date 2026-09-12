@@ -27,7 +27,7 @@ const DIFFERENTIATORS = [
   },
   {
     title: 'Security will not let agents touch our systems of record.',
-    body: 'Enterprise AI gets stopped by risk, legal, and security more often than by engineering. The controls are part of the build: what an agent can reach, what it may do, and what audit trail exists when someone asks why. That holds for a CDP or a commerce platform as much as for an ERP.',
+    body: 'Enterprise AI gets stopped by risk, legal, and security more often than by engineering. The controls are part of the build: what data an agent can reach, what actions it may take, who has to approve, and what audit trail exists when someone asks why. That holds for a CDP or a commerce platform as much as for an ERP.',
     href: '/meet-vickee',
     linkLabel: 'How Vickee answers security',
   },
@@ -56,7 +56,7 @@ const OFFERINGS = [
   {
     kicker: 'Before a major investment',
     title: 'You need clarity',
-    body: 'AI strategy, integration and ingestion strategy, discovery, modernization planning, platform selection, and architecture review. We help you decide before you commit, and you leave able to defend the decision without us in the room.',
+    body: 'AI strategy, integration and ingestion strategy, discovery, modernization planning, platform selection, and architecture review. We help you decide before you commit, and you leave able to defend the decision on your own.',
     href: '/what-we-do/advisory',
     linkLabel: 'Explore advisory',
     spot: 'lightbulb',
@@ -381,8 +381,8 @@ export default function Home() {
                     the rest of the block answers, and at body size the panel
                     opened on paragraphs of identical weight with no way in. */}
                 <Lead className="mb-[14px]">
-                  Traditional firms make more money when a project needs more people, more
-                  meetings, and more time. That is a conflict of interest built into the billing.
+                  Traditional firms make more money when a project needs more people and more
+                  time. That is a conflict of interest built into the billing.
                 </Lead>
                 <Body>
                   Mile42 was built the other way round. AI runs through the work so a small senior

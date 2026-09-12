@@ -28,7 +28,7 @@ describe('the Phase Zero page', () => {
   it('is the only h1 on the route', () => {
     at(ROUTE)
     const h1s = outline().filter(([level]) => level === 1)
-    expect(h1s).toEqual([[1, 'Proof, not a proposal.']])
+    expect(h1s).toEqual([[1, 'A working pilot on your process.']])
   })
 
   it('never skips a heading level', () => {
@@ -46,7 +46,7 @@ describe('the Phase Zero page', () => {
   it('opens with the diagnostic question, below the h1', () => {
     at(ROUTE)
     const [first, second] = outline()
-    expect(first).toEqual([1, 'Proof, not a proposal.'])
+    expect(first).toEqual([1, 'A working pilot on your process.'])
     expect(second).toEqual([2, 'What is the one process you would fix first?'])
   })
 
@@ -74,7 +74,7 @@ describe('the Phase Zero page', () => {
     at(ROUTE)
     const questions = [
       'What frustrates people most?',
-      'What takes the most human time?',
+      'What takes the most of your team’s time?',
       'Where does quality slip?',
       'What is the low-hanging fruit?',
     ]

@@ -66,7 +66,7 @@ const NAV = [
         href: '/how-we-work/delivery-model',
         eyebrow: 'How does the work get done?',
         title: 'Delivery model',
-        body: 'Agents across every major role, humans accountable for judgment and outcomes.',
+        body: 'Agents across every major role, a named engineer accountable for the outcome.',
       },
       {
         href: '/how-we-work#engagement-model',

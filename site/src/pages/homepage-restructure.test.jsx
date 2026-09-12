@@ -120,7 +120,7 @@ describe('SCN-003 — the offer is Phase Zero, Advisory, Engineering', () => {
   })
 
   it.each([
-    ['You need clarity', 'defend the decision without us in the room'],
+    ['You need clarity', 'defend the decision on your own'],
     ['You need to execute', 'leave your team able to change it without us'],
   ])('%s closes on its value', (title, value) => {
     const { container } = draw()

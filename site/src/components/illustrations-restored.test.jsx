@@ -259,12 +259,14 @@ describe('SCN-007 — the Phase Zero panels share the magnifier', () => {
     ['Advisory', <Advisory />],
   ]
 
-  it.each(PANELS)('%s draws the magnifier above its Phase Zero eyebrow', (_name, ui) => {
+  /* The panels lost their label-only eyebrow in the copy pass, so the column
+     is found by the panel's own title. */
+  it.each(PANELS)('%s draws the magnifier above its Phase Zero title', (_name, ui) => {
     const { container } = at(ui)
-    const eyebrow = [...container.querySelectorAll('span')].find((s) =>
-      /Offering · Phase Zero/.test(s.textContent),
+    const title = [...container.querySelectorAll('h2')].find((h) =>
+      /Start with a pilot|The low-risk way in/.test(h.textContent),
     )
-    const column = eyebrow.parentElement
+    const column = title.parentElement
     const art = artOf(column)
 
     expect(art).toHaveLength(1)
@@ -316,17 +318,19 @@ describe('SCN-007 — the Phase Zero panels share the magnifier', () => {
 describe('SCN-008 — panels with a retired spot draw nothing', () => {
   /* The AI products Proof panel used to sit beside this one. It went with its
      page; Why Mile42 carries the proof now. */
+  /* Found by the panel's title: the copy pass retired its label-only
+     eyebrow, so the title is now the column's first element. */
   it.each([
-    ['Engineering', <Engineering />, 'Core practice'],
-  ])('%s keeps its feature panel empty of artwork', (_name, ui, eyebrowText) => {
+    ['Engineering', <Engineering />, 'Agentic AI, implemented.'],
+  ])('%s keeps its feature panel empty of artwork', (_name, ui, titleText) => {
     const { container } = at(ui)
-    const eyebrow = [...container.querySelectorAll('span')].find(
-      (s) => s.textContent.trim() === eyebrowText,
+    const title = [...container.querySelectorAll('h2')].find(
+      (h) => h.textContent.trim() === titleText,
     )
-    const column = eyebrow.parentElement
+    const column = title.parentElement
 
     expect(artOf(column)).toHaveLength(0)
-    expect(column.firstElementChild).toBe(eyebrow)
+    expect(column.firstElementChild).toBe(title)
   })
 })
 

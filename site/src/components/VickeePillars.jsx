@@ -25,7 +25,7 @@ export default function VickeePillars({ pillars }) {
     <SelectorPanel
       eyebrow="Seven pillars"
       items={pillars}
-      note="One platform. Every pillar is live in the product today, not a roadmap."
+      note="One platform. Every pillar is live in the product today."
       paneId={PANE_ID}
     >
       {(pillar) => (

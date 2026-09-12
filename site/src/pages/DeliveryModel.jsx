@@ -17,7 +17,7 @@ const BENEFITS = [
   { title: 'Cost is predictable.', body: 'We can commit to a price because we are not guessing at how many hours a team will need.' },
   { title: 'Quality is more consistent.', body: 'Test coverage and documentation happen continuously rather than depending on whether the schedule held.' },
   { title: 'Context is not lost.', body: 'Decisions and rationale are captured as the work happens, so the reasoning survives past the engagement.' },
-  { title: 'Smaller teams, less overhead.', body: 'Fewer people means fewer handoffs, fewer status meetings, and less of your time spent managing us.' },
+  { title: 'Smaller teams, less overhead.', body: 'Fewer people means fewer handoffs and less of your time spent managing us.' },
 ]
 /* Not steps in a process. These are the things that accumulate across
    engagements, which is why they are named as things rather than as actions. */
@@ -51,14 +51,14 @@ export default function DeliveryModel() {
 
       <Section pad="band">
         <Wrap>
-          <H2 className="mb-4">Where agents work, and what a human is still responsible for.</H2>
+          <H2 className="mb-4">Where agents work, and what stays with the engineer who owns it.</H2>
           {/* `max-w-none` on the copy under a full-width heading, the way the
               What We Do pages set theirs: the 46rem default is a measure for a
               column, and this band does not have one. */}
-          <Lead className="mb-3 max-w-none">AI agents work across every major role in a modern engagement. Humans stay responsible for judgment, your context, the decisions, and the outcome.</Lead>
-          <Lead className="mb-10 max-w-none">These are roles in a delivery system, not sequential steps. Several run at once throughout an engagement.</Lead>
+          <Lead className="mb-3 max-w-none">AI agents work across every major role in a modern engagement. The engineer who owns the work stays responsible for judgment, your context, the decisions, and the outcome.</Lead>
+          <Lead className="mb-10 max-w-none">These are roles in a delivery system. Several run at once throughout an engagement, so there is no order to read them in.</Lead>
           <WhereAgentsWork roles={ROLES} />
-          <Quote className="mt-8">Humans provide judgment. Agents accelerate execution. We own the work.</Quote>
+          <Quote className="mt-8">People provide the judgment and agents provide the speed. We own the work.</Quote>
         </Wrap>
       </Section>
 
@@ -67,11 +67,11 @@ export default function DeliveryModel() {
           it follows are both `page`, so the boundary between them disappears. */}
       <Section band="surface" pad="band">
         <Wrap>
-          <H2 className="mb-6">This is not AI writing your systems unsupervised.</H2>
-          <Body className="mb-4 max-w-none">There is a version of this claim that is marketing, and we want to be clear we are not making it.</Body>
-          <Body className="mb-4 max-w-none">Agents do not decide your architecture. They do not judge whether a design serves your customers. They do not carry accountability, because accountability cannot be delegated to a system that cannot be held responsible.</Body>
-          <Body className="mb-8 max-w-none">What they do is remove the drag: the reading, the drafting, the scaffolding, the test coverage, the documentation that usually gets written last or not at all. That is a large share of any engagement, and compressing it is what creates the speed.</Body>
-          <Eyebrow className="mb-4">Three things that remain human</Eyebrow>
+          <H2 className="mb-6">Every agent works under a named engineer.</H2>
+          <Body className="mb-4 max-w-none">There is a version of the agents claim that is marketing: AI writing your systems unsupervised. We are not making it.</Body>
+          <Body className="mb-4 max-w-none">Agents do not decide your architecture or judge whether a design serves your customers, and they do not carry accountability, because accountability cannot be delegated to a system that cannot be held responsible.</Body>
+          <Body className="mb-8 max-w-none">What they do is remove the drag: reading the estate, drafting plans and code, scaffolding, generating test coverage, and writing the documentation that usually gets written last or not at all. That is a large share of any engagement, and compressing it is what creates the speed.</Body>
+          <Eyebrow className="mb-4">Three things that stay with a named person</Eyebrow>
           <NumList items={HUMAN_ONLY} />
         </Wrap>
       </Section>
@@ -117,10 +117,10 @@ export default function DeliveryModel() {
         <Wrap className="grid items-center gap-12 xl:grid-cols-[minmax(0,1fr)_800px] xl:gap-14">
           <div>
             <H2 className="mb-6">Each engagement should improve the next one.</H2>
-            <Body className="mb-4">A firm built around execution cannot treat every engagement as a blank page. What we learn on your work becomes reusable methods, patterns, and components, which lowers the cost and the risk of the work that follows.</Body>
+            <Body className="mb-4">A firm built around execution cannot treat every engagement as a fresh start. What we learn on your work becomes reusable methods and patterns, which lowers the cost and the risk of the work that follows.</Body>
             <Body className="mb-8">That benefits you directly. You are not paying us to rediscover something we already solved for someone else.</Body>
             <Eyebrow className="mb-2">Note on ownership</Eyebrow>
-            <Body className="mb-8">Reusable assets are our methods and patterns, never your data, your business logic, or anything specific to your organization. Where we build something for you, you own it. Ownership terms are explicit in every engagement.</Body>
+            <Body className="mb-8">Reusable assets are our methods and patterns. Your data, your business logic, and anything specific to your organization stay yours, and where we build something for you, you own it. Ownership terms are explicit in every engagement.</Body>
             <TextLink to="/what-we-do/engineering">See engineering</TextLink>
           </div>
 
@@ -131,7 +131,7 @@ export default function DeliveryModel() {
       <Section band="gold" pad="cta">
         <Wrap className="text-center">
           <H2 className="mb-4">See it on real work.</H2>
-          <Lead className="mx-auto mb-8">The fastest way to judge a delivery model is to put a real problem in front of it. Bring one.</Lead>
+          <Lead className="mx-auto mb-8">A delivery model is only checkable on a real problem. Put one in front of this one.</Lead>
           <Button to="/contact">Start a conversation</Button>
         </Wrap>
       </Section>

@@ -81,7 +81,7 @@ describe('Meet Vickee', () => {
     const intro = container.querySelectorAll('section')[1]
 
     // The band opens on its heading; it carries no eyebrow of its own.
-    expect(intro).toHaveTextContent(/Your people know the business\./)
+    expect(intro).toHaveTextContent(/Your people know the business and your agents scale the work\./)
     expect(intro).not.toHaveTextContent('Governed enterprise context')
   })
 
@@ -148,11 +148,11 @@ describe('Meet Vickee', () => {
     page()
     // One band each before #70; all three are now titles in the diagram.
     expect(screen.getAllByText('Every library needs a librarian.').length).toBeGreaterThan(0)
-    expect(screen.getAllByText('Connectors are code, not prompts.').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Connectors are plain code.').length).toBeGreaterThan(0)
     expect(screen.getAllByText('One source of truth, every agent.').length).toBeGreaterThan(0)
     // The outbound half of the connectors band, which the handoff dropped.
     expect(
-      screen.getAllByText('Agents propose. Humans approve. Code executes.').length,
+      screen.getAllByText('Agents propose. A person approves. Code executes.').length,
     ).toBeGreaterThan(0)
   })
 

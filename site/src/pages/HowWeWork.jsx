@@ -122,7 +122,7 @@ export default function HowWeWork() {
         <Wrap>
           <Eyebrow className="mb-4">Client journey</Eyebrow>
           <H2 className="mb-3">Four stages. Four stronger positions to be in.</H2>
-          <Lead className="mb-4">Understand, design, build, evolve. Each stage describes what we do together, and each outcome is the state it leaves you in. Every stage should leave you better off than when it started, whether or not you continue to the next one.</Lead>
+          <Lead className="mb-4">Understand, design, build, evolve. Each stage describes what we do together, and each outcome is the state it leaves you in. You should be better off at the end of every one, whether or not you continue to the next.</Lead>
           <Body className="mb-14">Four stages on one line. Select a stage to read what it produces, and what you are left holding when it ends.</Body>
           <StageJourney Spot={Spot} />
           <Quote className="mt-14">The work is complete only when you are stronger for the next decision, build, or initiative.</Quote>
@@ -138,7 +138,7 @@ export default function HowWeWork() {
               map to a single stage, so it needs a sentence the list cannot
               carry. Without it a reader is holding two models of how we engage. */}
           <Body className="mb-8">Phase Zero is the exception to the shape. It compresses understand, design, and build into one small engagement on a single process, so the proof arrives before you commit to a stage at all. What it leaves you with is a baseline, a working solution, and a roadmap, which is the strongest position to enter any of the four stages from.</Body>
-          <Quote>Tell us where you actually are, not where a process says you should be.</Quote>
+          <Quote>Tell us where you actually are, and we start there.</Quote>
         </Wrap>
       </Section>
 
@@ -159,7 +159,7 @@ export default function HowWeWork() {
       <Section id="engagement-model" pad="band" className={ANCHOR}>
         <Wrap>
           <Eyebrow className="mb-4">Engagement model</Eyebrow>
-          <H2 className="mb-3">We price for value, not for effort.</H2>
+          <H2 className="mb-3">We price for value.</H2>
           <Lead className="mb-4">Clients want a partner with skin in the game. The goal is not to sell more hours. Selling hours means our incentive improves when the work takes longer, and we would rather not build a business on that.</Lead>
           <Body className="mb-4">Large time and materials programs are getting harder to justify, and reasonably so. They place the risk of overrun entirely on the buyer, and they reward the seller for the thing the buyer least wants.</Body>
           <Body className="mb-8">At the same time, buyers expect AI to create real efficiency. If a firm claims AI has transformed its delivery and still bills the same hourly way it did five years ago, one of those two things is not true.</Body>
@@ -218,7 +218,6 @@ export default function HowWeWork() {
           <FeaturePanel
             className="mt-12"
             spot="magnifier-gear"
-            eyebrow="Offering · Phase Zero"
             title="Start with a pilot."
             note="Name a process. See it working. Map what comes next."
           >
@@ -240,7 +239,7 @@ export default function HowWeWork() {
       <Section band="gold">
         <Wrap className="text-center">
           <H2 className="mb-4">Read it, then test it.</H2>
-          <Lead className="mx-auto mb-8">How we operate is obvious within the first conversation. Start one with a problem that has to work.</Lead>
+          <Lead className="mx-auto mb-8">Everything on this page can be checked in a first conversation. Start from the stage you are actually in.</Lead>
           <Button to="/contact">Start a conversation</Button>
         </Wrap>
       </Section>

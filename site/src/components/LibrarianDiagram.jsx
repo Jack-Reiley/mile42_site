@@ -66,10 +66,10 @@ const PARTS = [
     title: 'Agents never touch the system of record.',
     body:
       'CMS and CDP, CRM and marketing automation, commerce, ERP and finance, analytics: these systems were built for ' +
-      'controlled transactions, not for autonomous software running open-ended queries. You ' +
-      'don’t hand a patron the keys to the archive.',
+      'controlled transactions. Autonomous software running open-ended queries is a different ' +
+      'kind of load, and you don’t hand a patron the keys to the archive.',
     proof: [
-      ['Scalability', 'Retrieval load hits Vickee, not production. Your ERP never fields a thousand exploratory queries at 2 a.m.'],
+      ['Scalability', 'Retrieval load hits Vickee. Your ERP never fields a thousand exploratory queries at 2 a.m.'],
       ['Stability', 'SOR schemas change on their own release cycles. Vickee decouples agents from those changes, so an upstream migration doesn’t break every agent overnight.'],
     ],
   },
@@ -77,7 +77,7 @@ const PARTS = [
     key: 'publish',
     label: 'Curated publish, inbound',
     eyebrow: 'Inbound · SOR to Vickee',
-    title: 'Connectors are code, not prompts.',
+    title: 'Connectors are plain code.',
     body:
       'The acquisitions desk. Deterministic connectors pull from source systems on your schedule ' +
       'and shape data on the way in, so everything arrives cataloged and shelved. No LLM in the ' +
@@ -97,7 +97,7 @@ const PARTS = [
       'fork of reality. The catalog is the shared map of what is known.',
     proof: [
       ['Update once', 'Change a document and every consumer sees it. No per-agent copies, no reconciliation, no version archaeology.'],
-      ['Shared map', 'The catalog shows every agent what is known, not just what it happened to ingest.'],
+      ['Shared map', 'The catalog shows every agent what is known, including what it never ingested itself.'],
     ],
   },
   {
@@ -106,7 +106,7 @@ const PARTS = [
     eyebrow: 'Vickee · the librarian',
     title: 'Every library needs a librarian.',
     body:
-      'Publish curated extracts into Vickee and agents work against the copy, never the source. ' +
+      'Publish curated extracts into Vickee and agents work against the copy. The source is never touched. ' +
       'The librarian retrieves what’s appropriate and keeps the stacks intact.',
     proof: [
       ['Governed', 'A read-optimized copy, scoped by tenant and namespace, indexed automatically and answerable.'],
@@ -122,20 +122,20 @@ const PARTS = [
     proof: [
       ['Security', 'No source-system credentials in agent context windows, prompts, or logs. The SOR attack surface never grows with agent count.'],
       ['Least privilege', 'Agents see only what was deliberately published into their tenant and namespace, scoped and tagged.'],
-      ['Auditability', 'What agents can reach is an explicit, reviewable publication decision, not a side effect of a service account’s permissions.'],
+      ['Auditability', 'What agents can reach is an explicit, reviewable publication decision instead of a side effect of a service account’s permissions.'],
     ],
   },
   {
     key: 'agents',
     label: 'Your agents',
     eyebrow: 'Your agents',
-    title: 'Orchestrators, sub-agents, and humans.',
+    title: 'Orchestrators, sub-agents, and people.',
     body:
       'Every consumer reads from the same catalog: semantic search for meaning, hybrid search for ' +
       'exact terms, ask for a synthesized answer with cited sources.',
     proof: [
-      ['Humans included', 'The wiki-style admin console reads the same shelf, with browse, search, and cited answers built in.'],
-      ['No drift', 'One platform serving orchestrators, sub-agents, and humans from the same store, so no agent carries a private fork of reality.'],
+      ['People included', 'The wiki-style admin console reads the same shelf, with browse, search, and cited answers built in.'],
+      ['No drift', 'One platform serving orchestrators, sub-agents, and people from the same store, so no agent carries a private fork of reality.'],
     ],
   },
   /* The seventh, and the only one the handoff does not have. The "Connectors are
@@ -146,12 +146,12 @@ const PARTS = [
     key: 'outbound',
     label: 'Outbound, Vickee to your systems of record',
     eyebrow: 'Outbound · Vickee to SOR',
-    title: 'Agents propose. Humans approve. Code executes.',
+    title: 'Agents propose. A person approves. Code executes.',
     body:
       'Circulation with a signature. When agent work should flow back to a source system, updates ' +
       'travel as deterministic code, and nothing ships without the librarian’s stamp.',
     proof: [
-      ['Proposed, never written', 'Agents propose changes in Vickee, never in the SOR.'],
+      ['Proposed, never written', 'Agents propose changes in Vickee. The SOR is never written to directly.'],
       ['Gated', 'Human review and signoff before anything reaches a source system.'],
       ['Repeatable', 'Approved updates execute as plain, repeatable code.'],
     ],

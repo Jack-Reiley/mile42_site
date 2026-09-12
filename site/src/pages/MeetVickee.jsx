@@ -24,7 +24,7 @@ const STEPS = [
 const PILLARS = [
   {
     title: 'Organized by design',
-    benefit: 'Knowledge lands in a place, not a pile. Tenants isolate customers or business units, namespaces separate domains, and directories and tags organize within them. The card catalog rolls it all up so agents and admins can see what’s known at a glance.',
+    benefit: 'Every piece of knowledge lands at an address. Tenants isolate customers or business units, namespaces separate domains, and directories and tags organize within them. The card catalog rolls it all up so agents and admins can see what’s known at a glance.',
     proof: [
       'Multi-tenant with per-tenant namespaces, created explicitly so nothing lands by accident',
       'Full filesystem semantics: directories, move and rename, metadata sidecars, tags, file links',
@@ -50,8 +50,8 @@ const PILLARS = [
     ],
   },
   {
-    title: 'Built for agents, approachable to humans',
-    benefit: 'Point an agent at Vickee and it can learn the system on its own. The API serves a task-oriented agent guide with real captured examples. Humans get a wiki-style admin console over the same data, with search and cited answers built in.',
+    title: 'Built for agents, approachable to people',
+    benefit: 'Point an agent at Vickee and it can learn the system on its own. The API serves a task-oriented agent guide with real captured examples. People get a wiki-style admin console over the same data, with search and cited answers built in.',
     proof: [
       'Self-serve agent guide served by the API itself, with worked scenarios from a live stack',
       'Error responses carry stable machine-readable codes so agents can branch, fix, and retry',
@@ -64,14 +64,14 @@ const PILLARS = [
     proof: [
       'No SOR credentials in agent context windows, prompts, or logs',
       'Least privilege by construction: scoped by tenant, namespace, and tags',
-      'Retrieval load lands on Vickee, not on production transactional systems',
+      'Retrieval load lands on Vickee and never on production transactional systems',
     ],
   },
   {
     title: 'One source of truth, every agent',
-    benefit: 'Multi-agent systems drift when each agent carries its own context. Vickee centralizes knowledge and memory so every agent, and every human, reads from the same catalog. Update a document once and every consumer sees the change.',
+    benefit: 'Multi-agent systems drift when each agent carries its own context. Vickee centralizes knowledge and memory so every agent, and every person, reads from the same catalog. Update a document once and every consumer sees the change.',
     proof: [
-      'One platform serving orchestrators, sub-agents, and humans from the same store',
+      'One platform serving orchestrators, sub-agents, and people from the same store',
       'Exactly one current version of every file, findable by all',
       'The card catalog is the shared map of what is known',
     ],
@@ -131,9 +131,9 @@ const OUTCOMES = [
 const COMPARE = [
   ['Object storage', 'Stores bytes, answers nothing.', 'Storage plus automatic indexing plus retrieval, one API.'],
   ['Standalone vector DB', 'You still build ingestion, chunking, storage, and ops around it.', 'The pipeline is built in. Upload is the integration.'],
-  ['RAG framework code', 'Glue code your team owns forever.', 'A running service with an admin plane, not a library to maintain.'],
-  ['Wiki or drive', 'Organized for humans, opaque to agents.', 'Readable by both: agent guide for machines, admin UI for people.'],
-  ['Direct SOR access', 'Credentials in agent context, unbounded load on production, one schema change breaks every agent.', 'A governed, read-optimized copy. Agents get answers, never the keys.'],
+  ['RAG framework code', 'Glue code your team owns forever.', 'A running service with an admin plane. Nothing for your team to maintain.'],
+  ['Wiki or drive', 'Organized for people, opaque to agents.', 'Readable by both: agent guide for machines, admin UI for people.'],
+  ['Direct SOR access', 'Credentials in agent context, unbounded load on production, one schema change breaks every agent.', 'A governed, read-optimized copy. Agents get answers and the keys stay with you.'],
   ['Per-agent context', 'Each agent drifts toward its own private truth.', 'One centralized catalog every agent reads and trusts.'],
   ['LLM-driven pipelines', 'Inference cost on every sync, behavior that drifts with the model.', 'Deterministic code connectors: testable, versioned, same result every run.'],
 ]
@@ -336,8 +336,8 @@ export default function MeetVickee() {
                   because below it `H2` steps down to heading-3, which the
                   handoff does not describe. */}
               <H2 className="lg:leading-[46px]">
-                Your people know the business. Your agents scale the work. Vickee gives them shared
-                context.
+                Your people know the business and your agents scale the work. Vickee gives them
+                shared context.
               </H2>
               <Lead className="max-w-none leading-[34px]">
                 Your people understand the customers, policies, history, and nuance behind the
@@ -472,7 +472,7 @@ export default function MeetVickee() {
             agents from the first line.
           </Body>
           <Body className="mb-10 max-w-none">
-            Every agent and every human works from the same live, rolled-up view of what your
+            Every agent and every person works from the same live, rolled-up view of what your
             organization knows.
           </Body>
 
@@ -498,13 +498,14 @@ export default function MeetVickee() {
           <H2 className="mb-4">Every library needs a librarian.</H2>
           <Body className="mb-3">
             CMS and CDP, CRM and marketing automation, commerce, ERP and finance, analytics: systems
-            of record were built for controlled transactions, not for autonomous software running
-            open-ended queries. You don&#8217;t hand a patron the keys to the archive. The librarian
-            retrieves what&#8217;s appropriate and keeps the stacks intact.
+            of record were built for controlled transactions. Autonomous software running
+            open-ended queries is a different kind of load, and you don&#8217;t hand a patron the
+            keys to the archive. The librarian retrieves what&#8217;s appropriate and keeps the
+            stacks intact.
           </Body>
           <Body className="mb-8">
             That is Vickee&#8217;s job between agents and sensitive systems. Publish curated extracts
-            into Vickee and agents work against the copy, never the source.
+            into Vickee and agents work against the copy. The source is never touched.
           </Body>
 
           <LibrarianDiagram />
@@ -514,7 +515,7 @@ export default function MeetVickee() {
       <Section band="surface">
         <Wrap>
           <H2 className="mb-4">Why not just&#8230;?</H2>
-          <Body className="mb-8">Vickee is not another database to integrate. It&#8217;s the integration.</Body>
+          <Body className="mb-8">One API in place of the database, the pipeline, and the glue code around them.</Body>
           <CompareTable
             columns={['Alternative', 'Where it falls short', 'Vickee’s answer']}
             rows={COMPARE}
@@ -532,8 +533,8 @@ export default function MeetVickee() {
         <Wrap className="text-center">
           <H2 tone="hero" className="mb-4">Give your agents a library.</H2>
           <Lead tone="hero" className="mx-auto mb-8">
-            The fastest way to judge a knowledge layer is to put your knowledge in it. Bring a
-            corpus.
+            Put a real corpus in it and ask your agents a hard question. That is the whole
+            evaluation.
           </Lead>
           <Button to="/contact">Start a conversation</Button>
         </Wrap>

@@ -9,7 +9,7 @@ import HandoffLanes from '../components/HandoffLanes.jsx'
    right process is one the people doing the work can already name. */
 const QUESTIONS = [
   ['What frustrates people most?', 'Everyone knows it is slow, and quietly works around it.'],
-  ['What takes the most human time?', 'Manual effort for output that barely needs judgment.'],
+  ['What takes the most of your team’s time?', 'Manual effort for output that barely needs judgment.'],
   [
     'Where does quality slip?',
     'Work that gets redone, or testing that is manual and skipped under pressure.',
@@ -98,7 +98,7 @@ const AGENTS = ['Plan', 'Build', 'Validate', 'Deploy']
 const WORTH = [
   {
     title: 'Low risk.',
-    body: 'It runs beside production, never through it, and it is reversible on day one.',
+    body: 'It runs beside production without touching it, and it is reversible on day one.',
   },
   {
     title: 'Real proof.',
@@ -157,7 +157,7 @@ export default function PhaseZero() {
           />
           {/* The comp family sets the page header at 38px, which snaps to the
               H2 token rather than H1's 57px. It is still the page's only h1. */}
-          <H2 as="h1" tone="hero">Proof, not a proposal.</H2>
+          <H2 as="h1" tone="hero">A working pilot on your process.</H2>
         </Wrap>
       </Section>
 
@@ -177,8 +177,9 @@ export default function PhaseZero() {
           {/* Full ink rather than the muted tone a lead usually takes here. It
               is carrying the band rather than annotating a heading above it. */}
           <Lead className="mb-9">
-            The one everyone works around, or the one eating human time for output that barely needs
-            judgment. Name it and we will tell you whether it is a good Phase Zero.
+            The one everyone works around, or the one eating your team&#8217;s time for output that
+            barely needs judgment. Name it. Whether it is a good Phase Zero is usually clear within
+            one conversation.
           </Lead>
           <TermList
             items={QUESTIONS}
@@ -199,7 +200,6 @@ export default function PhaseZero() {
         <Wrap>
           <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
             <div>
-              <Eyebrow as="span" className="mb-2 block">Offering · Phase Zero pilot</Eyebrow>
               <H2 className="mb-4">Name a process. See it working. Map what comes next.</H2>
               <Lead className="mb-[14px] max-w-none text-ink/70">
                 Most firms answer an AI question with a roadmap and a demo. Both die on a shelf. We
@@ -232,8 +232,8 @@ export default function PhaseZero() {
             <H2>Four shapes it can take.</H2>
             <div className="max-w-[34rem]">
               <Body className="max-w-none text-ink/70">
-                One named process, not a department and not a category. The right one is usually
-                already obvious to the people doing the work.
+                One named process, small enough to finish. The right one is usually already obvious
+                to the people doing the work.
               </Body>
             </div>
           </div>
@@ -257,10 +257,10 @@ export default function PhaseZero() {
       <Section pad="band">
         <Wrap>
           <Eyebrow as="span" className="mb-2 block">How we build it</Eyebrow>
-          <H2 className="mb-[14px]">The build starts and ends with human oversight.</H2>
+          <H2 className="mb-[14px]">The build starts and ends with your people in charge.</H2>
           <Lead className="mb-10 text-ink/70">
-            An AI-native build, not a demo. It runs in parallel to production and is measured
-            against the baseline from stage one.
+            An AI-native build that runs in parallel to production and is measured against the
+            baseline from stage one.
           </Lead>
           <HandoffLanes people={PEOPLE} agents={AGENTS} />
           <Quote className="mt-[38px]">
