@@ -1,10 +1,13 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
-import EngagementModel from './EngagementModel.jsx'
+import HowWeWork from './HowWeWork.jsx'
 
 /**
- * The three shapes an engagement takes, on the Engagement model page.
+ * The three shapes an engagement takes, in the engagement model bands of How
+ * we work. They were a page of their own when this was written; the
+ * information architecture ticket merged that page in, and the bands kept
+ * their order.
  *
  * The page explained the pricing posture and never said what the work looks
  * like from the client's side: a fixed-scope pilot, a team embedded beside
@@ -18,8 +21,8 @@ import EngagementModel from './EngagementModel.jsx'
 
 const draw = () =>
   render(
-    <MemoryRouter initialEntries={['/how-we-work/engagement-model']}>
-      <EngagementModel />
+    <MemoryRouter initialEntries={['/how-we-work']}>
+      <HowWeWork />
     </MemoryRouter>,
   )
 

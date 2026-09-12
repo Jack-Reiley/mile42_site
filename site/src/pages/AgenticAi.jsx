@@ -60,7 +60,7 @@ const PARTS = [
           { n: '03', title: 'What is the smallest system that would prove this works in production?', body: 'Not a demo. Something real, narrow, and used by actual people.' },
         ],
       },
-      { kind: 'link', to: '/how-we-work/client-journey', text: 'See the client journey' },
+      { kind: 'link', to: '/how-we-work#client-journey', text: 'See the client journey' },
     ],
   },
   {

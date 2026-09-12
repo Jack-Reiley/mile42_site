@@ -6,7 +6,7 @@ import { readFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import Home from './Home.jsx'
-import ClientJourney from './ClientJourney.jsx'
+import HowWeWork from './HowWeWork.jsx'
 import { illustrations } from '../assets/illustrations/manifest.js'
 
 /**
@@ -29,7 +29,8 @@ import { illustrations } from '../assets/illustrations/manifest.js'
  *
  * The client journey's stage still has to be opened, for the same reason as
  * before: `StageJourney` renders one stage's detail at a time, and the
- * handshake belongs to Evolve, the fourth.
+ * handshake belongs to Evolve, the fourth. The journey is a band of How we
+ * work since the information architecture ticket, so that is the page drawn.
  */
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -75,7 +76,7 @@ describe('the handshake is retired but not lost', () => {
 
   it('no longer draws on the client journey once its stage is opened', async () => {
     const user = userEvent.setup()
-    const { container } = at(<ClientJourney />)
+    const { container } = at(<HowWeWork />)
 
     await user.click(screen.getByRole('button', { name: /Evolve/ }))
 
@@ -86,7 +87,7 @@ describe('the handshake is retired but not lost', () => {
      the assertion above passes for the wrong reason. */
   it('still opens the Evolve stage and shows what it leaves behind', async () => {
     const user = userEvent.setup()
-    at(<ClientJourney />)
+    at(<HowWeWork />)
 
     await user.click(screen.getByRole('button', { name: /Evolve/ }))
 

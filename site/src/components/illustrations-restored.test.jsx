@@ -11,12 +11,9 @@ import Home from '../pages/Home.jsx'
 import MeetVickee from '../pages/MeetVickee.jsx'
 import HowWeWork from '../pages/HowWeWork.jsx'
 import WhyMile42 from '../pages/WhyMile42.jsx'
-import ClientJourney from '../pages/ClientJourney.jsx'
 import WhatWeDo from '../pages/WhatWeDo.jsx'
 import Engineering from '../pages/Engineering.jsx'
 import Advisory from '../pages/Advisory.jsx'
-import AiProducts from '../pages/AiProducts.jsx'
-import EngagementModel from '../pages/EngagementModel.jsx'
 
 /**
  * #111 — a second set of illustrations, in the places #109 emptied.
@@ -25,6 +22,10 @@ import EngagementModel from '../pages/EngagementModel.jsx'
  * "nothing draws anywhere"; this one is the inverse, held entry by entry: each
  * new drawing renders once, on its page, in its slot, with the alt it should
  * carry, and the twelve #109 entries still render nowhere.
+ *
+ * The client journey and the engagement model are bands of How we work since
+ * the information architecture ticket, and AI-driven Products folded into
+ * Engineering, so their scenarios read those pages now.
  *
  * Geometry is still not asserted. The suite omits the Tailwind plugin, so no
  * utility resolves to a value here; the re-opened columns are class contracts
@@ -116,7 +117,9 @@ describe('SCN-002 — hero artwork is the one eager image on its page', () => {
 
   /* The path cards are above the fold on What we do and their icons are
      eager, so that page is the one place three prioritised images is right.
-     What must not happen is the Phase Zero panel lower down joining them. */
+     What must not happen is the Phase Zero panel lower down joining them. The
+     three are Phase Zero, Advisory and Engineering: the AI products card went
+     with its page. */
   it('What we do fetches its three card icons eagerly and nothing else', () => {
     const { container } = at(<WhatWeDo />)
     const eager = eagerOf(container)
@@ -175,9 +178,9 @@ describe('SCN-004 — the homepage argument panel draws its spot', () => {
 
 describe('SCN-005 — each What we do path card carries its own icon', () => {
   const CARDS = [
+    ['Phase Zero', /where to start/i, 'path-magnifier-gear'],
     ['Advisory', /clarity/i, 'path-lightbulb-target'],
     ['Engineering', /execute/i, 'path-gears-trio'],
-    ['AI products', /proven solutions/i, 'path-phone-circuit'],
   ]
 
   it.each(CARDS)('the %s card shows its icon, decoratively', (_name, eyebrow, key) => {
@@ -201,12 +204,14 @@ describe('SCN-005 — each What we do path card carries its own icon', () => {
     }
   })
 
-  it('tilts the phone and only the phone', () => {
+  /* The phone was the one tilted icon, and it left with the AI products card.
+     Nothing on the trio should have inherited its tilt. */
+  it('tilts none of the icons now that the phone has gone', () => {
     const source = read('pages/WhatWeDo.jsx')
     const cards = source.slice(source.indexOf('const PATHS'), source.indexOf('\n]', source.indexOf('const PATHS')))
 
-    expect(cards.match(/rotate-\[-5deg\]/g)).toHaveLength(1)
-    expect(cards.indexOf('rotate-[-5deg]')).toBeGreaterThan(cards.indexOf('path-phone-circuit'))
+    expect(cards).not.toContain('path-phone-circuit')
+    expect(cards).not.toContain('rotate-[')
   })
 })
 
@@ -250,7 +255,7 @@ describe('SCN-006 — a path card without live artwork keeps the closed layout',
 describe('SCN-007 — the Phase Zero panels share the magnifier', () => {
   const PANELS = [
     ['What we do', <WhatWeDo />],
-    ['Engagement model', <EngagementModel />],
+    ['How we work', <HowWeWork />],
     ['Advisory', <Advisory />],
   ]
 
@@ -309,9 +314,10 @@ describe('SCN-007 — the Phase Zero panels share the magnifier', () => {
 })
 
 describe('SCN-008 — panels with a retired spot draw nothing', () => {
+  /* The AI products Proof panel used to sit beside this one. It went with its
+     page; Why Mile42 carries the proof now. */
   it.each([
     ['Engineering', <Engineering />, 'Core practice'],
-    ['AI products', <AiProducts />, 'Proof'],
   ])('%s keeps its feature panel empty of artwork', (_name, ui, eyebrowText) => {
     const { container } = at(ui)
     const eyebrow = [...container.querySelectorAll('span')].find(
@@ -330,12 +336,9 @@ describe('SCN-009 — the retired set stays off the site', () => {
     ['Meet Vickee', <MeetVickee />],
     ['How we work', <HowWeWork />],
     ['Why Mile42', <WhyMile42 />],
-    ['the client journey', <ClientJourney />],
     ['What we do', <WhatWeDo />],
     ['Engineering', <Engineering />],
     ['Advisory', <Advisory />],
-    ['AI products', <AiProducts />],
-    ['Engagement model', <EngagementModel />],
   ]
   const retiredSources = RETIRED.map((k) => illustrations[k].src)
 
@@ -346,16 +349,18 @@ describe('SCN-009 — the retired set stays off the site', () => {
     }
   })
 
+  /* Scoped to the client journey band: the page it lives on now draws its
+     hero scene above and the Phase Zero magnifier below. */
   it.each(['Understand', 'Design', 'Build', 'Evolve'])(
     'the %s stage draws no spot once it is opened',
     async (stage) => {
       const user = userEvent.setup()
-      const { container } = at(<ClientJourney />)
+      const { container } = at(<HowWeWork />)
 
       // Anchored: "Build" also appears inside the Understand stage's summary.
       await user.click(screen.getByRole('button', { name: new RegExp(`^${stage}`) }))
 
-      expect(artOf(container)).toHaveLength(0)
+      expect(artOf(container.querySelector('#client-journey'))).toHaveLength(0)
     },
   )
 
@@ -406,7 +411,6 @@ describe('SCN-010 — artwork reserves its space before it arrives', () => {
     ['Why Mile42', <WhyMile42 />],
     ['What we do', <WhatWeDo />],
     ['Advisory', <Advisory />],
-    ['Engagement model', <EngagementModel />],
   ])('%s gives every image its intrinsic width and height', (_name, ui) => {
     const { container } = at(ui)
     const art = artOf(container)
@@ -424,7 +428,9 @@ describe('SCN-011 — every drawn entry is built and registered', () => {
     .filter(([, v]) => !v.retired)
     .map(([k]) => k)
 
-  it('draws exactly the nine entries this ticket seats', () => {
+  /* Nine seated by #111, plus the mono magnifier the What we do Phase Zero
+     card took when the information architecture ticket put it on the trio. */
+  it('draws exactly the ten entries seated so far', () => {
     expect(LIVE.sort()).toEqual(
       [
         'dashboard-user',
@@ -434,6 +440,7 @@ describe('SCN-011 — every drawn entry is built and registered', () => {
         'mile42-mark-white',
         'path-gears-trio',
         'path-lightbulb-target',
+        'path-magnifier-gear',
         'path-phone-circuit',
         'robot-team',
       ].sort(),
@@ -458,6 +465,7 @@ describe('SCN-011 — every drawn entry is built and registered', () => {
     ['path-lightbulb-target', 64],
     ['path-gears-trio', 64],
     ['path-phone-circuit', 64],
+    ['path-magnifier-gear', 64],
     ['magnifier-gear', 112],
   ])('%s carries variants covering %ipx at 1x and 2x', (key, rendered) => {
     const data = JSON.parse(

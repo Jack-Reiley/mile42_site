@@ -132,7 +132,7 @@ export default function Advisory() {
             </Body>
             <div className="mt-5 flex flex-wrap gap-[26px]">
               <TextLink to="/what-we-do/engineering" tone="accent">See engineering</TextLink>
-              <TextLink to="/how-we-work/client-journey" tone="accent">See the client journey</TextLink>
+              <TextLink to="/how-we-work#client-journey" tone="accent">See the client journey</TextLink>
             </div>
           </LabelBody>
         </Wrap>

@@ -53,6 +53,19 @@ const at = (path) => render(<MemoryRouter initialEntries={[path]}><App /></Memor
 
 const main = () => within(screen.getByRole('main'))
 
+/* The engagement model is a run of bands on How we work since the information
+   architecture ticket, from the anchored posture band up to the closing call
+   to action. Its assertions scope to that run: the page's argument band above
+   it says "the claim is free", which is the non-commercial use pinned below. */
+const engagementBands = () => {
+  const bands = [...screen.getByRole('main').querySelectorAll('section')]
+  const start = bands.findIndex((b) => b.id === 'engagement-model')
+  const end = bands.findIndex((b) => b.textContent.includes('Read it, then test it.'))
+  expect(start).toBeGreaterThan(-1)
+  expect(end).toBeGreaterThan(start)
+  return bands.slice(start, end)
+}
+
 /* The desktop trigger and the drawer's drill-in button carry the same
    accessible name. The drawer is not rendered until Menu is activated, so
    before that there is one and after it there are two, the drawer's last. */
@@ -87,9 +100,12 @@ describe('the mobile drawer states the same line', () => {
 })
 
 describe('the pages that point at Phase Zero state the priced line', () => {
+  /* Twice since the information architecture ticket: the Phase Zero path
+     card in the hero states the terms, and so does the band below it. Both
+     are pinned, since either could drift alone. */
   it('/what-we-do states it and does not call the offering free', () => {
     at('/what-we-do')
-    expect(main().getByText(LINE)).toBeInTheDocument()
+    expect(main().getAllByText(LINE)).toHaveLength(2)
     expect(main().queryByText(FREE)).toBeNull()
     expect(main().queryByText(POSTURE)).toBeNull()
   })
@@ -111,7 +127,7 @@ describe('the engagement model argues the first engagement', () => {
       /Phase Zero is a working pilot on one process you name, built beside production and measured against your own baseline\./
     const OFFER =
       /Phase Zero is a working pilot on one process you name, built beside production and measured against your own baseline\. You get something running, and a roadmap for what comes after it\. About a month, fixed fee, typically \$10k to \$30k\./
-    at('/how-we-work/engagement-model')
+    at('/how-we-work')
     const panel = within(
       main().getByRole('heading', { name: 'Start with a pilot.' }).closest('div').parentElement,
     )
@@ -127,7 +143,7 @@ describe('the engagement model argues the first engagement', () => {
      of the band's three reasons and the only one naming Phase Zero, so losing
      it leaves the page arguing a pricing posture it never lands. */
   it('keeps the sentence that ties the delivery model to the offer', () => {
-    at('/how-we-work/engagement-model')
+    at('/how-we-work')
     expect(main().getByText(/It is also why the first engagement is the small one/))
       .toBeInTheDocument()
     expect(main().getByText(/the risk of an estimate is ours to carry rather than yours/))
@@ -136,16 +152,18 @@ describe('the engagement model argues the first engagement', () => {
 
   /* The offer is no longer one of three peer links under the argument. */
   it('offers Phase Zero as a panel rather than as one link among three', () => {
-    at('/how-we-work/engagement-model')
+    at('/how-we-work')
     expect(main().getByRole('link', { name: /See how Phase Zero works/ }))
       .toHaveAttribute('href', '/what-we-do/phase-zero')
     expect(main().queryByRole('link', { name: 'See Phase Zero' })).toBeNull()
   })
 
   it('no longer claims the first engagement can cost nothing', () => {
-    at('/how-we-work/engagement-model')
-    expect(main().queryByText(FREE)).toBeNull()
-    expect(main().queryByText(COSTS_NOTHING)).toBeNull()
+    at('/how-we-work')
+    for (const band of engagementBands()) {
+      expect(within(band).queryByText(FREE)).toBeNull()
+      expect(within(band).queryByText(COSTS_NOTHING)).toBeNull()
+    }
   })
 })
 
@@ -184,7 +202,7 @@ describe('the Phase Zero page itself', () => {
  * offering cards there, titled the way the other two cards are.
  */
 describe('the offering panels share one title', () => {
-  it.each(['/what-we-do', '/how-we-work/engagement-model'])(
+  it.each(['/what-we-do', '/how-we-work'])(
     '%s titles the panel "Start with a pilot."',
     (path) => {
       at(path)
@@ -215,7 +233,7 @@ describe('the credit against later work', () => {
     '/',
     '/what-we-do',
     '/what-we-do/phase-zero',
-    '/how-we-work/engagement-model',
+    '/how-we-work',
   ])('is not stated on %s', (path) => {
     at(path)
     expect(main().queryByText(/credit(ed)? (it |the (pilot|fee|cost) )?(back |off )?against/i))

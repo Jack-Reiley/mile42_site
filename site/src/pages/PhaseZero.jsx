@@ -288,10 +288,10 @@ export default function PhaseZero() {
             ))}
           </GroupColumns>
           <div className="mt-7 flex flex-wrap gap-[26px]">
-            <TextLink to="/how-we-work/client-journey" tone="accent">
+            <TextLink to="/how-we-work#client-journey" tone="accent">
               See where it sits in the client journey
             </TextLink>
-            <TextLink to="/how-we-work/engagement-model" tone="accent">
+            <TextLink to="/how-we-work#engagement-model" tone="accent">
               See the engagement model
             </TextLink>
           </div>

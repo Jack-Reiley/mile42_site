@@ -4,10 +4,19 @@ import {
 } from '../components/primitives.jsx'
 import { REVEAL, REVEAL_GROUP } from '../components/reveal.js'
 
-/* The title names the practice the card leads to, so the three headings are the
-   three service names rather than three sentences beginning "You need". The
-   situation stays on the card as the eyebrow above it. */
+/* The title names the practice the card leads to, so the headings are the
+   service names rather than sentences beginning "You need". The situation
+   stays on the card as the eyebrow above it. Phase Zero leads: it is the way in
+   for a reader who cannot yet say which of the two practices they need. The
+   AI-driven Products card went with its page, which folded into Engineering. */
 const PATHS = [
+  {
+    eyebrow: 'Not sure where to start',
+    title: 'Phase Zero',
+    body: 'About a month, fixed fee, typically $10k to $30k.',
+    href: '/what-we-do/phase-zero',
+    spot: 'path-magnifier-gear',
+  },
   {
     eyebrow: 'You need clarity',
     title: 'Advisory',
@@ -21,16 +30,6 @@ const PATHS = [
     body: 'When something must be built.',
     href: '/what-we-do/engineering',
     spot: 'path-gears-trio',
-  },
-  {
-    eyebrow: 'You need proven solutions',
-    title: 'AI products and accelerators',
-    body: 'Reuse what already works.',
-    href: '/what-we-do/ai-products',
-    spot: 'path-phone-circuit',
-    // Tilted rather than upright: the master is drawn dead vertical, and a
-    // phone set square beside two hand-drawn icons reads as a screenshot.
-    spotClass: 'rotate-[-5deg]',
   },
 ]
 

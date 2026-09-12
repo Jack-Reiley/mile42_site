@@ -5,7 +5,7 @@ import { Eyebrow, TextLink } from './primitives.jsx'
  * The client journey stage selector: four stages on one ink line inside a single
  * card, with the open stage's detail rendered in the same card below a full-width
  * rule. Replaces the four `Card` tiles AND the four detail `Section`s that used to
- * follow them on /how-we-work/client-journey.
+ * follow them on /how-we-work#client-journey.
  *
  * Geometry that must not drift: the journey line sits at 61px from the row's top
  * (h3 line box 32px + its 14px margin = 46, plus half the 30px node). If the

@@ -6,7 +6,7 @@ import { TermList, GroupColumns, RuledGroup, CheckList } from '../components/Lis
 
 /* Brand green is the faintest of the three page accents. On light backgrounds it
    is darkened 8% so the rules and badges read at comparable weight to Advisory's
-   orange and AI-driven Products' red. On navy the pure token is stronger, so the
+   orange. On navy the pure token is stronger, so the
    breadcrumb mark keeps it.
    Written out in full at each call site because Tailwind scans source text: an
    interpolated class name never reaches the generated stylesheet. */
@@ -43,6 +43,24 @@ const CAPABILITIES = [
       ['Legacy modernization', 'A sequenced path off systems that are expensive to keep and risky to replace.'],
       ['Digital experience', 'Customer-facing systems where the experience is the differentiator.'],
     ],
+  },
+]
+
+/* What was AI-driven Products, folded in here. The accelerators are part of
+   how engineering work is delivered rather than a practice of their own, and
+   the page that held them spent most of its length restating that. */
+const OFFERS = [
+  {
+    title: 'Delivery accelerators',
+    body: 'Reusable methods, agents, workflows, and patterns built from prior client work. Not sold separately: they lower the risk and the cost of the engagement they are used in.',
+  },
+  {
+    title: 'Client-owned products',
+    body: 'Sometimes the right answer is a product built for one organization and owned outright by it. You own the code, the IP, and the roadmap. We build it and hand it over.',
+  },
+  {
+    title: 'Market-facing products',
+    body: 'Occasionally a pattern proves general enough to become a product in its own right. That is rare, and we treat it as rare.',
   },
 ]
 
@@ -96,6 +114,47 @@ export default function Engineering() {
               </RuledGroup>
             ))}
           </GroupColumns>
+        </Wrap>
+      </Section>
+
+      <Section band="surface" pad="band">
+        <Wrap>
+          <H2 className="mb-3">What you do not have to build from scratch.</H2>
+          <Lead className="mb-9 max-w-none text-ink/70">
+            Some of what you are about to build has been built before. Starting from zero is a
+            choice, and it is usually the expensive one.
+          </Lead>
+          <Eyebrow as="span" className="mb-2 block">What we bring</Eyebrow>
+          <H3 className="mb-6">Three forms, depending on what the work needs.</H3>
+          <GroupColumns>
+            {OFFERS.map((o) => (
+              <RuledGroup key={o.title} title={o.title} ruleClass={GREEN_RULE}>
+                <Body className="max-w-none text-ink/72">{o.body}</Body>
+              </RuledGroup>
+            ))}
+          </GroupColumns>
+        </Wrap>
+      </Section>
+
+      <Section pad="band">
+        <Wrap>
+          <LabelBody label={<H2>Reuse is why the economics work.</H2>}>
+            <Body className="max-w-none">
+              Committing to an outcome is difficult when every engagement starts from nothing. It
+              becomes practical when a meaningful share of the work has been solved, tested, and
+              proven somewhere else.
+            </Body>
+            <Body className="mt-[14px] max-w-none">
+              The accelerators are the reason our commercial model works, and the reason it keeps
+              improving. Each engagement should leave you with a better outcome and leave us with
+              sharper methods for the next one.
+            </Body>
+            <p className="mt-5">
+              <TextLink to="/how-we-work#engagement-model" tone="accent">
+                See the engagement model
+              </TextLink>
+            </p>
+          </LabelBody>
         </Wrap>
       </Section>
 

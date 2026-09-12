@@ -3,7 +3,7 @@ import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
 import Home from './Home.jsx'
 import AgenticAi from './AgenticAi.jsx'
-import AiProducts from './AiProducts.jsx'
+import WhyMile42 from './WhyMile42.jsx'
 
 /**
  * Vickee shipped in #58 as a page nothing else on the site pointed at. This is
@@ -17,6 +17,10 @@ import AiProducts from './AiProducts.jsx'
  * Links are asserted at the root, which is where #97 mounted the site. See
  * Footer.test.jsx for what that cost and src/go-live.test.jsx for the sweep
  * that replaces it.
+ *
+ * The third entry point was the AI-driven Products page. That page folded into
+ * Engineering and its proof panel moved to Why Mile42, which is where the
+ * "what the firm builds" entry point lives now.
  */
 
 const VICKEE = '/meet-vickee'
@@ -175,18 +179,18 @@ describe('SCN-003 — the Agentic AI page points to Vickee', () => {
   })
 })
 
-describe('SCN-004 — the AI-driven Products page describes Vickee and links to it', () => {
-  it('describes Vickee as a product of the firm, the way Blink Social already is', () => {
-    const { container } = draw(AiProducts)
+describe('SCN-004 — the Why Mile42 page describes Vickee and links to it', () => {
+  it('describes Vickee as a product of the firm, beside Blink Social', () => {
+    const { container } = draw(WhyMile42)
     const panel = [...container.querySelectorAll('section')].find((b) =>
       b.textContent.includes('Blink Social'),
     )
     expect(panel).toBeDefined()
-    expect(panel.textContent).toMatch(/Vickee, our knowledge layer for AI agents/)
+    expect(panel.textContent).toMatch(/Vickee is the governed knowledge layer/)
   })
 
   it('points its link at the Vickee route', () => {
-    draw(AiProducts)
+    draw(WhyMile42)
     expect(href('Meet Vickee')).toBe(VICKEE)
   })
 })
@@ -199,7 +203,7 @@ describe('SCN-006 — every new entry point is real, keyboard reachable navigati
   it.each([
     ['the homepage', Home],
     ['the Agentic AI page', AgenticAi],
-    ['the AI-driven Products page', AiProducts],
+    ['the Why Mile42 page', WhyMile42],
   ])('renders %s entry point as a link that names Vickee', (_label, Page) => {
     draw(Page)
     const link = screen.getByRole('link', { name: /Meet Vickee/ })

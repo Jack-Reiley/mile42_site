@@ -121,7 +121,7 @@ export default function DeliveryModel() {
             <Body className="mb-8">That benefits you directly. You are not paying us to rediscover something we already solved for someone else.</Body>
             <Eyebrow className="mb-2">Note on ownership</Eyebrow>
             <Body className="mb-8">Reusable assets are our methods and patterns, never your data, your business logic, or anything specific to your organization. Where we build something for you, you own it. Ownership terms are explicit in every engagement.</Body>
-            <TextLink to="/what-we-do/ai-products">See AI-driven products</TextLink>
+            <TextLink to="/what-we-do/engineering">See engineering</TextLink>
           </div>
 
           <ReuseLoop items={REUSE} />

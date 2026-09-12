@@ -133,8 +133,8 @@ describe('the entry points into Phase Zero', () => {
     ['/', /Explore Phase Zero/],
     ['/what-we-do', /See how Phase Zero works/],
     ['/what-we-do/advisory', /Start with Phase Zero/],
-    ['/how-we-work/client-journey', /^Phase Zero/],
-    ['/how-we-work/engagement-model', /See how Phase Zero works/],
+    ['/how-we-work', /^Phase Zero/],
+    ['/how-we-work', /See how Phase Zero works/],
   ])('%s links to the page rather than to /contact', (path, name) => {
     at(path)
     const main = within(screen.getByRole('main'))

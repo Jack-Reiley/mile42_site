@@ -68,8 +68,7 @@ describe('SCN-007 — the existing ruled groups are unchanged', () => {
   })
 
   it.each([
-    ['/what-we-do/engineering', ['AI and agentic systems', 'Systems and platforms', 'Modernization']],
-    ['/what-we-do/ai-products', ['Delivery accelerators', 'Client-owned products', 'Market-facing products']],
+    ['/what-we-do/engineering', ['AI and agentic systems', 'Systems and platforms', 'Modernization', 'Delivery accelerators', 'Client-owned products', 'Market-facing products']],
     ['/what-we-do/engineering/agentic-ai', ['Agents and copilots', 'Knowledge and automation', 'Applications and data']],
   ])('leaves the group titles on %s at level 4', (path, titles) => {
     at(path)

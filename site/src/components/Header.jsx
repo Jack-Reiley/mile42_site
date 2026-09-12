@@ -49,12 +49,6 @@ const NAV = [
           body: 'How the agents actually run the work.',
         },
       },
-      {
-        href: '/what-we-do/ai-products',
-        eyebrow: 'You need proven solutions',
-        title: 'AI products and accelerators',
-        body: 'Reuse what already works.',
-      },
     ],
   },
   {
@@ -63,7 +57,7 @@ const NAV = [
     overview: { title: 'How we work', body: OVERVIEW_BODY },
     columns: [
       {
-        href: '/how-we-work/client-journey',
+        href: '/how-we-work#client-journey',
         eyebrow: 'What happens, and in what order?',
         title: 'Client journey',
         body: 'Four stages, and the stronger position each one leaves you in.',
@@ -75,7 +69,7 @@ const NAV = [
         body: 'Agents across every major role, humans accountable for judgment and outcomes.',
       },
       {
-        href: '/how-we-work/engagement-model',
+        href: '/how-we-work#engagement-model',
         eyebrow: 'How do we engage commercially?',
         title: 'Engagement model',
         body: 'Why we would rather sell an outcome than a timesheet.',
