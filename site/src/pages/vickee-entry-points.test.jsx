@@ -79,7 +79,11 @@ describe('SCN-001 — the homepage carries a Vickee block in position', () => {
   it('presents the catalog drawer as one labelled image', () => {
     draw(Home)
     const diagram = screen.getByRole('img', { name: /card catalog drawer/i })
-    expect(diagram).toHaveTextContent('Marketing & CRM')
+    expect(diagram).toHaveTextContent('CMS & CDP')
+    expect(diagram).toHaveTextContent('CRM & marketing')
+    expect(diagram).toHaveTextContent('Analytics')
+    expect(diagram).not.toHaveTextContent('ERP & finance')
+    expect(diagram).not.toHaveTextContent('Marketing & CRM')
     expect(diagram).toHaveTextContent('Never any credentials')
     expect(diagram).toHaveTextContent('Agents never reach the sources')
   })

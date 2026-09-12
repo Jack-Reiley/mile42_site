@@ -60,7 +60,7 @@ const PILLARS = [
   },
   {
     title: 'Agents never touch the system of record',
-    benefit: 'Payroll, orders, HR, finance: these systems were never designed to be probed by autonomous software. Vickee is the buffer. Curated extracts land in Vickee, and agents work against the copy. The blast radius of a misbehaving agent is a read-only knowledge layer, not your ERP.',
+    benefit: 'Customer records, content, orders, payroll, finance: these systems were never designed to be probed by autonomous software. Vickee is the buffer. Curated extracts land in Vickee, and agents work against the copy. The blast radius of a misbehaving agent is a read-only knowledge layer, and your ERP never sees it.',
     proof: [
       'No SOR credentials in agent context windows, prompts, or logs',
       'Least privilege by construction: scoped by tenant, namespace, and tags',
@@ -497,10 +497,10 @@ export default function MeetVickee() {
         <Wrap>
           <H2 className="mb-4">Every library needs a librarian.</H2>
           <Body className="mb-3">
-            Marketing and CRM, commerce, ERP and finance, analytics: systems of record were built
-            for controlled transactions, not for autonomous software running open-ended queries.
-            You don&#8217;t hand a patron the keys to the archive. The librarian retrieves
-            what&#8217;s appropriate and keeps the stacks intact.
+            CMS and CDP, CRM and marketing automation, commerce, ERP and finance, analytics: systems
+            of record were built for controlled transactions, not for autonomous software running
+            open-ended queries. You don&#8217;t hand a patron the keys to the archive. The librarian
+            retrieves what&#8217;s appropriate and keeps the stacks intact.
           </Body>
           <Body className="mb-8">
             That is Vickee&#8217;s job between agents and sensitive systems. Publish curated extracts

@@ -65,7 +65,7 @@ const PARTS = [
     eyebrow: 'Your systems of record',
     title: 'Agents never touch the system of record.',
     body:
-      'Marketing and CRM, commerce, ERP and finance, analytics: these systems were built for ' +
+      'CMS and CDP, CRM and marketing automation, commerce, ERP and finance, analytics: these systems were built for ' +
       'controlled transactions, not for autonomous software running open-ended queries. You ' +
       'don’t hand a patron the keys to the archive.',
     proof: [
