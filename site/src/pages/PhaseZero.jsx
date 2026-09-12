@@ -110,6 +110,29 @@ const WORTH = [
   },
 ]
 
+/* The commercial terms, stated as rows rather than as a posture. A reader who
+   has reached the foot of the page is asking what it costs, and "priced to be
+   a decision" answered that with an attitude. */
+const TERMS = [
+  ['Duration', 'Typically about a month.'],
+  [
+    'Fee',
+    'Fixed, agreed before we start. Typically between $10k and $30k depending on the process.',
+  ],
+  [
+    'Scope',
+    'One named process, the four stages above, and nothing that is not written down first.',
+  ],
+  [
+    'What you keep',
+    'The baseline, the working pilot, and the roadmap, whether or not you continue.',
+  ],
+  [
+    'What comes next',
+    'Your call. Most Phase Zeros lead into an engineering engagement. None of them have to.',
+  ],
+]
+
 /* Built from design/design_handoff_phase_zero, option 2A. The band rhythm is
    the one the sibling What We Do detail pages draw: navy header, content bands,
    navy CTA.
@@ -276,17 +299,20 @@ export default function PhaseZero() {
       </Section>
 
       {/* Flat navy, no grain: it is the page header's fill returning to close
-          the argument, and a second textured band would read as a third one. */}
+          the argument, and a second textured band would read as a third one.
+       *
+       * The terms sit in a page-fill card rather than straight on the navy.
+       * Every TermList variant sets ink type, and none of them takes the hero
+       * tone, so the card is what keeps the rows legible on a dark band. */}
       <Section band="navy" pad="cta">
-        <Wrap className="text-center">
-          <H2 tone="hero" className="mb-3">Priced to be a decision, not an investment.</H2>
-          <div className="mx-auto mb-6 max-w-[42rem]">
-            <Lead tone="hero">
-              The scope is fixed and agreed before we start, there is no obligation to continue, and
-              the roadmap is yours either way.
-            </Lead>
-          </div>
-          <Button to="/contact">Start a conversation</Button>
+        <Wrap>
+          <H2 tone="hero" className="mb-6 text-center">What it costs, and what you keep.</H2>
+          <Card className="mx-auto mb-8 max-w-[52rem]">
+            <TermList items={TERMS} variant="wide" />
+          </Card>
+          <ButtonRow className="justify-center">
+            <Button to="/contact">Start a conversation</Button>
+          </ButtonRow>
         </Wrap>
       </Section>
     </>

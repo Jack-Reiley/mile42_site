@@ -50,15 +50,16 @@ describe('the Phase Zero page', () => {
     expect(second).toEqual([2, 'What is the one process you would fix first?'])
   })
 
-  /* The commercial line, and the reason it is not a price. Losing the second
-     half turns the first into a claim with nothing behind it. */
+  /* The commercial terms as rows: a duration, a fee band, and what the reader
+     keeps. The row copy is pinned in phase-zero-commercial-line.test.jsx; this
+     pins the band's heading and that the roadmap stays theirs either way. */
   it('states the commercial terms without calling the offering free', () => {
     at(ROUTE)
     const main = within(screen.getByRole('main'))
     expect(
-      main.getByRole('heading', { name: 'Priced to be a decision, not an investment.' }),
+      main.getByRole('heading', { name: 'What it costs, and what you keep.' }),
     ).toBeInTheDocument()
-    expect(main.getByText(/no obligation to continue, and the roadmap is yours either way/))
+    expect(main.getByText(/the roadmap, whether or not you continue/))
       .toBeInTheDocument()
     /* The offering is no longer described as free. Unscoped since #99 rewrote
        the header's Phase Zero card, which is what previously forced this to

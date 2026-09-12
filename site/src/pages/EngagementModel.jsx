@@ -66,7 +66,7 @@ export default function EngagementModel() {
             <Body className="max-w-none">
               Phase Zero is a working pilot on one process you name, built beside production and
               measured against your own baseline. You get something running, and a roadmap for what
-              comes after it. It is priced to be a decision, not an investment.
+              comes after it. About a month, fixed fee, typically $10k to $30k.
             </Body>
             <p className="mt-4">
               <TextLink to="/what-we-do/phase-zero" tone="accent">See how Phase Zero works</TextLink>

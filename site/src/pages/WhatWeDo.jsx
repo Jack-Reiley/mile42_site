@@ -104,7 +104,7 @@ export default function WhatWeDo() {
           <H2 className="mb-3">Before you choose, there is a smaller way to start.</H2>
           <Lead className="mb-9 max-w-none text-ink/70">
             Phase Zero is a working pilot on one process you name, built beside production and
-            measured against your own baseline. It is priced to be a decision, not an investment.
+            measured against your own baseline. About a month, fixed fee, typically $10k to $30k.
           </Lead>
           <FeaturePanel
             spot="magnifier-gear"

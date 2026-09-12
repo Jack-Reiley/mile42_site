@@ -20,16 +20,19 @@ import App from '../App.jsx'
  * a future tightening of this guard cannot quietly rewrite them.
  */
 
-/* The pages carry the full sentence; the nav card carries the short form the
-   248px panel column has room for. Both say the same thing, and both are
-   pinned, because a card that keeps the words while losing the posture is the
-   drift this file exists to catch. */
-const LINE = /priced to be a decision, not an investment/i
-const CARD_LINE = /The low-risk way in, priced to be a decision\./
+/* The pages carry the duration and the price band; the nav card carries the
+   short form the 248px panel column has room for. Both state terms rather
+   than a posture, and both are pinned, because a card that keeps the words
+   while losing the figures is the drift this file exists to catch. */
+const LINE = /About a month, fixed fee, typically \$10k to \$30k\./
+const CARD_LINE = /The low-risk way in\. About a month, fixed fee\./
+const POSTURE = /priced to be a decision/i
 /* The homepage states the same terms in full: the home rewrite put the
    duration and the price band on its Phase Zero card. */
 const HOME_LINE =
   /About a month\. Fixed fee, agreed before we start, typically between \$10k and \$30k depending on the process\./
+/* The Phase Zero page's own terms, one row per label. */
+const TERM_LABELS = ['Duration', 'Fee', 'Scope', 'What you keep', 'What comes next']
 const FREE = /\bfree\b/i
 const COSTS_NOTHING = /cost(s)? nothing/i
 
@@ -88,6 +91,7 @@ describe('the pages that point at Phase Zero state the priced line', () => {
     at('/what-we-do')
     expect(main().getByText(LINE)).toBeInTheDocument()
     expect(main().queryByText(FREE)).toBeNull()
+    expect(main().queryByText(POSTURE)).toBeNull()
   })
 
   it('/ states the duration and the price band and does not call the offering free', () => {
@@ -106,7 +110,7 @@ describe('the engagement model argues the first engagement', () => {
     const OPENING =
       /Phase Zero is a working pilot on one process you name, built beside production and measured against your own baseline\./
     const OFFER =
-      /Phase Zero is a working pilot on one process you name, built beside production and measured against your own baseline\. You get something running, and a roadmap for what comes after it\. It is priced to be a decision, not an investment\./
+      /Phase Zero is a working pilot on one process you name, built beside production and measured against your own baseline\. You get something running, and a roadmap for what comes after it\. About a month, fixed fee, typically \$10k to \$30k\./
     at('/how-we-work/engagement-model')
     const panel = within(
       main().getByRole('heading', { name: 'Start with a pilot.' }).closest('div').parentElement,
@@ -146,11 +150,29 @@ describe('the engagement model argues the first engagement', () => {
 })
 
 describe('the Phase Zero page itself', () => {
-  it('closes on the priced line', () => {
+  it('closes on the terms rather than the posture', () => {
     at('/what-we-do/phase-zero')
     expect(
-      main().getByRole('heading', { name: 'Priced to be a decision, not an investment.' }),
+      main().getByRole('heading', { name: 'What it costs, and what you keep.' }),
     ).toBeInTheDocument()
+    expect(main().queryByText(POSTURE)).toBeNull()
+  })
+
+  /* One row per term, in the agreed order. Asserted by role so the labels
+     have to be real `dt`s, not five bold spans. */
+  it('states the five commercial rows', () => {
+    at('/what-we-do/phase-zero')
+    const heading = main().getByRole('heading', { name: 'What it costs, and what you keep.' })
+    const band = within(heading.closest('section'))
+    const terms = band.getAllByRole('term').map((t) => t.textContent)
+    expect(terms).toEqual(TERM_LABELS)
+    expect(band.getByText('Typically about a month.')).toBeInTheDocument()
+    expect(
+      band.getByText(
+        'Fixed, agreed before we start. Typically between $10k and $30k depending on the process.',
+      ),
+    ).toBeInTheDocument()
+    expect(band.getByRole('link', { name: 'Start a conversation' })).toHaveAttribute('href', '/contact')
   })
 })
 
