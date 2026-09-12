@@ -68,8 +68,7 @@ describe('SCN-007 — the existing ruled groups are unchanged', () => {
   })
 
   it.each([
-    ['/what-we-do/engineering', ['AI and agentic systems', 'Systems and platforms', 'Modernization']],
-    ['/what-we-do/ai-products', ['Delivery accelerators', 'Client-owned products', 'Market-facing products']],
+    ['/what-we-do/engineering', ['AI and agentic systems', 'Systems and platforms', 'Modernization', 'Delivery accelerators', 'Client-owned products', 'Market-facing products']],
     ['/what-we-do/engineering/agentic-ai', ['Agents and copilots', 'Knowledge and automation', 'Applications and data']],
   ])('leaves the group titles on %s at level 4', (path, titles) => {
     at(path)
@@ -84,7 +83,7 @@ describe('SCN-008 — the benefit copy is unchanged', () => {
     [BENEFITS[0], 'We can commit to a price because we are not guessing at how many hours a team will need.'],
     [BENEFITS[1], 'Test coverage and documentation happen continuously rather than depending on whether the schedule held.'],
     [BENEFITS[2], 'Decisions and rationale are captured as the work happens, so the reasoning survives past the engagement.'],
-    [BENEFITS[3], 'Fewer people means fewer handoffs, fewer status meetings, and less of your time spent managing us.'],
+    [BENEFITS[3], 'Fewer people means fewer handoffs and less of your time spent managing us.'],
   ])('keeps the body under %s', (title, body) => {
     at('/how-we-work/delivery-model')
     expect(screen.getByRole('heading', { level: 3, name: title })).toBeInTheDocument()

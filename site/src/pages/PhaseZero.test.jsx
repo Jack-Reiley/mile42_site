@@ -28,7 +28,7 @@ describe('the Phase Zero page', () => {
   it('is the only h1 on the route', () => {
     at(ROUTE)
     const h1s = outline().filter(([level]) => level === 1)
-    expect(h1s).toEqual([[1, 'Proof, not a proposal.']])
+    expect(h1s).toEqual([[1, 'A working pilot on your process.']])
   })
 
   it('never skips a heading level', () => {
@@ -46,19 +46,20 @@ describe('the Phase Zero page', () => {
   it('opens with the diagnostic question, below the h1', () => {
     at(ROUTE)
     const [first, second] = outline()
-    expect(first).toEqual([1, 'Proof, not a proposal.'])
+    expect(first).toEqual([1, 'A working pilot on your process.'])
     expect(second).toEqual([2, 'What is the one process you would fix first?'])
   })
 
-  /* The commercial line, and the reason it is not a price. Losing the second
-     half turns the first into a claim with nothing behind it. */
+  /* The commercial terms as rows: a duration, a fee band, and what the reader
+     keeps. The row copy is pinned in phase-zero-commercial-line.test.jsx; this
+     pins the band's heading and that the roadmap stays theirs either way. */
   it('states the commercial terms without calling the offering free', () => {
     at(ROUTE)
     const main = within(screen.getByRole('main'))
     expect(
-      main.getByRole('heading', { name: 'Priced to be a decision, not an investment.' }),
+      main.getByRole('heading', { name: 'What it costs, and what you keep.' }),
     ).toBeInTheDocument()
-    expect(main.getByText(/no obligation to continue, and the roadmap is yours either way/))
+    expect(main.getByText(/the roadmap, whether or not you continue/))
       .toBeInTheDocument()
     /* The offering is no longer described as free. Unscoped since #99 rewrote
        the header's Phase Zero card, which is what previously forced this to
@@ -73,7 +74,7 @@ describe('the Phase Zero page', () => {
     at(ROUTE)
     const questions = [
       'What frustrates people most?',
-      'What takes the most human time?',
+      'What takes the most of your team’s time?',
       'Where does quality slip?',
       'What is the low-hanging fruit?',
     ]
@@ -129,11 +130,11 @@ describe('the Phase Zero page', () => {
  */
 describe('the entry points into Phase Zero', () => {
   it.each([
-    ['/', /See how Phase Zero works/],
+    ['/', /Explore Phase Zero/],
     ['/what-we-do', /See how Phase Zero works/],
     ['/what-we-do/advisory', /Start with Phase Zero/],
-    ['/how-we-work/client-journey', /^Phase Zero/],
-    ['/how-we-work/engagement-model', /See how Phase Zero works/],
+    ['/how-we-work', /^Phase Zero/],
+    ['/how-we-work', /See how Phase Zero works/],
   ])('%s links to the page rather than to /contact', (path, name) => {
     at(path)
     const main = within(screen.getByRole('main'))

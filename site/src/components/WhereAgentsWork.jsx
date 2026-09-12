@@ -26,7 +26,7 @@ export default function WhereAgentsWork({ roles }) {
     <SelectorPanel
       eyebrow="Seven roles"
       items={roles}
-      note="Roles, not steps. Several run at once throughout an engagement."
+      note="Several run at once throughout an engagement."
       paneId={PANE_ID}
       defaultIndex={DEFAULT_ROLE}
     >
@@ -45,7 +45,7 @@ export default function WhereAgentsWork({ roles }) {
               band flipped to light type: ink is 3.22:1 on this fill now and the
               off-white 4.79. Same rule the page follows on `brand`. */}
           <div className="rounded-card border border-ink bg-brand px-6 py-[22px] shadow-hard">
-            <Eyebrow tone="hero" className="mb-2">Human decision</Eyebrow>
+            <Eyebrow tone="hero" className="mb-2">Engineer&#8217;s decision</Eyebrow>
             <p className="font-heading text-[22px] font-bold leading-8 text-hero-heading text-pretty">
               {role.human}
             </p>

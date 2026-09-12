@@ -30,7 +30,7 @@ const NAV = [
         href: '/what-we-do/phase-zero',
         eyebrow: 'Not sure where to start',
         title: 'Phase Zero',
-        body: 'The low-risk way in, priced to be a decision.',
+        body: 'The low-risk way in. About a month, fixed fee.',
       },
       {
         href: '/what-we-do/advisory',
@@ -49,12 +49,6 @@ const NAV = [
           body: 'How the agents actually run the work.',
         },
       },
-      {
-        href: '/what-we-do/ai-products',
-        eyebrow: 'You need proven solutions',
-        title: 'AI products and accelerators',
-        body: 'Reuse what already works.',
-      },
     ],
   },
   {
@@ -63,7 +57,7 @@ const NAV = [
     overview: { title: 'How we work', body: OVERVIEW_BODY },
     columns: [
       {
-        href: '/how-we-work/client-journey',
+        href: '/how-we-work#client-journey',
         eyebrow: 'What happens, and in what order?',
         title: 'Client journey',
         body: 'Four stages, and the stronger position each one leaves you in.',
@@ -72,10 +66,10 @@ const NAV = [
         href: '/how-we-work/delivery-model',
         eyebrow: 'How does the work get done?',
         title: 'Delivery model',
-        body: 'Agents across every major role, humans accountable for judgment and outcomes.',
+        body: 'Agents across every major role, a named engineer accountable for the outcome.',
       },
       {
-        href: '/how-we-work/engagement-model',
+        href: '/how-we-work#engagement-model',
         eyebrow: 'How do we engage commercially?',
         title: 'Engagement model',
         body: 'Why we would rather sell an outcome than a timesheet.',

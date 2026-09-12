@@ -33,9 +33,15 @@ describe('SCN-005 — the footer email link leaves the app', () => {
   it('still routes every other footer link inside the app', () => {
     draw()
     expect(href('Start a conversation')).toBe('/contact')
-    expect(href('LinkedIn')).toBe('/contact')
     expect(href('Advisory')).toBe('/what-we-do/advisory')
     expect(href('Privacy')).toBe('/legal/privacy')
+  })
+
+  /* The LinkedIn link pointed at /contact, which is not LinkedIn. It is gone
+     until a company page exists to point it at. */
+  it('offers no LinkedIn link', () => {
+    draw()
+    expect(screen.queryByRole('link', { name: 'LinkedIn' })).toBeNull()
   })
 
   it('leaves no footer link pointing at a route that was never resolved', () => {

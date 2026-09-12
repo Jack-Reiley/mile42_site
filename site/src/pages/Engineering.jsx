@@ -6,7 +6,7 @@ import { TermList, GroupColumns, RuledGroup, CheckList } from '../components/Lis
 
 /* Brand green is the faintest of the three page accents. On light backgrounds it
    is darkened 8% so the rules and badges read at comparable weight to Advisory's
-   orange and AI-driven Products' red. On navy the pure token is stronger, so the
+   orange. On navy the pure token is stronger, so the
    breadcrumb mark keeps it.
    Written out in full at each call site because Tailwind scans source text: an
    interpolated class name never reaches the generated stylesheet. */
@@ -27,7 +27,7 @@ const CAPABILITIES = [
     title: 'Systems and platforms',
     items: [
       ['Custom software', 'Systems built for a problem no product on the market actually solves.'],
-      ['Product engineering', 'Building and evolving a product with a roadmap, not a one-off delivery.'],
+      ['Product engineering', 'Building and evolving a product that has a roadmap and a life after launch.'],
       ['Systems integration', 'Making separate systems behave like one, reliably and observably.'],
       // Restored. The comp drops this one, but the prototype is the copy
       // authority and removing a claimed capability is a sales decision, not a
@@ -46,6 +46,24 @@ const CAPABILITIES = [
   },
 ]
 
+/* What was AI-driven Products, folded in here. The accelerators are part of
+   how engineering work is delivered rather than a practice of their own, and
+   the page that held them spent most of its length restating that. */
+const OFFERS = [
+  {
+    title: 'Delivery accelerators',
+    body: 'Reusable methods, agents, workflows, and patterns built from prior client work. They belong to the engagement they are used in, and they lower its risk and its cost.',
+  },
+  {
+    title: 'Client-owned products',
+    body: 'Sometimes the right answer is a product built for one organization and owned outright by it. You own the code, the IP, and the roadmap. We build it and hand it over.',
+  },
+  {
+    title: 'Market-facing products',
+    body: 'Occasionally a pattern proves general enough to become a product in its own right. That is rare, and we treat it as rare.',
+  },
+]
+
 const OUTCOMES = [
   {
     title: 'Working technology.',
@@ -57,7 +75,7 @@ const OUTCOMES = [
   },
   {
     title: 'Stronger capability.',
-    body: 'Your team can operate, extend, and change what we built without us.',
+    body: 'Your team can operate and extend what we built without us.',
   },
 ]
 
@@ -83,10 +101,9 @@ export default function Engineering() {
             The distance between a plan and a working system is where most initiatives fail.
           </H2>
           <Lead className="mb-9 max-w-none text-ink/70">
-            Something important has to work. Not designed, not scoped, not piloted. Work, in
-            production, for real users, under real constraints.
+            Something important has to work, in production, for real users. The plan and the pilot
+            were the easy part.
           </Lead>
-          <Eyebrow as="span" className="mb-2 block">Capabilities</Eyebrow>
           <H3 className="mb-6">What we build.</H3>
           {/* #21's ruled column wrapping #20's term rows, composed rather than built. */}
           <GroupColumns>
@@ -99,18 +116,57 @@ export default function Engineering() {
         </Wrap>
       </Section>
 
+      <Section band="surface" pad="band">
+        <Wrap>
+          <H2 className="mb-3">What you do not have to build from scratch.</H2>
+          <Lead className="mb-9 max-w-none text-ink/70">
+            Some of what you are about to build has been built before. Starting from zero is a
+            choice, and it is usually the expensive one.
+          </Lead>
+          <H3 className="mb-6">Three forms, depending on what the work needs.</H3>
+          <GroupColumns>
+            {OFFERS.map((o) => (
+              <RuledGroup key={o.title} title={o.title} ruleClass={GREEN_RULE}>
+                <Body className="max-w-none text-ink/72">{o.body}</Body>
+              </RuledGroup>
+            ))}
+          </GroupColumns>
+        </Wrap>
+      </Section>
+
+      <Section pad="band">
+        <Wrap>
+          <LabelBody label={<H2>Reuse is why the economics work.</H2>}>
+            <Body className="max-w-none">
+              Committing to an outcome is difficult when every engagement starts from nothing. It
+              becomes practical when a meaningful share of the work has already been solved and
+              proven somewhere else.
+            </Body>
+            <Body className="mt-[14px] max-w-none">
+              The accelerators are the reason our commercial model works, and the reason it keeps
+              improving. Each engagement should leave you with a better outcome and leave us with
+              sharper methods for the next one.
+            </Body>
+            <p className="mt-5">
+              <TextLink to="/how-we-work#engagement-model" tone="accent">
+                See the engagement model
+              </TextLink>
+            </p>
+          </LabelBody>
+        </Wrap>
+      </Section>
+
       <Section pad="band">
         <Wrap>
           <FeaturePanel
             spot="path-gears"
-            eyebrow="Core practice"
             title="Agentic AI, implemented."
           >
             <Body className="max-w-none">
               A prototype only has to work once. A system has to work every time, on real data, for
               people who did not ask for it. Closing that gap is our core practice: agents and
-              copilots that run inside your real workflows, connected to your real data, with the
-              operational reality handled rather than deferred.
+              copilots that run inside your real workflows and on your real data, with the
+              operational reality handled up front.
             </Body>
             <p className="mt-4">
               <TextLink to="/what-we-do/engineering/agentic-ai" tone="accent">Inside our agentic AI practice</TextLink>
@@ -136,7 +192,7 @@ export default function Engineering() {
 
       <Section pad="band">
         <Wrap>
-          <LabelBody label={<H2>We build capability, not dependence.</H2>}>
+          <LabelBody label={<H2>The plan was sound. Production disagreed.</H2>}>
             <Body className="max-w-none">
               The strategy was sound, the vendor was capable, the technology was proven somewhere
               else, and the thing still did not land, because production is where the assumptions
@@ -144,9 +200,9 @@ export default function Engineering() {
             </Body>
             <Body className="mt-[14px] max-w-none">
               Real data is messier than the sample. The integration has a constraint nobody
-              documented. Adoption depends on a team whose incentives were never part of the plan.
-              Engineering is the practice of closing that distance, and staying accountable for
-              whether it works.
+              documented, and adoption turns on a team whose incentives were never part of the
+              plan. Engineering is the practice of closing that distance and staying accountable
+              for whether it works.
             </Body>
             <p className="mt-5">
               <TextLink to="/how-we-work" tone="accent">See how we deliver</TextLink>
@@ -158,11 +214,11 @@ export default function Engineering() {
       <Section band="navy" pad="cta">
         <Wrap className="text-center">
           <Eyebrow as="span" tone="sky" className="mb-3 block">Engineering</Eyebrow>
-          <H2 tone="hero" className="mb-3">Tell us what needs to work.</H2>
+          <H2 tone="hero" className="mb-3">Show us what has to ship.</H2>
           <div className="mx-auto mb-6 max-w-[42rem]">
             <Lead tone="hero">
-              Bring the problem. We will tell you honestly whether we are the right firm to solve
-              it.
+              Describe what has to work, and what is standing in the way. Expect a straight answer
+              on whether it is our kind of problem.
             </Lead>
           </div>
           <Button to="/contact">Start a conversation</Button>

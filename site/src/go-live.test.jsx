@@ -37,7 +37,7 @@ const at = (path) =>
 
 const heading = () => screen.getByRole('heading', { level: 1 }).textContent
 
-const HOME_HEADING = 'The consulting model is broken'
+const HOME_HEADING = 'Most AI pilots never make it past the demo'
 
 /* Every file the deploy ships or that configures it. `_redirects` carries no
    extension and is the single most important file in this sweep, so the walk

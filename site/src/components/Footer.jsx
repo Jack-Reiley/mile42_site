@@ -10,15 +10,14 @@ const COLUMNS = [
       { href: '/what-we-do/advisory', label: 'Advisory' },
       { href: '/what-we-do/engineering', label: 'Engineering' },
       { href: '/what-we-do/engineering/agentic-ai', label: 'Agentic AI', nested: true },
-      { href: '/what-we-do/ai-products', label: 'AI-driven Products' },
     ],
   },
   {
     heading: 'How we work',
     links: [
-      { href: '/how-we-work/client-journey', label: 'Client journey' },
+      { href: '/how-we-work#client-journey', label: 'Client journey' },
       { href: '/how-we-work/delivery-model', label: 'Delivery model' },
-      { href: '/how-we-work/engagement-model', label: 'Engagement model' },
+      { href: '/how-we-work#engagement-model', label: 'Engagement model' },
     ],
   },
   {
@@ -33,7 +32,6 @@ const COLUMNS = [
     links: [
       { href: '/contact', label: 'Start a conversation' },
       { href: 'mailto:hello@mile42.ai', label: 'Email' },
-      { href: '/contact', label: 'LinkedIn' },
     ],
   },
 ]

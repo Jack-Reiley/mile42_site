@@ -46,15 +46,13 @@ export default function Advisory() {
         <Wrap>
           <H2 className="mb-3">Most technology decisions are made with incomplete context.</H2>
           <Lead className="mb-9 max-w-none text-ink/70">
-            Before a major investment, the expensive mistake is rarely choosing the wrong option. It
-            is committing before you understand what you are committing to.
+            The expensive mistake before a major investment is usually a commitment made before
+            anyone understood what it involved, and only rarely the wrong option.
           </Lead>
-          <Eyebrow as="span" className="mb-2 block">Engagements</Eyebrow>
           <H3 className="mb-[22px]">What we are usually brought in for.</H3>
           <TermList items={ENGAGEMENTS} variant="ruled" columns={3} />
           <Note className="mt-[18px]">
-            If what you need is not on this list, describe the decision and we will tell you whether
-            we can help.
+            If the decision you are facing is not on this list, describe it anyway.
           </Note>
         </Wrap>
       </Section>
@@ -63,15 +61,13 @@ export default function Advisory() {
         <Wrap>
           <FeaturePanel
             spot="magnifier-gear"
-            eyebrow="Offering · Phase Zero"
             title="The low-risk way in."
             note="Name a process. Prove the fix. Map what comes next."
           >
             <Body className="max-w-none">
               Name your messiest, most manual workflow. We assess its readiness, run a working pilot
-              beside production, and hand you a roadmap of next steps. It runs in parallel, it is
-              reversible on day one, and it is measured against your own baseline. Proof, not a
-              proposal.
+              beside production, and hand you a roadmap of next steps. It is reversible on day one,
+              and it is measured against your own baseline.
             </Body>
             <p className="mt-4">
               <TextLink to="/what-we-do/phase-zero" tone="accent">Start with Phase Zero</TextLink>
@@ -104,7 +100,7 @@ export default function Advisory() {
             label={
               <>
                 <Eyebrow as="span" className="mb-2 block">What you leave with</Eyebrow>
-                <H3>Direction, context, and decision confidence.</H3>
+                <H3>A decision, and the reasoning behind it.</H3>
               </>
             }
           >
@@ -132,7 +128,7 @@ export default function Advisory() {
             </Body>
             <div className="mt-5 flex flex-wrap gap-[26px]">
               <TextLink to="/what-we-do/engineering" tone="accent">See engineering</TextLink>
-              <TextLink to="/how-we-work/client-journey" tone="accent">See the client journey</TextLink>
+              <TextLink to="/how-we-work#client-journey" tone="accent">See the client journey</TextLink>
             </div>
           </LabelBody>
         </Wrap>
@@ -141,11 +137,11 @@ export default function Advisory() {
       <Section band="navy" pad="cta">
         <Wrap className="text-center">
           <Eyebrow as="span" tone="sky" className="mb-3 block">Advisory</Eyebrow>
-          <H2 tone="hero" className="mb-3">Tell us what you are trying to decide.</H2>
+          <H2 tone="hero" className="mb-3">What are you trying to decide?</H2>
           <div className="mx-auto mb-6 max-w-[42rem]">
             <Lead tone="hero">
-              We will tell you what we would need to know to help, and whether we are the right firm
-              to ask.
+              Send it as you currently understand it, half-formed is fine. The first reply is usually
+              a set of questions.
             </Lead>
           </div>
           <Button to="/contact">Start a conversation</Button>
