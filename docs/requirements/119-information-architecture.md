@@ -1,7 +1,7 @@
 # #119 — Merge Client journey and Engagement model into How We Work, and retire AI-driven Products into Engineering
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/119
-- Pull request: to be linked when the shared PR opens
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/120
 - Parent epic: none
 - Delivery unit: U1 (shared branch `feature/113-home-rewrite` with #113, #114, #115, #117, #118, #119, #116)
 - Requirement version: 2
