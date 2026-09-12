@@ -26,6 +26,10 @@ import App from '../App.jsx'
    drift this file exists to catch. */
 const LINE = /priced to be a decision, not an investment/i
 const CARD_LINE = /The low-risk way in, priced to be a decision\./
+/* The homepage states the same terms in full: the home rewrite put the
+   duration and the price band on its Phase Zero card. */
+const HOME_LINE =
+  /About a month\. Fixed fee, agreed before we start, typically between \$10k and \$30k depending on the process\./
 const FREE = /\bfree\b/i
 const COSTS_NOTHING = /cost(s)? nothing/i
 
@@ -80,22 +84,27 @@ describe('the mobile drawer states the same line', () => {
 })
 
 describe('the pages that point at Phase Zero state the priced line', () => {
-  it.each([
-    ['/', 'the homepage panel'],
-    ['/what-we-do', 'the What We Do band'],
-  ])('%s states it and does not call the offering free', (path) => {
-    at(path)
+  it('/what-we-do states it and does not call the offering free', () => {
+    at('/what-we-do')
     expect(main().getByText(LINE)).toBeInTheDocument()
+    expect(main().queryByText(FREE)).toBeNull()
+  })
+
+  it('/ states the duration and the price band and does not call the offering free', () => {
+    at('/')
+    expect(main().getByText(HOME_LINE)).toBeInTheDocument()
     expect(main().queryByText(FREE)).toBeNull()
   })
 })
 
 describe('the engagement model argues the first engagement', () => {
-  /* The offer is made in the same words here as on the homepage, so a reader
-     who has seen one is not told something different by the other. Pinned as
-     the same string on both routes rather than as two separate assertions,
-     because the failure worth catching is the two drifting apart. */
-  it('makes the offer in the homepage panel words', () => {
+  /* The offer opens in the same words here as on the homepage card, so a
+     reader who has seen one is not told something different by the other. The
+     homepage carries the opening sentence and then the terms in full; this
+     panel carries the opening sentence and then the terms in short. */
+  it('makes the offer in the homepage card words', () => {
+    const OPENING =
+      /Phase Zero is a working pilot on one process you name, built beside production and measured against your own baseline\./
     const OFFER =
       /Phase Zero is a working pilot on one process you name, built beside production and measured against your own baseline\. You get something running, and a roadmap for what comes after it\. It is priced to be a decision, not an investment\./
     at('/how-we-work/engagement-model')
@@ -106,7 +115,8 @@ describe('the engagement model argues the first engagement', () => {
 
     cleanup()
     at('/')
-    expect(main().getByText(OFFER)).toBeInTheDocument()
+    expect(main().getByText(OPENING)).toBeInTheDocument()
+    expect(main().getByText(HOME_LINE)).toBeInTheDocument()
   })
 
   /* The hinge sentence that hands the band off to the panel. It is the third
@@ -145,12 +155,14 @@ describe('the Phase Zero page itself', () => {
 })
 
 /**
- * One title for the offering, wherever it is offered. Advisory is deliberately
- * out: it keeps "The low-risk way in." and is asserted here so the exclusion is
- * a decision on the record rather than a page someone forgot.
+ * One title for the offering, wherever it is offered as a panel. Advisory is
+ * deliberately out: it keeps "The low-risk way in." and is asserted here so the
+ * exclusion is a decision on the record rather than a page someone forgot. The
+ * homepage is out since the home rewrite: Phase Zero is one of its three
+ * offering cards there, titled the way the other two cards are.
  */
 describe('the offering panels share one title', () => {
-  it.each(['/', '/what-we-do', '/how-we-work/engagement-model'])(
+  it.each(['/what-we-do', '/how-we-work/engagement-model'])(
     '%s titles the panel "Start with a pilot."',
     (path) => {
       at(path)
@@ -161,6 +173,12 @@ describe('the offering panels share one title', () => {
   it('leaves Advisory on its own title', () => {
     at('/what-we-do/advisory')
     expect(main().getByRole('heading', { name: 'The low-risk way in.' })).toBeInTheDocument()
+  })
+
+  it('offers Phase Zero on the homepage as a card rather than a panel', () => {
+    at('/')
+    expect(main().queryByRole('heading', { name: 'Start with a pilot.' })).toBeNull()
+    expect(main().getByRole('heading', { level: 3, name: 'You need a pilot' })).toBeInTheDocument()
   })
 })
 

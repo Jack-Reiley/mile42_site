@@ -33,7 +33,6 @@ const COLUMNS = [
     links: [
       { href: '/contact', label: 'Start a conversation' },
       { href: 'mailto:hello@mile42.ai', label: 'Email' },
-      { href: '/contact', label: 'LinkedIn' },
     ],
   },
 ]

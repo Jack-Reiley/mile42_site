@@ -93,8 +93,11 @@ describe('the handshake is retired but not lost', () => {
     expect(screen.getAllByText('You leave with:').length).toBeGreaterThan(0)
   })
 
-  it('is still named by both call sites, which is where the restore reads it', () => {
-    expect(read('pages/Home.jsx')).toContain("spot: 'handshake'")
+  /* The homepage call went with the AI-driven Products card it hung on: the
+     home rewrite replaced that card with Phase Zero, so the record of the
+     handshake's placement now lives only in the client journey. */
+  it('is still named by the client journey, which is where the restore reads it', () => {
+    expect(read('pages/Home.jsx')).not.toContain("spot: 'handshake'")
     expect(read('components/StageJourney.jsx')).toContain("spot: 'handshake'")
   })
 })

@@ -148,9 +148,13 @@ describe('SCN-003 — heroes are announced, the brand mark is not', () => {
 })
 
 describe('SCN-004 — the homepage argument panel draws its spot', () => {
+  /* Found by its heading rather than by position: the home rewrite moved the
+     panel from second band to the one above the closing call to action. */
   it('draws the gear-and-brain in the panel and announces it', () => {
     const { container } = at(<Home />)
-    const panel = [...container.querySelectorAll('section')][1]
+    const panel = [...container.querySelectorAll('section')].find((s) =>
+      s.textContent.includes('Consulting should create momentum'),
+    )
     const art = artOf(container).filter((i) => panel.contains(i))
 
     expect(art).toHaveLength(1)
@@ -245,7 +249,6 @@ describe('SCN-006 — a path card without live artwork keeps the closed layout',
 
 describe('SCN-007 — the Phase Zero panels share the magnifier', () => {
   const PANELS = [
-    ['the homepage', <Home />],
     ['What we do', <WhatWeDo />],
     ['Engagement model', <EngagementModel />],
     ['Advisory', <Advisory />],
@@ -263,6 +266,21 @@ describe('SCN-007 — the Phase Zero panels share the magnifier', () => {
     expect(art[0].getAttribute('src')).toBe(illustrations['magnifier-gear'].src)
     expect(art[0].getAttribute('alt')).toBe('')
     expect(column.firstElementChild).toBe(art[0])
+  })
+
+  /* The homepage panel went with the home rewrite, and the Phase Zero card
+     that replaced it in the offerings trio took the magnifier as its overhang.
+     Asserted on the card so the drawing cannot fall off the page silently. */
+  it('the homepage draws the magnifier on the Phase Zero card', () => {
+    const { container } = at(<Home />)
+    const card = [...container.querySelectorAll('article')].find((a) =>
+      a.textContent.includes('Explore Phase Zero'),
+    )
+    const art = artOf(card)
+
+    expect(art).toHaveLength(1)
+    expect(art[0].getAttribute('src')).toBe(illustrations['magnifier-gear'].src)
+    expect(art[0].getAttribute('alt')).toBe(illustrations['magnifier-gear'].alt)
   })
 
   /* Mid-spot size is a class contract on FeaturePanel: a Level Two entry gets
@@ -341,12 +359,16 @@ describe('SCN-009 — the retired set stays off the site', () => {
     },
   )
 
-  it('leaves the homepage offerings cards and the Meet Vickee lede empty', () => {
+  /* The offerings trio draws the magnifier on its Phase Zero card and nothing
+     else: the lightbulb and laptop calls on the other two cards stay inert. */
+  it('leaves the homepage offerings cards to the magnifier and the Meet Vickee lede empty', () => {
     const home = at(<Home />)
     const offerings = [...home.container.querySelectorAll('section')].find((s) =>
-      /Offering · /.test(s.textContent) && s.querySelectorAll('h3').length >= 3,
+      s.textContent.includes('Three ways organizations work with us'),
     )
-    expect(artOf(offerings ?? home.container).filter((i) => offerings?.contains(i))).toHaveLength(0)
+    const art = artOf(offerings)
+    expect(art).toHaveLength(1)
+    expect(art[0].getAttribute('src')).toBe(illustrations['magnifier-gear'].src)
 
     const vickee = at(<MeetVickee />)
     expect(artOf(vickee.container)).toHaveLength(1)

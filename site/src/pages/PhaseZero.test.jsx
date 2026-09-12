@@ -129,7 +129,7 @@ describe('the Phase Zero page', () => {
  */
 describe('the entry points into Phase Zero', () => {
   it.each([
-    ['/', /See how Phase Zero works/],
+    ['/', /Explore Phase Zero/],
     ['/what-we-do', /See how Phase Zero works/],
     ['/what-we-do/advisory', /Start with Phase Zero/],
     ['/how-we-work/client-journey', /^Phase Zero/],

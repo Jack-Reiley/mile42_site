@@ -5,16 +5,17 @@
     "band": "#006ae0",
     "copy": {
       "kicker": "Execution, Rebuilt.",
-      "heading": "The consulting model is broken. We didn’t bring it with us.",
-      "lead": "Mile42 combines senior judgment with AI-native delivery, without bloated teams, endless billing, or recommendations that never become results."
+      "heading": "Most AI pilots never make it past the demo.",
+      "lead": "Almost every organization has run one. It demonstrated well, leadership was encouraged, and nothing changed. Mile42 exists for what comes next: getting agents into real workflows, past security review, and into daily use."
     },
     "headingLines": [
-      "The consulting model is broken.",
-      "We didn’t bring it with us."
+      "Most AI pilots never",
+      "make it past the demo."
     ],
     "leadLines": [
-      "Mile42 combines senior judgment with AI-native delivery, without bloated",
-      "teams, endless billing, or recommendations that never become results."
+      "Almost every organization has run one. It demonstrated well, leadership was",
+      "encouraged, and nothing changed. Mile42 exists for what comes next: getting",
+      "agents into real workflows, past security review, and into daily use."
     ]
   },
   "icon": {

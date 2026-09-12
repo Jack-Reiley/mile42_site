@@ -63,10 +63,10 @@ describe('SCN-001 — the Vickee page carries no trademark symbol', () => {
 describe('SCN-002 — the homepage carries no trademark symbol', () => {
   it('states the Vickee panel heading without a mark', () => {
     draw(Home)
-    const heading = screen.getByRole('heading', { level: 3, name: /Meet Vickee/i })
+    const heading = screen.getByRole('heading', { level: 3, name: /audit trail/i })
 
     expect(heading.textContent).toBe(
-      'Meet Vickee, the knowledge layer that keeps agents out of your systems of record.',
+      'Decide what your agents are allowed to know. Then show security the audit trail.',
     )
   })
 
