@@ -1,7 +1,7 @@
 # #122 — Add a controls page for the audit and finance reader
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/122
-- Pull request: pending
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/125
 - Parent epic: none
 - Delivery unit: U2 (stacked on U1, `feature/122-controls-page` based on `feature/121-auditor-facing-copy`), run `2026-09-14-auditor-copy-and-controls-page`
 - Requirement version: 1
