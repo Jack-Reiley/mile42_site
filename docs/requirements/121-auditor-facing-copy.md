@@ -1,7 +1,7 @@
 # #121 — Add two auditor-facing sentences and correct two labels the site overstates
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/121
-- Pull request: pending
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/124
 - Parent epic: none
 - Delivery unit: U1 (independent, `feature/121-auditor-facing-copy` from `main`), run `2026-09-14-auditor-copy-and-controls-page`
 - Requirement version: 1
