@@ -4,10 +4,19 @@ import {
 } from '../components/primitives.jsx'
 import { REVEAL, REVEAL_GROUP } from '../components/reveal.js'
 
-/* The title names the practice the card leads to, so the three headings are the
-   three service names rather than three sentences beginning "You need". The
-   situation stays on the card as the eyebrow above it. */
+/* The title names the practice the card leads to, so the headings are the
+   service names rather than sentences beginning "You need". The situation
+   stays on the card as the eyebrow above it. Phase Zero leads: it is the way in
+   for a reader who cannot yet say which of the two practices they need. The
+   AI-driven Products card went with its page, which folded into Engineering. */
 const PATHS = [
+  {
+    eyebrow: 'Not sure where to start',
+    title: 'Phase Zero',
+    body: 'About a month, fixed fee, typically $10k to $30k.',
+    href: '/what-we-do/phase-zero',
+    spot: 'path-magnifier-gear',
+  },
   {
     eyebrow: 'You need clarity',
     title: 'Advisory',
@@ -21,16 +30,6 @@ const PATHS = [
     body: 'When something must be built.',
     href: '/what-we-do/engineering',
     spot: 'path-gears-trio',
-  },
-  {
-    eyebrow: 'You need proven solutions',
-    title: 'AI products and accelerators',
-    body: 'Reuse what already works.',
-    href: '/what-we-do/ai-products',
-    spot: 'path-phone-circuit',
-    // Tilted rather than upright: the master is drawn dead vertical, and a
-    // phone set square beside two hand-drawn icons reads as a screenshot.
-    spotClass: 'rotate-[-5deg]',
   },
 ]
 
@@ -81,14 +80,13 @@ export default function WhatWeDo() {
       <Section band="blue" pad="tight">
         <Wrap className="grid items-start gap-11 lg:grid-cols-[0.85fr_1.15fr]">
           <div>
-            <Eyebrow tone="ice" className="mb-4">Core practice</Eyebrow>
             <H2 tone="hero">Agentic AI is the core of how we execute.</H2>
           </div>
           <div>
             <Body tone="hero" className="mb-5">
               Most of what we build now runs on agentic AI: systems that take action inside real
-              workflows, connected to real data, with governance the business can trust. It is the
-              thread through advisory, engineering, and the products we ship.
+              workflows, with governance the business can trust. It runs through advisory,
+              engineering, and the products we ship.
             </Body>
             <TextLink to="/what-we-do/engineering/agentic-ai" tone="on-dark">Inside our agentic AI practice</TextLink>
           </div>
@@ -104,19 +102,18 @@ export default function WhatWeDo() {
           <H2 className="mb-3">Before you choose, there is a smaller way to start.</H2>
           <Lead className="mb-9 max-w-none text-ink/70">
             Phase Zero is a working pilot on one process you name, built beside production and
-            measured against your own baseline. It is priced to be a decision, not an investment.
+            measured against your own baseline. About a month, fixed fee, typically $10k to $30k.
           </Lead>
           <FeaturePanel
             spot="magnifier-gear"
-            eyebrow="Offering · Phase Zero"
             title="Start with a pilot."
             note="Name a process. See it working. Map what comes next."
           >
             <Body className="max-w-none">
               Name your messiest, most manual workflow. We assess the readiness around it, build a
               working solution on it, and hand you a sequenced roadmap of what comes next. It runs
-              in parallel to production, it is reversible on day one, and it proves something
-              against a number you already recognize.
+              beside production and is reversible on day one. What it proves, it proves against a
+              number you already recognize.
             </Body>
             <p className="mt-4">
               <TextLink to="/what-we-do/phase-zero" tone="accent">See how Phase Zero works</TextLink>
@@ -132,8 +129,8 @@ export default function WhatWeDo() {
               Lead's own max-width, which would resolve by stylesheet order. */}
           <div className="mb-7 max-w-[34rem]">
             <Lead tone="hero">
-              Describe the situation. We will tell you which of these it is, and whether we are the
-              right firm for it.
+              Explain where you are, in a few sentences. The right starting point is usually
+              obvious once we hear it, and so is the case where none of the three fits.
             </Lead>
           </div>
           <Button to="/contact">Start a conversation</Button>

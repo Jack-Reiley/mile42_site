@@ -92,7 +92,7 @@ describe('the two pages that use it', () => {
     // and index 3 clamps to the last role in this shortened fixture.
     render(<WhereAgentsWork roles={ROLES} />)
     expect(screen.getByText('Seven roles')).toBeInTheDocument()
-    expect(screen.getByText(/Roles, not steps/)).toBeInTheDocument()
+    expect(screen.getByText(/Several run at once/)).toBeInTheDocument()
   })
 
   it('renders a pillar with its benefit and every proof line', () => {

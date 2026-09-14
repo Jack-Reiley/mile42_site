@@ -562,7 +562,9 @@ export function FeaturePanel({ spot, eyebrow, title, note, className = '', child
           rather than sliding in as one slab. */}
       <div className={`${REVEAL_GROUP.left} ${REVEAL.still}`}>
         <Spot name={spot} decorative sizes={spotSizes} className={`mb-[14px] object-contain ${spotSize}`} />
-        <Eyebrow as="span" tone="ink" className="mb-2 block">{eyebrow}</Eyebrow>
+        {/* Optional since the copy pass retired label-only eyebrows; the panel
+            opens on its title where no audience line is left to carry. */}
+        {eyebrow ? <Eyebrow as="span" tone="ink" className="mb-2 block">{eyebrow}</Eyebrow> : null}
         <H2>{title}</H2>
         {note ? <Note className="mt-3 text-[15px]">{note}</Note> : null}
       </div>

@@ -22,7 +22,7 @@ export default function Insights() {
       <Section>
         <Wrap>
           <Placeholder tag="Placeholder · B5, blocked" className="mb-8">
-            No articles exist yet. This page and its nav item should not go live until there are at least three. An empty insights index actively damages a firm whose positioning is that it sells judgment rather than information. The headline and subhead above are candidate directions, not approved copy.
+            No articles exist yet. This page and its nav item should not go live until there are at least three. An empty insights index actively damages a firm whose positioning is that it sells judgment rather than information. The headline and subhead above are candidate directions awaiting approval.
           </Placeholder>
           <div className={`${REVEAL_GROUP.relay} grid gap-3`}>
             {ARTICLES.map((a) => <Placeholder key={a.tag} tag={a.tag}>{a.body}</Placeholder>)}

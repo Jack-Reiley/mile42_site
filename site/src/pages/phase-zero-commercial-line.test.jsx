@@ -20,12 +20,19 @@ import App from '../App.jsx'
  * a future tightening of this guard cannot quietly rewrite them.
  */
 
-/* The pages carry the full sentence; the nav card carries the short form the
-   248px panel column has room for. Both say the same thing, and both are
-   pinned, because a card that keeps the words while losing the posture is the
-   drift this file exists to catch. */
-const LINE = /priced to be a decision, not an investment/i
-const CARD_LINE = /The low-risk way in, priced to be a decision\./
+/* The pages carry the duration and the price band; the nav card carries the
+   short form the 248px panel column has room for. Both state terms rather
+   than a posture, and both are pinned, because a card that keeps the words
+   while losing the figures is the drift this file exists to catch. */
+const LINE = /About a month, fixed fee, typically \$10k to \$30k\./
+const CARD_LINE = /The low-risk way in\. About a month, fixed fee\./
+const POSTURE = /priced to be a decision/i
+/* The homepage states the same terms in full: the home rewrite put the
+   duration and the price band on its Phase Zero card. */
+const HOME_LINE =
+  /About a month\. Fixed fee, agreed before we start, typically between \$10k and \$30k depending on the process\./
+/* The Phase Zero page's own terms, one row per label. */
+const TERM_LABELS = ['Duration', 'Fee', 'Scope', 'What you keep', 'What comes next']
 const FREE = /\bfree\b/i
 const COSTS_NOTHING = /cost(s)? nothing/i
 
@@ -45,6 +52,19 @@ beforeAll(() => {
 const at = (path) => render(<MemoryRouter initialEntries={[path]}><App /></MemoryRouter>)
 
 const main = () => within(screen.getByRole('main'))
+
+/* The engagement model is a run of bands on How we work since the information
+   architecture ticket, from the anchored posture band up to the closing call
+   to action. Its assertions scope to that run: the page's argument band above
+   it says "the claim is free", which is the non-commercial use pinned below. */
+const engagementBands = () => {
+  const bands = [...screen.getByRole('main').querySelectorAll('section')]
+  const start = bands.findIndex((b) => b.id === 'engagement-model')
+  const end = bands.findIndex((b) => b.textContent.includes('Read it, then test it.'))
+  expect(start).toBeGreaterThan(-1)
+  expect(end).toBeGreaterThan(start)
+  return bands.slice(start, end)
+}
 
 /* The desktop trigger and the drawer's drill-in button carry the same
    accessible name. The drawer is not rendered until Menu is activated, so
@@ -80,25 +100,34 @@ describe('the mobile drawer states the same line', () => {
 })
 
 describe('the pages that point at Phase Zero state the priced line', () => {
-  it.each([
-    ['/', 'the homepage panel'],
-    ['/what-we-do', 'the What We Do band'],
-  ])('%s states it and does not call the offering free', (path) => {
-    at(path)
-    expect(main().getByText(LINE)).toBeInTheDocument()
+  /* Twice since the information architecture ticket: the Phase Zero path
+     card in the hero states the terms, and so does the band below it. Both
+     are pinned, since either could drift alone. */
+  it('/what-we-do states it and does not call the offering free', () => {
+    at('/what-we-do')
+    expect(main().getAllByText(LINE)).toHaveLength(2)
+    expect(main().queryByText(FREE)).toBeNull()
+    expect(main().queryByText(POSTURE)).toBeNull()
+  })
+
+  it('/ states the duration and the price band and does not call the offering free', () => {
+    at('/')
+    expect(main().getByText(HOME_LINE)).toBeInTheDocument()
     expect(main().queryByText(FREE)).toBeNull()
   })
 })
 
 describe('the engagement model argues the first engagement', () => {
-  /* The offer is made in the same words here as on the homepage, so a reader
-     who has seen one is not told something different by the other. Pinned as
-     the same string on both routes rather than as two separate assertions,
-     because the failure worth catching is the two drifting apart. */
-  it('makes the offer in the homepage panel words', () => {
+  /* The offer opens in the same words here as on the homepage card, so a
+     reader who has seen one is not told something different by the other. The
+     homepage carries the opening sentence and then the terms in full; this
+     panel carries the opening sentence and then the terms in short. */
+  it('makes the offer in the homepage card words', () => {
+    const OPENING =
+      /Phase Zero is a working pilot on one process you name, built beside production and measured against your own baseline\./
     const OFFER =
-      /Phase Zero is a working pilot on one process you name, built beside production and measured against your own baseline\. You get something running, and a roadmap for what comes after it\. It is priced to be a decision, not an investment\./
-    at('/how-we-work/engagement-model')
+      /Phase Zero is a working pilot on one process you name, built beside production and measured against your own baseline\. You get something running, and a roadmap for what comes after it\. About a month, fixed fee, typically \$10k to \$30k\./
+    at('/how-we-work')
     const panel = within(
       main().getByRole('heading', { name: 'Start with a pilot.' }).closest('div').parentElement,
     )
@@ -106,14 +135,15 @@ describe('the engagement model argues the first engagement', () => {
 
     cleanup()
     at('/')
-    expect(main().getByText(OFFER)).toBeInTheDocument()
+    expect(main().getByText(OPENING)).toBeInTheDocument()
+    expect(main().getByText(HOME_LINE)).toBeInTheDocument()
   })
 
   /* The hinge sentence that hands the band off to the panel. It is the third
      of the band's three reasons and the only one naming Phase Zero, so losing
      it leaves the page arguing a pricing posture it never lands. */
   it('keeps the sentence that ties the delivery model to the offer', () => {
-    at('/how-we-work/engagement-model')
+    at('/how-we-work')
     expect(main().getByText(/It is also why the first engagement is the small one/))
       .toBeInTheDocument()
     expect(main().getByText(/the risk of an estimate is ours to carry rather than yours/))
@@ -122,35 +152,57 @@ describe('the engagement model argues the first engagement', () => {
 
   /* The offer is no longer one of three peer links under the argument. */
   it('offers Phase Zero as a panel rather than as one link among three', () => {
-    at('/how-we-work/engagement-model')
+    at('/how-we-work')
     expect(main().getByRole('link', { name: /See how Phase Zero works/ }))
       .toHaveAttribute('href', '/what-we-do/phase-zero')
     expect(main().queryByRole('link', { name: 'See Phase Zero' })).toBeNull()
   })
 
   it('no longer claims the first engagement can cost nothing', () => {
-    at('/how-we-work/engagement-model')
-    expect(main().queryByText(FREE)).toBeNull()
-    expect(main().queryByText(COSTS_NOTHING)).toBeNull()
+    at('/how-we-work')
+    for (const band of engagementBands()) {
+      expect(within(band).queryByText(FREE)).toBeNull()
+      expect(within(band).queryByText(COSTS_NOTHING)).toBeNull()
+    }
   })
 })
 
 describe('the Phase Zero page itself', () => {
-  it('closes on the priced line', () => {
+  it('closes on the terms rather than the posture', () => {
     at('/what-we-do/phase-zero')
     expect(
-      main().getByRole('heading', { name: 'Priced to be a decision, not an investment.' }),
+      main().getByRole('heading', { name: 'What it costs, and what you keep.' }),
     ).toBeInTheDocument()
+    expect(main().queryByText(POSTURE)).toBeNull()
+  })
+
+  /* One row per term, in the agreed order. Asserted by role so the labels
+     have to be real `dt`s, not five bold spans. */
+  it('states the five commercial rows', () => {
+    at('/what-we-do/phase-zero')
+    const heading = main().getByRole('heading', { name: 'What it costs, and what you keep.' })
+    const band = within(heading.closest('section'))
+    const terms = band.getAllByRole('term').map((t) => t.textContent)
+    expect(terms).toEqual(TERM_LABELS)
+    expect(band.getByText('Typically about a month.')).toBeInTheDocument()
+    expect(
+      band.getByText(
+        'Fixed, agreed before we start. Typically between $10k and $30k depending on the process.',
+      ),
+    ).toBeInTheDocument()
+    expect(band.getByRole('link', { name: 'Start a conversation' })).toHaveAttribute('href', '/contact')
   })
 })
 
 /**
- * One title for the offering, wherever it is offered. Advisory is deliberately
- * out: it keeps "The low-risk way in." and is asserted here so the exclusion is
- * a decision on the record rather than a page someone forgot.
+ * One title for the offering, wherever it is offered as a panel. Advisory is
+ * deliberately out: it keeps "The low-risk way in." and is asserted here so the
+ * exclusion is a decision on the record rather than a page someone forgot. The
+ * homepage is out since the home rewrite: Phase Zero is one of its three
+ * offering cards there, titled the way the other two cards are.
  */
 describe('the offering panels share one title', () => {
-  it.each(['/', '/what-we-do', '/how-we-work/engagement-model'])(
+  it.each(['/what-we-do', '/how-we-work'])(
     '%s titles the panel "Start with a pilot."',
     (path) => {
       at(path)
@@ -161,6 +213,12 @@ describe('the offering panels share one title', () => {
   it('leaves Advisory on its own title', () => {
     at('/what-we-do/advisory')
     expect(main().getByRole('heading', { name: 'The low-risk way in.' })).toBeInTheDocument()
+  })
+
+  it('offers Phase Zero on the homepage as a card rather than a panel', () => {
+    at('/')
+    expect(main().queryByRole('heading', { name: 'Start with a pilot.' })).toBeNull()
+    expect(main().getByRole('heading', { level: 3, name: 'You need a pilot' })).toBeInTheDocument()
   })
 })
 
@@ -175,7 +233,7 @@ describe('the credit against later work', () => {
     '/',
     '/what-we-do',
     '/what-we-do/phase-zero',
-    '/how-we-work/engagement-model',
+    '/how-we-work',
   ])('is not stated on %s', (path) => {
     at(path)
     expect(main().queryByText(/credit(ed)? (it |the (pilot|fee|cost) )?(back |off )?against/i))

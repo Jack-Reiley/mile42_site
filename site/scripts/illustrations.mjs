@@ -129,9 +129,10 @@ const MAP = {
   // which on the panel's off-white surface reads as the lens rather than as a
   // solid disc.
   'magnifier_gear_with_color.png': { key: 'magnifier-gear', widths: [112, 224], refill: '--color-sky' },
-  // Built but not placed: the mono cut of the same drawing, kept for the day a
-  // panel on a dark band wants the single-colour treatment.
-  'magnifier_gear_mono.png': { key: 'path-magnifier-gear', widths: [104, 208], mask: true },
+  // The What we do Phase Zero path card's icon, on the navy hero beside the
+  // orange and green icons. The mono cut is ink, which vanishes on navy, so it
+  // is tinted sky: the token the band already sets its eyebrows in.
+  'magnifier_gear_mono.png': { key: 'path-magnifier-gear', widths: [104, 208], tint: '--color-sky' },
 }
 
 /**

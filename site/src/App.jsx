@@ -5,12 +5,9 @@ import Home from './pages/Home.jsx'
 import WhatWeDo from './pages/WhatWeDo.jsx'
 import Advisory from './pages/Advisory.jsx'
 import Engineering from './pages/Engineering.jsx'
-import AiProducts from './pages/AiProducts.jsx'
 import PhaseZero from './pages/PhaseZero.jsx'
 import HowWeWork from './pages/HowWeWork.jsx'
-import ClientJourney from './pages/ClientJourney.jsx'
 import DeliveryModel from './pages/DeliveryModel.jsx'
-import EngagementModel from './pages/EngagementModel.jsx'
 import AgenticAi from './pages/AgenticAi.jsx'
 import WhyMile42 from './pages/WhyMile42.jsx'
 import Insights from './pages/Insights.jsx'
@@ -26,12 +23,9 @@ export const PAGES = [
   { path: '/what-we-do/advisory', title: 'Advisory' + SUFFIX, Component: Advisory },
   { path: '/what-we-do/engineering', title: 'Engineering' + SUFFIX, Component: Engineering },
   { path: '/what-we-do/engineering/agentic-ai', title: 'Agentic AI' + SUFFIX, Component: AgenticAi },
-  { path: '/what-we-do/ai-products', title: 'AI-driven Products' + SUFFIX, Component: AiProducts },
   { path: '/what-we-do/phase-zero', title: 'Phase Zero' + SUFFIX, Component: PhaseZero },
   { path: '/how-we-work', title: 'How we work' + SUFFIX, Component: HowWeWork },
-  { path: '/how-we-work/client-journey', title: 'Client journey' + SUFFIX, Component: ClientJourney },
   { path: '/how-we-work/delivery-model', title: 'Delivery model' + SUFFIX, Component: DeliveryModel },
-  { path: '/how-we-work/engagement-model', title: 'Engagement model' + SUFFIX, Component: EngagementModel },
   { path: '/meet-vickee', title: 'Meet Vickee' + SUFFIX, Component: MeetVickee },
   { path: '/why-mile42', title: 'Why Mile42' + SUFFIX, Component: WhyMile42 },
   { path: '/insights', title: 'Insights' + SUFFIX, Component: Insights },
@@ -44,6 +38,13 @@ export const PAGES = [
 const MOVED = [
   { from: '/agentic-ai', to: '/what-we-do/engineering/agentic-ai' },
   { from: '/meet-dewey', to: '/meet-vickee' },
+  /* The client journey and the engagement model merged into How we work, and
+     AI-driven Products folded into Engineering. Netlify sends the first two to
+     the page top, since a 301 cannot carry a fragment to every client; these
+     entries land in-app navigation on the band itself. */
+  { from: '/how-we-work/client-journey', to: '/how-we-work#client-journey' },
+  { from: '/how-we-work/engagement-model', to: '/how-we-work#engagement-model' },
+  { from: '/what-we-do/ai-products', to: '/what-we-do/engineering' },
 ]
 
 export default function App() {

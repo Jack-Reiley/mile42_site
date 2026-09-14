@@ -5,7 +5,7 @@ import { Eyebrow, TextLink } from './primitives.jsx'
  * The client journey stage selector: four stages on one ink line inside a single
  * card, with the open stage's detail rendered in the same card below a full-width
  * rule. Replaces the four `Card` tiles AND the four detail `Section`s that used to
- * follow them on /how-we-work/client-journey.
+ * follow them on /how-we-work#client-journey.
  *
  * Geometry that must not drift: the journey line sits at 61px from the row's top
  * (h3 line box 32px + its 14px margin = 46, plus half the 30px node). If the
@@ -29,7 +29,7 @@ const STAGES = [
     heading: 'Context before solutions.',
     paras: [
       'Most engagements go wrong here, quietly. The work starts before anyone has agreed what outcome matters, why it matters now, or where execution is actually breaking down.',
-      'We spend real time on this. Not a discovery workshop that produces a summary of what you already told us, but enough depth to make better calls under uncertainty later.',
+      'We spend real time on this, and it is more than a discovery workshop that summarizes what you already told us. The aim is enough depth to make better calls under uncertainty later.',
     ],
     items: [
       'What outcome matters, stated specifically enough to know whether it moved.',
@@ -51,7 +51,7 @@ const STAGES = [
     heading: 'A path that survives contact with your organization.',
     paras: [
       'Design here means more than an architecture diagram. It means bringing the technology, the delivery approach, and the organizational reality together into something that can actually be executed by the people who will have to execute it.',
-      'A design that ignores adoption, operating model, or delivery risk is not a design. It is a preference.',
+      'A design that ignores adoption or delivery risk is a preference with a diagram attached.',
     ],
     items: [
       'An architecture, with the tradeoffs named rather than assumed.',
@@ -60,7 +60,7 @@ const STAGES = [
       'A view on what changes for the people doing the work, and what that will take.',
     ],
     quote:
-      'You should finish this stage able to explain the plan to your own leadership without us in the room.',
+      'You should finish this stage able to explain the plan to your own leadership without our help.',
   },
   {
     n: '03',
@@ -78,7 +78,7 @@ const STAGES = [
     ],
     items: [
       'Systems in production, used by the people they were built for.',
-      'Governance, testing, and documentation that exist because they were built in, not because someone remembered at the end.',
+      'Governance, testing, and documentation that exist because they were built in from the start.',
       'A team that understands what was built and why.',
     ],
     link: { to: '/how-we-work/delivery-model', label: 'See the delivery model' },
@@ -95,15 +95,15 @@ const STAGES = [
     heading: 'You should be able to do something you could not do before.',
     paras: [
       'The last stage is the one most firms skip, because it is the one that reduces their future revenue.',
-      'Evolve means you can operate, extend, and change what was built without depending on us for every decision. It means the patterns and reasoning stayed with your team. It means the next initiative starts from a stronger position than this one did.',
+      'Evolve means you can operate and extend what was built without depending on us for every decision, because the patterns and the reasoning stayed with your team. The next initiative starts from a stronger position than this one did.',
     ],
     items: [
       'Your team can change the system without calling us.',
       'The decisions and their rationale are documented somewhere your people will find them.',
       'What you learned is reusable on work we are not involved in.',
-      'If you bring us back, it is because you chose to, not because you are stuck.',
+      'If you bring us back, it is by choice.',
     ],
-    quote: 'We build capability, not dependence.',
+    quote: 'The goal is a team that does not need us.',
   },
 ]
 

@@ -20,7 +20,7 @@ const ENDPOINT = '/__forms.html'
 
 const EXPECTATIONS = [
   { lead: 'We read it.', rest: ' A founder, not a form queue.' },
-  { lead: 'We reply with questions or a time.', rest: ' If the situation is clear enough, we will suggest a call. If it is not, we will ask what we would need to know.' },
+  { lead: 'We reply with questions or a time.', rest: ' If the situation is clear enough, we will suggest a call. Otherwise we ask what we would need to know.' },
   { lead: 'We tell you honestly whether we can help.', rest: ' Including when the answer is no, or not yet, or not us.' },
 ]
 const FIELDS = [
@@ -93,7 +93,7 @@ export default function Contact() {
         <Wrap>
           <Eyebrow tone="hero" className="mb-4">Contact</Eyebrow>
           <H1 tone="hero" className="mb-6">Tell us what needs to work.</H1>
-          <Lead tone="hero">Describe the situation in your own words. You do not need a scope, a budget, or a defined project. If we are not the right firm for it, we will tell you that.</Lead>
+          <Lead tone="hero">Describe the situation in your own words. You do not need a budget or a defined project. If we are not the right firm for it, you will hear that too.</Lead>
         </Wrap>
       </Section>
 
@@ -109,7 +109,7 @@ export default function Contact() {
                 </li>
               ))}
             </ul>
-            <Body className="mb-8">No sequence of nurture emails. No sales development representative. Just a conversation.</Body>
+            <Body className="mb-8">No nurture sequence and no sales development representative, just a conversation.</Body>
             <Eyebrow className="mb-2">Other ways to reach us</Eyebrow>
             <a href="mailto:hello@mile42.ai" className="text-body text-ink no-underline hover:underline">
               hello@mile42.ai

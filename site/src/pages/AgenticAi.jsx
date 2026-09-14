@@ -14,7 +14,7 @@ const SYSTEM_GROUPS = [
   {
     title: 'Agents and copilots',
     items: [
-      ['Agents', 'Systems that take action inside a workflow, not just answer questions about it'],
+      ['Agents', 'Systems that act inside a workflow, beyond answering questions about it'],
       ['Copilots', 'Assistance embedded where the work already happens, rather than in a separate tool'],
     ],
   },
@@ -28,7 +28,7 @@ const SYSTEM_GROUPS = [
   {
     title: 'Applications and data',
     items: [
-      ['Enterprise AI applications', 'Applications where AI is the core of how the product works, not a feature bolted on'],
+      ['Enterprise AI applications', 'Applications where AI is the core of how the product works'],
       ['Data and systems integration', 'The foundation the rest of it depends on, which is usually the real project. Agentic systems fail on data and integration far more often than they fail on reasoning.'],
     ],
   },
@@ -50,17 +50,17 @@ const PARTS = [
     heading: 'Context before solutions.',
     blocks: [
       { kind: 'lead', text: 'Understanding the work well enough to know where an agent belongs and, more importantly, where it does not. Most failed AI projects automated a step that was never the bottleneck.' },
-      { kind: 'body', text: 'Every engagement starts by understanding the work, not by selecting a technology. That is one of the firm’s operating principles and it matters more here than anywhere else, because agentic systems are unusually sensitive to context. The same architecture that works in one organization fails in another with different data, incentives, and risk tolerance.' },
+      { kind: 'body', text: 'Every engagement starts by understanding the work. Technology selection comes after, and that order matters more here than anywhere else, because agentic systems are unusually sensitive to context. The same architecture that works in one organization fails in another with different data, incentives, and risk tolerance.' },
       {
         kind: 'num',
         label: 'Three questions we answer before building anything',
         items: [
           { n: '01', title: 'What outcome actually matters, and how will we know if it moved?', body: 'If nobody can name the measure, the project has no definition of done.' },
           { n: '02', title: 'Where is execution breaking down today?', body: 'Automating around a broken process usually preserves the break and hides it.' },
-          { n: '03', title: 'What is the smallest system that would prove this works in production?', body: 'Not a demo. Something real, narrow, and used by actual people.' },
+          { n: '03', title: 'What is the smallest system that would prove this works in production?', body: 'Something real and narrow, used by actual people, which rules out a demo.' },
         ],
       },
-      { kind: 'link', to: '/how-we-work/client-journey', text: 'See the client journey' },
+      { kind: 'link', to: '/how-we-work#client-journey', text: 'See the client journey' },
     ],
   },
   {
@@ -68,7 +68,7 @@ const PARTS = [
     title: 'Architecture and integration',
     heading: 'Connecting an agent to real systems is most of the work.',
     blocks: [
-      { kind: 'lead', text: 'The reasoning is rarely the hard part. The engineering sits in everything around it: reaching the data where it actually lives, respecting the permissions that already exist, and behaving predictably when something upstream is slow, wrong, or unavailable.' },
+      { kind: 'lead', text: 'The reasoning is rarely the hard part. The engineering sits in everything around it: reaching the data where it actually lives, respecting the permissions that already exist, and behaving predictably when something upstream fails.' },
       { kind: 'body', text: 'We design for those constraints from the start, because every one of them is cheaper to handle in the architecture than to discover in production.' },
       {
         kind: 'terms',
@@ -82,7 +82,7 @@ const PARTS = [
         ],
       },
       { kind: 'subhead', text: 'Multi-model by default.' },
-      { kind: 'body', text: 'We stay close to the platforms shaping enterprise AI without becoming captive to any one of them. Model capability moves quickly, pricing moves quickly, and the right choice today may not be the right choice next year.' },
+      { kind: 'body', text: 'We stay close to the platforms shaping enterprise AI without becoming captive to any one of them. Model capability and pricing both move quickly, and the right choice today may not be the right choice next year.' },
       { kind: 'body', text: 'So we build so the model layer can change without rebuilding the system around it, and we tell you plainly when a platform decision is being driven by genuine fit rather than by familiarity.' },
       /* No label. The platform table carries none, at the client's request, and
          the "See our partners" link that used to close this section is gone. */
@@ -105,14 +105,14 @@ const PARTS = [
     heading: 'The controls are part of the build, not a review at the end.',
     blocks: [
       { kind: 'lead', text: 'Enterprise AI gets stopped by risk, legal, and security more often than it gets stopped by engineering. Treating governance as a final gate is how programs die two weeks before launch.' },
-      { kind: 'body', text: 'We design for it from the start: what data the system can reach, what actions it is permitted to take, what a human has to approve, how outputs are evaluated over time, and what audit trail exists when someone asks what happened and why.' },
+      { kind: 'body', text: 'We design for it from the start: what data the system can reach, what actions it is permitted to take, what your team has to approve, how outputs are evaluated over time, and what audit trail exists when someone asks what happened and why.' },
       {
         kind: 'checks',
         label: 'Four things every system we build has',
         items: [
           'Defined boundaries on data access and permitted actions.',
-          'Evaluation that runs continuously, not once at launch.',
-          'A clear human accountability point for every consequential decision.',
+          'Evaluation that keeps running after launch.',
+          'A named person accountable for every consequential decision.',
           'An audit trail sufficient to explain a specific output after the fact.',
         ],
       },
@@ -122,9 +122,9 @@ const PARTS = [
   {
     n: '04',
     title: 'Adoption and accountability',
-    heading: 'Go-live is the middle of the project, not the end.',
+    heading: 'Go-live is the middle of the project.',
     blocks: [
-      { kind: 'lead', text: 'A system that works and is not used produces the same business result as a system that does not work. Adoption is not a communications exercise added at launch. It is a constraint that shapes what gets built, who it is built with, and what it is allowed to change.' },
+      { kind: 'lead', text: 'A system that works and is not used produces the same business result as one that does not work. Adoption is a constraint on the build from the first week: it shapes what gets built and who it is built with.' },
       { kind: 'body', text: 'So we plan for the part after go-live before there is anything to go live with: who owns the system, what gets measured, how the people doing the work say it is wrong, and what happens to that signal once they do.' },
       {
         kind: 'titled',
@@ -168,8 +168,7 @@ export default function AgenticAi() {
           <H2 className="mb-3">Agentic systems that operate inside real business constraints.</H2>
           {/* The framing that opened the page before the capability listing took
               the first slot. Muted, above the list, as on the sibling pages. */}
-          <Lead className="mb-9 max-w-none text-ink/70">Most organizations do not have an AI strategy problem. They have an AI implementation problem. The models work. Getting them to change how work happens is the hard part.</Lead>
-          <Eyebrow as="span" className="mb-2 block">Capabilities</Eyebrow>
+          <Lead className="mb-9 max-w-none text-ink/70">Most organizations have an AI implementation problem, whatever the strategy deck says. The models work. Getting them to change how work happens is the hard part.</Lead>
           <H3 className="mb-6">What we build.</H3>
           <GroupColumns>
             {SYSTEM_GROUPS.map((g) => (
@@ -193,7 +192,7 @@ export default function AgenticAi() {
       <Section>
         <Wrap>
           <H2 className="mb-5">The distance between an AI pilot and an AI system.</H2>
-          <Body className="mb-4">Almost every organization has run the pilot. Someone built a prototype, it demonstrated well, leadership was encouraged, and then it stopped.</Body>
+          <Body className="mb-4">The pilot is usually the easy part, and the reason it stopped is rarely the model.</Body>
           <Lead className="mb-10">Anyone can call an API. The difficulty sits in everything around the call.</Lead>
           <HardParts parts={PARTS} />
         </Wrap>
@@ -204,7 +203,7 @@ export default function AgenticAi() {
       <Section band="surface">
         <Wrap>
           <H2 className="mb-6">We will tell you when the answer is not an agent.</H2>
-          <Body className="mb-8">Some problems are better solved by fixing a process, deleting a step, integrating two systems properly, or writing conventional software that behaves predictably every time. Reaching for an agent in those cases adds cost, latency, and a new category of failure in exchange for very little.</Body>
+          <Body className="mb-8">Some problems are better solved by fixing a process, deleting a step, integrating two systems properly, or writing conventional software that behaves predictably every time. Reaching for an agent in those cases adds cost and a new category of failure in exchange for very little.</Body>
           <Eyebrow className="mb-4">When an agent is usually the wrong tool</Eyebrow>
           <NumList items={WRONG_TOOL} className="mb-8" />
           <Quote>A no you can trust early is cheaper than a yes that fails seven months in.</Quote>
@@ -214,8 +213,8 @@ export default function AgenticAi() {
       {/* Same navy as the page header, matching the detail pages' CTA band. */}
       <Section band="navy" pad="cta">
         <Wrap className="text-center">
-          <H2 tone="hero" className="mb-4">Tell us what you are trying to automate.</H2>
-          <Lead tone="hero" className="mx-auto mb-8">Describe the work. We will tell you honestly whether an agent is the right answer, what it would take, and where the risk sits.</Lead>
+          <H2 tone="hero" className="mb-4">Name the workflow that keeps stalling.</H2>
+          <Lead tone="hero" className="mx-auto mb-8">Where does it break? Whether an agent belongs there, what it would take, and where the risk sits are the first three things we work out.</Lead>
           <Button to="/contact">Start a conversation</Button>
         </Wrap>
       </Section>

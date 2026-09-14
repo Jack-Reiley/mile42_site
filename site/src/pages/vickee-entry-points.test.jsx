@@ -3,7 +3,7 @@ import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
 import Home from './Home.jsx'
 import AgenticAi from './AgenticAi.jsx'
-import AiProducts from './AiProducts.jsx'
+import WhyMile42 from './WhyMile42.jsx'
 
 /**
  * Vickee shipped in #58 as a page nothing else on the site pointed at. This is
@@ -17,6 +17,10 @@ import AiProducts from './AiProducts.jsx'
  * Links are asserted at the root, which is where #97 mounted the site. See
  * Footer.test.jsx for what that cost and src/go-live.test.jsx for the sweep
  * that replaces it.
+ *
+ * The third entry point was the AI-driven Products page. That page folded into
+ * Engineering and its proof panel moved to Why Mile42, which is where the
+ * "what the firm builds" entry point lives now.
  */
 
 const VICKEE = '/meet-vickee'
@@ -31,24 +35,30 @@ const draw = (Page) =>
 const href = (name) => screen.getByRole('link', { name }).getAttribute('href')
 
 describe('SCN-001 — the homepage carries a Vickee block in position', () => {
-  /* Two failure modes this guards against, both of which the block has already
-     had. Leading with the library metaphor told a first-time reader nothing.
-     Leading with "Vickee is the knowledge layer" explained the product but spoke
-     to an engineer rather than the person who signs. The block has to open on
-     the reader's problem and still say plainly what Vickee is. */
-  it('leads on the name and says what Vickee is in the same breath', () => {
+  /* Three failure modes this guards against, all of which the block has had.
+     Leading with the library metaphor told a first-time reader nothing.
+     Leading with "Vickee is the knowledge layer" explained the product but
+     spoke to an engineer rather than the person who signs. Leading with the
+     name put the product ahead of the benefit. The heading is what the buyer
+     gets to decide and to show security; the body is where the name appears
+     and says plainly what Vickee is. */
+  it('leads on the benefit and names Vickee in the body', () => {
     draw(Home)
-    // h3, not h2: the band's h2 is the practice argument this panel sits inside.
-    const heading = screen.getByRole('heading', { level: 3, name: /Meet Vickee/i })
-    expect(heading).toHaveTextContent(/knowledge layer/i)
-    expect(heading).toHaveTextContent(/systems of record/i)
+    // h3, not h2: the band's h2 is the objections this panel sits under.
+    const heading = screen.getByRole('heading', { level: 3, name: /audit trail/i })
+    expect(heading).toHaveTextContent('Decide what your agents are allowed to know.')
+
+    const body = screen.getByText(/Vickee holds a governed, read-only copy/i)
+    expect(body).toHaveTextContent(/indexes it automatically/i)
+    expect(body).toHaveTextContent(/Agents never hold credentials to your systems of record/i)
   })
 
-  it('still carries the buyer problem that motivates it', () => {
+  /* The stalled-pilot story moved up into the hero, so the panel no longer
+     repeats it. Pinned as an absence so it does not drift back in. */
+  it('no longer repeats the stalled-project story the hero now carries', () => {
     draw(Home)
-    expect(screen.getByText(/Most AI projects stall in the same place/i)).toBeInTheDocument()
-    expect(screen.getByText(/security review ended the conversation/i)).toBeInTheDocument()
-    expect(screen.getByText(/indexes it automatically/i)).toBeInTheDocument()
+    expect(screen.queryByText(/Most AI projects stall in the same place/i)).toBeNull()
+    expect(screen.queryByText(/security review ended the conversation/i)).toBeNull()
   })
 
   /* The count is asserted, not just the two titles. SCN-001 names a number, and
@@ -63,7 +73,7 @@ describe('SCN-001 — the homepage carries a Vickee block in position', () => {
       screen.getByText('Every project after the first starts ahead.'),
     ).toBeInTheDocument()
 
-    const panel = screen.getByRole('heading', { level: 3, name: /Meet Vickee/i }).closest('div')
+    const panel = screen.getByRole('heading', { level: 3, name: /audit trail/i }).closest('div')
     expect(within(panel).getAllByRole('heading', { level: 4 })).toHaveLength(2)
   })
 
@@ -73,48 +83,52 @@ describe('SCN-001 — the homepage carries a Vickee block in position', () => {
   it('presents the catalog drawer as one labelled image', () => {
     draw(Home)
     const diagram = screen.getByRole('img', { name: /card catalog drawer/i })
-    expect(diagram).toHaveTextContent('Marketing & CRM')
+    expect(diagram).toHaveTextContent('CMS & CDP')
+    expect(diagram).toHaveTextContent('CRM & marketing')
+    expect(diagram).toHaveTextContent('Analytics')
+    expect(diagram).not.toHaveTextContent('ERP & finance')
+    expect(diagram).not.toHaveTextContent('Marketing & CRM')
     expect(diagram).toHaveTextContent('Never any credentials')
     expect(diagram).toHaveTextContent('Agents never reach the sources')
   })
 
-  /* The practice argument and the product it produced are one band now. A
-     reader who meets Vickee without it has no idea why this firm would have
-     built one. */
-  it('keeps the practice argument in the same band as the product', () => {
+  /* The objections and the product that answers the second of them are one
+     band. A reader who meets Vickee without them has no idea why this firm
+     would have built one. */
+  it('keeps the objections in the same band as the product', () => {
     const { container } = draw(Home)
     const band = [...container.querySelectorAll('section')].find((b) =>
-      b.textContent.includes('the knowledge layer that keeps agents'),
+      b.textContent.includes('Decide what your agents are allowed to know'),
     )
-    expect(band.textContent).toContain('Our core practice is agentic AI implementation')
-    expect(band.textContent).toContain('Context and workflow design')
-    // The honesty note survived the merge. The "opportunity is AI" landing line
-    // did not: it was cut deliberately, so this asserts it stays gone rather
-    // than drifting back in.
+    expect(band.textContent).toContain('Our AI pilot never made it to production.')
+    expect(band.textContent).toContain('Security will not let agents touch our systems of record.')
+    // The honesty note survived the rewrite as the third objection. The
+    // "opportunity is AI" landing line did not: it was cut deliberately, so
+    // this asserts it stays gone rather than drifting back in.
     expect(band.textContent).toContain('when the answer is not an agent')
     expect(band.textContent).not.toContain('The opportunity is AI')
   })
 
   /* Position is behavior here, not styling: the block has to land inside the
-     practice argument that motivates it, and that argument is now the first
-     thing a reader meets after the hero.
+     objections that motivate it, and those are the first thing a reader meets
+     after the hero and the line naming who the page is for.
 
      #60 pinned this to the band immediately before the closing call to action,
      which was where the practice band sat at the time. The homepage restructure
      moved that band to the front, so what this scenario pins is the band's
      place in the page order rather than its distance from the end. */
-  it('sits in the band the hero opening hands off to', () => {
+  it('sits in the band the hero and the buyer line hand off to', () => {
     const { container } = draw(Home)
     const bands = [...container.querySelectorAll('section')]
-    const vickee = bands.findIndex((b) => b.textContent.includes('the knowledge layer that keeps agents'))
+    const vickee = bands.findIndex((b) => b.textContent.includes('Decide what your agents are allowed to know'))
 
-    /* Two, not one. The anti-consulting argument band now sits between the hero
-       and the practice band that carries Vickee. Vickee is still in the opening
-       run of the page rather than filed near the end, which is what #60 was
+    /* Two, not one. The one-sentence buyer line sits between the hero and the
+       objections band that carries Vickee. Vickee is still in the opening run
+       of the page rather than filed near the end, which is what #60 was
        protecting. */
     expect(vickee).toBe(2)
-    expect(bands[0].textContent).toContain('The consulting model is broken')
-    expect(bands.at(-1).textContent).toContain('Tell us what needs to work.')
+    expect(bands[0].textContent).toContain('Most AI pilots never make it past the demo')
+    expect(bands.at(-1).textContent).toContain('Name the process.')
   })
 
   /* Caught in the browser, not by a unit test: RuledGroup defaults its title to
@@ -124,7 +138,7 @@ describe('SCN-001 — the homepage carries a Vickee block in position', () => {
   it('keeps the heading outline unbroken inside the block', () => {
     const { container } = draw(Home)
     const band = [...container.querySelectorAll('section')].find((b) =>
-      b.textContent.includes('the knowledge layer that keeps agents'),
+      b.textContent.includes('Decide what your agents are allowed to know'),
     )
     const levels = [...band.querySelectorAll('h1,h2,h3,h4,h5,h6')].map((h) =>
       Number(h.tagName[1]),
@@ -134,6 +148,14 @@ describe('SCN-001 — the homepage carries a Vickee block in position', () => {
     for (let i = 1; i < levels.length; i += 1) {
       expect(levels[i] - levels[i - 1]).toBeLessThanOrEqual(1)
     }
+  })
+
+  /* The second objection links to Vickee too. That link names Vickee without
+     the word Meet, so the button below the panel stays the one "Meet Vickee"
+     link on the page and SCN-002 and SCN-006 keep a single target. */
+  it('links the security objection to Vickee under its own name', () => {
+    draw(Home)
+    expect(href('How Vickee answers security')).toBe(VICKEE)
   })
 })
 
@@ -157,18 +179,18 @@ describe('SCN-003 — the Agentic AI page points to Vickee', () => {
   })
 })
 
-describe('SCN-004 — the AI-driven Products page describes Vickee and links to it', () => {
-  it('describes Vickee as a product of the firm, the way Blink Social already is', () => {
-    const { container } = draw(AiProducts)
+describe('SCN-004 — the Why Mile42 page describes Vickee and links to it', () => {
+  it('describes Vickee as a product of the firm, beside Blink Social', () => {
+    const { container } = draw(WhyMile42)
     const panel = [...container.querySelectorAll('section')].find((b) =>
       b.textContent.includes('Blink Social'),
     )
     expect(panel).toBeDefined()
-    expect(panel.textContent).toMatch(/Vickee, our knowledge layer for AI agents/)
+    expect(panel.textContent).toMatch(/Vickee is the governed knowledge layer/)
   })
 
   it('points its link at the Vickee route', () => {
-    draw(AiProducts)
+    draw(WhyMile42)
     expect(href('Meet Vickee')).toBe(VICKEE)
   })
 })
@@ -181,7 +203,7 @@ describe('SCN-006 — every new entry point is real, keyboard reachable navigati
   it.each([
     ['the homepage', Home],
     ['the Agentic AI page', AgenticAi],
-    ['the AI-driven Products page', AiProducts],
+    ['the Why Mile42 page', WhyMile42],
   ])('renders %s entry point as a link that names Vickee', (_label, Page) => {
     draw(Page)
     const link = screen.getByRole('link', { name: /Meet Vickee/ })

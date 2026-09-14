@@ -164,13 +164,13 @@ const META = {
     placeholder: false,
     retired: false,
   },
-  /* The mono cut of the same drawing. Registered so the build accepts the
-     master; withheld until a placement wants it. */
+  /* The mono cut of the same drawing, in the What we do Phase Zero card's icon
+     column. Withheld until that card existed. */
   'path-magnifier-gear': {
     level: 3,
     alt: 'A magnifying glass held over a gear',
     placeholder: false,
-    retired: true,
+    retired: false,
   },
 }
 

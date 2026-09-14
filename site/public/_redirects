@@ -6,5 +6,14 @@
 # accumulated inbound links, so it keeps resolving.
 /meet-dewey  /meet-vickee  301
 
+# The client journey and the engagement model merged into How we work. A 301
+# cannot carry a fragment to every client, so both land at the page top and the
+# in-app MOVED table in App.jsx is what reaches the band.
+/how-we-work/client-journey  /how-we-work  301
+/how-we-work/engagement-model  /how-we-work  301
+
+# AI-driven Products folded into Engineering.
+/what-we-do/ai-products  /what-we-do/engineering  301
+
 # SPA fallback.
 /*  /index.html  200

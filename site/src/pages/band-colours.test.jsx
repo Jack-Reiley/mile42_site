@@ -50,11 +50,13 @@ describe('SCN-003 — every line on a dark band is legible on it', () => {
   /* Ink is 3.14:1 on blue and 3.19 on orange-deep. The heading already carried
      the hero tone on both pages; what this pins is that the eyebrow and the
      lead moved with it rather than keeping the default. */
+  /* The kicker line, which carried `text-hero-heading` directly, left the
+     hero with the home rewrite. The heading and the lead take the tone through
+     their prop, and nothing in the band may fall back to ink. */
   it('gives the homepage hero the off-white tone on every line', () => {
     const home = source('pages', 'Home.jsx')
     const hero = home.slice(home.indexOf('<Section band="blue" grain'), home.indexOf('</Section>'))
 
-    expect(hero).toContain('text-hero-heading')
     expect(hero).toContain('<H1 tone="hero"')
     expect(hero).toContain('<Lead tone="hero"')
     expect(hero).not.toContain('text-ink')

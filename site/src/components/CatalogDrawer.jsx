@@ -32,12 +32,12 @@ import { Eyebrow, Grain } from './primitives.jsx'
    picture with an interactive layer over it. See `LibrarianDiagram`. The parts
    below are shared with it; what stays private is how this file arranges them,
    which is the homepage's own composition. */
-export const SOURCES = ['Marketing & CRM', 'Commerce', 'ERP & finance', 'Analytics']
+export const SOURCES = ['CMS & CDP', 'CRM & marketing', 'Commerce', 'Analytics']
 export const AGENTS = ['Answers with sources', 'Never any credentials', 'One shared source']
 const SHELF = ['Governed, read-only copy', 'Indexed automatically', 'Scoped and auditable']
 
 const LABEL =
-  'Diagram: marketing and CRM, commerce, ERP and finance, and analytics systems publish ' +
+  'Diagram: CMS and CDP, CRM and marketing automation, commerce, and analytics systems publish ' +
   'curated copies into Vickee, a card catalog drawer holding a governed, read-only, ' +
   'automatically indexed and auditable copy. Agents draw scoped answers out of Vickee, with ' +
   'sources and no credentials, from one shared source. Agents never reach the source systems.'
