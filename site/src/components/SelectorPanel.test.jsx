@@ -101,6 +101,10 @@ describe('the two pages that use it', () => {
     expect(screen.getByText('The benefit copy.')).toBeInTheDocument()
     expect(screen.getByText('One')).toBeInTheDocument()
     expect(screen.getByText('Two')).toBeInTheDocument()
-    expect(screen.getByText(/live in the product today/)).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'One platform. Every pillar is in the product today. Human-gated writeback is a setting your team turns on.',
+      ),
+    ).toBeInTheDocument()
   })
 })

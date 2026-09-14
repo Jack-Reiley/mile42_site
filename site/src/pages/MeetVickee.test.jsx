@@ -365,3 +365,76 @@ describe('the systems-of-record examples name the marketing side', () => {
     }
   })
 })
+
+/**
+ * #121 SCN-002. The buffer pillar's proof box gains a fourth line that names
+ * the record an auditor can be shown; the other six pillars keep their three.
+ */
+describe('the buffer pillar evidences its control', () => {
+  const PROOF_TITLES = [
+    'Organized by design',
+    'Indexing is automatic',
+    'Retrieval in every shape',
+    'Built for agents, approachable to people',
+    'Agents never touch the system of record',
+    'One source of truth, every agent',
+    'Connected in both directions, deterministically',
+  ]
+
+  const proofLines = async (title) => {
+    // The button's name opens on its ordinal ("05 Agents never..."), so no anchor.
+    await userEvent.click(screen.getByRole('button', { name: new RegExp(title) }))
+    const pane = document.querySelector('[aria-live="polite"]')
+    return [...within(pane).getAllByRole('listitem')].map((li) => li.textContent)
+  }
+
+  it('lists four proof lines, the fourth naming the cited sources', async () => {
+    page()
+    const lines = await proofLines('Agents never touch the system of record')
+    expect(lines).toEqual([
+      'No SOR credentials in agent context windows, prompts, or logs',
+      'Least privilege by construction: scoped by tenant, namespace, and tags',
+      'Retrieval load lands on Vickee and never on production transactional systems',
+      'Every answer cites its sources, so a control can be evidenced rather than asserted',
+    ])
+  })
+
+  it.each(PROOF_TITLES.filter((t) => t !== 'Agents never touch the system of record'))(
+    '%s still lists exactly three',
+    async (title) => {
+      page()
+      expect(await proofLines(title)).toHaveLength(3)
+    },
+  )
+})
+
+/**
+ * #122 SCN-009. The buffer pillar points the auditor at the controls page; no
+ * other pillar carries that link.
+ */
+describe('the buffer pillar points at the controls page', () => {
+  const openPillar = async (title) => {
+    await userEvent.click(screen.getByRole('button', { name: new RegExp(title) }))
+    return document.querySelector('[aria-live="polite"]')
+  }
+
+  it('links "What an auditor receives" to /meet-vickee/controls from the buffer pillar', async () => {
+    page()
+    const pane = await openPillar('Agents never touch the system of record')
+    const link = within(pane).getByRole('link', { name: 'What an auditor receives' })
+    expect(link.getAttribute('href')).toBe('/meet-vickee/controls')
+  })
+
+  it.each([
+    'Organized by design',
+    'Indexing is automatic',
+    'Retrieval in every shape',
+    'Built for agents, approachable to people',
+    'One source of truth, every agent',
+    'Connected in both directions, deterministically',
+  ])('%s carries no such link', async (title) => {
+    page()
+    const pane = await openPillar(title)
+    expect(within(pane).queryByRole('link', { name: 'What an auditor receives' })).toBeNull()
+  })
+})

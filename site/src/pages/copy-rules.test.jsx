@@ -128,6 +128,8 @@ const RETAINED = {
   '/how-we-work/delivery-model': 'Our progress is measured by value created, not effort expended.',
   '/why-mile42': 'Judgment, not information',
   '/contact': 'A founder, not a form queue.',
+  // #122: the controls page keeps its header lead's contrast, per its design.
+  '/meet-vickee/controls': 'Written for the person who has to sign off, not the person who builds it.',
   '/insights': 'Arguments, not explainers.',
 }
 
@@ -237,7 +239,9 @@ describe('SCN-006 — abstractions have a subject', () => {
       }),
     ).toBeInTheDocument()
     expect(eyebrows(container)).toContain('Three things that stay with a named person')
-    expect(eyebrows(container)).toContain('Engineer’s decision')
+    // #121 relabelled the box from an engineer to a named person; the sweep
+    // at the end of this file pins the old label absent.
+    expect(eyebrows(container)).toContain('Named person’s decision')
   })
 
   it('the agentic AI page names the team and the person', async () => {
@@ -314,5 +318,36 @@ describe('SCN-012 — no em dash in rendered copy', () => {
     await walk(path, (c) => {
       expect(c.textContent).not.toContain('—')
     })
+  })
+})
+
+/**
+ * #121 SCN-003 and SCN-004. Two labels the site overstated, pinned absent in
+ * every screen state so a later copy pass cannot bring either back: the
+ * delivery role pane's second box is a named person's decision, not an
+ * engineer's, and the pillars note no longer says every pillar is "live".
+ */
+describe('#121 — the two overstated labels are gone site-wide', () => {
+  it.each(ROUTES)('%s', async (path) => {
+    await walk(path, (c) => {
+      expect(c.textContent).not.toMatch(/Engineer[’']s decision/)
+      expect(c.textContent).not.toContain('live in the product today')
+    })
+  })
+
+  it('the delivery role pane names a person for every role', async () => {
+    const seen = []
+    await walk('/how-we-work/delivery-model', (c) => {
+      seen.push(eyebrows(c).includes('Named person’s decision'))
+    })
+    expect(seen.every(Boolean)).toBe(true)
+    expect(screen.getAllByText('Goes to the accountable person').length).toBeGreaterThan(0)
+  })
+
+  it('the pillars note states the writeback setting', async () => {
+    const container = await walk('/meet-vickee', () => {})
+    expect(container.textContent).toContain(
+      'One platform. Every pillar is in the product today. Human-gated writeback is a setting your team turns on.',
+    )
   })
 })

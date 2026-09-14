@@ -65,7 +65,9 @@ const PILLARS = [
       'No SOR credentials in agent context windows, prompts, or logs',
       'Least privilege by construction: scoped by tenant, namespace, and tags',
       'Retrieval load lands on Vickee and never on production transactional systems',
+      'Every answer cites its sources, so a control can be evidenced rather than asserted',
     ],
+    link: { to: '/meet-vickee/controls', label: 'What an auditor receives' },
   },
   {
     title: 'One source of truth, every agent',

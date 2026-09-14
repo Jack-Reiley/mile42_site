@@ -24,6 +24,7 @@ const COLUMNS = [
     heading: 'Company',
     links: [
       { href: '/meet-vickee', label: 'Meet Vickee' },
+      { href: '/meet-vickee/controls', label: 'Controls', nested: true },
       { href: '/why-mile42', label: 'Why Mile42' },
     ],
   },

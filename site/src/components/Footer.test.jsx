@@ -51,3 +51,22 @@ describe('SCN-005 — the footer email link leaves the app', () => {
     }
   })
 })
+
+/**
+ * #122 SCN-008. The controls page sits under Meet Vickee in the Company column
+ * with the nested treatment Agentic AI has under Engineering.
+ */
+describe('the footer nests Controls under Meet Vickee', () => {
+  it('links to the controls page directly after Meet Vickee, nested', () => {
+    draw()
+    expect(href('Controls')).toBe('/meet-vickee/controls')
+
+    const vickee = screen.getByRole('link', { name: 'Meet Vickee' }).closest('li')
+    const controls = screen.getByRole('link', { name: 'Controls' }).closest('li')
+    expect(vickee.nextElementSibling).toBe(controls)
+
+    const agentic = screen.getByRole('link', { name: 'Agentic AI' }).closest('li')
+    expect(controls.className).toBe(agentic.className)
+    expect(controls.className.length).toBeGreaterThan(0)
+  })
+})

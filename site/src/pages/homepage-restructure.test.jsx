@@ -71,12 +71,26 @@ describe('SCN-002 — the three objections, in order, each with a link', () => {
   it.each([
     ['How we close the gap', '/what-we-do/engineering'],
     ['How Vickee answers security', '/meet-vickee'],
+    // #122: the security objection gains a second way in, for the auditor.
+    ['What an auditor receives', '/meet-vickee/controls'],
     ['When an agent is the wrong tool', '/what-we-do/engineering/agentic-ai'],
   ])('%s links to %s', (name, href) => {
     draw()
     const link = screen.getByRole('link', { name })
     expect(link.tagName).toBe('A')
     expect(link.getAttribute('href')).toBe(href)
+  })
+
+  /* #122 SCN-009. Two links under the security objection, one under each of
+     the others: the auditor link is an addition, not a replacement. */
+  it.each([
+    ['Our AI pilot never made it to production.', 1],
+    ['Security will not let agents touch our systems of record.', 2],
+    ['We will tell you when the answer is not an agent.', 1],
+  ])('%s carries %i link(s)', (title, count) => {
+    draw()
+    const group = screen.getByRole('heading', { level: 3, name: title }).parentElement
+    expect(within(group).getAllByRole('link')).toHaveLength(count)
   })
 
   /* The body copy is lifted from the pages the links land on, so the homepage
@@ -88,6 +102,21 @@ describe('SCN-002 — the three objections, in order, each with a link', () => {
     expect(band.textContent).toContain('A prototype only has to work once.')
     expect(band.textContent).toContain('stopped by risk, legal, and security more often than by engineering')
     expect(band.textContent).toContain('A no you can trust early is cheaper than a yes that fails seven months in.')
+  })
+
+  /* #121 SCN-001. The security differentiator closes on the reader who has
+     to produce evidence, after the systems line it already ended on. */
+  it('ends the security body on the auditor and the record', () => {
+    draw()
+    const heading = screen.getByRole('heading', {
+      name: 'Security will not let agents touch our systems of record.',
+    })
+    const body = heading.parentElement.querySelector('p')
+
+    expect(body.textContent).toMatch(
+      /That holds for a CDP or a commerce platform as much as for an ERP\. When an auditor asks how an agent reached an answer, there is a record\.$/,
+    )
+    expect(screen.getByRole('link', { name: 'How Vickee answers security' })).toBeInTheDocument()
   })
 
   it('no longer draws the core practice grid', () => {
