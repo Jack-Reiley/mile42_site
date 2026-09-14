@@ -10,13 +10,13 @@ All non-trivial work must happen on a feature branch.
 4. Run the relevant checks before finishing.
 5. Commit the completed work.
 6. Push the branch.
-7. Open a pull request for Kevin to review.
+7. Open a pull request for Jerry to review.
    - Open PRs as ready for review by default.
-   - Do not open draft PRs unless Kevin explicitly asks for a draft or there
+   - Do not open draft PRs unless Jerry explicitly asks for a draft or there
      is a documented blocker that prevents review.
    - If a PR was accidentally opened as a draft, mark it ready before handing
      the work back.
-8. Do not merge the pull request yourself. Kevin will review and merge if it
+8. Do not merge the pull request yourself. Jerry will review and merge if it
    looks good, then work can continue from the updated main branch.
 
 If the working tree is already dirty when you start, inspect the changes before
