@@ -90,6 +90,21 @@ describe('SCN-002 — the three objections, in order, each with a link', () => {
     expect(band.textContent).toContain('A no you can trust early is cheaper than a yes that fails seven months in.')
   })
 
+  /* #121 SCN-001. The security differentiator closes on the reader who has
+     to produce evidence, after the systems line it already ended on. */
+  it('ends the security body on the auditor and the record', () => {
+    draw()
+    const heading = screen.getByRole('heading', {
+      name: 'Security will not let agents touch our systems of record.',
+    })
+    const body = heading.parentElement.querySelector('p')
+
+    expect(body.textContent).toMatch(
+      /That holds for a CDP or a commerce platform as much as for an ERP\. When an auditor asks how an agent reached an answer, there is a record\.$/,
+    )
+    expect(screen.getByRole('link', { name: 'How Vickee answers security' })).toBeInTheDocument()
+  })
+
   it('no longer draws the core practice grid', () => {
     const { container } = draw()
 

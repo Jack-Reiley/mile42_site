@@ -27,7 +27,7 @@ const DIFFERENTIATORS = [
   },
   {
     title: 'Security will not let agents touch our systems of record.',
-    body: 'Enterprise AI gets stopped by risk, legal, and security more often than by engineering. The controls are part of the build: what data an agent can reach, what actions it may take, who has to approve, and what audit trail exists when someone asks why. That holds for a CDP or a commerce platform as much as for an ERP.',
+    body: 'Enterprise AI gets stopped by risk, legal, and security more often than by engineering. The controls are part of the build: what data an agent can reach, what actions it may take, who has to approve, and what audit trail exists when someone asks why. That holds for a CDP or a commerce platform as much as for an ERP. When an auditor asks how an agent reached an answer, there is a record.',
     href: '/meet-vickee',
     linkLabel: 'How Vickee answers security',
   },
