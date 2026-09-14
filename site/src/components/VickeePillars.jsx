@@ -1,4 +1,4 @@
-import { Eyebrow } from './primitives.jsx'
+import { Eyebrow, TextLink } from './primitives.jsx'
 import SelectorPanel, { PaneHandoff } from './SelectorPanel.jsx'
 
 /**
@@ -56,6 +56,15 @@ export default function VickeePillars({ pillars }) {
               ))}
             </ul>
           </div>
+
+          {/* Only the pillar that argues the buffer carries a way on: the
+              controls page is what an auditor receives, and it is that
+              pillar's claim being evidenced. The other six render as before. */}
+          {pillar.link ? (
+            <p className="mt-5">
+              <TextLink to={pillar.link.to}>{pillar.link.label}</TextLink>
+            </p>
+          ) : null}
         </>
       )}
     </SelectorPanel>

@@ -128,6 +128,8 @@ const RETAINED = {
   '/how-we-work/delivery-model': 'Our progress is measured by value created, not effort expended.',
   '/why-mile42': 'Judgment, not information',
   '/contact': 'A founder, not a form queue.',
+  // #122: the controls page keeps its header lead's contrast, per its design.
+  '/meet-vickee/controls': 'Written for the person who has to sign off, not the person who builds it.',
   '/insights': 'Arguments, not explainers.',
 }
 

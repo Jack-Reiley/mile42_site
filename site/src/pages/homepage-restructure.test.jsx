@@ -71,12 +71,26 @@ describe('SCN-002 — the three objections, in order, each with a link', () => {
   it.each([
     ['How we close the gap', '/what-we-do/engineering'],
     ['How Vickee answers security', '/meet-vickee'],
+    // #122: the security objection gains a second way in, for the auditor.
+    ['What an auditor receives', '/meet-vickee/controls'],
     ['When an agent is the wrong tool', '/what-we-do/engineering/agentic-ai'],
   ])('%s links to %s', (name, href) => {
     draw()
     const link = screen.getByRole('link', { name })
     expect(link.tagName).toBe('A')
     expect(link.getAttribute('href')).toBe(href)
+  })
+
+  /* #122 SCN-009. Two links under the security objection, one under each of
+     the others: the auditor link is an addition, not a replacement. */
+  it.each([
+    ['Our AI pilot never made it to production.', 1],
+    ['Security will not let agents touch our systems of record.', 2],
+    ['We will tell you when the answer is not an agent.', 1],
+  ])('%s carries %i link(s)', (title, count) => {
+    draw()
+    const group = screen.getByRole('heading', { level: 3, name: title }).parentElement
+    expect(within(group).getAllByRole('link')).toHaveLength(count)
   })
 
   /* The body copy is lifted from the pages the links land on, so the homepage

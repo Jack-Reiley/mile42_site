@@ -16,6 +16,7 @@ const OVERVIEW_BODY = 'The overview, if you would rather read it in order.'
    class only when the complete name appears in source, so `repeat(${n},...)`
    produces no utility at all and the panel silently collapses to one column. */
 const PANEL_GRID = {
+  1: 'lg:grid-cols-[repeat(1,minmax(0,1fr))_19rem]',
   3: 'lg:grid-cols-[repeat(3,minmax(0,1fr))_19rem]',
   4: 'lg:grid-cols-[repeat(4,minmax(0,1fr))_19rem]',
 }
@@ -76,7 +77,22 @@ const NAV = [
       },
     ],
   },
-  { href: '/meet-vickee', label: 'Meet Vickee' },
+  {
+    href: '/meet-vickee',
+    label: 'Meet Vickee',
+    overview: { title: 'Meet Vickee', body: OVERVIEW_BODY },
+    /* One column. The panel is the same shell the other sections use; a
+       single column beside the Start here cell is a two-cell layout, not a
+       sparse one, and it gains a column when Vickee gains a child page. */
+    columns: [
+      {
+        href: '/meet-vickee/controls',
+        eyebrow: 'You have to sign off on it',
+        title: 'Controls',
+        body: 'What an agent can reach, what it can change, and what record it leaves.',
+      },
+    ],
+  },
   { href: '/why-mile42', label: 'Why Mile42' },
 ]
 

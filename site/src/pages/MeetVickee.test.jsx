@@ -407,3 +407,34 @@ describe('the buffer pillar evidences its control', () => {
     },
   )
 })
+
+/**
+ * #122 SCN-009. The buffer pillar points the auditor at the controls page; no
+ * other pillar carries that link.
+ */
+describe('the buffer pillar points at the controls page', () => {
+  const openPillar = async (title) => {
+    await userEvent.click(screen.getByRole('button', { name: new RegExp(title) }))
+    return document.querySelector('[aria-live="polite"]')
+  }
+
+  it('links "What an auditor receives" to /meet-vickee/controls from the buffer pillar', async () => {
+    page()
+    const pane = await openPillar('Agents never touch the system of record')
+    const link = within(pane).getByRole('link', { name: 'What an auditor receives' })
+    expect(link.getAttribute('href')).toBe('/meet-vickee/controls')
+  })
+
+  it.each([
+    'Organized by design',
+    'Indexing is automatic',
+    'Retrieval in every shape',
+    'Built for agents, approachable to people',
+    'One source of truth, every agent',
+    'Connected in both directions, deterministically',
+  ])('%s carries no such link', async (title) => {
+    page()
+    const pane = await openPillar(title)
+    expect(within(pane).queryByRole('link', { name: 'What an auditor receives' })).toBeNull()
+  })
+})
