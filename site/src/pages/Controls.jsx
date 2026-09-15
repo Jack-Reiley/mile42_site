@@ -1,12 +1,12 @@
-import { Section, Wrap, H2, Lead, Body, Button, Breadcrumb } from '../components/primitives.jsx'
-import { CompareTable } from '../components/Lists.jsx'
+import { Section, Wrap, Eyebrow, H2, Lead, Button, Breadcrumb, LabelBody } from '../components/primitives.jsx'
+import { ControlRegister } from '../components/Lists.jsx'
 
 /**
  * The controls page, for the person who has to explain an agent's controls to
  * an external auditor rather than the person who builds it.
  *
  * The copy is data, one array per control, the way Meet Vickee and Agentic AI
- * hold theirs, so the five tables read in one place. Every row traces to a
+ * hold theirs, so the five registers read in one place. Every row traces to a
  * line on Meet Vickee or Agentic AI, or to one of the two confirmed facts (the
  * per-query log export, the writeback setting); the requirements document
  * lists the source of each. Rows that describe an engagement practice rather
@@ -16,7 +16,8 @@ import { CompareTable } from '../components/Lists.jsx'
 
 const COLUMNS = ['Control', 'How it works', 'Evidence you receive']
 
-/* The first cell is a no-wrap row header, so Control names stay short. */
+/* The first cell is a row header a quarter of the register wide, so Control
+   names stay short. */
 const CONTROLS = [
   {
     title: 'Access control',
@@ -64,9 +65,19 @@ const CONTROLS = [
   },
 ]
 
-/* Bands alternate from the honesty block's cream, so the first control sits on
-   white and the last on white, with the orange close after it. */
-const BANDS = ['page', 'surface', 'page', 'surface', 'page']
+/* The band sequence is what carries the page's rhythm: no two consecutive
+   control areas read the same, and the middle one is drawn on navy so the
+   register's hairlines are not the only thing separating five identical
+   shapes. A `surface` band after a `page` band takes a hairline on top, since
+   the two light fills do not separate on their own; `page` after navy or after
+   the statement needs none. */
+const BANDS = [
+  { band: 'surface', rule: true },
+  { band: 'page' },
+  { band: 'navy' },
+  { band: 'page' },
+  { band: 'surface', rule: true },
+]
 
 export default function Controls() {
   return (
@@ -75,12 +86,19 @@ export default function Controls() {
           The design's first choice was the parent's orange-deep, but the
           breadcrumb's two tones both fail AA on it: sky measures 3.32:1 and
           ink 3.19. The orange identity survives in the breadcrumb mark and the
-          closing band. */}
-      <Section band="navy" grain pad="header">
+          closing band. The heading stands alone; the lead that used to sit
+          under it is the next band. */}
+      <Section band="navy" grain pad="band">
         <Wrap>
           <Breadcrumb to="/meet-vickee" parent="Meet Vickee" current="Controls" markClass="bg-orange" />
-          <H2 as="h1" tone="hero" className="mb-6">How agents are controlled.</H2>
-          <Lead tone="hero">
+          <H2 as="h1" tone="hero">How agents are controlled.</H2>
+        </Wrap>
+      </Section>
+
+      {/* One statement, under no heading, before any control. */}
+      <Section band="page" pad="band">
+        <Wrap>
+          <Lead>
             What an agent can reach, what it can change, what record it leaves, and what
             you would show an auditor. Written for the person who has to sign off, not the
             person who builds it.
@@ -88,28 +106,36 @@ export default function Controls() {
         </Wrap>
       </Section>
 
-      {/* Before anything else, and under no heading: what has not been
-          evidenced, so the tables below are read at their actual weight. */}
-      <Section band="surface">
-        <Wrap>
-          <Body>
-            Vickee has not been through a third-party audit, and Mile42 does not yet hold a
-            security certification. What follows is what can be evidenced today, control by
-            control. Where something is a configuration your team chooses rather than a
-            default, it says so.
-          </Body>
-        </Wrap>
-      </Section>
-
-      {CONTROLS.map((control, i) => (
-        <Section key={control.title} band={BANDS[i]}>
-          <Wrap>
-            <H2 className="mb-4">{control.title}</H2>
-            <Lead className="mb-8">{control.lead}</Lead>
-            <CompareTable columns={COLUMNS} rows={control.rows} />
-          </Wrap>
-        </Section>
-      ))}
+      {CONTROLS.map((control, i) => {
+        const { band, rule } = BANDS[i]
+        const onNavy = band === 'navy'
+        const tone = onNavy ? 'hero' : 'ink'
+        return (
+          <Section
+            key={control.title}
+            band={band}
+            pad="band"
+            className={rule ? 'border-t border-ink/16' : ''}
+          >
+            <Wrap>
+              <LabelBody
+                tracks="wide"
+                label={
+                  <>
+                    <Eyebrow as="span" tone={onNavy ? 'sky' : 'accent'} className="block">
+                      {String(i + 1).padStart(2, '0')}
+                    </Eyebrow>
+                    <H2 tone={tone} className="mt-1.5 mb-2.5">{control.title}</H2>
+                    <Lead tone={tone}>{control.lead}</Lead>
+                  </>
+                }
+              >
+                <ControlRegister columns={COLUMNS} rows={control.rows} tone={tone} />
+              </LabelBody>
+            </Wrap>
+          </Section>
+        )
+      })}
 
       {/* The parent page's closing field, so the child ends where Meet Vickee
           does. Off-white on this fill measures 4.85:1. */}
