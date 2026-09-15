@@ -76,8 +76,8 @@ Then their fills are navy, page, surface, page, navy, page, surface, orange-deep
 And the first, fifth, and eighth carry grain
 And the five control areas sit in the third to seventh
 
-See Deliberate deviations: grain is carried by the first band only, pending
-the design owner's decision recorded there.
+See Deliberate deviations: grain is carried by the first band only, by the
+design owner's decision at the localhost review.
 
 ### SCN-004 — Each control area has a numbered label column
 
@@ -223,9 +223,9 @@ focus order are browser evidence. No E2E suite exists and none is added.
   header band only. The site rule that grain stops at the opening band is
   pinned for every route by `site/src/pages/hero-grain.test.jsx` ("grain
   stops at the hero"), the ticket's own scope says the closing band is
-  unchanged (SCN-012), and #122 shipped both bands flat. Relaxing the rule for
-  one page is a site-wide design decision the ticket did not make explicitly,
-  so it is put to Brett at the localhost review rather than decided here.
+  unchanged (SCN-012), and #122 shipped both bands flat. Put to Brett at the
+  localhost review on 14 Sep 2026; decision: keep header-only grain. SCN-003's
+  grain clause is read as "the first carries grain" from this version on.
 - The reveal relay sits on each row rather than on the `tbody`. Chromium
   ignores a transform on a `tr` (measured: a 40px translate on a row moves it
   0px; on a cell or a `tbody` it moves 40px), so the cells carry the motion.
@@ -234,5 +234,6 @@ focus order are browser evidence. No E2E suite exists and none is added.
 
 ## Open questions
 
-- Grain on bands 5 and 8: see Deliberate deviations. Awaiting Brett's
-  decision at the localhost review.
+- None. Grain on bands 5 and 8 was decided at the localhost review (see
+  Deliberate deviations). Brett reviewed the page on localhost on 14 Sep 2026
+  before the PR opened (SCN-014).
