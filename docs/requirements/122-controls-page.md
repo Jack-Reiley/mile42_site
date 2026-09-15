@@ -4,7 +4,7 @@
 - Pull request: https://github.com/Jack-Reiley/mile42_site/pull/125
 - Parent epic: none
 - Delivery unit: U2 (stacked on U1, `feature/122-controls-page` based on `feature/121-auditor-facing-copy`), run `2026-09-14-auditor-copy-and-controls-page`
-- Requirement version: 1
+- Requirement version: 2
 
 ## Objective
 
@@ -61,12 +61,22 @@ And the breadcrumb links to /meet-vickee and names the current page "Controls"
 
 ### SCN-002 — The honesty block comes before every control
 
+**Retired: superseded by #128.** The redesign removes the honesty paragraph
+from the page by the design owner's decision (Brett, 14 Sep 2026), so the site
+makes that statement nowhere. See `128-controls-register.md` SCN-002.
+
 Given /meet-vickee/controls is open
 When the page is read from the top
 Then the first paragraph after the header band reads exactly: "Vickee has not been through a third-party audit, and Mile42 does not yet hold a security certification. What follows is what can be evidenced today, control by control. Where something is a configuration your team chooses rather than a default, it says so."
 And no h2 precedes it
 
 ### SCN-003 — Five controls, in order, each with a table
+
+**Superseded by #128** for the shape of each area: the lead sits in a label
+column with the area's number and h2, and the table is the ruled
+`ControlRegister` rather than `CompareTable`. The order, the column headers,
+and the row content are unchanged and are re-pinned by
+`128-controls-register.md` SCN-004 and SCN-005.
 
 Given /meet-vickee/controls is open
 When the h2 headings between the honesty block and the closing band are read
@@ -165,15 +175,17 @@ facts. Line numbers are against `feature/121-auditor-facing-copy` at `e375e1f`.
   10.03:1, off-white 14.64:1), the close is `orange-deep` (off-white 4.85:1).
 - No new dependency, primitive, or colour token.
 - Responsive at 375px, 52rem, and 64rem: the body never scrolls horizontally;
-  only the tables do, inside their own container.
+  only the tables do, inside their own container. **Superseded by #128:** the
+  register does not scroll either; below `md` each row stacks to one column
+  (`128-controls-register.md` SCN-009).
 
 ## Verification map
 
 | Scenario | Expected level | Automated coverage | E2E behavior | Manual evidence |
 | --- | --- | --- | --- | --- |
 | SCN-001 | Unit (jsdom) | `site/src/pages/Controls.test.jsx` SCN-001; `site/src/pages/routes.test.jsx` (renders via `PAGES`); `site/src/go-live.test.jsx` (unprefixed route) | N/A, no E2E harness | Browser: tab title and h1 at 1024px |
-| SCN-002 | Unit (jsdom) | `site/src/pages/Controls.test.jsx` SCN-002 | N/A | — |
-| SCN-003 | Unit (jsdom) | `site/src/pages/Controls.test.jsx` SCN-003 | N/A | Browser: five tables, each column header |
+| SCN-002 | Retired | — | N/A | Superseded by #128; see above |
+| SCN-003 | Unit (jsdom) | `site/src/pages/Controls.test.jsx` (#128 SCN-004, SCN-005) | N/A | Superseded by #128 for the area shape; order and rows still pinned |
 | SCN-004 | Unit (jsdom) | `site/src/pages/Controls.test.jsx` SCN-004 | N/A | — |
 | SCN-005 | Unit (jsdom) | `site/src/pages/Controls.test.jsx` SCN-005 | N/A | Browser: closing band on orange-deep |
 | SCN-006 | Unit (jsdom) | `site/src/pages/Controls.test.jsx` SCN-006 (page); `site/src/pages/copy-rules.test.jsx` SCN-001, SCN-012 (route, every state, header and footer included) | N/A | — |
@@ -184,6 +196,14 @@ facts. Line numbers are against `feature/121-auditor-facing-copy` at `e375e1f`.
 
 jsdom has no layout, so table scroll, band contrast, and focus order are
 manual. No E2E suite exists and none is added.
+
+## Contract history
+
+- Version 1: as approved at design; shipped in PR 125.
+- Version 2: SCN-002 retired and SCN-003 and the responsive NFR superseded by
+  #128, which redesigns the page as a ruled register and removes the honesty
+  paragraph. Marked in place rather than deleted so the contract still records
+  what version 1 shipped.
 
 ## Deliberate deviations
 
