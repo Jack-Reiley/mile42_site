@@ -1,7 +1,7 @@
 # #128 — Redesign the Controls page as a ruled register with varied band rhythm
 
 - Source ticket: https://github.com/Jack-Reiley/mile42_site/issues/128
-- Pull request: pending
+- Pull request: https://github.com/Jack-Reiley/mile42_site/pull/129
 - Parent epic: none
 - Delivery unit: U1 (independent, `feature/128-controls-register` based on `main`), run `2026-09-14-controls-register-and-copy-pass`
 - Requirement version: 1
