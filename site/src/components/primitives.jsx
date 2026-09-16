@@ -521,14 +521,27 @@ export function Breadcrumb({ to, parent, current, markClass, tone = 'sky', ances
 }
 
 /**
+ * Track sizes for the two-column section. `default` is the detail comps'
+ * label-and-note shape. `wide` is the controls register's: the label column
+ * carries a 36px h2 and must not fall below 240px, and the body is a table
+ * that wants every pixel the column can spare. A prop rather than a className
+ * because two `grid-cols` utilities on one element resolve by stylesheet
+ * order, the same reason `Section` takes `pad` as a prop.
+ */
+const LABEL_BODY_TRACKS = {
+  default: 'lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.6fr)]',
+  wide: 'lg:grid-cols-[minmax(240px,1fr)_minmax(0,2.2fr)]',
+}
+
+/**
  * The detail comps' recurring two-column section: an eyebrow, heading, and
  * optional note on the left, the content on the right. Collapses to one column
  * below `lg`, label above body.
  */
-export function LabelBody({ label, className = '', children }) {
+export function LabelBody({ label, tracks = 'default', className = '', children }) {
   return (
     <div
-      className={`grid items-start gap-[18px] lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.6fr)] lg:gap-14 ${className}`}
+      className={`grid items-start gap-[18px] ${LABEL_BODY_TRACKS[tracks]} lg:gap-14 ${className}`}
     >
       <div>{label}</div>
       <div>{children}</div>

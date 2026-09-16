@@ -445,3 +445,120 @@ export function CompareTable({ columns, rows, className = '' }) {
     </div>
   )
 }
+
+/**
+ * The register's two tones. `hero` is for the one control area drawn on navy:
+ * the type takes the off-white, the column labels take sky (the breadcrumb's
+ * tone on the same fill, 10.03:1), and the rules take the off-white at a
+ * reduced opacity so they read as rules rather than as lines of text.
+ */
+const REGISTER_TONE = {
+  ink: {
+    text: 'text-ink',
+    label: 'text-ink/72',
+    headRule: 'border-ink',
+    rowRule: 'border-ink/16',
+  },
+  hero: {
+    text: 'text-hero-heading',
+    label: 'text-sky',
+    headRule: 'border-hero-heading/50',
+    rowRule: 'border-hero-heading/25',
+  },
+}
+
+/**
+ * The same tabular data as `CompareTable`, drawn as hairlines on the band
+ * instead of a bordered card. `columns` and `rows` take the same shape, so a
+ * page can move between the two without touching its data.
+ *
+ * Still a real `table`: every row compares the same three things, and the
+ * first cell is the row's `th`. Unlike `CompareTable` the row header wraps,
+ * because the register's first column is a quarter of the width and a
+ * two-line control name reads better than a column that would not fit.
+ *
+ * Below `md` the register does not scroll; each row stacks to one column, name
+ * then mechanism then evidence. Stacking means `display: block` on table
+ * parts, which strips their table semantics in some browsers, so every part
+ * carries its role explicitly. The evidence cell carries its own column label
+ * at that width, hidden above it, so the third line is not an orphan value.
+ *
+ * The columns are proportional on purpose, 1 : 1.75 : 1. An earlier pass used
+ * fixed outer columns, which made the description the narrowest of the three
+ * once the container fell below about 1100px.
+ *
+ * The relay sits on each row rather than on the body. Chromium ignores a
+ * transform on a `tr` (its cells and its `tbody` both take one), so a row
+ * marked as the animated thing would fade in place without rising. The cells
+ * carry the motion instead; they share a row's scroll position, so they
+ * arrive together and the row still reads as one thing entering.
+ */
+export function ControlRegister({ columns, rows, tone = 'ink', className = '' }) {
+  const t = REGISTER_TONE[tone]
+  const evidenceLabel = columns[columns.length - 1]
+
+  return (
+    <table
+      role="table"
+      className={`block w-full border-collapse md:table md:table-fixed ${t.text} ${className}`}
+    >
+      <colgroup className="hidden md:table-column-group">
+        <col className="w-[26.7%]" />
+        <col className="w-[46.6%]" />
+        <col className="w-[26.7%]" />
+      </colgroup>
+      <thead role="rowgroup" className="hidden md:table-header-group">
+        <tr role="row">
+          {columns.map((c, i) => (
+            <th
+              key={c}
+              role="columnheader"
+              scope="col"
+              className={`border-b pb-2 text-left align-bottom text-eyebrow font-eyebrow uppercase ${t.headRule} ${t.label} ${
+                i < columns.length - 1 ? 'pr-6' : ''
+              }`}
+            >
+              {c}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody role="rowgroup" className="block md:table-row-group">
+        {rows.map(([term, ...cells]) => (
+          <tr
+            key={term}
+            role="row"
+            className={`${REVEAL_GROUP.relay} block border-t py-[18px] md:table-row md:py-0 ${t.rowRule}`}
+          >
+            <th
+              role="rowheader"
+              scope="row"
+              className="block pr-0 text-left align-top font-heading text-[16px] font-bold leading-6 md:table-cell md:py-[18px] md:pr-6"
+            >
+              {term}
+            </th>
+            {cells.map((cell, i) => {
+              const last = i === cells.length - 1
+              return (
+                <td
+                  key={cell}
+                  role="cell"
+                  className={`block align-top text-[15px] leading-6 md:table-cell md:py-[18px] ${
+                    last ? 'mt-3 md:mt-0' : 'mt-1 pr-0 text-pretty md:mt-0 md:pr-6'
+                  }`}
+                >
+                  {last && (
+                    <span className={`mb-0.5 block text-eyebrow font-eyebrow uppercase md:hidden ${t.label}`}>
+                      {evidenceLabel}
+                    </span>
+                  )}
+                  {cell}
+                </td>
+              )
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
+}
